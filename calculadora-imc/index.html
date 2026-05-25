@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de IMC 2025 – Índice de Massa Corporal e Peso Ideal | FacilCalc</title>
+  <meta name="description" content="Calcule seu IMC, veja sua classificação, descubra seu peso ideal e a quantidade de peso para atingir a faixa saudável. Fórmulas OMS atualizadas."/>
+  <style>
+    :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#2e7d32;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#2e7d32;margin-bottom:14px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:5px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field label .opt{font-weight:400;color:#aaa;font-size:.78rem;}
+    .field input,.field select{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;transition:border .2s;}
+    .field input:focus,.field select:focus{border-color:#2e7d32;}
+    .field .hint{font-size:.75rem;color:#888;}
+    .sexo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .tipo-card{border:2px solid var(--border);border-radius:8px;padding:10px;cursor:pointer;transition:all .2s;text-align:center;}
+    .tipo-card.selected{border-color:#2e7d32;background:#e8f5e9;}
+    .tipo-card input[type=radio]{display:none;}
+    .tipo-card .icon{font-size:1.5rem;}
+    .tipo-card .titulo{font-weight:600;font-size:.85rem;margin-top:4px;}
+    .btn-calc{width:100%;background:#2e7d32;color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;}
+    .btn-calc:hover{background:#1b5e20;}
+    /* Resultado */
+    .imc-box{border-radius:12px;padding:24px;text-align:center;margin-bottom:16px;color:#fff;}
+    .imc-box .imc-val{font-size:3rem;font-weight:800;line-height:1;}
+    .imc-box .imc-class{font-size:1.1rem;font-weight:700;margin-top:8px;}
+    .imc-box .imc-sub{font-size:.8rem;opacity:.8;margin-top:4px;}
+    .resumo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+    @media(max-width:500px){.resumo-grid{grid-template-columns:1fr;}}
+    .mini{border-radius:8px;padding:14px;text-align:center;}
+    .mini .lbl{font-size:.75rem;font-weight:600;margin-bottom:4px;}
+    .mini .val{font-size:1.1rem;font-weight:700;}
+    /* Escala IMC */
+    .escala{margin:8px 0 16px;}
+    .escala-bar{display:flex;height:28px;border-radius:8px;overflow:hidden;}
+    .escala-seg{flex:1;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;}
+    .escala-labels{display:flex;margin-top:4px;}
+    .escala-lbl{flex:1;text-align:center;font-size:.65rem;color:var(--muted);}
+    .marcador-wrap{position:relative;height:12px;}
+    .marcador{position:absolute;width:2px;background:#000;height:12px;transform:translateX(-50%);}
+    table{width:100%;border-collapse:collapse;}
+    table th{background:#f1f3f4;text-align:left;padding:10px 12px;font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:10px 12px;border-bottom:1px solid #f1f3f4;font-size:.9rem;}
+    table tr.ativa td{font-weight:700;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid #2e7d32;color:#2e7d32;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>⚖️ Calculadora de IMC</h1>
+  <p>Índice de Massa Corporal, peso ideal e taxa metabólica basal</p>
+</header>
+<div class="nav"><a href="../">← FacilCalc</a> / Calculadora de IMC</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+<main>
+  <div id="formulario">
+    <div class="card">
+      <h2>📋 Seus Dados</h2>
+      <div class="form-grid">
+
+        <div class="field" style="grid-column:1/-1">
+          <label>Sexo</label>
+          <div class="sexo-grid">
+            <label class="tipo-card selected" onclick="selSexo(this,'M')">
+              <input type="radio" name="sexo" value="M" checked/>
+              <div class="icon">👨</div>
+              <div class="titulo">Masculino</div>
+            </label>
+            <label class="tipo-card" onclick="selSexo(this,'F')">
+              <input type="radio" name="sexo" value="F"/>
+              <div class="icon">👩</div>
+              <div class="titulo">Feminino</div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Peso atual (kg)</label>
+          <input type="number" id="peso" placeholder="Ex: 75" min="10" max="300" step="0.1"/>
+        </div>
+
+        <div class="field">
+          <label>Altura (cm)</label>
+          <input type="number" id="altura" placeholder="Ex: 170" min="100" max="250"/>
+        </div>
+
+        <div class="field">
+          <label>Idade <span class="opt">(para TMB)</span></label>
+          <input type="number" id="idade" placeholder="Ex: 35" min="5" max="110"/>
+        </div>
+
+        <div class="field">
+          <label>Nível de atividade <span class="opt">(para gasto calórico)</span></label>
+          <select id="atividade">
+            <option value="1.2">Sedentário (sem exercícios)</option>
+            <option value="1.375">Levemente ativo (1-3x/semana)</option>
+            <option value="1.55" selected>Moderadamente ativo (3-5x/semana)</option>
+            <option value="1.725">Muito ativo (6-7x/semana)</option>
+            <option value="1.9">Extremamente ativo (atleta)</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+    <div class="card" style="padding:14px">
+      <button class="btn-calc" onclick="calcular()">⚡ Calcular IMC</button>
+    </div>
+  </div>
+
+  <div id="resultado">
+
+    <div class="imc-box" id="imc_box">
+      <div class="imc-val" id="res_imc">0</div>
+      <div class="imc-class" id="res_class">—</div>
+      <div class="imc-sub" id="res_sub"></div>
+    </div>
+
+    <div class="resumo-grid">
+      <div class="mini" style="background:#e8f5e9">
+        <div class="lbl" style="color:#2e7d32">Peso ideal</div>
+        <div class="val" style="color:#2e7d32" id="res_ideal">— kg</div>
+      </div>
+      <div class="mini" style="background:#e8f0fe">
+        <div class="lbl" style="color:#1565c0">Para peso ideal</div>
+        <div class="val" style="color:#1565c0" id="res_diferenca">—</div>
+      </div>
+      <div class="mini" style="background:#fff3e0">
+        <div class="lbl" style="color:#e65100">Calorias/dia</div>
+        <div class="val" style="color:#e65100" id="res_cal">— kcal</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>📊 Escala IMC</h2>
+      <div class="escala">
+        <div class="escala-bar">
+          <div class="escala-seg" style="background:#1565c0;flex:2">Abaixo</div>
+          <div class="escala-seg" style="background:#2e7d32;flex:2.5">Normal</div>
+          <div class="escala-seg" style="background:#f9a825;flex:2.5">Sobrepeso</div>
+          <div class="escala-seg" style="background:#e65100;flex:1.5">Ob. I</div>
+          <div class="escala-seg" style="background:#c62828;flex:1.5">Ob. II</div>
+          <div class="escala-seg" style="background:#7b0000;flex:2">Ob. III</div>
+        </div>
+        <div class="escala-labels">
+          <div class="escala-lbl" style="flex:2">&lt;18,5</div>
+          <div class="escala-lbl" style="flex:2.5">18,5–24,9</div>
+          <div class="escala-lbl" style="flex:2.5">25–29,9</div>
+          <div class="escala-lbl" style="flex:1.5">30–34,9</div>
+          <div class="escala-lbl" style="flex:1.5">35–39,9</div>
+          <div class="escala-lbl" style="flex:2">≥40</div>
+        </div>
+      </div>
+      <div id="posicao_escala" style="font-size:.83rem;color:var(--muted);text-align:center"></div>
+    </div>
+
+    <div class="card">
+      <h2>📋 Tabela de Classificação IMC (OMS)</h2>
+      <table>
+        <thead><tr><th>Classificação</th><th>IMC</th><th>Faixa de Peso</th></tr></thead>
+        <tbody id="tabela_imc"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>🔥 Taxa Metabólica Basal (TMB)</h2>
+      <div id="box_tmb"></div>
+    </div>
+
+    <div class="aviso">⚠️ O IMC é uma referência geral e não considera massa muscular, biotipo ou distribuição de gordura. Consulte um médico ou nutricionista para avaliação individualizada.</div>
+    <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button></div>
+  </div>
+</main>
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:8px">Calculadora de IMC 2025 — Classificação OMS</p>
+</footer>
+<script>
+  const fmtN=(v,d=1)=>v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+  function selSexo(el,s){
+    document.querySelectorAll('.tipo-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  const classificacoes=[
+    {min:0,   max:16,   label:'Magreza grau III', cor:'#0d47a1', bgCor:'#e3f2fd'},
+    {min:16,  max:17,   label:'Magreza grau II',  cor:'#1565c0', bgCor:'#e3f2fd'},
+    {min:17,  max:18.5, label:'Magreza grau I',   cor:'#1976d2', bgCor:'#e8f0fe'},
+    {min:18.5,max:25,   label:'Peso normal',       cor:'#2e7d32', bgCor:'#e8f5e9'},
+    {min:25,  max:30,   label:'Sobrepeso',         cor:'#f57f17', bgCor:'#fff9c4'},
+    {min:30,  max:35,   label:'Obesidade grau I',  cor:'#e65100', bgCor:'#fff3e0'},
+    {min:35,  max:40,   label:'Obesidade grau II', cor:'#c62828', bgCor:'#ffebee'},
+    {min:40,  max:999,  label:'Obesidade grau III (mórbida)', cor:'#7b0000', bgCor:'#ffcdd2'},
+  ];
+
+  function classImc(imc){
+    return classificacoes.find(c=>imc>=c.min&&imc<c.max)||classificacoes[classificacoes.length-1];
+  }
+
+  function calcular(){
+    const peso=parseFloat(document.getElementById('peso').value)||0;
+    if(!peso){alert('Informe o peso.');return;}
+    const altCm=parseFloat(document.getElementById('altura').value)||0;
+    if(!altCm){alert('Informe a altura.');return;}
+    const alt=altCm/100;
+    const idade=parseInt(document.getElementById('idade').value)||30;
+    const sexo=document.querySelector('input[name=sexo]:checked').value;
+    const fatAt=parseFloat(document.getElementById('atividade').value);
+
+    const imc=peso/(alt*alt);
+    const cls=classImc(imc);
+
+    // Caixa principal
+    const box=document.getElementById('imc_box');
+    box.style.background=`linear-gradient(135deg,${cls.cor},${cls.cor}cc)`;
+    document.getElementById('res_imc').textContent=fmtN(imc);
+    document.getElementById('res_class').textContent=cls.label;
+    document.getElementById('res_sub').textContent=`IMC ${fmtN(imc)} — ${imc<18.5?'abaixo do peso':imc<25?'dentro do peso saudável':imc<30?'acima do peso saudável':'acima do peso saudável'}`;
+
+    // Peso ideal (Lorentz)
+    const pesoIdealMin=18.5*alt*alt;
+    const pesoIdealMax=24.9*alt*alt;
+    const pesoIdealMedio=(pesoIdealMin+pesoIdealMax)/2;
+    document.getElementById('res_ideal').textContent=fmtN(pesoIdealMin,0)+' – '+fmtN(pesoIdealMax,0)+' kg';
+    const diff=peso-pesoIdealMax;
+    document.getElementById('res_diferenca').textContent=
+      imc<18.5?`Ganhar ${fmtN(pesoIdealMin-peso,1)} kg`:
+      imc<25?'No peso ideal!':
+      `Perder ${fmtN(diff,1)} kg`;
+
+    // TMB (Mifflin-St Jeor)
+    let tmb;
+    if(sexo==='M') tmb=10*peso+6.25*altCm-5*idade+5;
+    else tmb=10*peso+6.25*altCm-5*idade-161;
+    const tdee=tmb*fatAt;
+    document.getElementById('res_cal').textContent=Math.round(tdee)+' kcal';
+
+    // Posição na escala
+    document.getElementById('posicao_escala').textContent=
+      `Seu IMC: ${fmtN(imc)} — ${cls.label}`;
+
+    // Tabela IMC
+    const tbody=document.getElementById('tabela_imc');
+    tbody.innerHTML='';
+    classificacoes.forEach(c=>{
+      const ativa=imc>=c.min&&imc<c.max;
+      const tr=document.createElement('tr');
+      if(ativa){tr.className='ativa';tr.style.background=c.bgCor;}
+      const pMin=c.min===0?'—':fmtN(c.min*alt*alt,1)+' kg';
+      const pMax=c.max===999?'—':fmtN(c.max*alt*alt,1)+' kg';
+      tr.innerHTML=`<td style="color:${ativa?c.cor:'inherit'}">${c.label}${ativa?' ←':''}</td>
+        <td>${c.min===0?'&lt; 16':c.max===999?'≥ 40':c.min+' – '+c.max}</td>
+        <td>${pMin}${c.max!==999?' – '+pMax:''}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    // TMB box
+    const caloMeta=imc<18.5?tmb*1.55+300:imc<25?Math.round(tdee):Math.round(tdee-500);
+    document.getElementById('box_tmb').innerHTML=`
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="background:#fff3e0;border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:.75rem;font-weight:600;color:#e65100;margin-bottom:4px">TMB (em repouso)</div>
+          <div style="font-size:1.3rem;font-weight:700;color:#e65100">${Math.round(tmb)} kcal</div>
+          <div style="font-size:.72rem;color:#888;margin-top:4px">Mínimo para funções vitais</div>
+        </div>
+        <div style="background:#e8f5e9;border-radius:8px;padding:14px;text-align:center">
+          <div style="font-size:.75rem;font-weight:600;color:#2e7d32;margin-bottom:4px">Gasto diário total</div>
+          <div style="font-size:1.3rem;font-weight:700;color:#2e7d32">${Math.round(tdee)} kcal</div>
+          <div style="font-size:.72rem;color:#888;margin-top:4px">Com sua atividade atual</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;background:#e8f0fe;border-radius:8px;padding:12px;font-size:.83rem;color:#1565c0">
+        <strong>Meta calórica sugerida:</strong> ~${caloMeta} kcal/dia para
+        ${imc<18.5?'ganhar peso gradualmente':imc<25?'manter o peso atual':'perder peso gradualmente (~0,5 kg/semana)'}
+      </div>`;
+
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>

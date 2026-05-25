@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de Imposto de Renda 2025 – IRPF Restituição ou Saldo a Pagar | FacilCalc</title>
+  <meta name="description" content="Calcule o Imposto de Renda 2025 (ano-calendário 2024). Veja se você tem restituição ou saldo a pagar. Inclui deduções de dependentes, saúde e educação."/>
+  <style>
+    :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#b71c1c;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#b71c1c;margin-bottom:14px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:5px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field label .opt{font-weight:400;color:#aaa;font-size:.78rem;}
+    .field input,.field select{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;transition:border .2s;}
+    .field input:focus,.field select:focus{border-color:#b71c1c;}
+    .field .hint{font-size:.75rem;color:#888;}
+    .btn-calc{width:100%;background:#b71c1c;color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;}
+    .btn-calc:hover{background:#7f0000;}
+    .result-box{border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;color:#fff;}
+    .result-box .label{font-size:.85rem;opacity:.85;}
+    .result-box .valor{font-size:2rem;font-weight:700;}
+    .result-box .sub{font-size:.75rem;opacity:.75;margin-top:4px;}
+    .restituicao{background:linear-gradient(135deg,#1b5e20,#2e7d32);}
+    .pagar{background:linear-gradient(135deg,#b71c1c,#7f0000);}
+    .neutro{background:linear-gradient(135deg,#455a64,#263238);}
+    .resumo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+    @media(max-width:500px){.resumo-grid{grid-template-columns:1fr;}}
+    .mini{border-radius:8px;padding:14px;text-align:center;}
+    .mini .lbl{font-size:.75rem;font-weight:600;margin-bottom:4px;}
+    .mini .val{font-size:1.1rem;font-weight:700;}
+    table{width:100%;border-collapse:collapse;}
+    table th{background:#f1f3f4;text-align:left;padding:10px 12px;font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:10px 12px;border-bottom:1px solid #f1f3f4;font-size:.9rem;}
+    .r{text-align:right;font-weight:600;}
+    .pos{color:var(--success);}
+    .neg{color:#c5221f;}
+    .faixa-ativa{background:#fce4ec;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid #b71c1c;color:#b71c1c;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>📊 Calculadora de Imposto de Renda</h1>
+  <p>IRPF 2025 — Restituição ou saldo a pagar? Descubra agora</p>
+</header>
+<div class="nav"><a href="../">← FacilCalc</a> / Calculadora de IR</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+<main>
+  <div id="formulario">
+
+    <div class="card">
+      <h2>💰 Rendimentos do Ano (2024)</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label>Rendimentos tributáveis totais</label>
+          <input type="text" id="rendimentos" placeholder="Ex: 60.000,00" inputmode="numeric" oninput="maskMoeda(this)"/>
+          <span class="hint">Salários, pró-labore, aluguéis, etc. no ano</span>
+        </div>
+        <div class="field">
+          <label>IR retido na fonte (anual)</label>
+          <input type="text" id="ir_retido" placeholder="Ex: 4.500,00" inputmode="numeric" oninput="maskMoeda(this)"/>
+          <span class="hint">Informado no informe de rendimentos</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔻 Deduções Legais <span style="font-weight:400;font-size:.85rem;color:#888">(opcional — todas reduzem o IR)</span></h2>
+      <div class="form-grid">
+        <div class="field">
+          <label>Número de dependentes</label>
+          <input type="number" id="dependentes" placeholder="0" min="0" max="20"/>
+          <span class="hint">Deduz R$ 2.275,08 por dependente/ano</span>
+        </div>
+        <div class="field">
+          <label>Gastos com saúde <span class="opt">(ilimitado)</span></label>
+          <input type="text" id="saude" placeholder="Ex: 8.000,00" inputmode="numeric" oninput="maskMoeda(this)"/>
+          <span class="hint">Médico, dentista, plano — sem limite de dedução</span>
+        </div>
+        <div class="field">
+          <label>Gastos com educação <span class="opt">(limite R$ 3.561,50)</span></label>
+          <input type="text" id="educacao" placeholder="Ex: 5.000,00" inputmode="numeric" oninput="maskMoeda(this)"/>
+          <span class="hint">Escola, faculdade — limite por pessoa R$ 3.561,50</span>
+        </div>
+        <div class="field">
+          <label>Previdência privada PGBL <span class="opt">(até 12% da renda)</span></label>
+          <input type="text" id="pgbl" placeholder="Ex: 6.000,00" inputmode="numeric" oninput="maskMoeda(this)"/>
+          <span class="hint">Dedutível até 12% dos rendimentos tributáveis</span>
+        </div>
+        <div class="field">
+          <label>INSS pago no ano</label>
+          <input type="text" id="inss" placeholder="Ex: 5.500,00" inputmode="numeric" oninput="maskMoeda(this)"/>
+          <span class="hint">INSS do informe de rendimentos</span>
+        </div>
+        <div class="field">
+          <label>Pensão alimentícia judicial</label>
+          <input type="text" id="pensao" placeholder="Ex: 12.000,00" inputmode="numeric" oninput="maskMoeda(this)"/>
+          <span class="hint">Somente pensão com decisão judicial</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:14px">
+      <button class="btn-calc" onclick="calcular()">⚡ Calcular IR 2025</button>
+    </div>
+  </div>
+
+  <div id="resultado">
+    <div class="result-box" id="res_box">
+      <div class="label" id="res_label">Resultado</div>
+      <div class="valor" id="res_valor">R$ 0,00</div>
+      <div class="sub" id="res_sub"></div>
+    </div>
+
+    <div class="resumo-grid">
+      <div class="mini" style="background:#fce4ec">
+        <div class="lbl" style="color:#b71c1c">IR Devido</div>
+        <div class="val" style="color:#b71c1c" id="res_devido">R$ 0</div>
+      </div>
+      <div class="mini" style="background:#e8f5e9">
+        <div class="lbl" style="color:#2e7d32">IR Retido</div>
+        <div class="val" style="color:#2e7d32" id="res_retido">R$ 0</div>
+      </div>
+      <div class="mini" style="background:#e8f0fe">
+        <div class="lbl" style="color:#1a73e8">Alíquota Efetiva</div>
+        <div class="val" style="color:#1a73e8" id="res_aliq">0%</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>📄 Memória de Cálculo</h2>
+      <table>
+        <thead><tr><th>Item</th><th style="text-align:right">Valor</th></tr></thead>
+        <tbody id="tabela"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>📋 Tabela IRPF 2024 (Anual)</h2>
+      <table>
+        <thead><tr><th>Faixa de Renda Anual</th><th style="text-align:right">Alíquota</th><th style="text-align:right">Dedução</th></tr></thead>
+        <tbody id="tabela_faixas"></tbody>
+      </table>
+    </div>
+
+    <div class="aviso">⚠️ Cálculo estimado. Valores exatos dependem de todas as fontes de renda, deduções específicas e situações especiais (MEI, ganho de capital, exterior). Consulte um contador para a declaração oficial.</div>
+    <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button></div>
+  </div>
+</main>
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:8px">Calculadora de IR 2025 — IRPF ano-calendário 2024</p>
+</footer>
+<script>
+  const fmt=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const fmtN=(v,d=2)=>v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+  function maskMoeda(el){let d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+
+  // Tabela IRPF anual 2024
+  const faixas=[
+    {ate:27110.40, aliq:0,    ded:0},
+    {ate:33919.80, aliq:.075, ded:2033.28},
+    {ate:45012.60, aliq:.15,  ded:4576.77},
+    {ate:55976.16, aliq:.225, ded:7944.36},
+    {ate:Infinity, aliq:.275, ded:10720.24},
+  ];
+  const faixasLabel=[
+    'Até R$ 27.110,40','R$ 27.110,41 a R$ 33.919,80',
+    'R$ 33.919,81 a R$ 45.012,60','R$ 45.012,61 a R$ 55.976,16',
+    'Acima de R$ 55.976,16'
+  ];
+
+  function calcIRAnual(base){
+    for(const f of faixas){
+      if(base<=f.ate) return Math.max(0,base*f.aliq-f.ded);
+    }
+    return 0;
+  }
+
+  function calcular(){
+    const rend=parseMoeda(document.getElementById('rendimentos').value);
+    if(!rend){alert('Informe os rendimentos tributáveis.');return;}
+    const retido=parseMoeda(document.getElementById('ir_retido').value);
+    const dep=parseInt(document.getElementById('dependentes').value)||0;
+    const saude=parseMoeda(document.getElementById('saude').value);
+    const educ=Math.min(parseMoeda(document.getElementById('educacao').value),3561.50*(dep+1));
+    const pgbl=Math.min(parseMoeda(document.getElementById('pgbl').value),rend*0.12);
+    const inss=parseMoeda(document.getElementById('inss').value);
+    const pensao=parseMoeda(document.getElementById('pensao').value);
+
+    const dedDep=dep*2275.08;
+    const totalDed=dedDep+saude+educ+pgbl+inss+pensao;
+    const baseCalc=Math.max(0,rend-totalDed);
+    const irDevido=calcIRAnual(baseCalc);
+    const saldo=retido-irDevido;
+    const aliqEfetiva=rend>0?(irDevido/rend*100):0;
+
+    // Caixa principal
+    const box=document.getElementById('res_box');
+    box.className='result-box '+(saldo>0?'restituicao':saldo<0?'pagar':'neutro');
+    document.getElementById('res_label').textContent=saldo>0?'Você tem RESTITUIÇÃO de':'Você tem SALDO A PAGAR de';
+    document.getElementById('res_valor').textContent=fmt(Math.abs(saldo));
+    document.getElementById('res_sub').textContent=saldo>0
+      ?'O governo deve te devolver esse valor'
+      :saldo<0?'Valor a pagar na declaração anual'
+      :'IR retido exatamente igual ao devido';
+
+    document.getElementById('res_devido').textContent=fmt(irDevido);
+    document.getElementById('res_retido').textContent=fmt(retido);
+    document.getElementById('res_aliq').textContent=fmtN(aliqEfetiva,1)+'%';
+
+    // Tabela memória
+    const rows=[
+      ['Rendimentos tributáveis totais',fmt(rend),null],
+      ['(-) Dependentes ('+dep+' × R$ 2.275,08)',dep>0?'-'+fmt(dedDep):'R$ 0,00',dep>0?'neg':null],
+      ['(-) Saúde',saude>0?'-'+fmt(saude):'R$ 0,00',saude>0?'neg':null],
+      ['(-) Educação (limite R$ 3.561,50/pessoa)',educ>0?'-'+fmt(educ):'R$ 0,00',educ>0?'neg':null],
+      ['(-) PGBL (até 12% da renda)',pgbl>0?'-'+fmt(pgbl):'R$ 0,00',pgbl>0?'neg':null],
+      ['(-) INSS',inss>0?'-'+fmt(inss):'R$ 0,00',inss>0?'neg':null],
+      ['(-) Pensão alimentícia',pensao>0?'-'+fmt(pensao):'R$ 0,00',pensao>0?'neg':null],
+      ['= Base de cálculo',fmt(baseCalc),'bold'],
+      ['IR devido (tabela progressiva)',fmt(irDevido),'neg'],
+      ['IR retido na fonte',fmt(retido),'pos'],
+      [saldo>=0?'= Restituição':'= Saldo a pagar',fmt(Math.abs(saldo)),saldo>=0?'pos':'neg'],
+    ];
+    const tbody=document.getElementById('tabela');
+    tbody.innerHTML='';
+    rows.forEach(([n,v,cls])=>{
+      const tr=document.createElement('tr');
+      const isBold=cls==='bold';
+      tr.innerHTML=`<td style="font-weight:${isBold?700:400}">${n}</td>
+        <td class="r ${cls||''}" style="font-weight:${isBold?700:600}">${v}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    // Tabela faixas
+    const tf=document.getElementById('tabela_faixas');
+    tf.innerHTML='';
+    faixas.forEach((f,i)=>{
+      const ativa=baseCalc>0&&(i===0?baseCalc<=f.ate:baseCalc>(faixas[i-1]?.ate||0));
+      const tr=document.createElement('tr');
+      if(ativa)tr.className='faixa-ativa';
+      tr.innerHTML=`<td>${faixasLabel[i]}${ativa?' ←':''}</td>
+        <td class="r">${f.aliq?fmtN(f.aliq*100,1)+'%':'Isento'}</td>
+        <td class="r">${f.ded?fmt(f.ded):'-'}</td>`;
+      tf.appendChild(tr);
+    });
+
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
