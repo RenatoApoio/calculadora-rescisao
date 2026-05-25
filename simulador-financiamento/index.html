@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador de Financiamento 2025 - Imovel e Veiculo | FacilCalc</title>
+  <meta name="description" content="Simule financiamento de imovel ou veiculo. Calcule parcelas pela Tabela Price ou SAC, total de juros e compare sistemas. Estimativa automatica."/>
+  <style>
+    :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#1565c0;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#1565c0;margin-bottom:14px;}
+    .tipo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:4px;}
+    @media(max-width:500px){.tipo-grid{grid-template-columns:1fr;}}
+    .tipo-card{border:2px solid var(--border);border-radius:8px;padding:12px;cursor:pointer;transition:all .2s;text-align:center;}
+    .tipo-card:hover{border-color:#1565c0;background:#e3f2fd;}
+    .tipo-card input[type=radio]{display:none;}
+    .tipo-card.selected{border-color:#1565c0;background:#e3f2fd;}
+    .tipo-card .icon{font-size:1.8rem;}
+    .tipo-card .titulo{font-weight:600;font-size:.9rem;margin-top:4px;}
+    .tipo-card .desc{font-size:.75rem;color:var(--muted);margin-top:2px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:5px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field label .opt{font-weight:400;color:#aaa;font-size:.78rem;}
+    .field input,.field select{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;transition:border .2s;}
+    .field input:focus,.field select:focus{border-color:#1565c0;}
+    .field .hint{font-size:.75rem;color:#888;}
+    .btn-calc{width:100%;background:#1565c0;color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;}
+    .btn-calc:hover{background:#0d47a1;}
+    .resumo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px;}
+    @media(max-width:500px){.resumo-grid{grid-template-columns:1fr;}}
+    .mini{border-radius:10px;padding:16px;text-align:center;color:#fff;}
+    .mini .lbl{font-size:.75rem;opacity:.85;margin-bottom:4px;}
+    .mini .val{font-size:1.4rem;font-weight:700;}
+    .mini .sub{font-size:.72rem;opacity:.75;margin-top:2px;}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+    @media(max-width:500px){.compare-grid{grid-template-columns:1fr;}}
+    .compare-card{border:2px solid var(--border);border-radius:10px;padding:16px;}
+    .compare-card h3{font-size:.9rem;font-weight:700;margin-bottom:10px;color:#1565c0;}
+    .compare-card .item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f3f4;font-size:.85rem;}
+    .compare-card .item:last-child{border-bottom:none;font-weight:700;}
+    .compare-card.destaque{border-color:#1565c0;background:#e3f2fd;}
+    .barra-juros{height:20px;border-radius:4px;background:#f1f3f4;overflow:hidden;margin:8px 0;display:flex;}
+    .barra-principal{background:#1565c0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700;}
+    .barra-juros-part{background:#c62828;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:700;}
+    table{width:100%;border-collapse:collapse;font-size:.82rem;}
+    table th{background:#f1f3f4;text-align:right;padding:8px 10px;color:var(--muted);border-bottom:1px solid var(--border);}
+    table th:first-child{text-align:left;}
+    table td{padding:7px 10px;border-bottom:1px solid #f8f9fa;text-align:right;}
+    table td:first-child{text-align:left;}
+    table tr:hover td{background:#f8f9fa;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid #1565c0;color:#1565c0;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    .tabela-wrap{max-height:320px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🏠 Simulador de Financiamento</h1>
+  <p>Imovel, veiculo ou emprestimo — Tabela Price e SAC</p>
+</header>
+<div class="nav"><a href="../">← FacilCalc</a> / Simulador de Financiamento</div>
+<div class="ad-slot">Anuncio Google AdSense</div>
+<main>
+  <div id="formulario">
+    <div class="card">
+      <h2>🏠 Tipo de Financiamento</h2>
+      <div class="tipo-grid">
+        <label class="tipo-card selected" onclick="selTipo(this)">
+          <input type="radio" name="tipo" value="imovel" checked/>
+          <div class="icon">🏠</div>
+          <div class="titulo">Imovel</div>
+          <div class="desc">Casa, apartamento, terreno</div>
+        </label>
+        <label class="tipo-card" onclick="selTipo(this)">
+          <input type="radio" name="tipo" value="veiculo"/>
+          <div class="icon">🚗</div>
+          <div class="titulo">Veiculo</div>
+          <div class="desc">Carro, moto, caminhao</div>
+        </label>
+        <label class="tipo-card" onclick="selTipo(this)">
+          <input type="radio" name="tipo" value="outro"/>
+          <div class="icon">💳</div>
+          <div class="titulo">Outro</div>
+          <div class="desc">Emprestimo, reforma...</div>
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>💰 Dados do Financiamento</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label>Valor do bem / emprestimo</label>
+          <input type="number" id="valor" placeholder="Ex: 350000,00" min="0" step="0.01"/>
+        </div>
+        <div class="field">
+          <label>Entrada <span class="opt">(opcional)</span></label>
+          <input type="number" id="entrada" placeholder="Ex: 70000,00" min="0" step="0.01"/>
+          <span class="hint">Deixe em branco se nao ha entrada</span>
+        </div>
+        <div class="field">
+          <label>Taxa de juros anual (%)</label>
+          <input type="number" id="taxa_anual" placeholder="Ex: 10.5" min="0" step="0.01"/>
+          <span class="hint">Taxa anual — convertemos para mensal automaticamente</span>
+        </div>
+        <div class="field">
+          <label>Prazo</label>
+          <div style="display:flex;gap:8px">
+            <input type="number" id="prazo" placeholder="Ex: 360" min="1" style="flex:1"/>
+            <select id="prazo_tipo" style="width:110px;border:1px solid var(--border);border-radius:6px;padding:10px 8px;font-size:.9rem;outline:none;">
+              <option value="meses">Meses</option>
+              <option value="anos">Anos</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Sistema de amortizacao</label>
+          <select id="sistema">
+            <option value="price">Tabela Price (parcelas fixas)</option>
+            <option value="sac">SAC (parcelas decrescentes)</option>
+            <option value="ambos">Comparar os dois</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Renda mensal familiar <span class="opt">(opcional)</span></label>
+          <input type="number" id="renda" placeholder="Para calcular comprometimento" min="0" step="0.01"/>
+          <span class="hint">Mostra % da renda comprometida</span>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:14px">
+      <button class="btn-calc" onclick="calcular()">⚡ Simular Financiamento</button>
+    </div>
+  </div>
+
+  <div id="resultado">
+    <div class="resumo-grid" id="resumo_cards"></div>
+    <div class="ad-slot">Anuncio Google AdSense</div>
+    <div id="compare_section"></div>
+    <div class="card">
+      <h2>📊 Distribuicao do Valor Total</h2>
+      <div style="display:flex;gap:8px;font-size:.8rem;margin-bottom:6px">
+        <span>🔵 Principal</span><span>🔴 Juros</span>
+      </div>
+      <div class="barra-juros" id="barra_dist"></div>
+    </div>
+    <div class="card" id="card_tabela">
+      <h2>📋 Primeiras e Ultimas Parcelas</h2>
+      <div class="tabela-wrap" id="tabela_wrap"></div>
+    </div>
+    <div class="aviso" id="aviso_renda" style="display:none"></div>
+    <div class="aviso">⚠️ Simulacao baseada apenas em juros e amortizacao. Nao inclui seguros, tarifas, IOF ou outros encargos cobrados pelos bancos. Consulte a instituicao financeira para proposta oficial.</div>
+    <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Nova Simulacao</button></div>
+  </div>
+</main>
+<div class="ad-slot">Anuncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+</footer>
+<script>
+  const fmt = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const fmtN = (v,d=2) => v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+  function selTipo(el){
+    document.querySelectorAll('.tipo-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function calcPrice(pv, taxaMensal, n){
+    const r = taxaMensal;
+    const parcela = pv * (r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
+    let saldo = pv, totalJuros = 0, tabela = [];
+    for(let i=1;i<=n;i++){
+      const juros = saldo * r;
+      const amort = parcela - juros;
+      saldo -= amort;
+      totalJuros += juros;
+      tabela.push({parc:i, parcela, amort, juros, saldo:Math.max(0,saldo)});
+    }
+    return {parcela, totalJuros, total: pv+totalJuros, tabela};
+  }
+
+  function calcSAC(pv, taxaMensal, n){
+    const amort = pv / n;
+    let saldo = pv, totalJuros = 0, tabela = [];
+    for(let i=1;i<=n;i++){
+      const juros = saldo * taxaMensal;
+      const parcela = amort + juros;
+      saldo -= amort;
+      totalJuros += juros;
+      tabela.push({parc:i, parcela, amort, juros, saldo:Math.max(0,saldo)});
+    }
+    return {parcelaInicial: tabela[0].parcela, parcelaFinal: tabela[n-1].parcela, totalJuros, total: pv+totalJuros, tabela};
+  }
+
+  function calcular(){
+    const valor = parseFloat(document.getElementById('valor').value)||0;
+    if(!valor){alert('Informe o valor do bem.');return;}
+    const entrada = parseFloat(document.getElementById('entrada').value)||0;
+    const taxaAnual = parseFloat(document.getElementById('taxa_anual').value)||0;
+    if(!taxaAnual){alert('Informe a taxa de juros anual.');return;}
+    const prazoVal = parseInt(document.getElementById('prazo').value)||0;
+    if(!prazoVal){alert('Informe o prazo.');return;}
+    const prazoTipo = document.getElementById('prazo_tipo').value;
+    const sistema = document.getElementById('sistema').value;
+    const renda = parseFloat(document.getElementById('renda').value)||0;
+
+    const pv = valor - entrada;
+    const n = prazoTipo === 'anos' ? prazoVal*12 : prazoVal;
+    const taxaMensal = Math.pow(1 + taxaAnual/100, 1/12) - 1;
+
+    const price = calcPrice(pv, taxaMensal, n);
+    const sac = calcSAC(pv, taxaMensal, n);
+
+    // Cards resumo
+    const cards = document.getElementById('resumo_cards');
+    const sistemaAtivo = sistema === 'sac' ? 'SAC' : 'Price';
+    const parcelaExibida = sistema === 'sac' ? sac.parcelaInicial : price.parcela;
+    const totalExibido = sistema === 'sac' ? sac.total : price.total;
+    const jurosExibidos = sistema === 'sac' ? sac.totalJuros : price.totalJuros;
+
+    cards.innerHTML = `
+      <div class="mini" style="background:linear-gradient(135deg,#1565c0,#0d47a1)">
+        <div class="lbl">Valor Financiado</div>
+        <div class="val">${fmt(pv)}</div>
+        <div class="sub">${entrada>0?'Entrada: '+fmt(entrada):''}</div>
+      </div>
+      <div class="mini" style="background:linear-gradient(135deg,#c62828,#b71c1c)">
+        <div class="lbl">Total de Juros</div>
+        <div class="val">${fmt(jurosExibidos)}</div>
+        <div class="sub">${fmtN(jurosExibidos/pv*100)}% do principal</div>
+      </div>
+      <div class="mini" style="background:linear-gradient(135deg,#2e7d32,#1b5e20)">
+        <div class="lbl">${sistema==='sac'?'1a Parcela (SAC)':'Parcela Fixa (Price)'}</div>
+        <div class="val">${fmt(parcelaExibida)}</div>
+        <div class="sub">${n} parcelas</div>
+      </div>
+      <div class="mini" style="background:linear-gradient(135deg,#e65100,#bf360c)">
+        <div class="lbl">Total a Pagar</div>
+        <div class="val">${fmt(totalExibido)}</div>
+        <div class="sub">${n} meses</div>
+      </div>`;
+
+    // Comparativo
+    const compare = document.getElementById('compare_section');
+    if(sistema === 'ambos'){
+      compare.innerHTML = `
+        <div class="compare-grid">
+          <div class="compare-card">
+            <h3>📊 Tabela Price</h3>
+            <div class="item"><span>Parcela fixa</span><span>${fmt(price.parcela)}</span></div>
+            <div class="item"><span>Total de juros</span><span>${fmt(price.totalJuros)}</span></div>
+            <div class="item"><span>Total pago</span><span>${fmt(price.total)}</span></div>
+          </div>
+          <div class="compare-card destaque">
+            <h3>📉 SAC (mais barato)</h3>
+            <div class="item"><span>1a parcela</span><span>${fmt(sac.parcelaInicial)}</span></div>
+            <div class="item"><span>Ultima parcela</span><span>${fmt(sac.parcelaFinal)}</span></div>
+            <div class="item"><span>Total de juros</span><span style="color:#137333">${fmt(sac.totalJuros)}</span></div>
+            <div class="item"><span>Total pago</span><span style="color:#137333">${fmt(sac.total)}</span></div>
+          </div>
+        </div>
+        <div class="card" style="background:#e8f5e9;border-color:#4caf50">
+          <p style="font-size:.85rem;color:#1b5e20">💡 <strong>SAC e ${fmt(price.totalJuros - sac.totalJuros)} mais barato</strong> que a Tabela Price no total de juros. A parcela inicial e maior mas cai todo mes.</p>
+        </div>`;
+    } else { compare.innerHTML = ''; }
+
+    // Barra distribuicao
+    const totalRef = sistema === 'sac' ? sac.total : price.total;
+    const jurosRef = sistema === 'sac' ? sac.totalJuros : price.totalJuros;
+    const percPrincipal = (pv/totalRef*100).toFixed(1);
+    const percJuros = (jurosRef/totalRef*100).toFixed(1);
+    document.getElementById('barra_dist').innerHTML = `
+      <div class="barra-principal" style="width:${percPrincipal}%">${percPrincipal}%</div>
+      <div class="barra-juros-part" style="width:${percJuros}%">${percJuros}%</div>`;
+
+    // Tabela de parcelas (primeiras 6 + ultimas 6)
+    const tabelaRef = (sistema === 'sac' ? sac : price).tabela;
+    const exibir = [...tabelaRef.slice(0,6),
+      ...(n>12?[{parc:'...', parcela:null}]:[]),
+      ...tabelaRef.slice(-6)];
+    let html = '<table><thead><tr><th>Parcela</th><th>Valor</th><th>Amortizacao</th><th>Juros</th><th>Saldo</th></tr></thead><tbody>';
+    exibir.forEach(r=>{
+      if(r.parcela===null){ html += `<tr><td colspan="5" style="text-align:center;color:#888;padding:8px">...</td></tr>`; return; }
+      html += `<tr><td>${r.parc}</td><td>${fmt(r.parcela)}</td><td>${fmt(r.amort)}</td><td style="color:#c62828">${fmt(r.juros)}</td><td>${fmt(r.saldo)}</td></tr>`;
+    });
+    html += '</tbody></table>';
+    document.getElementById('tabela_wrap').innerHTML = html;
+
+    // Comprometimento de renda
+    if(renda > 0){
+      const comprometido = parcelaExibida / renda * 100;
+      const aviso = document.getElementById('aviso_renda');
+      aviso.style.display = 'block';
+      aviso.innerHTML = `💰 <strong>Comprometimento de renda:</strong> ${fmtN(comprometido)}% (${fmt(parcelaExibida)} de ${fmt(renda)}). ${comprometido>30?'⚠️ Acima de 30% — bancos geralmente limitam a 30% da renda.':'✅ Dentro do limite recomendado (30%).'}`;
+    }
+
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
