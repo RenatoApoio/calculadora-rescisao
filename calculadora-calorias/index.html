@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de Calorias – O que Comi Hoje | FacilCalc</title>
+  <meta name="description" content="Calcule as calorias dos alimentos que você comeu hoje. Pesquise alimentos, adicione à sua lista e veja o total de calorias, proteínas, carboidratos e gorduras."/>
+  <style>
+    :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#e65100;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#e65100;margin-bottom:14px;}
+    .busca-wrap{display:flex;gap:8px;}
+    .busca-wrap input{flex:1;border:1px solid var(--border);border-radius:8px;padding:12px;font-size:.95rem;outline:none;}
+    .busca-wrap input:focus{border-color:#e65100;}
+    .btn-buscar{background:#e65100;color:#fff;border:none;border-radius:8px;padding:12px 20px;font-weight:700;cursor:pointer;white-space:nowrap;}
+    .btn-buscar:hover{background:#bf360c;}
+    .resultados-lista{margin-top:12px;}
+    .item-resultado{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid #f1f3f4;gap:8px;flex-wrap:wrap;}
+    .item-resultado:last-child{border-bottom:none;}
+    .item-resultado .nome{font-weight:600;font-size:.9rem;flex:1;min-width:120px;}
+    .item-resultado .info{font-size:.78rem;color:var(--muted);}
+    .item-resultado .cals{font-weight:700;color:#e65100;font-size:.9rem;white-space:nowrap;}
+    .btn-add{background:#e65100;color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+    .btn-add:hover{background:#bf360c;}
+    /* Totais */
+    .macros-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+    @media(max-width:550px){.macros-grid{grid-template-columns:1fr 1fr;}}
+    .macro-card{border-radius:8px;padding:14px;text-align:center;}
+    .macro-card .lbl{font-size:.72rem;font-weight:700;margin-bottom:4px;}
+    .macro-card .val{font-size:1.3rem;font-weight:800;}
+    .barra-meta{background:#f1f3f4;border-radius:8px;overflow:hidden;height:16px;margin-top:6px;}
+    .barra-fill{height:100%;border-radius:8px;transition:width .4s;}
+    /* Lista do prato */
+    .prato-item{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid #f1f3f4;gap:8px;flex-wrap:wrap;}
+    .prato-item:last-child{border-bottom:none;}
+    .prato-item .pnome{font-weight:600;font-size:.9rem;flex:1;min-width:100px;}
+    .prato-item .pinfo{font-size:.78rem;color:var(--muted);}
+    .prato-item .pqtd{display:flex;align-items:center;gap:6px;}
+    .prato-item .pqtd input{width:70px;border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:.85rem;text-align:center;outline:none;}
+    .prato-item .pcal{font-weight:700;color:#e65100;min-width:70px;text-align:right;}
+    .btn-rem{background:none;border:none;color:#c5221f;cursor:pointer;font-size:1rem;padding:4px;}
+    .empty-prato{text-align:center;color:var(--muted);font-size:.85rem;padding:24px;}
+    /* Favoritos locais */
+    .alimentos-rapidos{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+    .chip-alimento{background:#fff3e0;border:1px solid #ffcc80;border-radius:20px;padding:4px 12px;font-size:.78rem;cursor:pointer;color:#e65100;font-weight:600;}
+    .chip-alimento:hover{background:#ffe0b2;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    footer{text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid var(--border);margin-top:24px;}
+    #loading-busca{display:none;text-align:center;color:var(--muted);padding:12px;font-size:.85rem;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🍽️ Calculadora de Calorias</h1>
+  <p>O que você comeu hoje? Pesquise alimentos e veja o total de calorias e macros</p>
+</header>
+<div class="nav"><a href="../">← FacilCalc</a> / Calculadora de Calorias</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+
+<main>
+
+  <!-- TOTAIS -->
+  <div class="card">
+    <h2>📊 Resumo do Dia</h2>
+    <div class="macros-grid">
+      <div class="macro-card" style="background:#fff3e0">
+        <div class="lbl" style="color:#e65100">🔥 Calorias</div>
+        <div class="val" style="color:#e65100" id="total_cal">0</div>
+        <div style="font-size:.7rem;color:#888" id="pct_meta_txt">de <span id="meta_cal">2000</span> kcal</div>
+        <div class="barra-meta"><div class="barra-fill" id="bar_cal" style="background:#e65100;width:0%"></div></div>
+      </div>
+      <div class="macro-card" style="background:#e3f2fd">
+        <div class="lbl" style="color:#1565c0">💪 Proteína</div>
+        <div class="val" style="color:#1565c0" id="total_prot">0g</div>
+      </div>
+      <div class="macro-card" style="background:#e8f5e9">
+        <div class="lbl" style="color:#2e7d32">🌾 Carboidratos</div>
+        <div class="val" style="color:#2e7d32" id="total_carb">0g</div>
+      </div>
+      <div class="macro-card" style="background:#fce4ec">
+        <div class="lbl" style="color:#c62828">🧈 Gorduras</div>
+        <div class="val" style="color:#c62828" id="total_gord">0g</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <label style="font-size:.82rem;font-weight:600;color:var(--muted)">Meta diária:</label>
+      <input type="number" id="input_meta" value="2000" min="1000" max="5000" style="width:90px;border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-size:.9rem;outline:none;" oninput="atualizarTotais()"/>
+      <span style="font-size:.82rem;color:var(--muted)">kcal</span>
+      <button onclick="limparPrato()" style="margin-left:auto;background:#fff;border:1px solid #c5221f;color:#c5221f;border-radius:6px;padding:6px 14px;font-size:.8rem;font-weight:700;cursor:pointer">🗑️ Zerar dia</button>
+    </div>
+  </div>
+
+  <!-- BUSCA -->
+  <div class="card">
+    <h2>🔍 Buscar Alimento</h2>
+    <div class="busca-wrap">
+      <input type="text" id="busca" placeholder="Ex: arroz, frango, banana..." onkeydown="if(event.key==='Enter')buscar()"/>
+      <button class="btn-buscar" onclick="buscar()">Buscar</button>
+    </div>
+    <div style="margin-top:10px">
+      <div style="font-size:.78rem;color:var(--muted);margin-bottom:6px">Busca rápida:</div>
+      <div class="alimentos-rapidos">
+        <span class="chip-alimento" onclick="buscaRapida('arroz cozido')">Arroz cozido</span>
+        <span class="chip-alimento" onclick="buscaRapida('feijao cozido')">Feijão cozido</span>
+        <span class="chip-alimento" onclick="buscaRapida('frango grelhado')">Frango grelhado</span>
+        <span class="chip-alimento" onclick="buscaRapida('ovo frito')">Ovo frito</span>
+        <span class="chip-alimento" onclick="buscaRapida('banana')">Banana</span>
+        <span class="chip-alimento" onclick="buscaRapida('pao frances')">Pão francês</span>
+        <span class="chip-alimento" onclick="buscaRapida('leite integral')">Leite integral</span>
+        <span class="chip-alimento" onclick="buscaRapida('batata doce')">Batata-doce</span>
+        <span class="chip-alimento" onclick="buscaRapida('macarrao cozido')">Macarrão</span>
+        <span class="chip-alimento" onclick="buscaRapida('carne bovina')">Carne bovina</span>
+      </div>
+    </div>
+    <div id="loading-busca">🔄 Buscando...</div>
+    <div class="resultados-lista" id="resultados"></div>
+  </div>
+
+  <div class="ad-slot">Anúncio Google AdSense</div>
+
+  <!-- MEU PRATO -->
+  <div class="card">
+    <h2>🍽️ Meu Prato de Hoje</h2>
+    <div id="prato_lista"><div class="empty-prato">Nenhum alimento adicionado ainda.<br/>Busque um alimento acima e clique em Adicionar.</div></div>
+  </div>
+
+  <div class="aviso">⚠️ Valores nutricionais são aproximados com base na base Open Food Facts. Para controle clínico, consulte um nutricionista.</div>
+
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer>
+  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:6px">Dados nutricionais: Open Food Facts (openfoodfacts.org)</p>
+</footer>
+
+<script>
+  // Banco de alimentos TACO (fallback offline para alimentos brasileiros comuns)
+  const TACO = [
+    {nome:'Arroz cozido',cal:128,prot:2.5,carb:28.1,gord:0.2,por:100},
+    {nome:'Feijão cozido',cal:76,prot:4.8,carb:13.6,gord:0.5,por:100},
+    {nome:'Frango grelhado (peito)',cal:159,prot:32.1,carb:0,gord:3.2,por:100},
+    {nome:'Ovo frito (inteiro)',cal:196,prot:13.3,carb:0,gord:15.6,por:100},
+    {nome:'Ovo cozido',cal:146,prot:13.0,carb:0.7,gord:9.5,por:100},
+    {nome:'Banana prata',cal:98,prot:1.3,carb:26.0,gord:0.1,por:100},
+    {nome:'Pão francês',cal:300,prot:8.0,carb:58.6,gord:3.1,por:100},
+    {nome:'Leite integral',cal:61,prot:3.2,carb:4.6,gord:3.3,por:100},
+    {nome:'Batata-doce cozida',cal:77,prot:0.6,carb:18.4,gord:0.1,por:100},
+    {nome:'Macarrão cozido',cal:110,prot:3.5,carb:22.7,gord:0.5,por:100},
+    {nome:'Carne bovina (patinho cozido)',cal:219,prot:30.4,carb:0,gord:10.5,por:100},
+    {nome:'Carne suína (lombo assado)',cal:242,prot:30.1,carb:0,gord:13.3,por:100},
+    {nome:'Peixe tilápia grelhada',cal:128,prot:26.2,carb:0,gord:2.7,por:100},
+    {nome:'Mandioca cozida',cal:125,prot:0.6,carb:30.1,gord:0.3,por:100},
+    {nome:'Laranja pera',cal:37,prot:1.0,carb:8.9,gord:0.1,por:100},
+    {nome:'Maçã fuji',cal:56,prot:0.3,carb:15.2,gord:0.1,por:100},
+    {nome:'Queijo mussarela',cal:316,prot:22.2,carb:3.1,gord:23.4,por:100},
+    {nome:'Iogurte natural',cal:51,prot:4.1,carb:6.0,gord:1.5,por:100},
+    {nome:'Azeite de oliva',cal:884,prot:0,carb:0,gord:100,por:100},
+    {nome:'Manteiga',cal:726,prot:0.4,carb:0,gord:83.2,por:100},
+    {nome:'Biscoito cream cracker',cal:433,prot:9.6,carb:68.8,gord:13.1,por:100},
+    {nome:'Cenoura crua',cal:34,prot:1.3,carb:7.7,gord:0.2,por:100},
+    {nome:'Tomate cru',cal:15,prot:1.1,carb:3.1,gord:0.2,por:100},
+    {nome:'Alface cru',cal:11,prot:1.7,carb:1.7,gord:0.2,por:100},
+    {nome:'Brócolis cozido',cal:34,prot:3.7,carb:5.1,gord:0.5,por:100},
+    {nome:'Café com leite (200ml)',cal:40,prot:2.0,carb:4.0,gord:1.5,por:200},
+    {nome:'Suco de laranja natural (200ml)',cal:74,prot:1.6,carb:17.8,gord:0.2,por:200},
+    {nome:'Refrigerante cola (lata)',cal:140,prot:0,carb:37,gord:0,por:350},
+    {nome:'Cerveja long neck',cal:150,prot:1.2,carb:13.0,gord:0,por:355},
+    {nome:'Tapioca (1 unidade)',cal:127,prot:0.7,carb:31.5,gord:0.2,por:70},
+    {nome:'Cuscuz milho cozido',cal:119,prot:2.0,carb:26.7,gord:0.6,por:100},
+  ];
+
+  let prato = [];
+
+  function fmtN(v, d=1){ return isNaN(v)?'0':parseFloat(v).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+
+  function buscaRapida(termo) {
+    document.getElementById('busca').value = termo;
+    buscar();
+  }
+
+  async function buscar() {
+    const termo = document.getElementById('busca').value.trim();
+    if (!termo) return;
+    const loading = document.getElementById('loading-busca');
+    const div = document.getElementById('resultados');
+    loading.style.display = 'block';
+    div.innerHTML = '';
+
+    // Primeiro tenta TACO offline
+    const termoBaixo = termo.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+    const resultadosTACO = TACO.filter(a =>
+      a.nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(termoBaixo)
+    );
+
+    if (resultadosTACO.length > 0) {
+      loading.style.display = 'none';
+      renderResultados(resultadosTACO.map(a => ({
+        nome: a.nome,
+        cal: a.cal,
+        prot: a.prot,
+        carb: a.carb,
+        gord: a.gord,
+        porcao: a.por,
+        fonte: 'TACO'
+      })));
+      return;
+    }
+
+    // Fallback: Open Food Facts API
+    try {
+      const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(termo)}&search_simple=1&action=process&json=1&fields=product_name,nutriments,serving_size,quantity&page_size=8&lc=pt&cc=br`;
+      const res = await fetch(url);
+      const data = await res.json();
+      loading.style.display = 'none';
+
+      if (!data.products || data.products.length === 0) {
+        div.innerHTML = '<div style="padding:12px;color:#888;font-size:.85rem">Nenhum resultado encontrado. Tente um nome diferente.</div>';
+        return;
+      }
+
+      const itens = data.products
+        .filter(p => p.product_name && p.nutriments && p.nutriments['energy-kcal_100g'])
+        .slice(0, 6)
+        .map(p => ({
+          nome: p.product_name,
+          cal: p.nutriments['energy-kcal_100g'] || 0,
+          prot: p.nutriments['proteins_100g'] || 0,
+          carb: p.nutriments['carbohydrates_100g'] || 0,
+          gord: p.nutriments['fat_100g'] || 0,
+          porcao: 100,
+          fonte: 'Open Food Facts'
+        }));
+
+      renderResultados(itens);
+    } catch(e) {
+      loading.style.display = 'none';
+      div.innerHTML = '<div style="padding:12px;color:#888;font-size:.85rem">Erro ao buscar. Verifique sua conexão.</div>';
+    }
+  }
+
+  function renderResultados(itens) {
+    const div = document.getElementById('resultados');
+    if (itens.length === 0) {
+      div.innerHTML = '<div style="padding:12px;color:#888;font-size:.85rem">Nenhum resultado. Tente palavras mais simples.</div>';
+      return;
+    }
+    div.innerHTML = itens.map((item, i) => `
+      <div class="item-resultado">
+        <div>
+          <div class="nome">${item.nome}</div>
+          <div class="info">Proteína: ${fmtN(item.prot)}g · Carb: ${fmtN(item.carb)}g · Gordura: ${fmtN(item.gord)}g · por 100g · ${item.fonte}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <div class="cals">${Math.round(item.cal)} kcal/100g</div>
+          <button class="btn-add" onclick='adicionarAoPrato(${JSON.stringify(item).replace(/'/g,"&#39;")})'>+ Adicionar</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function adicionarAoPrato(item) {
+    prato.push({...item, qtd: item.porcao || 100, id: Date.now() + Math.random()});
+    renderPrato();
+    // Scroll ao prato
+    document.querySelector('.card:last-of-type').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  function removerDoPrato(id) {
+    prato = prato.filter(p => p.id !== id);
+    renderPrato();
+  }
+
+  function renderPrato() {
+    const div = document.getElementById('prato_lista');
+    if (prato.length === 0) {
+      div.innerHTML = '<div class="empty-prato">Nenhum alimento adicionado ainda.<br/>Busque um alimento acima e clique em Adicionar.</div>';
+      atualizarTotais();
+      return;
+    }
+    div.innerHTML = prato.map(p => {
+      const fator = p.qtd / 100;
+      const cal = Math.round(p.cal * fator);
+      return `<div class="prato-item">
+        <div>
+          <div class="pnome">${p.nome}</div>
+          <div class="pinfo">${fmtN(p.prot*fator)}g prot · ${fmtN(p.carb*fator)}g carb · ${fmtN(p.gord*fator)}g gord</div>
+        </div>
+        <div class="pqtd">
+          <input type="number" value="${p.qtd}" min="1" max="2000"
+            onchange="alterarQtd('${p.id}', this.value)"
+            style="width:70px;border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:.85rem;text-align:center;outline:none;"/>
+          <span style="font-size:.78rem;color:var(--muted)">g</span>
+        </div>
+        <div class="pcal">${cal} kcal</div>
+        <button class="btn-rem" onclick="removerDoPrato('${p.id}')" title="Remover">🗑</button>
+      </div>`;
+    }).join('');
+    atualizarTotais();
+  }
+
+  function alterarQtd(id, novaQtd) {
+    const item = prato.find(p => p.id == id);
+    if (item) { item.qtd = parseFloat(novaQtd) || 100; renderPrato(); }
+  }
+
+  function atualizarTotais() {
+    const meta = parseInt(document.getElementById('input_meta').value) || 2000;
+    let cal=0, prot=0, carb=0, gord=0;
+    prato.forEach(p => {
+      const f = p.qtd / 100;
+      cal += p.cal * f;
+      prot += p.prot * f;
+      carb += p.carb * f;
+      gord += p.gord * f;
+    });
+    document.getElementById('total_cal').textContent = Math.round(cal);
+    document.getElementById('total_prot').textContent = fmtN(prot,0)+'g';
+    document.getElementById('total_carb').textContent = fmtN(carb,0)+'g';
+    document.getElementById('total_gord').textContent = fmtN(gord,0)+'g';
+    document.getElementById('meta_cal').textContent = meta;
+    const pct = Math.min(100, cal / meta * 100);
+    document.getElementById('bar_cal').style.width = pct.toFixed(0)+'%';
+    document.getElementById('bar_cal').style.background = pct > 100 ? '#c5221f' : pct > 80 ? '#f29900' : '#e65100';
+  }
+
+  function limparPrato() {
+    if (prato.length === 0) return;
+    if (confirm('Zerar todos os alimentos do dia?')) {
+      prato = [];
+      renderPrato();
+    }
+  }
+</script>
+<script src="../shared.js"></script>
+</body>
+</html>

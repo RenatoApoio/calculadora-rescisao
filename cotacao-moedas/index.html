@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cotação de Moedas Hoje – Dólar, Euro, Peso e mais | FacilCalc</title>
+  <meta name="description" content="Cotação de moedas em tempo real: dólar, euro, peso argentino, libra, franco suíço e bitcoin. Conversor de moedas atualizado automaticamente."/>
+  <style>
+    :root{--primary:#1a73e8;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#1a237e;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#1a237e;margin-bottom:14px;}
+    .status-bar{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--muted);margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+    .status-bar .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#34a853;margin-right:4px;animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+    .moedas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px;}
+    .moeda-card{border-radius:10px;padding:16px;cursor:pointer;border:2px solid transparent;transition:all .2s;}
+    .moeda-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+    .moeda-card.ativa{border-color:#1a237e;}
+    .moeda-card .bandeira{font-size:1.8rem;margin-bottom:6px;}
+    .moeda-card .sigla{font-size:.75rem;font-weight:700;color:var(--muted);}
+    .moeda-card .nome{font-size:.78rem;color:var(--muted);margin-bottom:6px;}
+    .moeda-card .cotacao{font-size:1.2rem;font-weight:800;}
+    .moeda-card .var{font-size:.72rem;font-weight:700;margin-top:4px;}
+    .var.alta{color:#137333;}
+    .var.baixa{color:#c5221f;}
+    .var.neutro{color:var(--muted);}
+    .conversor-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;}
+    @media(max-width:550px){.conversor-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:6px;}
+    .field label{font-size:.82rem;font-weight:600;color:var(--muted);}
+    .field input,.field select{border:1px solid var(--border);border-radius:8px;padding:12px;font-size:1.1rem;font-weight:700;outline:none;}
+    .field input:focus,.field select:focus{border-color:#1a237e;}
+    .seta-conv{text-align:center;font-size:1.5rem;color:#1a237e;font-weight:700;}
+    .resultado-conv{background:#e8eaf6;border-radius:10px;padding:16px;text-align:center;}
+    .resultado-conv .val{font-size:1.8rem;font-weight:800;color:#1a237e;}
+    .resultado-conv .sub{font-size:.78rem;color:var(--muted);margin-top:4px;}
+    .tabela-wrap{overflow-x:auto;}
+    table{width:100%;border-collapse:collapse;}
+    table th{background:#f1f3f4;text-align:left;padding:10px 12px;font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:10px 12px;border-bottom:1px solid #f1f3f4;font-size:.9rem;}
+    table td.r{text-align:right;}
+    .loading{text-align:center;padding:40px;color:var(--muted);}
+    .erro{background:#fff3e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;}
+    footer{text-align:center;padding:24px 16px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:24px;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>💱 Cotação de Moedas</h1>
+  <p>Dólar, Euro, Peso, Libra, Franco Suíço, Bitcoin — atualização automática</p>
+</header>
+<div class="nav"><a href="../">← FacilCalc</a> / Cotação de Moedas</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+
+<main>
+  <div id="loading" class="loading">🔄 Carregando cotações...</div>
+  <div id="conteudo" style="display:none">
+
+    <div class="status-bar">
+      <span><span class="dot"></span>Cotações em tempo real</span>
+      <span id="ultima_atualizacao">Atualizando...</span>
+      <span style="font-size:.72rem">Fonte: AwesomeAPI • Atualiza a cada 60s</span>
+    </div>
+
+    <div class="card">
+      <h2>📊 Cotações Hoje (em Reais)</h2>
+      <div class="moedas-grid" id="moedas_grid"></div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>🔄 Conversor de Moedas</h2>
+      <div class="conversor-grid">
+        <div class="field">
+          <label>Valor</label>
+          <input type="number" id="conv_valor" placeholder="100" oninput="converter()"/>
+          <select id="conv_de" onchange="converter()" style="margin-top:6px;font-size:.9rem;padding:8px;border:1px solid var(--border);border-radius:8px;outline:none;"></select>
+        </div>
+        <div class="seta-conv">⇄</div>
+        <div class="field">
+          <label>Resultado</label>
+          <div class="resultado-conv">
+            <div class="val" id="conv_resultado">—</div>
+            <div class="sub" id="conv_sub"></div>
+          </div>
+          <select id="conv_para" onchange="converter()" style="margin-top:6px;font-size:.9rem;padding:8px;border:1px solid var(--border);border-radius:8px;outline:none;"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📋 Tabela Completa</h2>
+      <div class="tabela-wrap">
+        <table>
+          <thead><tr><th>Moeda</th><th class="r">Compra</th><th class="r">Venda</th><th class="r">Variação hoje</th><th class="r">Atualizado</th></tr></thead>
+          <tbody id="tabela_body"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <div id="erro" style="display:none" class="erro">⚠️ Não foi possível carregar as cotações. Verifique sua conexão e recarregue a página.</div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer>
+  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:6px">Cotações fornecidas pela AwesomeAPI — uso informativo, não financeiro</p>
+</footer>
+
+<script>
+  const MOEDAS = [
+    {code:'USD', nome:'Dólar Americano',  bandeira:'🇺🇸', par:'USD-BRL'},
+    {code:'EUR', nome:'Euro',             bandeira:'🇪🇺', par:'EUR-BRL'},
+    {code:'ARS', nome:'Peso Argentino',   bandeira:'🇦🇷', par:'ARS-BRL'},
+    {code:'GBP', nome:'Libra Esterlina',  bandeira:'🇬🇧', par:'GBP-BRL'},
+    {code:'CHF', nome:'Franco Suíço',     bandeira:'🇨🇭', par:'CHF-BRL'},
+    {code:'JPY', nome:'Iene Japonês',     bandeira:'🇯🇵', par:'JPY-BRL'},
+    {code:'CAD', nome:'Dólar Canadense',  bandeira:'🇨🇦', par:'CAD-BRL'},
+    {code:'BTC', nome:'Bitcoin',          bandeira:'₿',   par:'BTC-BRL'},
+  ];
+
+  const cores = ['#e3f2fd','#e8f5e9','#fff3e0','#fce4ec','#f3e5f5','#e0f2f1','#fff8e1','#fbe9e7'];
+  const fmtBRL = (v, decs=2) => parseFloat(v).toLocaleString('pt-BR', {minimumFractionDigits:decs, maximumFractionDigits:decs});
+
+  let dadosMoedas = {};
+
+  async function carregarCotacoes() {
+    const pares = MOEDAS.map(m => m.par).join(',');
+    try {
+      const res = await fetch(`https://economia.awesomeapi.com.br/json/last/${pares}`);
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+
+      MOEDAS.forEach(m => {
+        const key = m.par.replace('-','');
+        if (data[key]) dadosMoedas[m.code] = data[key];
+      });
+
+      renderizar();
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('conteudo').style.display = 'block';
+      document.getElementById('ultima_atualizacao').textContent =
+        'Última atualização: ' + new Date().toLocaleTimeString('pt-BR');
+    } catch(e) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('erro').style.display = 'block';
+    }
+  }
+
+  function renderizar() {
+    // Cards de moedas
+    const grid = document.getElementById('moedas_grid');
+    grid.innerHTML = '';
+    MOEDAS.forEach((m, i) => {
+      const d = dadosMoedas[m.code];
+      if (!d) return;
+      const bid = parseFloat(d.bid);
+      const pct = parseFloat(d.pctChange);
+      const varClass = pct > 0 ? 'alta' : pct < 0 ? 'baixa' : 'neutro';
+      const varIcon = pct > 0 ? '▲' : pct < 0 ? '▼' : '—';
+      const decs = m.code === 'BTC' ? 0 : m.code === 'ARS' || m.code === 'JPY' ? 4 : 2;
+      const div = document.createElement('div');
+      div.className = 'moeda-card';
+      div.style.background = cores[i % cores.length];
+      div.innerHTML = `
+        <div class="bandeira">${m.bandeira}</div>
+        <div class="sigla">${m.code}/BRL</div>
+        <div class="nome">${m.nome}</div>
+        <div class="cotacao">R$ ${fmtBRL(bid, decs)}</div>
+        <div class="var ${varClass}">${varIcon} ${Math.abs(pct).toFixed(2)}% hoje</div>`;
+      grid.appendChild(div);
+    });
+
+    // Selects do conversor
+    const preenchidos = document.getElementById('conv_de').options.length > 0;
+    if (!preenchidos) {
+      ['conv_de', 'conv_para'].forEach((id, idx) => {
+        const sel = document.getElementById(id);
+        sel.innerHTML = '<option value="BRL">🇧🇷 Real Brasileiro (BRL)</option>';
+        MOEDAS.forEach(m => {
+          if (dadosMoedas[m.code]) {
+            const opt = document.createElement('option');
+            opt.value = m.code;
+            opt.textContent = m.bandeira + ' ' + m.nome + ' (' + m.code + ')';
+            sel.appendChild(opt);
+          }
+        });
+        if (idx === 0) sel.value = 'USD';
+        else sel.value = 'BRL';
+      });
+    }
+
+    // Tabela
+    const tbody = document.getElementById('tabela_body');
+    tbody.innerHTML = '';
+    MOEDAS.forEach(m => {
+      const d = dadosMoedas[m.code];
+      if (!d) return;
+      const pct = parseFloat(d.pctChange);
+      const varClass = pct > 0 ? 'alta' : pct < 0 ? 'baixa' : 'neutro';
+      const decs = m.code === 'BTC' ? 0 : m.code === 'ARS' || m.code === 'JPY' ? 4 : 2;
+      const dt = new Date(d.create_date);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${m.bandeira} <strong>${m.code}</strong> — ${m.nome}</td>
+        <td class="r">R$ ${fmtBRL(d.bid, decs)}</td>
+        <td class="r">R$ ${fmtBRL(d.ask, decs)}</td>
+        <td class="r" style="color:${pct>0?'#137333':pct<0?'#c5221f':'#5f6368'};font-weight:700">
+          ${pct>0?'▲':'▼'} ${Math.abs(pct).toFixed(2)}%
+        </td>
+        <td class="r" style="color:#888;font-size:.8rem">${dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    converter();
+  }
+
+  function getBidBRL(code) {
+    if (code === 'BRL') return 1;
+    return dadosMoedas[code] ? parseFloat(dadosMoedas[code].bid) : 1;
+  }
+
+  function converter() {
+    const valor = parseFloat(document.getElementById('conv_valor').value) || 0;
+    const de = document.getElementById('conv_de').value;
+    const para = document.getElementById('conv_para').value;
+    if (!valor || !Object.keys(dadosMoedas).length) return;
+
+    // Converte: de → BRL → para
+    const emBRL = valor * getBidBRL(de);
+    const resultado = para === 'BRL' ? emBRL : emBRL / getBidBRL(para);
+
+    const decs = para === 'BTC' ? 8 : para === 'ARS' || para === 'JPY' ? 2 : 2;
+    const simbolo = para === 'BRL' ? 'R$' : para === 'BTC' ? '₿' : '';
+    document.getElementById('conv_resultado').textContent = `${simbolo} ${fmtBRL(resultado, decs)} ${para}`;
+    document.getElementById('conv_sub').textContent = `${valor} ${de} = ${fmtBRL(resultado, decs)} ${para}`;
+  }
+
+  // Carrega e atualiza a cada 60s
+  carregarCotacoes();
+  setInterval(carregarCotacoes, 60000);
+</script>
+<script src="../shared.js"></script>
+</body>
+</html>
