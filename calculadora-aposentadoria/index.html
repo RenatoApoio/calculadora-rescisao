@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de Aposentadoria 2025 – O que falta? Regras e Pedágio | FacilCalc</title>
+  <meta name="description" content="Descubra o que falta para se aposentar. Simule todas as regras de transição da Reforma da Previdência (EC 103/2019): pontos, idade progressiva, pedágio 50%, regra nova."/>
+  <style>
+    :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#1a237e;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#1a237e;margin-bottom:14px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:5px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field label .opt{font-weight:400;color:#aaa;font-size:.78rem;}
+    .field input,.field select{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;transition:border .2s;}
+    .field input:focus,.field select:focus{border-color:#1a237e;}
+    .field .hint{font-size:.75rem;color:#888;}
+    .sexo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
+    .tipo-card{border:2px solid var(--border);border-radius:8px;padding:12px;cursor:pointer;transition:all .2s;text-align:center;}
+    .tipo-card:hover{border-color:#1a237e;background:#e8eaf6;}
+    .tipo-card input[type=radio]{display:none;}
+    .tipo-card.selected{border-color:#1a237e;background:#e8eaf6;}
+    .tipo-card .icon{font-size:1.8rem;}
+    .tipo-card .titulo{font-weight:600;font-size:.9rem;margin-top:4px;}
+    .btn-calc{width:100%;background:#1a237e;color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;}
+    .btn-calc:hover{background:#0d1257;}
+    /* Resultado */
+    .melhor-box{border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;color:#fff;background:linear-gradient(135deg,#1a237e,#283593);}
+    .melhor-box .label{font-size:.85rem;opacity:.85;}
+    .melhor-box .data{font-size:2rem;font-weight:700;}
+    .melhor-box .sub{font-size:.8rem;opacity:.75;margin-top:4px;}
+    .regra-card{border-radius:10px;padding:16px;margin-bottom:12px;border:2px solid var(--border);}
+    .regra-card.melhor{border-color:#1a237e;background:#e8eaf6;}
+    .regra-card.ok{border-color:#137333;background:#e6f4ea;}
+    .regra-card.pendente{border-color:var(--border);background:#fff;}
+    .regra-card.nao_aplicavel{border-color:#e0e0e0;background:#f5f5f5;opacity:.65;}
+    .regra-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px;}
+    .regra-nome{font-weight:700;font-size:.95rem;}
+    .regra-badge{border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:700;white-space:nowrap;}
+    .badge-melhor{background:#1a237e;color:#fff;}
+    .badge-ok{background:#137333;color:#fff;}
+    .badge-falta{background:#f57c00;color:#fff;}
+    .badge-na{background:#9e9e9e;color:#fff;}
+    .regra-items{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    @media(max-width:500px){.regra-items{grid-template-columns:1fr;}}
+    .regra-item{background:rgba(0,0,0,.04);border-radius:6px;padding:10px;}
+    .regra-item .rit{font-size:.72rem;color:var(--muted);font-weight:600;margin-bottom:2px;}
+    .regra-item .riv{font-size:.9rem;font-weight:700;}
+    .riv.ok{color:#137333;}
+    .riv.falta{color:#c62828;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid #1a237e;color:#1a237e;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    .beneficio-box{background:#e8eaf6;border-radius:8px;padding:14px;font-size:.83rem;color:#1a237e;margin-top:12px;}
+    table{width:100%;border-collapse:collapse;font-size:.83rem;}
+    table th{background:#f1f3f4;text-align:left;padding:8px 10px;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:8px 10px;border-bottom:1px solid #f1f3f4;}
+    table td:last-child{text-align:right;font-weight:600;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🏛️ Calculadora de Aposentadoria</h1>
+  <p>O que falta para se aposentar? Todas as regras 2025 — incluindo pedágio e transição</p>
+</header>
+<div class="nav"><a href="../">← FacilCalc</a> / Calculadora de Aposentadoria</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+
+<main>
+  <div id="formulario">
+    <div class="card">
+      <h2>👤 Seus Dados</h2>
+      <div class="form-grid">
+
+        <div class="field" style="grid-column:1/-1">
+          <label>Sexo</label>
+          <div class="sexo-grid">
+            <label class="tipo-card selected" onclick="selSexo(this,'M')">
+              <input type="radio" name="sexo" value="M" checked/>
+              <div class="icon">👨</div>
+              <div class="titulo">Masculino</div>
+            </label>
+            <label class="tipo-card" onclick="selSexo(this,'F')">
+              <input type="radio" name="sexo" value="F"/>
+              <div class="icon">👩</div>
+              <div class="titulo">Feminino</div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Data de nascimento</label>
+          <input type="date" id="nascimento"/>
+        </div>
+
+        <div class="field">
+          <label>Categoria</label>
+          <select id="categoria">
+            <option value="geral">Trabalhador em geral (CLT/MEI/autônomo)</option>
+            <option value="professor">Professor da educação básica</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Tempo de contribuição atual</label>
+          <div style="display:flex;gap:8px">
+            <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+              <input type="number" id="contrib_anos" placeholder="Anos" min="0" max="50"/>
+              <span class="hint">Anos</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+              <input type="number" id="contrib_meses" placeholder="Meses" min="0" max="11"/>
+              <span class="hint">Meses</span>
+            </div>
+          </div>
+          <span class="hint">Consulte seu extrato no Meu INSS (meu.inss.gov.br)</span>
+        </div>
+
+        <div class="field">
+          <label>Era contribuinte em 13/11/2019?</label>
+          <select id="pre_reforma">
+            <option value="sim">Sim — já contribuía antes da Reforma</option>
+            <option value="nao">Não — comecei depois de nov/2019</option>
+          </select>
+          <span class="hint">Data da Reforma da Previdência (EC 103/2019)</span>
+        </div>
+
+        <div class="field" id="campo_contrib_2019_wrap">
+          <label>Tempo de contribuição em nov/2019 <span class="opt">(opcional)</span></label>
+          <div style="display:flex;gap:8px">
+            <input type="number" id="contrib_2019_anos" placeholder="Anos" min="0" max="50" style="flex:1"/>
+            <input type="number" id="contrib_2019_meses" placeholder="Meses" min="0" max="11" style="flex:1"/>
+          </div>
+          <span class="hint">Se não souber, calculamos automaticamente</span>
+        </div>
+
+        <div class="field">
+          <label>Salário/renda média <span class="opt">(opcional)</span></label>
+          <input type="text" id="salario" placeholder="Ex: 3.500,00" inputmode="numeric" oninput="maskMoeda(this)"/>
+          <span class="hint">Para estimar o valor do benefício</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card" style="padding:14px">
+      <button class="btn-calc" onclick="calcular()">⚡ Calcular o que falta</button>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="resultado">
+
+    <div class="melhor-box">
+      <div class="label">Aposentadoria mais cedo pela regra mais favorável</div>
+      <div class="data" id="res_melhor_data">—</div>
+      <div class="sub" id="res_melhor_sub"></div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>📋 Todas as Regras Aplicáveis</h2>
+      <div id="lista_regras"></div>
+    </div>
+
+    <div class="card">
+      <h2>💰 Estimativa do Benefício</h2>
+      <div id="box_beneficio"></div>
+    </div>
+
+    <div class="card">
+      <h2>📚 Entenda as Regras de Transição</h2>
+      <div style="background:#e8eaf6;border-radius:8px;padding:14px;font-size:.83rem;color:#1a237e">
+        <strong>Reforma da Previdência (EC 103 – novembro/2019):</strong>
+        <ul style="padding-left:16px;margin-top:8px;line-height:2">
+          <li><strong>Regra dos Pontos:</strong> soma de idade + contribuição deve atingir o ponto do ano. Em 2025: H=102 / M=92. Progride até H=105 / M=100 em 2028+.</li>
+          <li><strong>Idade Progressiva:</strong> em 2025 exige H=64 anos / M=59 anos + tempo mínimo de contribuição.</li>
+          <li><strong>Pedágio 50%:</strong> só para quem faltava menos de 2 anos de contribuição em nov/2019. Paga 50% extra do que faltava.</li>
+          <li><strong>Regra Nova:</strong> H=65 anos + 20 anos contrib / M=62 anos + 15 anos contrib. Benefício de 60% + 2% por ano extra.</li>
+          <li><strong>Professores da educação básica</strong> têm redução de 5 anos na idade e no tempo de contribuição.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="aviso">⚠️ Este cálculo é uma estimativa. O INSS considera carências, afastamentos e regras específicas. Consulte o Meu INSS (meu.inss.gov.br) ou um despachante previdenciário para análise exata.</div>
+    <br/><div style="text-align:center">
+      <button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:8px">Calculadora de Aposentadoria 2025 — Baseada na EC 103/2019</p>
+</footer>
+
+<script>
+  function maskMoeda(el){
+    let d=el.value.replace(/\D/g,'');
+    if(!d){el.value='';return;}
+    el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+  function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+  const fmt=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+
+  function selSexo(el,s){
+    document.querySelectorAll('.tipo-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  document.getElementById('pre_reforma').addEventListener('change',function(){
+    document.getElementById('campo_contrib_2019_wrap').style.display=this.value==='sim'?'flex':'none';
+  });
+
+  // meses totais de contribuição
+  function contribEmMeses(anos,meses){return (parseInt(anos)||0)*12+(parseInt(meses)||0);}
+
+  // anos decimais
+  function mesesParaAnos(m){return m/12;}
+
+  // data atual + n meses
+  function addMeses(data,n){
+    const d=new Date(data);
+    d.setMonth(d.getMonth()+n);
+    return d;
+  }
+
+  function fmtData(d){
+    return d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  }
+
+  function fmtTempo(meses){
+    const a=Math.floor(Math.abs(meses)/12);
+    const m=Math.abs(meses)%12;
+    if(a===0&&m===0)return 'Já atingido';
+    let s='';
+    if(a>0)s+=a+' ano'+(a>1?'s':'');
+    if(m>0)s+=(s?' e ':'')+m+' mês'+(m>1?'es':'');
+    return s;
+  }
+
+  function calcular(){
+    const sexo=document.querySelector('input[name=sexo]:checked').value;
+    const nascStr=document.getElementById('nascimento').value;
+    if(!nascStr){alert('Informe a data de nascimento.');return;}
+    const nasc=new Date(nascStr);
+    const hoje=new Date();
+    const idadeEmMeses=Math.floor((hoje-nasc)/(1000*60*60*24*30.4375));
+    const idadeAtual=idadeEmMeses/12;
+
+    const categoria=document.getElementById('categoria').value;
+    const preReforma=document.getElementById('pre_reforma').value==='sim';
+
+    const contribAtualM=contribEmMeses(
+      document.getElementById('contrib_anos').value,
+      document.getElementById('contrib_meses').value
+    );
+    if(!contribAtualM){alert('Informe o tempo de contribuição.');return;}
+
+    const salario=parseMoeda(document.getElementById('salario').value)||0;
+
+    // Redução para professor
+    const redProf=categoria==='professor'?5:0; // 5 anos a menos
+
+    // ── PONTOS PROGRESSIVOS (2025+) ──────────────────────────────────────
+    // Tabela de pontos por ano
+    const pontosTabela=[
+      {ano:2019,H:96,M:86},{ano:2020,H:97,M:87},{ano:2021,H:98,M:88},
+      {ano:2022,H:99,M:89},{ano:2023,H:100,M:90},{ano:2024,H:101,M:91},
+      {ano:2025,H:102,M:92},{ano:2026,H:103,M:93},{ano:2027,H:104,M:94},
+    ];
+    const pontosFinais={H:105,M:100};
+    const minContribPontos=(sexo==='M'?30:35)-redProf; // anos
+
+    function getPontosDoAno(ano){
+      const row=pontosTabela.find(r=>r.ano===ano);
+      if(row)return sexo==='M'?row.M:row.H;
+      if(ano>=2028)return sexo==='M'?pontosFinais.M:pontosFinais.H;
+      return sexo==='M'?86:96;
+    }
+
+    // Calcula quando vai aposentar pela regra dos pontos
+    // Simula mês a mês
+    function calcPontos(){
+      for(let m=0;m<=600;m++){
+        const dataFut=addMeses(hoje,m);
+        const idadeFutM=idadeEmMeses+m;
+        const contribFutM=contribAtualM+m;
+        const pontos=(idadeFutM/12)+(contribFutM/12);
+        const ano=dataFut.getFullYear();
+        const pontosNec=getPontosDoAno(ano);
+        if(pontos>=pontosNec && contribFutM/12>=minContribPontos){
+          return {mesesRestantes:m, data:dataFut, pontos:pontos.toFixed(1), pontosNec, contribFutM, idadeFutM};
+        }
+      }
+      return null;
+    }
+
+    // ── IDADE PROGRESSIVA ────────────────────────────────────────────────
+    // Tabela de idade mínima por ano (H: +0.5 a partir de 61 em 2019 até 65; M: +0.5 a partir de 56 até 62)
+    function getIdadeProgDoAno(ano){
+      if(sexo==='M'){
+        const base=56, max=62;
+        const v=base+(ano-2019)*0.5;
+        return Math.min(v,max)-redProf;
+      } else {
+        const base=61, max=65;
+        const v=base+(ano-2019)*0.5;
+        return Math.min(v,max)-redProf;
+      }
+    }
+    const minContribIdade=(sexo==='M'?30:35)-redProf;
+
+    function calcIdadeProgressiva(){
+      for(let m=0;m<=600;m++){
+        const dataFut=addMeses(hoje,m);
+        const idadeFutM=idadeEmMeses+m;
+        const contribFutM=contribAtualM+m;
+        const ano=dataFut.getFullYear();
+        const idadeNec=getIdadeProgDoAno(ano);
+        if(idadeFutM/12>=idadeNec && contribFutM/12>=minContribIdade){
+          return {mesesRestantes:m, data:dataFut, idadeNec:idadeNec.toFixed(1), contribFutM, idadeFutM};
+        }
+      }
+      return null;
+    }
+
+    // ── PEDÁGIO 50% ──────────────────────────────────────────────────────
+    function calcPedagio50(){
+      if(!preReforma)return null;
+      const baseH=35-redProf, baseM=30-redProf;
+      const base=sexo==='M'?baseM:baseH;
+
+      // Tempo de contribuição em nov/2019
+      let contrib2019M=contribEmMeses(
+        document.getElementById('contrib_2019_anos').value,
+        document.getElementById('contrib_2019_meses').value
+      );
+      if(!contrib2019M){
+        // Estima: subtrai meses desde nov/2019 do atual
+        const nov2019=new Date(2019,10,13);
+        const mesesDesde2019=Math.floor((hoje-nov2019)/(1000*60*60*24*30.4375));
+        contrib2019M=Math.max(0,contribAtualM-mesesDesde2019);
+      }
+
+      const faltava2019M=base*12-contrib2019M;
+      if(faltava2019M<0||faltava2019M>24)return null; // só quem faltava até 2 anos
+
+      const pedagio=Math.ceil(faltava2019M*0.5);
+      const metaM=base*12+pedagio;
+      const faltaContrib=Math.max(0,metaM-contribAtualM);
+
+      const data=addMeses(hoje,faltaContrib);
+      return {
+        mesesRestantes:faltaContrib, data, metaM,
+        faltava2019:fmtTempo(faltava2019M),
+        pedagioMeses:pedagio
+      };
+    }
+
+    // ── REGRA NOVA ───────────────────────────────────────────────────────
+    function calcRegraNova(){
+      const idadeNec=sexo==='M'?62-redProf:65-redProf;
+      const contribNec=(sexo==='M'?15:20)-redProf;
+      let mRes=0;
+      for(let m=0;m<=600;m++){
+        const idadeFutM=idadeEmMeses+m;
+        const contribFutM=contribAtualM+m;
+        if(idadeFutM/12>=idadeNec && contribFutM/12>=contribNec){
+          mRes=m;break;
+        }
+      }
+      const data=addMeses(hoje,mRes);
+      const contribFutM=contribAtualM+mRes;
+      const idadeFutM=idadeEmMeses+mRes;
+      return {mesesRestantes:mRes, data, idadeNec, contribNec, contribFutM, idadeFutM};
+    }
+
+    // ── CALCULAR TODAS ───────────────────────────────────────────────────
+    const rPontos=preReforma?calcPontos():null;
+    const rIdade=preReforma?calcIdadeProgressiva():null;
+    const rPedagio=preReforma?calcPedagio50():null;
+    const rNova=calcRegraNova();
+
+    // Ordena por mais cedo
+    const regras=[];
+    if(rPedagio)regras.push({nome:'Pedágio 50%',dados:rPedagio,tipo:'pedagio'});
+    if(rPontos)regras.push({nome:'Regra dos Pontos',dados:rPontos,tipo:'pontos'});
+    if(rIdade)regras.push({nome:'Idade Progressiva',dados:rIdade,tipo:'idade'});
+    regras.push({nome:'Regra Nova (Permanente)',dados:rNova,tipo:'nova'});
+    regras.sort((a,b)=>a.dados.mesesRestantes-b.dados.mesesRestantes);
+
+    const melhor=regras[0];
+    document.getElementById('res_melhor_data').textContent=
+      melhor.dados.mesesRestantes===0?'Agora mesmo!':fmtData(melhor.dados.data);
+    document.getElementById('res_melhor_sub').textContent=
+      melhor.dados.mesesRestantes===0
+        ?'Você já pode se aposentar pela regra: '+melhor.nome
+        :'pela '+melhor.nome+(melhor.dados.mesesRestantes>0?' — faltam '+fmtTempo(melhor.dados.mesesRestantes):'');
+
+    // Renderiza cards das regras
+    const lista=document.getElementById('lista_regras');
+    lista.innerHTML='';
+    regras.forEach((r,i)=>{
+      const d=r.dados;
+      const isMelhor=i===0;
+      const jaOk=d.mesesRestantes===0;
+      let cls=isMelhor?(jaOk?'ok':'melhor'):(jaOk?'ok':'pendente');
+      let badgeClass=isMelhor&&!jaOk?'badge-melhor':jaOk?'badge-ok':'badge-falta';
+      let badgeText=jaOk?'✅ Disponível agora':isMelhor?'⭐ Mais cedo':'';
+
+      let items='';
+      if(r.tipo==='pontos'){
+        const pontosAtual=(idadeAtual+contribAtualM/12).toFixed(1);
+        items=`
+          <div class="regra-item"><div class="rit">Pontos necessários (${new Date().getFullYear()})</div><div class="riv">${d.pontosNec}</div></div>
+          <div class="regra-item"><div class="rit">Seus pontos atuais</div><div class="riv ${parseFloat(pontosAtual)>=d.pontosNec?'ok':'falta'}">${pontosAtual}</div></div>
+          <div class="regra-item"><div class="rit">Contribuição mínima</div><div class="riv">${minContribPontos} anos</div></div>
+          <div class="regra-item"><div class="rit">Sua contribuição</div><div class="riv ${contribAtualM/12>=minContribPontos?'ok':'falta'}">${(contribAtualM/12).toFixed(1)} anos</div></div>`;
+      } else if(r.tipo==='idade'){
+        items=`
+          <div class="regra-item"><div class="rit">Idade exigida em ${new Date().getFullYear()}</div><div class="riv">${d.idadeNec} anos</div></div>
+          <div class="regra-item"><div class="rit">Sua idade</div><div class="riv ${idadeAtual>=parseFloat(d.idadeNec)?'ok':'falta'}">${idadeAtual.toFixed(1)} anos</div></div>
+          <div class="regra-item"><div class="rit">Contribuição mínima</div><div class="riv">${minContribIdade} anos</div></div>
+          <div class="regra-item"><div class="rit">Sua contribuição</div><div class="riv ${contribAtualM/12>=minContribIdade?'ok':'falta'}">${(contribAtualM/12).toFixed(1)} anos</div></div>`;
+      } else if(r.tipo==='pedagio'){
+        items=`
+          <div class="regra-item"><div class="rit">Faltava em nov/2019</div><div class="riv">${d.faltava2019}</div></div>
+          <div class="regra-item"><div class="rit">Pedágio (50% extra)</div><div class="riv">${fmtTempo(d.pedagioMeses)}</div></div>
+          <div class="regra-item"><div class="rit">Meta de contribuição</div><div class="riv">${(d.metaM/12).toFixed(1)} anos</div></div>
+          <div class="regra-item"><div class="rit">Falta ainda</div><div class="riv ${d.mesesRestantes===0?'ok':'falta'}">${d.mesesRestantes===0?'Nada':''+fmtTempo(d.mesesRestantes)}</div></div>`;
+      } else {
+        items=`
+          <div class="regra-item"><div class="rit">Idade exigida</div><div class="riv">${d.idadeNec} anos</div></div>
+          <div class="regra-item"><div class="rit">Sua idade</div><div class="riv ${idadeAtual>=d.idadeNec?'ok':'falta'}">${idadeAtual.toFixed(1)} anos</div></div>
+          <div class="regra-item"><div class="rit">Contribuição mínima</div><div class="riv">${d.contribNec} anos</div></div>
+          <div class="regra-item"><div class="rit">Sua contribuição</div><div class="riv ${contribAtualM/12>=d.contribNec?'ok':'falta'}">${(contribAtualM/12).toFixed(1)} anos</div></div>`;
+      }
+
+      lista.innerHTML+=`
+        <div class="regra-card ${cls}">
+          <div class="regra-header">
+            <div class="regra-nome">${r.nome}</div>
+            <div class="regra-badge ${badgeClass}">${badgeText||'⏳ '+fmtTempo(d.mesesRestantes)}</div>
+          </div>
+          <div class="regra-items">${items}</div>
+          ${d.mesesRestantes>0?`<div style="margin-top:10px;font-size:.82rem;color:#555">📅 Data estimada: <strong>${fmtData(d.data)}</strong></div>`:''}
+        </div>`;
+    });
+
+    // Benefício estimado
+    const boxBen=document.getElementById('box_beneficio');
+    const contribFinalM=melhor.dados.contribFutM||contribAtualM;
+    const contribFinalAnos=contribFinalM/12;
+    const baseContrib=sexo==='M'?15:20;
+    const pct=Math.min(100,60+Math.max(0,contribFinalAnos-baseContrib)*2);
+
+    let htmlBen=`<div style="background:#e8eaf6;border-radius:8px;padding:14px;font-size:.83rem;color:#1a237e">
+      <p><strong>Fórmula nova:</strong> 60% da média + 2% por ano de contribuição acima de ${baseContrib} anos</p>
+      <p style="margin-top:8px">Com ${contribFinalAnos.toFixed(1)} anos: <strong>${pct.toFixed(0)}% da média salarial</strong></p>`;
+    if(salario){
+      const benef=salario*(pct/100);
+      const teto=8157.41;
+      const benefReal=Math.min(benef,teto);
+      htmlBen+=`<p style="margin-top:6px">Estimativa: <strong>${fmt(benefReal)}/mês</strong>${benef>teto?' (limitado ao teto INSS '+fmt(teto)+')':''}</p>`;
+    }
+    htmlBen+=`<p style="margin-top:10px;opacity:.75">Para 100% do benefício: H=${35-redProf} anos / M=${30-redProf} anos de contribuição</p>
+    </div>`;
+    boxBen.innerHTML=htmlBen;
+
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
