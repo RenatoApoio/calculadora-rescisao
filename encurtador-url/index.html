@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Encurtador de URL Grátis – Encurte Links Longos | FacilCalc</title>
+  <meta name="description" content="Encurte qualquer URL longa em segundos. Gratuito, sem cadastro, funciona no celular."/>
+  <style>
+    :root{--primary:#1a73e8;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;padding:28px 16px;text-align:center;}
+    header h1{font-size:1.6rem;font-weight:800;}
+    header p{font-size:.9rem;opacity:.85;margin-top:6px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:760px;border-radius:6px;}
+    main{max-width:760px;margin:0 auto;padding:24px 16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px;}
+    .input-wrap{display:flex;gap:8px;flex-wrap:wrap;}
+    .input-wrap input{flex:1;min-width:200px;border:2px solid var(--border);border-radius:10px;padding:14px 16px;font-size:1rem;outline:none;transition:border .2s;}
+    .input-wrap input:focus{border-color:#7b1fa2;}
+    .btn-encurtar{background:#7b1fa2;color:#fff;border:none;border-radius:10px;padding:14px 28px;font-size:1rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+    .btn-encurtar:hover{background:#4a148c;}
+    .resultado-box{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;border-radius:12px;padding:20px;text-align:center;margin-bottom:16px;display:none;}
+    .resultado-box .label{font-size:.82rem;opacity:.8;margin-bottom:8px;}
+    .resultado-box .url-curta{font-size:1.4rem;font-weight:800;word-break:break-all;margin-bottom:14px;}
+    .btn-copiar{background:#fff;color:#4a148c;border:none;border-radius:8px;padding:10px 28px;font-weight:800;cursor:pointer;font-size:.95rem;}
+    .btn-copiar:hover{background:#e8eaf6;}
+    .btn-abrir{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);border-radius:8px;padding:10px 20px;font-weight:700;cursor:pointer;font-size:.9rem;margin-left:8px;text-decoration:none;display:inline-block;}
+    .historico{margin-top:12px;}
+    .historico h3{font-size:.88rem;font-weight:700;color:var(--muted);margin-bottom:8px;}
+    .hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f1f3f4;gap:8px;flex-wrap:wrap;}
+    .hist-item .orig{font-size:.78rem;color:var(--muted);max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .hist-item .curta{font-size:.85rem;font-weight:700;color:#7b1fa2;}
+    .hist-item .btn-c{background:#e8eaf6;color:#4a148c;border:none;border-radius:6px;padding:4px 12px;font-size:.75rem;font-weight:700;cursor:pointer;}
+    .loading{display:none;text-align:center;padding:12px;color:var(--muted);}
+    .erro-box{background:#ffebee;border-left:4px solid #c62828;padding:12px 14px;border-radius:0 8px 8px 0;font-size:.83rem;color:#c62828;display:none;margin-top:10px;}
+    .dicas{background:#f3e5f5;border-radius:10px;padding:14px;font-size:.83rem;color:#4a148c;}
+    .dicas ul{padding-left:16px;margin-top:6px;line-height:1.9;}
+    footer{text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid var(--border);margin-top:24px;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🔗 Encurtador de URL</h1>
+  <p>Cole qualquer link longo e receba uma URL curta para compartilhar — grátis e sem cadastro</p>
+</header>
+<div class="nav"><a href="../">← FacilCalc</a> / Encurtador de URL</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+
+<main>
+  <div class="card">
+    <h2 style="font-size:1rem;font-weight:700;color:#4a148c;margin-bottom:14px">🔗 Cole sua URL abaixo</h2>
+    <div class="input-wrap">
+      <input type="url" id="url-input" placeholder="https://www.exemplo.com.br/pagina-muito-longa/com-varios-parametros"
+        onkeydown="if(event.key==='Enter')encurtar()"/>
+      <button class="btn-encurtar" onclick="encurtar()">⚡ Encurtar</button>
+    </div>
+    <div class="loading" id="loading">🔄 Encurtando...</div>
+    <div class="erro-box" id="erro"></div>
+  </div>
+
+  <div class="resultado-box" id="resultado">
+    <div class="label">Sua URL encurtada:</div>
+    <div class="url-curta" id="url-curta-txt"></div>
+    <div>
+      <button class="btn-copiar" onclick="copiar()">📋 Copiar link</button>
+      <a class="btn-abrir" id="btn-abrir-link" target="_blank" rel="noopener">↗ Abrir</a>
+    </div>
+    <div style="font-size:.72rem;opacity:.65;margin-top:12px">Link válido por tempo indeterminado via TinyURL</div>
+  </div>
+
+  <div class="ad-slot">Anúncio Google AdSense</div>
+
+  <div class="card" id="card-historico" style="display:none">
+    <h2 style="font-size:1rem;font-weight:700;color:#4a148c;margin-bottom:4px">📋 Histórico da sessão</h2>
+    <div class="historico" id="historico"></div>
+  </div>
+
+  <div class="dicas">
+    <strong>Para que serve um link curto?</strong>
+    <ul>
+      <li>Compartilhar no WhatsApp sem o link ficar gigante</li>
+      <li>Postar em redes sociais com limite de caracteres</li>
+      <li>Enviar por SMS ou e-mail de forma limpa</li>
+      <li>Ocultar links de afiliado ou parâmetros técnicos</li>
+    </ul>
+  </div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer>
+  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:6px">Encurtamento via TinyURL API • 100% gratuito • sem cadastro</p>
+</footer>
+
+<script>
+  const historico = [];
+
+  async function encurtar() {
+    const input = document.getElementById('url-input');
+    const url = input.value.trim();
+    const erro = document.getElementById('erro');
+    const loading = document.getElementById('loading');
+    const resultado = document.getElementById('resultado');
+
+    erro.style.display = 'none';
+    resultado.style.display = 'none';
+
+    if (!url) { mostrarErro('Cole uma URL antes de encurtar.'); return; }
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      mostrarErro('A URL deve começar com http:// ou https://'); return;
+    }
+
+    loading.style.display = 'block';
+
+    try {
+      // TinyURL API pública — sem chave, CORS habilitado
+      const apiUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`;
+      const resp = await fetch(apiUrl);
+      if (!resp.ok) throw new Error();
+      const curta = await resp.text();
+
+      if (!curta.startsWith('https://tinyurl.com/')) throw new Error('Resposta inválida');
+
+      loading.style.display = 'none';
+      document.getElementById('url-curta-txt').textContent = curta;
+      document.getElementById('btn-abrir-link').href = curta;
+      resultado.style.display = 'block';
+
+      // Adiciona ao histórico
+      historico.unshift({ original: url, curta });
+      renderHistorico();
+    } catch(e) {
+      loading.style.display = 'none';
+      mostrarErro('Não foi possível encurtar. Verifique a URL e sua conexão.');
+    }
+  }
+
+  function mostrarErro(msg) {
+    const el = document.getElementById('erro');
+    el.textContent = '⚠️ ' + msg;
+    el.style.display = 'block';
+  }
+
+  function copiar() {
+    const url = document.getElementById('url-curta-txt').textContent;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.querySelector('.btn-copiar');
+      btn.textContent = '✅ Copiado!';
+      setTimeout(() => { btn.textContent = '📋 Copiar link'; }, 2500);
+    });
+  }
+
+  function renderHistorico() {
+    if (historico.length === 0) return;
+    document.getElementById('card-historico').style.display = 'block';
+    document.getElementById('historico').innerHTML = historico.map((h, i) => `
+      <div class="hist-item">
+        <div>
+          <div class="orig" title="${h.original}">${h.original}</div>
+          <a class="curta" href="${h.curta}" target="_blank" rel="noopener">${h.curta}</a>
+        </div>
+        <button class="btn-c" onclick="copiarItem('${h.curta}', this)">📋 Copiar</button>
+      </div>`).join('');
+  }
+
+  function copiarItem(url, btn) {
+    navigator.clipboard.writeText(url).then(() => {
+      btn.textContent = '✅ Copiado';
+      setTimeout(() => { btn.textContent = '📋 Copiar'; }, 2000);
+    });
+  }
+</script>
+<script src="../shared.js"></script>
+</body>
+</html>

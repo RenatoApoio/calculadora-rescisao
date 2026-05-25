@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verificar Domínio Disponível – .com.br e .com Grátis | FacilCalc</title>
+  <meta name="description" content="Verifique se um domínio .com.br ou .com está disponível para registro. Consulta gratuita via RDAP sem cadastro."/>
+  <style>
+    :root{--primary:#1a73e8;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:linear-gradient(135deg,#006064,#00838f);color:#fff;padding:28px 16px;text-align:center;}
+    header h1{font-size:1.6rem;font-weight:800;}
+    header p{font-size:.9rem;opacity:.85;margin-top:6px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:760px;border-radius:6px;}
+    main{max-width:760px;margin:0 auto;padding:24px 16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px;}
+    .input-wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch;}
+    .input-domain{flex:1;min-width:180px;display:flex;align-items:center;border:2px solid var(--border);border-radius:10px;overflow:hidden;transition:border .2s;}
+    .input-domain:focus-within{border-color:#00838f;}
+    .input-domain input{flex:1;border:none;padding:14px 12px;font-size:1rem;outline:none;font-weight:700;}
+    .input-domain span{background:#f1f3f4;padding:14px 10px;font-size:.82rem;color:var(--muted);font-weight:600;border-left:1px solid var(--border);white-space:nowrap;}
+    .btn-verificar{background:#006064;color:#fff;border:none;border-radius:10px;padding:14px 24px;font-size:1rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+    .btn-verificar:hover{background:#004d40;}
+    .extensions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+    .ext-chip{background:#f1f3f4;border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:.8rem;cursor:pointer;font-weight:600;transition:all .2s;}
+    .ext-chip:hover,.ext-chip.ativa{background:#e0f2f1;border-color:#00838f;color:#006064;}
+    .resultados{display:grid;gap:10px;margin-top:12px;}
+    .dom-card{border-radius:10px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+    .dom-card .dom-nome{font-size:1.1rem;font-weight:800;}
+    .dom-card .dom-sub{font-size:.75rem;margin-top:2px;}
+    .disponivel{background:#e8f5e9;border:2px solid #4caf50;}
+    .disponivel .dom-nome{color:#2e7d32;}
+    .disponivel .dom-sub{color:#4caf50;}
+    .registrado{background:#ffebee;border:2px solid #ef9a9a;}
+    .registrado .dom-nome{color:#c62828;}
+    .registrado .dom-sub{color:#e57373;}
+    .verificando{background:#e8f0fe;border:2px solid #90caf9;opacity:.8;}
+    .verificando .dom-nome{color:#1565c0;}
+    .badge-status{padding:6px 16px;border-radius:20px;font-size:.82rem;font-weight:800;white-space:nowrap;}
+    .badge-livre{background:#4caf50;color:#fff;}
+    .badge-ocupado{background:#ef5350;color:#fff;}
+    .badge-check{background:#90caf9;color:#1565c0;}
+    .btn-registrar{background:#2e7d32;color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:.82rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;}
+    .info-registrar{font-size:.72rem;color:#888;margin-top:4px;}
+    .historico-wrap{margin-top:4px;}
+    .hist-dom{display:inline-flex;align-items:center;gap:4px;margin:3px;padding:4px 10px;border-radius:6px;font-size:.78rem;font-weight:700;cursor:pointer;}
+    .loading-spinner{display:inline-block;width:14px;height:14px;border:2px solid #90caf9;border-top-color:#1565c0;border-radius:50%;animation:spin .7s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 8px 8px 0;font-size:.83rem;color:#7a4f00;}
+    footer{text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid var(--border);margin-top:24px;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🌐 Verificar Domínio</h1>
+  <p>Descubra se um domínio .com.br ou .com está disponível — consulta grátis e sem cadastro</p>
+</header>
+<div class="nav"><a href="../">← FacilCalc</a> / Verificar Domínio</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+
+<main>
+  <div class="card">
+    <h2 style="font-size:1rem;font-weight:700;color:#006064;margin-bottom:14px">🔍 Digite o nome do domínio</h2>
+    <div class="input-wrap">
+      <div class="input-domain">
+        <input type="text" id="dominio-input" placeholder="facilcalc" autocomplete="off" spellcheck="false"
+          oninput="limparResultados()" onkeydown="if(event.key==='Enter')verificar()"/>
+        <span>.com.br</span>
+      </div>
+      <button class="btn-verificar" onclick="verificar()">🔍 Verificar</button>
+    </div>
+
+    <div style="margin-top:12px">
+      <div style="font-size:.78rem;font-weight:600;color:var(--muted);margin-bottom:6px">Extensões a verificar:</div>
+      <div class="extensions" id="extensions">
+        <label><input type="checkbox" value=".com.br" checked hidden/><span class="ext-chip ativa">.com.br</span></label>
+        <label><input type="checkbox" value=".com" checked hidden/><span class="ext-chip ativa">.com</span></label>
+        <label><input type="checkbox" value=".net.br" hidden/><span class="ext-chip">.net.br</span></label>
+        <label><input type="checkbox" value=".org.br" hidden/><span class="ext-chip">.org.br</span></label>
+        <label><input type="checkbox" value=".net" hidden/><span class="ext-chip">.net</span></label>
+      </div>
+    </div>
+
+    <div id="resultados" class="resultados" style="margin-top:16px"></div>
+  </div>
+
+  <div class="ad-slot">Anúncio Google AdSense</div>
+
+  <div class="card" id="card-hist" style="display:none">
+    <h2 style="font-size:1rem;font-weight:700;color:#006064;margin-bottom:8px">🕓 Buscas recentes</h2>
+    <div id="historico-wrap" class="historico-wrap"></div>
+  </div>
+
+  <div class="aviso">
+    ⚠️ A verificação usa a API pública RDAP (Registro.br e Verisign). Um resultado "disponível" não garante que o domínio poderá ser registrado — verifique diretamente em <a href="https://registro.br" target="_blank" style="color:#7a4f00">registro.br</a> para .com.br ou em um registrar para .com.
+  </div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer>
+  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:6px">Consulta via RDAP público (registro.br / Verisign) • dados em tempo real</p>
+</footer>
+
+<script>
+  const historico = [];
+
+  // Configura chips de extensão como toggle
+  document.querySelectorAll('.extensions label').forEach(label => {
+    label.querySelector('.ext-chip').addEventListener('click', () => {
+      const cb = label.querySelector('input');
+      cb.checked = !cb.checked;
+      label.querySelector('.ext-chip').classList.toggle('ativa', cb.checked);
+    });
+  });
+
+  function limparResultados(){
+    document.getElementById('resultados').innerHTML = '';
+  }
+
+  async function verificar() {
+    const input = document.getElementById('dominio-input').value.trim()
+      .toLowerCase().replace(/\s/g,'').replace(/^https?:\/\//,'').replace(/\/.*/,'');
+
+    if (!input) return;
+
+    // Remove extensão se o usuário digitou
+    const nome = input.replace(/\.(com\.br|com|net\.br|org\.br|net|br)$/i,'');
+    if (!nome || !/^[a-z0-9][a-z0-9-]*[a-z0-9]$/i.test(nome)) {
+      document.getElementById('resultados').innerHTML =
+        '<div style="color:#c62828;font-size:.85rem;padding:8px">Nome inválido. Use apenas letras, números e hífens.</div>';
+      return;
+    }
+
+    const extensoes = [...document.querySelectorAll('.extensions input:checked')].map(c => c.value);
+    if (!extensoes.length) { alert('Selecione pelo menos uma extensão.'); return; }
+
+    // Adiciona ao histórico
+    if (!historico.includes(nome)) {
+      historico.unshift(nome);
+      if (historico.length > 8) historico.pop();
+      renderHistorico();
+    }
+
+    const div = document.getElementById('resultados');
+    div.innerHTML = extensoes.map(ext => `
+      <div class="dom-card verificando" id="card-${ext.replace(/\./g,'_')}">
+        <div>
+          <div class="dom-nome">${nome}${ext}</div>
+          <div class="dom-sub">Verificando...</div>
+        </div>
+        <span class="badge-status badge-check"><span class="loading-spinner"></span></span>
+      </div>`).join('');
+
+    // Verifica cada extensão em paralelo
+    extensoes.forEach(ext => checarDominio(nome, ext));
+  }
+
+  async function checarDominio(nome, ext) {
+    const id = 'card-' + ext.replace(/\./g,'_');
+    const dominio = nome + ext;
+    let disponivel = null;
+    let info = '';
+
+    try {
+      let apiUrl;
+      if (ext === '.com.br' || ext === '.net.br' || ext === '.org.br') {
+        apiUrl = `https://rdap.registro.br/domain/${dominio}`;
+      } else if (ext === '.com' || ext === '.net') {
+        const tld = ext.replace('.','');
+        apiUrl = `https://rdap.verisign.com/${tld}/v1/domain/${dominio}`;
+      } else {
+        apiUrl = `https://rdap.registro.br/domain/${dominio}`;
+      }
+
+      const resp = await fetch(apiUrl, {signal: AbortSignal.timeout(8000)});
+
+      if (resp.status === 404) {
+        disponivel = true;
+        info = 'Domínio disponível para registro';
+      } else if (resp.status === 200) {
+        disponivel = false;
+        try {
+          const data = await resp.json();
+          const exp = data.events?.find(e => e.eventAction === 'expiration');
+          info = exp ? `Registrado • vence ${new Date(exp.eventDate).toLocaleDateString('pt-BR')}` : 'Domínio registrado';
+        } catch { info = 'Domínio registrado'; }
+      } else {
+        info = 'Não foi possível verificar (tente novamente)';
+      }
+    } catch(e) {
+      if (e.name === 'TimeoutError') info = 'Tempo esgotado — tente novamente';
+      else info = 'Erro na consulta — verifique sua conexão';
+    }
+
+    const card = document.getElementById(id);
+    if (!card) return;
+
+    if (disponivel === true) {
+      card.className = 'dom-card disponivel';
+      card.innerHTML = `
+        <div>
+          <div class="dom-nome">${nome}${ext}</div>
+          <div class="dom-sub">${info}</div>
+        </div>
+        <div style="text-align:right">
+          <span class="badge-status badge-livre">✅ Disponível</span>
+          ${ext === '.com.br' ? `<div class="info-registrar"><a href="https://registro.br/registrar/?domain=${nome}" target="_blank" rel="noopener" style="color:#2e7d32;font-weight:700;font-size:.75rem">Registrar em registro.br ↗</a></div>` : ''}
+        </div>`;
+    } else if (disponivel === false) {
+      card.className = 'dom-card registrado';
+      card.innerHTML = `
+        <div>
+          <div class="dom-nome">${nome}${ext}</div>
+          <div class="dom-sub">${info}</div>
+        </div>
+        <span class="badge-status badge-ocupado">❌ Registrado</span>`;
+    } else {
+      card.className = 'dom-card verificando';
+      card.innerHTML = `
+        <div>
+          <div class="dom-nome">${nome}${ext}</div>
+          <div class="dom-sub" style="color:#888">${info}</div>
+        </div>
+        <span class="badge-status badge-check">⚠️ Incerto</span>`;
+    }
+  }
+
+  function renderHistorico() {
+    if (!historico.length) return;
+    document.getElementById('card-hist').style.display = 'block';
+    const cores = ['#e8f5e9','#e8f0fe','#fff3e0','#fce4ec'];
+    document.getElementById('historico-wrap').innerHTML = historico.map((n,i) =>
+      `<span class="hist-dom" style="background:${cores[i%4]};cursor:pointer" onclick="document.getElementById('dominio-input').value='${n}';verificar()">${n}</span>`
+    ).join('');
+  }
+</script>
+<script src="../shared.js"></script>
+</body>
+</html>
