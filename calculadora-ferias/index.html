@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de Férias 2025 – Valor, Abono e Descontos | FacilCalc</title>
+  <meta name="description" content="Calcule o valor das suas férias com 1/3 constitucional, abono pecuniário e descontos de INSS. Estimativa automática para trabalhadores CLT."/>
+  <style>
+    :root{--primary:#1a73e8;--primary-dark:#1557b0;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#0097a7;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#0097a7;margin-bottom:14px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:5px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field input,.field select{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;transition:border .2s;}
+    .field input:focus,.field select:focus{border-color:#0097a7;}
+    .field .hint{font-size:.75rem;color:#888;}
+    .toggle-row{display:flex;align-items:center;gap:10px;padding:8px 0;}
+    .toggle-row label{font-size:.9rem;cursor:pointer;}
+    .toggle-row input[type=checkbox]{width:18px;height:18px;cursor:pointer;}
+    .btn-calc{width:100%;background:#0097a7;color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:background .2s;}
+    .btn-calc:hover{background:#007c91;}
+    .total-box{background:linear-gradient(135deg,#0097a7,#006978);color:#fff;border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;}
+    .total-box .label{font-size:.85rem;opacity:.85;}
+    .total-box .valor{font-size:2rem;font-weight:700;}
+    table{width:100%;border-collapse:collapse;}
+    table th{background:#f1f3f4;text-align:left;padding:10px 12px;font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:11px 12px;border-bottom:1px solid #f1f3f4;font-size:.9rem;}
+    table td.pos{text-align:right;font-weight:600;color:var(--success);}
+    table td.neg{text-align:right;font-weight:600;color:#c5221f;}
+    table tr.total-row td{font-weight:700;background:#f8f9fa;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid #0097a7;color:#0097a7;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🏖️ Calculadora de Férias</h1>
+  <p>Calcule o valor das suas férias com 1/3 e abono pecuniário</p>
+</header>
+<div class="nav"><a href="/">← FacilCalc</a> / Calculadora de Férias</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+<main>
+  <div id="formulario">
+    <div class="card">
+      <h2>🏖️ Dados das Férias</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label>Salário Bruto Mensal</label>
+          <input type="number" id="salario" placeholder="Ex: 3500,00" min="0" step="0.01"/>
+        </div>
+        <div class="field">
+          <label>Dias de Férias</label>
+          <select id="dias_ferias">
+            <option value="30">30 dias (período completo)</option>
+            <option value="20">20 dias (vendeu 10 dias)</option>
+            <option value="15">15 dias (parcial)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Outros rendimentos mensais <span style="color:#aaa;font-size:.78rem">(opcional)</span></label>
+          <input type="number" id="outros" placeholder="Horas extras, adicionais..." min="0" step="0.01"/>
+          <span class="hint">Inclui na base de cálculo das férias</span>
+        </div>
+        <div class="field">
+          <label>Dependentes para IR <span style="color:#aaa;font-size:.78rem">(opcional)</span></label>
+          <input type="number" id="dependentes" placeholder="0" min="0" max="20"/>
+          <span class="hint">Cada dependente deduz R$ 189,59 da base do IR</span>
+        </div>
+      </div>
+      <div class="toggle-row">
+        <input type="checkbox" id="abono" checked/>
+        <label for="abono">Incluir <strong>Abono Pecuniário</strong> (venda de 10 dias de férias)</label>
+      </div>
+    </div>
+    <div class="card" style="padding:14px">
+      <button class="btn-calc" onclick="calcular()">⚡ Calcular Férias</button>
+    </div>
+  </div>
+
+  <div id="resultado">
+    <div class="total-box">
+      <div class="label">Total Líquido a Receber</div>
+      <div class="valor" id="res_liquido">R$ 0,00</div>
+      <div style="font-size:.75rem;opacity:.7;margin-top:4px">Após descontos de INSS e IR</div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>📄 Detalhamento</h2>
+      <table>
+        <thead><tr><th>Item</th><th style="text-align:right">Valor</th></tr></thead>
+        <tbody id="tabela"></tbody>
+      </table>
+    </div>
+
+    <div class="aviso">⚠️ <strong>Atenção:</strong> O cálculo do IR sobre férias pode variar. O 1/3 constitucional é isento de IR por decisão do STF. Valores aproximados — o RH da empresa faz o cálculo oficial.</div>
+
+    <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button></div>
+  </div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="/" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+</footer>
+
+<script>
+  const fmt = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+
+  function calcINSS(salario){
+    const tabela=[
+      {ate:1518.00,aliq:.075},{ate:2793.88,aliq:.09},
+      {ate:4190.83,aliq:.12},{ate:8157.41,aliq:.14}
+    ];
+    let inss=0,base=salario,anterior=0;
+    for(const f of tabela){
+      if(salario<=0)break;
+      const faixa=Math.min(salario,f.ate)-anterior;
+      if(faixa<=0)break;
+      inss+=faixa*f.aliq;
+      anterior=f.ate;
+      if(salario<=f.ate)break;
+    }
+    return Math.min(inss,1142.04);
+  }
+
+  function calcIR(base,dependentes){
+    const ded=189.59*dependentes;
+    const baseIR=base-ded;
+    if(baseIR<=2259.20)return 0;
+    if(baseIR<=2826.65)return baseIR*.075-169.44;
+    if(baseIR<=3751.05)return baseIR*.15-381.44;
+    if(baseIR<=4664.68)return baseIR*.225-662.77;
+    return baseIR*.275-896.00;
+  }
+
+  function calcular(){
+    const salario=parseFloat(document.getElementById('salario').value)||0;
+    if(!salario){alert('Informe o salário.');return;}
+    const dias=parseInt(document.getElementById('dias_ferias').value)||30;
+    const outros=parseFloat(document.getElementById('outros').value)||0;
+    const dependentes=parseInt(document.getElementById('dependentes').value)||0;
+    const comAbono=document.getElementById('abono').checked;
+
+    const baseSalario=salario+outros;
+    const valorDiario=baseSalario/30;
+    const valorFerias=valorDiario*dias;
+    const umTerco=valorFerias/3;
+    const abono=comAbono?(valorDiario*10*(4/3)):0;
+    const totalBruto=valorFerias+umTerco+abono;
+
+    // INSS incide sobre férias + abono (não sobre 1/3)
+    const baseINSS=valorFerias+abono;
+    const inss=calcINSS(baseINSS);
+    // IR: base = férias - INSS (1/3 é isento)
+    const baseIR=valorFerias-inss;
+    const ir=Math.max(0,calcIR(baseIR,dependentes));
+    const liquido=totalBruto-inss-ir;
+
+    document.getElementById('res_liquido').textContent=fmt(liquido);
+
+    const rows=[
+      ['Férias ('+dias+' dias)', fmt(valorFerias), false, true],
+      ['1/3 Constitucional (isento IR)', fmt(umTerco), false, true],
+    ];
+    if(comAbono) rows.push(['Abono Pecuniário (10 dias)', fmt(abono), false, true]);
+    rows.push(['Total Bruto', fmt(totalBruto), false, false]);
+    rows.push(['(-) INSS', '-'+fmt(inss), true, false]);
+    rows.push(['(-) IR Estimado', '-'+fmt(ir), true, false]);
+    rows.push(['= Total Líquido', fmt(liquido), false, false]);
+
+    const tbody=document.getElementById('tabela');
+    tbody.innerHTML='';
+    rows.forEach(([n,v,neg,pos])=>{
+      const tr=document.createElement('tr');
+      const cls=neg?'neg':pos?'pos':'valor';
+      tr.innerHTML=`<td>${n}</td><td class="${cls}" style="text-align:right;font-weight:600">${v}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>

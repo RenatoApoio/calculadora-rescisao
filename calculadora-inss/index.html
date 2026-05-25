@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de INSS 2025 – Tabela Progressiva Atualizada | FacilCalc</title>
+  <meta name="description" content="Calcule sua contribuição ao INSS com a tabela progressiva atualizada para 2025. Veja quanto desconta por faixa de salário."/>
+  <style>
+    :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#6a1b9a;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#6a1b9a;margin-bottom:14px;}
+    .field{display:flex;flex-direction:column;gap:5px;max-width:400px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field input{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;}
+    .field input:focus{border-color:#6a1b9a;}
+    .btn-calc{width:100%;max-width:400px;background:#6a1b9a;color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;}
+    .btn-calc:hover{background:#4a148c;}
+    .resultado-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;max-width:600px;}
+    .mini-card{border-radius:10px;padding:16px;text-align:center;color:#fff;}
+    .mini-card .label{font-size:.78rem;opacity:.85;margin-bottom:4px;}
+    .mini-card .valor{font-size:1.5rem;font-weight:700;}
+    table{width:100%;border-collapse:collapse;}
+    table th{background:#f1f3f4;text-align:left;padding:10px 12px;font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:11px 12px;border-bottom:1px solid #f1f3f4;font-size:.9rem;}
+    table td.r{text-align:right;}
+    table tr.ativa{background:#f3e5f5;}
+    table tr.ativa td{font-weight:600;color:#6a1b9a;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid #6a1b9a;color:#6a1b9a;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>📊 Calculadora de INSS</h1>
+  <p>Tabela progressiva atualizada — 2025</p>
+</header>
+<div class="nav"><a href="/">← FacilCalc</a> / Calculadora de INSS</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+<main>
+  <div id="formulario">
+    <div class="card">
+      <h2>💼 Informe seu Salário</h2>
+      <div class="field">
+        <label>Salário Bruto Mensal</label>
+        <input type="number" id="salario" placeholder="Ex: 3500,00" min="0" step="0.01"/>
+      </div>
+      <br/>
+      <button class="btn-calc" onclick="calcular()">⚡ Calcular INSS</button>
+    </div>
+
+    <!-- Tabela de referência sempre visível -->
+    <div class="card">
+      <h2>📋 Tabela INSS 2025</h2>
+      <table>
+        <thead>
+          <tr><th>Faixa Salarial</th><th class="r">Alíquota</th><th class="r">Desc. máx. na faixa</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Até R$ 1.518,00</td><td class="r">7,5%</td><td class="r">R$ 113,85</td></tr>
+          <tr><td>R$ 1.518,01 a R$ 2.793,88</td><td class="r">9%</td><td class="r">R$ 114,83</td></tr>
+          <tr><td>R$ 2.793,89 a R$ 4.190,83</td><td class="r">12%</td><td class="r">R$ 167,51</td></tr>
+          <tr><td>R$ 4.190,84 a R$ 8.157,41</td><td class="r">14%</td><td class="r">R$ 554,85</td></tr>
+          <tr><td>Acima de R$ 8.157,41</td><td class="r">Teto</td><td class="r">R$ 1.142,04</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:.8rem;color:#888;margin-top:8px">* Cálculo progressivo: cada faixa tem sua alíquota aplicada separadamente.</div>
+    </div>
+  </div>
+
+  <div id="resultado">
+    <div class="resultado-cards">
+      <div class="mini-card" style="background:linear-gradient(135deg,#6a1b9a,#4a148c)">
+        <div class="label">Desconto INSS</div>
+        <div class="valor" id="res_inss">R$ 0</div>
+      </div>
+      <div class="mini-card" style="background:linear-gradient(135deg,#2e7d32,#1b5e20)">
+        <div class="label">Alíquota Efetiva</div>
+        <div class="valor" id="res_aliq">0%</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>📄 Cálculo por Faixas</h2>
+      <table>
+        <thead><tr><th>Faixa</th><th class="r">Base</th><th class="r">Alíquota</th><th class="r">Desconto</th></tr></thead>
+        <tbody id="tabela"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>📋 Tabela INSS 2025</h2>
+      <table>
+        <thead>
+          <tr><th>Faixa Salarial</th><th class="r">Alíquota</th></tr>
+        </thead>
+        <tbody id="tabela_ref"></tbody>
+      </table>
+    </div>
+
+    <div class="aviso">⚠️ O INSS é calculado de forma progressiva desde 2020. Cada faixa tem sua alíquota aplicada apenas sobre o valor dentro daquela faixa.</div>
+    <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button></div>
+  </div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="/" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+</footer>
+
+<script>
+  const fmt = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const tabela=[
+    {label:'Até R$ 1.518,00',       ate:1518.00,    aliq:.075},
+    {label:'R$ 1.518,01 – R$ 2.793,88', ate:2793.88,aliq:.09},
+    {label:'R$ 2.793,89 – R$ 4.190,83', ate:4190.83,aliq:.12},
+    {label:'R$ 4.190,84 – R$ 8.157,41', ate:8157.41,aliq:.14},
+  ];
+
+  function calcular(){
+    const salario=parseFloat(document.getElementById('salario').value)||0;
+    if(!salario){alert('Informe o salário.');return;}
+
+    let inssTotal=0, anterior=0;
+    const faixas=[];
+    for(const f of tabela){
+      const base=Math.min(salario,f.ate)-anterior;
+      if(base<=0)break;
+      const desc=base*f.aliq;
+      inssTotal+=desc;
+      faixas.push({label:f.label,base,aliq:f.aliq,desc,ativa:salario>anterior});
+      anterior=f.ate;
+      if(salario<=f.ate)break;
+    }
+    inssTotal=Math.min(inssTotal,1142.04);
+    const aliqEfetiva=(inssTotal/salario*100).toFixed(2);
+
+    document.getElementById('res_inss').textContent=fmt(inssTotal);
+    document.getElementById('res_aliq').textContent=aliqEfetiva+'%';
+
+    const tbody=document.getElementById('tabela');
+    tbody.innerHTML='';
+    faixas.forEach(f=>{
+      const tr=document.createElement('tr');
+      tr.className='ativa';
+      tr.innerHTML=`<td>${f.label}</td><td class="r">${fmt(f.base)}</td><td class="r">${(f.aliq*100).toFixed(1)}%</td><td class="r">${fmt(f.desc)}</td>`;
+      tbody.appendChild(tr);
+    });
+    const trTotal=document.createElement('tr');
+    trTotal.innerHTML=`<td><strong>Total INSS</strong></td><td class="r"></td><td class="r"><strong>${aliqEfetiva}% efetivo</strong></td><td class="r"><strong>${fmt(inssTotal)}</strong></td>`;
+    tbody.appendChild(trTotal);
+
+    // Tabela de referência com destaque
+    const tref=document.getElementById('tabela_ref');
+    tref.innerHTML='';
+    tabela.forEach(f=>{
+      const ativa=salario>0&&salario>=(tabela.indexOf(f)===0?0:tabela[tabela.indexOf(f)-1].ate);
+      const tr=document.createElement('tr');
+      if(ativa)tr.className='ativa';
+      tr.innerHTML=`<td>${f.label}${ativa?'  ← seu salário':''}</td><td class="r">${(f.aliq*100).toFixed(1)}%</td>`;
+      tref.appendChild(tr);
+    });
+
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>

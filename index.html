@@ -1,526 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Rescisão Trabalhista 2025 – Calcule com o que tem</title>
-  <meta name="description" content="Calcule suas verbas rescisórias mesmo sem ter todas as informações. Estimativas automáticas para demissão sem justa causa, pedido de demissão e acordo mútuo." />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FacilCalc – Calculadoras Trabalhistas e Financeiras Grátis</title>
+  <meta name="description" content="Calculadoras trabalhistas e financeiras gratuitas. Rescisão, FGTS, Férias, Salário Líquido, INSS e muito mais. Calcule com o que tem."/>
   <style>
-    :root {
-      --primary: #1a73e8;
-      --primary-dark: #1557b0;
-      --success: #137333;
-      --warning: #f29900;
-      --danger: #c5221f;
-      --bg: #f8f9fa;
-      --card: #ffffff;
-      --border: #dadce0;
-      --text: #202124;
-      --muted: #5f6368;
-      --estimate: #e8f0fe;
-      --estimate-border: #4285f4;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; }
-
-    header { background: var(--primary); color: #fff; padding: 20px 16px; text-align: center; }
-    header h1 { font-size: 1.5rem; font-weight: 700; }
-    header p { font-size: 0.9rem; opacity: .85; margin-top: 4px; }
-
-    .ad-slot { background: #f1f3f4; border: 1px dashed #bbb; text-align: center; color: #999; font-size: 12px; padding: 12px; margin: 12px auto; max-width: 900px; border-radius: 6px; }
-
-    main { max-width: 900px; margin: 0 auto; padding: 16px; }
-
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
-    .card h2 { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-
-    .tipo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    @media(max-width:600px){ .tipo-grid { grid-template-columns: 1fr; } }
-
-    .tipo-card { border: 2px solid var(--border); border-radius: 8px; padding: 12px; cursor: pointer; transition: all .2s; }
-    .tipo-card:hover { border-color: var(--primary); background: #e8f0fe; }
-    .tipo-card input[type=radio] { display: none; }
-    .tipo-card.selected { border-color: var(--primary); background: #e8f0fe; }
-    .tipo-card .titulo { font-weight: 600; font-size: .95rem; }
-    .tipo-card .desc { font-size: .8rem; color: var(--muted); margin-top: 4px; }
-
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media(max-width:600px){ .form-grid { grid-template-columns: 1fr; } }
-
-    .field { display: flex; flex-direction: column; gap: 5px; }
-    .field label { font-size: .85rem; font-weight: 600; color: var(--muted); }
-    .field label span.opt { font-weight: 400; color: #aaa; font-size: .78rem; }
-    .field input, .field select { border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-size: .95rem; outline: none; transition: border .2s; }
-    .field input:focus, .field select:focus { border-color: var(--primary); }
-    .field .hint { font-size: .75rem; color: #888; }
-
-    .estimate-badge { display: inline-block; background: var(--estimate); color: var(--estimate-border); border: 1px solid var(--estimate-border); border-radius: 4px; font-size: .7rem; font-weight: 600; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
-
-    .btn-calc { width: 100%; background: var(--primary); color: #fff; border: none; border-radius: 8px; padding: 14px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: background .2s; margin-top: 4px; }
-    .btn-calc:hover { background: var(--primary-dark); }
-
-    #resultado { display: none; }
-
-    .resumo-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-    .total-box { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: #fff; border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 16px; }
-    .total-box .label { font-size: .85rem; opacity: .85; }
-    .total-box .valor { font-size: 2rem; font-weight: 700; }
-    .total-box .obs { font-size: .75rem; opacity: .7; margin-top: 4px; }
-
-    table { width: 100%; border-collapse: collapse; }
-    table th { background: #f1f3f4; text-align: left; padding: 10px 12px; font-size: .82rem; color: var(--muted); border-bottom: 1px solid var(--border); }
-    table td { padding: 11px 12px; border-bottom: 1px solid #f1f3f4; font-size: .9rem; vertical-align: middle; }
-    table tr:last-child td { border-bottom: none; }
-    table td.valor { text-align: right; font-weight: 600; }
-    table td.positivo { color: var(--success); }
-    table td.negativo { color: var(--danger); }
-    table tr.total-row td { font-weight: 700; background: #f8f9fa; font-size: 1rem; }
-
-    .seguro-box { border: 2px solid #34a853; border-radius: 8px; padding: 14px; background: #e6f4ea; }
-    .seguro-box h3 { color: #137333; font-size: .95rem; margin-bottom: 6px; }
-    .seguro-box .parcelas { font-size: 1.1rem; font-weight: 700; color: #137333; }
-
-    .nao-elegivel { border: 2px solid #ea4335; border-radius: 8px; padding: 14px; background: #fce8e6; color: #c5221f; font-size: .9rem; }
-
-    .aviso { background: #fef7e0; border-left: 4px solid var(--warning); padding: 12px 14px; border-radius: 0 6px 6px 0; font-size: .83rem; color: #7a4f00; margin-top: 12px; }
-
-    .item-desc { font-size: .78rem; color: var(--muted); margin-top: 2px; }
-
-    .btn-novo { background: #fff; border: 2px solid var(--primary); color: var(--primary); border-radius: 8px; padding: 10px 24px; font-size: .9rem; font-weight: 700; cursor: pointer; transition: all .2s; }
-    .btn-novo:hover { background: var(--primary); color: #fff; }
-
-    .chip { display: inline-block; background: #e8f0fe; color: var(--primary); border-radius: 20px; padding: 3px 10px; font-size: .75rem; font-weight: 600; margin: 2px; }
-
-    footer { text-align: center; padding: 24px 16px; color: var(--muted); font-size: .8rem; border-top: 1px solid var(--border); margin-top: 24px; }
+    :root { --primary:#1a73e8; --bg:#f8f9fa; --card:#fff; --border:#dadce0; --text:#202124; --muted:#5f6368; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);}
+    header{background:var(--primary);color:#fff;padding:32px 16px;text-align:center;}
+    header h1{font-size:2rem;font-weight:800;}
+    header p{font-size:1rem;opacity:.88;margin-top:8px;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:960px;border-radius:6px;}
+    main{max-width:960px;margin:0 auto;padding:24px 16px;}
+    .section-title{font-size:1.1rem;font-weight:700;color:var(--muted);margin:24px 0 12px;text-transform:uppercase;letter-spacing:.05em;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+    .tool-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-decoration:none;color:var(--text);transition:all .2s;display:flex;flex-direction:column;gap:10px;}
+    .tool-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.12);transform:translateY(-2px);border-color:var(--primary);}
+    .tool-card .icon{font-size:2rem;}
+    .tool-card h2{font-size:1rem;font-weight:700;}
+    .tool-card p{font-size:.85rem;color:var(--muted);line-height:1.5;}
+    .badge{display:inline-block;background:#e8f0fe;color:var(--primary);border-radius:20px;padding:2px 10px;font-size:.72rem;font-weight:700;margin-top:4px;}
+    .badge.new{background:#e6f4ea;color:#137333;}
+    footer{text-align:center;padding:24px 16px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:32px;}
   </style>
 </head>
 <body>
-
 <header>
-  <h1>⚖️ Calculadora de Rescisão Trabalhista</h1>
-  <p>Calcule suas verbas mesmo sem ter todas as informações — estimativas automáticas incluídas</p>
+  <h1>⚡ FacilCalc</h1>
+  <p>Calculadoras gratuitas — calcule com o que tem, estimativas automáticas incluídas</p>
 </header>
 
-<!-- ADSENSE TOPO -->
 <div class="ad-slot">Anúncio Google AdSense — 728x90</div>
 
 <main>
+  <div class="section-title">📋 Trabalhista</div>
+  <div class="grid">
 
-  <!-- FORMULÁRIO -->
-  <div id="formulario">
+    <a class="tool-card" href="/calculadora-rescisao/">
+      <div class="icon">⚖️</div>
+      <h2>Calculadora de Rescisão</h2>
+      <p>Calcule todas as verbas: saldo de salário, aviso prévio, 13º, férias e multa FGTS. Funciona mesmo sem todas as informações.</p>
+      <span class="badge new">✅ Disponível</span>
+    </a>
 
-    <!-- TIPO DE RESCISÃO -->
-    <div class="card">
-      <h2>📋 Tipo de Rescisão</h2>
-      <div class="tipo-grid">
+    <a class="tool-card" href="/calculadora-fgts/">
+      <div class="icon">🏦</div>
+      <h2>Calculadora de FGTS</h2>
+      <p>Estime seu saldo do FGTS, calcule a multa por demissão e simule o saque-aniversário.</p>
+      <span class="badge new">✅ Disponível</span>
+    </a>
 
-        <label class="tipo-card selected" onclick="selecionarTipo(this,'sem_justa')">
-          <input type="radio" name="tipo" value="sem_justa" checked />
-          <div class="titulo">🔴 Demissão sem Justa Causa</div>
-          <div class="desc">Empresa demite o funcionário sem motivo grave. Tem direito a multa FGTS 40% e seguro-desemprego.</div>
-        </label>
+    <a class="tool-card" href="/calculadora-ferias/">
+      <div class="icon">🏖️</div>
+      <h2>Calculadora de Férias</h2>
+      <p>Calcule o valor das suas férias com 1/3 constitucional, abono pecuniário e descontos.</p>
+      <span class="badge new">✅ Disponível</span>
+    </a>
 
-        <label class="tipo-card" onclick="selecionarTipo(this,'pedido')">
-          <input type="radio" name="tipo" value="pedido" />
-          <div class="titulo">🟡 Pedido de Demissão</div>
-          <div class="desc">O funcionário pede para sair. Sem multa FGTS e sem seguro-desemprego.</div>
-        </label>
+  </div>
 
-        <label class="tipo-card" onclick="selecionarTipo(this,'acordo')">
-          <input type="radio" name="tipo" value="acordo" />
-          <div class="titulo">🤝 Acordo Mútuo</div>
-          <div class="desc">Empresa e funcionário concordam em encerrar. Multa FGTS de 20% e pode sacar 80% do FGTS.</div>
-        </label>
+  <div class="section-title">💰 Salário</div>
+  <div class="grid">
 
-        <label class="tipo-card" onclick="selecionarTipo(this,'justa')">
-          <input type="radio" name="tipo" value="justa" />
-          <div class="titulo">⛔ Demissão por Justa Causa</div>
-          <div class="desc">Funcionário cometeu falta grave. Recebe apenas saldo de salário e férias vencidas.</div>
-        </label>
+    <a class="tool-card" href="/simulador-salario/">
+      <div class="icon">💵</div>
+      <h2>Simulador de Salário Líquido</h2>
+      <p>Descubra quanto você recebe de fato. Calcula INSS, IR e mostra o salário líquido final.</p>
+      <span class="badge new">✅ Disponível</span>
+    </a>
 
-      </div>
-    </div>
+    <a class="tool-card" href="/calculadora-inss/">
+      <div class="icon">📊</div>
+      <h2>Calculadora de INSS</h2>
+      <p>Calcule sua contribuição mensal ao INSS com a tabela progressiva atualizada 2025.</p>
+      <span class="badge new">✅ Disponível</span>
+    </a>
 
-    <!-- DADOS BÁSICOS -->
-    <div class="card">
-      <h2>💼 Dados do Emprego</h2>
-      <div class="form-grid">
+    <a class="tool-card" href="#" style="opacity:.5;pointer-events:none;">
+      <div class="icon">📅</div>
+      <h2>Calculadora de 13º Salário</h2>
+      <p>Calcule o valor do seu 13º salário proporcional ou completo com descontos.</p>
+      <span class="badge">Em breve</span>
+    </a>
 
-        <div class="field">
-          <label>Salário Bruto Mensal</label>
-          <input type="number" id="salario" placeholder="Ex: 3500,00" min="0" step="0.01" />
-          <span class="hint">Salário base sem descontos</span>
-        </div>
+  </div>
 
-        <div class="field">
-          <label>Data de Admissão</label>
-          <input type="date" id="admissao" />
-        </div>
+  <div class="ad-slot">Anúncio Google AdSense — 728x90</div>
 
-        <div class="field">
-          <label>Data de Demissão / Último dia</label>
-          <input type="date" id="demissao" />
-          <span class="hint">Deixe em branco para usar hoje</span>
-        </div>
+  <div class="section-title">📈 Financeiro</div>
+  <div class="grid">
 
-        <div class="field">
-          <label>Aviso Prévio</label>
-          <select id="aviso">
-            <option value="indenizado">Indenizado (empresa paga sem trabalhar)</option>
-            <option value="trabalhado">Trabalhado (funcionário cumpre o período)</option>
-            <option value="dispensado">Dispensado pela empresa</option>
-            <option value="nao_se_aplica">Não se aplica / Justa causa</option>
-          </select>
-        </div>
+    <a class="tool-card" href="#" style="opacity:.5;pointer-events:none;">
+      <div class="icon">💹</div>
+      <h2>Juros Compostos</h2>
+      <p>Simule o crescimento de um investimento ao longo do tempo com juros compostos.</p>
+      <span class="badge">Em breve</span>
+    </a>
 
-      </div>
-    </div>
+    <a class="tool-card" href="#" style="opacity:.5;pointer-events:none;">
+      <div class="icon">🏠</div>
+      <h2>Simulador de Financiamento</h2>
+      <p>Calcule parcelas de financiamento imobiliário ou de veículos.</p>
+      <span class="badge">Em breve</span>
+    </a>
 
-    <!-- DADOS OPCIONAIS -->
-    <div class="card">
-      <h2>📊 Informações Opcionais <span style="font-weight:400;font-size:.85rem;color:#888">— deixe em branco para estimativa automática</span></h2>
-      <div class="form-grid">
+    <a class="tool-card" href="#" style="opacity:.5;pointer-events:none;">
+      <div class="icon">🧾</div>
+      <h2>Calculadora de Rescisão de Aluguel</h2>
+      <p>Calcule multa e valores devidos ao encerrar um contrato de aluguel.</p>
+      <span class="badge">Em breve</span>
+    </a>
 
-        <div class="field">
-          <label>Saldo do FGTS <span class="opt">(opcional)</span></label>
-          <input type="number" id="fgts_saldo" placeholder="Consulte no app FGTS" min="0" step="0.01" />
-          <span class="hint">Se não souber, estimamos pelo salário e tempo</span>
-        </div>
-
-        <div class="field">
-          <label>Férias Vencidas (dias) <span class="opt">(opcional)</span></label>
-          <input type="number" id="ferias_vencidas" placeholder="0" min="0" max="60" />
-          <span class="hint">Períodos de férias que já venceram e não foram tiradas</span>
-        </div>
-
-        <div class="field">
-          <label>Último mês de férias gozadas <span class="opt">(opcional)</span></label>
-          <input type="month" id="ultima_ferias" />
-          <span class="hint">Mês em que tirou férias pela última vez</span>
-        </div>
-
-        <div class="field">
-          <label>Dias trabalhados no mês atual <span class="opt">(opcional)</span></label>
-          <input type="number" id="dias_mes" placeholder="Calculamos pela data" min="1" max="31" />
-          <span class="hint">Deixe em branco para calcular pela data de demissão</span>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="card" style="padding:14px">
-      <button class="btn-calc" onclick="calcular()">⚡ Calcular Rescisão</button>
-    </div>
-
-  </div><!-- /formulario -->
-
-  <!-- RESULTADO -->
-  <div id="resultado">
-
-    <div class="total-box">
-      <div class="label">Total Aproximado a Receber</div>
-      <div class="valor" id="total_receber">R$ 0,00</div>
-      <div class="obs">* Valores brutos. Descontos de INSS e IR podem ser aplicados.</div>
-    </div>
-
-    <!-- ADSENSE MEIO -->
-    <div class="ad-slot">Anúncio Google AdSense — 728x90</div>
-
-    <!-- DETALHAMENTO -->
-    <div class="card">
-      <div class="resumo-header">
-        <h2>📄 Detalhamento das Verbas</h2>
-        <button class="btn-novo" onclick="novoCalculo()">Nova Consulta</button>
-      </div>
-      <div id="chips_info" style="margin:10px 0 14px"></div>
-      <table>
-        <thead>
-          <tr>
-            <th>Verba</th>
-            <th style="text-align:right">Valor</th>
-          </tr>
-        </thead>
-        <tbody id="tabela_verbas"></tbody>
-      </table>
-    </div>
-
-    <!-- SEGURO DESEMPREGO -->
-    <div class="card" id="card_seguro"></div>
-
-    <!-- AVISO LEGAL -->
-    <div class="aviso">
-      ⚠️ <strong>Atenção:</strong> Este cálculo é uma estimativa educacional baseada na CLT e pode não refletir valores exatos. Verbas como horas extras, comissões, adicional noturno e outros benefícios não foram considerados. Consulte sempre um advogado trabalhista ou o RH da empresa para os valores oficiais. Itens marcados com <strong>ESTIMADO</strong> são aproximações.
-    </div>
-
-    <br/>
-    <div style="text-align:center">
-      <button class="btn-novo" onclick="novoCalculo()">🔄 Fazer Novo Cálculo</button>
-    </div>
-
-  </div><!-- /resultado -->
-
+  </div>
 </main>
 
-<!-- ADSENSE RODAPÉ -->
 <div class="ad-slot">Anúncio Google AdSense — 728x90</div>
 
 <footer>
-  <p>Calculadora de Rescisão Trabalhista — Baseada na CLT e legislação vigente em 2025</p>
-  <p style="margin-top:6px">Este site não oferece consultoria jurídica. Para dúvidas, consulte um advogado trabalhista.</p>
+  <p>FacilCalc © 2025 — Calculadoras gratuitas para trabalhadores e profissionais brasileiros</p>
+  <p style="margin-top:6px">Os valores são estimativas. Consulte sempre um profissional para decisões importantes.</p>
 </footer>
-
-<script>
-  // ─── Helpers ───────────────────────────────────────────────────────────────
-  const fmt = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  const fmtN = n => n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-  function diffMeses(d1, d2) {
-    let m = (d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() - d1.getMonth());
-    if (d2.getDate() >= 15) m++;
-    return Math.max(0, m);
-  }
-
-  function diffAnos(d1, d2) {
-    let anos = d2.getFullYear() - d1.getFullYear();
-    const m = d2.getMonth() - d1.getMonth();
-    if (m < 0 || (m === 0 && d2.getDate() < d1.getDate())) anos--;
-    return Math.max(0, anos);
-  }
-
-  function selecionarTipo(el, tipo) {
-    document.querySelectorAll('.tipo-card').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    const aviso = document.getElementById('aviso');
-    if (tipo === 'justa') {
-      aviso.value = 'nao_se_aplica';
-    } else if (tipo === 'pedido') {
-      aviso.value = 'trabalhado';
-    } else {
-      aviso.value = 'indenizado';
-    }
-  }
-
-  // ─── Cálculo principal ─────────────────────────────────────────────────────
-  function calcular() {
-    const tipo      = document.querySelector('input[name=tipo]:checked').value;
-    const salario   = parseFloat(document.getElementById('salario').value) || 0;
-    const admStr    = document.getElementById('admissao').value;
-    const demStr    = document.getElementById('demissao').value;
-    const aviso     = document.getElementById('aviso').value;
-    const fgtsSaldo = parseFloat(document.getElementById('fgts_saldo').value) || 0;
-    const ferVenc   = parseInt(document.getElementById('ferias_vencidas').value) || 0;
-    const ultFerStr = document.getElementById('ultima_ferias').value;
-    const diasMesIn = parseInt(document.getElementById('dias_mes').value) || 0;
-
-    if (!salario) { alert('Por favor, informe o Salário Bruto Mensal.'); return; }
-
-    const hoje   = new Date();
-    const admiss = admStr  ? new Date(admStr + 'T00:00:00')  : null;
-    const demiss = demStr  ? new Date(demStr + 'T00:00:00')  : hoje;
-    const ultFer = ultFerStr ? new Date(ultFerStr + '-01T00:00:00') : null;
-
-    // ── Tempo de serviço ──
-    const anosServico    = admiss ? diffAnos(admiss, demiss) : null;
-    const mesesServico   = admiss ? diffMeses(admiss, demiss) : null;
-    const isEstimTempo   = !admiss;
-
-    // ── Dias no mês da demissão ──
-    let diasMes = diasMesIn;
-    let isEstimDias = false;
-    if (!diasMes) {
-      diasMes = demStr ? demiss.getDate() : hoje.getDate();
-      isEstimDias = !diasMesIn;
-    }
-
-    // ── Saldo de Salário ──
-    const saldoSalario = (salario / 30) * diasMes;
-
-    // ── Aviso Prévio ──
-    let diasAviso = 0;
-    let valorAviso = 0;
-    let isEstimAviso = false;
-    if (aviso !== 'nao_se_aplica' && tipo !== 'justa') {
-      if (anosServico !== null) {
-        diasAviso = Math.min(30 + (anosServico * 3), 90);
-      } else {
-        diasAviso = 30;
-        isEstimAviso = true;
-      }
-      if (aviso === 'indenizado' || aviso === 'dispensado') {
-        valorAviso = (salario / 30) * diasAviso;
-      }
-    }
-
-    // ── 13º Proporcional ──
-    let meses13 = 0;
-    let isEstim13 = false;
-    if (mesesServico !== null) {
-      const anoInicio = admiss.getFullYear() === demiss.getFullYear() ? admiss.getMonth() : 0;
-      meses13 = demiss.getMonth() - anoInicio + (demiss.getDate() >= 15 ? 1 : 0);
-      meses13 = Math.min(Math.max(meses13, 0), 12);
-    } else {
-      meses13 = 6;
-      isEstim13 = true;
-    }
-    const decimo3 = (salario / 12) * meses13;
-
-    // ── Férias Proporcionais ──
-    let mesesFerias = 0;
-    let isEstimFerias = false;
-    if (ultFer) {
-      mesesFerias = diffMeses(ultFer, demiss);
-      mesesFerias = Math.min(mesesFerias, 12);
-    } else if (admiss) {
-      const anoAno = new Date(demiss.getFullYear(), admiss.getMonth(), admiss.getDate());
-      if (anoAno > demiss) anoAno.setFullYear(demiss.getFullYear() - 1);
-      mesesFerias = diffMeses(anoAno, demiss);
-      mesesFerias = Math.min(mesesFerias, 12);
-    } else {
-      mesesFerias = 6;
-      isEstimFerias = true;
-    }
-    const feriasProporcionais = (salario / 12) * mesesFerias * (4 / 3);
-
-    // ── Férias Vencidas ──
-    const feriasVencidasValor = ferVenc > 0 ? (salario / 30) * ferVenc * (4 / 3) : 0;
-
-    // ── FGTS ──
-    let fgtsBase = fgtsSaldo;
-    let isEstimFGTS = false;
-    if (!fgtsBase) {
-      const m = mesesServico || 24;
-      fgtsBase = salario * 0.08 * m;
-      isEstimFGTS = true;
-    }
-    let multaFGTS = 0;
-    let percMulta = 0;
-    if (tipo === 'sem_justa') { percMulta = 40; multaFGTS = fgtsBase * 0.40; }
-    if (tipo === 'acordo')    { percMulta = 20; multaFGTS = fgtsBase * 0.20; }
-
-    // ── Seguro Desemprego ──
-    let seguroInfo = null;
-    if (tipo === 'sem_justa' && mesesServico !== null && mesesServico >= 6) {
-      let parcelas = mesesServico >= 24 ? 5 : mesesServico >= 12 ? 4 : 3;
-      const base = Math.min(salario, 2313.74);
-      let valorParcela;
-      if (salario <= 2041.26) valorParcela = salario * 0.80;
-      else if (salario <= 3402.08) valorParcela = 2041.26 * 0.80 + (salario - 2041.26) * 0.50;
-      else valorParcela = 2041.26 * 0.80 + (3402.08 - 2041.26) * 0.50;
-      valorParcela = Math.max(valorParcela, 1518.00);
-      valorParcela = Math.min(valorParcela, 2313.74);
-      seguroInfo = { elegivel: true, parcelas, valorParcela };
-    } else if (tipo === 'sem_justa') {
-      seguroInfo = { elegivel: false, motivo: 'Menos de 6 meses de trabalho' };
-    } else if (tipo !== 'sem_justa') {
-      seguroInfo = { elegivel: false, motivo: 'Apenas demissão sem justa causa tem direito' };
-    }
-
-    // ── Totais ──
-    const verbas = [];
-    const push = (nome, val, desc, estim) => verbas.push({ nome, val, desc, estim: !!estim });
-
-    push('Saldo de Salário', saldoSalario,
-      `${diasMes} dias trabalhados × (R$ ${fmtN(salario)} ÷ 30)`, isEstimDias);
-
-    if (valorAviso > 0)
-      push('Aviso Prévio Indenizado', valorAviso,
-        `${diasAviso} dias × (R$ ${fmtN(salario)} ÷ 30)`, isEstimAviso);
-
-    push('13º Salário Proporcional', decimo3,
-      `${meses13}/12 × R$ ${fmtN(salario)}`, isEstim13);
-
-    push('Férias Proporcionais + 1/3', feriasProporcionais,
-      `${mesesFerias}/12 × R$ ${fmtN(salario)} + 1/3 constitucional`, isEstimFerias);
-
-    if (feriasVencidasValor > 0)
-      push('Férias Vencidas + 1/3', feriasVencidasValor,
-        `${ferVenc} dias de férias não tiradas`, false);
-
-    if (multaFGTS > 0)
-      push(`Multa FGTS ${percMulta}%`, multaFGTS,
-        `${percMulta}% sobre ${isEstimFGTS ? 'saldo estimado de ' : ''}${fmt(fgtsBase)}`, isEstimFGTS);
-
-    const totalBruto = verbas.reduce((s, v) => s + v.val, 0);
-
-    // ── Renderização ──
-    document.getElementById('formulario').style.display = 'none';
-    document.getElementById('resultado').style.display = 'block';
-    document.getElementById('total_receber').textContent = fmt(totalBruto);
-
-    // Chips info
-    const chips = [];
-    if (anosServico !== null) chips.push(`${anosServico} ano${anosServico !== 1 ? 's' : ''} e ${mesesServico % 12} mes(es)`);
-    chips.push(tipo === 'sem_justa' ? 'Demissão sem Justa Causa' :
-               tipo === 'pedido'    ? 'Pedido de Demissão' :
-               tipo === 'acordo'    ? 'Acordo Mútuo' : 'Justa Causa');
-    chips.push(fmt(salario) + '/mês');
-    document.getElementById('chips_info').innerHTML = chips.map(c => `<span class="chip">${c}</span>`).join('');
-
-    // Tabela
-    const tbody = document.getElementById('tabela_verbas');
-    tbody.innerHTML = '';
-    verbas.forEach(v => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>
-          <strong>${v.nome}</strong>
-          ${v.estim ? '<span class="estimate-badge">ESTIMADO</span>' : ''}
-          <div class="item-desc">${v.desc}</div>
-        </td>
-        <td class="valor positivo">${fmt(v.val)}</td>`;
-      tbody.appendChild(tr);
-    });
-
-    // Linha total
-    const trTotal = document.createElement('tr');
-    trTotal.className = 'total-row';
-    trTotal.innerHTML = `<td>TOTAL BRUTO APROXIMADO</td><td class="valor positivo">${fmt(totalBruto)}</td>`;
-    tbody.appendChild(trTotal);
-
-    // FGTS info (sem justa e acordo)
-    if (tipo === 'sem_justa' || tipo === 'acordo') {
-      const saquePerc = tipo === 'sem_justa' ? 100 : 80;
-      const trFGTS = document.createElement('tr');
-      trFGTS.innerHTML = `
-        <td>
-          <strong>Saque do FGTS</strong>
-          ${isEstimFGTS ? '<span class="estimate-badge">ESTIMADO</span>' : ''}
-          <div class="item-desc">Pode sacar ${saquePerc}% do saldo (não entra no total acima)</div>
-        </td>
-        <td class="valor" style="color:#1a73e8">${fmt(fgtsBase * (saquePerc / 100))}</td>`;
-      tbody.appendChild(trFGTS);
-    }
-
-    // Seguro desemprego
-    const cardSeg = document.getElementById('card_seguro');
-    if (seguroInfo && seguroInfo.elegivel) {
-      cardSeg.innerHTML = `
-        <div class="seguro-box">
-          <h3>✅ Seguro-Desemprego — Você tem direito!</h3>
-          <div class="parcelas">${seguroInfo.parcelas}x ${fmt(seguroInfo.valorParcela)}</div>
-          <div style="font-size:.82rem;color:#137333;margin-top:6px">
-            Valor estimado por parcela. Solicite no app Carteira de Trabalho Digital ou no SINE.
-          </div>
-        </div>`;
-    } else if (seguroInfo) {
-      cardSeg.innerHTML = `
-        <div class="nao-elegivel">
-          ❌ <strong>Seguro-Desemprego:</strong> Não elegível — ${seguroInfo.motivo}
-        </div>`;
-    }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function novoCalculo() {
-    document.getElementById('resultado').style.display = 'none';
-    document.getElementById('formulario').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // Data padrão: hoje
-  document.getElementById('demissao').valueAsDate = new Date();
-</script>
-
 </body>
 </html>

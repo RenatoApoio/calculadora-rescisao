@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de FGTS 2025 – Saldo, Multa e Saque | FacilCalc</title>
+  <meta name="description" content="Calcule seu saldo do FGTS, multa por demissão sem justa causa e simule o saque-aniversário. Estimativa automática mesmo sem todas as informações."/>
+  <style>
+    :root{--primary:#1a73e8;--primary-dark:#1557b0;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:var(--primary);color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:var(--primary);margin-bottom:14px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:5px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field input,.field select{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;transition:border .2s;}
+    .field input:focus,.field select:focus{border-color:var(--primary);}
+    .field .hint{font-size:.75rem;color:#888;}
+    .btn-calc{width:100%;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:background .2s;margin-top:4px;}
+    .btn-calc:hover{background:var(--primary-dark);}
+    .estimate-badge{display:inline-block;background:#e8f0fe;color:#4285f4;border:1px solid #4285f4;border-radius:4px;font-size:.7rem;font-weight:600;padding:1px 6px;margin-left:6px;}
+    .result-box{border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;}
+    .result-box.blue{background:linear-gradient(135deg,#1a73e8,#0d47a1);color:#fff;}
+    .result-box.green{background:linear-gradient(135deg,#137333,#0d5c28);color:#fff;}
+    .result-box .label{font-size:.85rem;opacity:.85;}
+    .result-box .valor{font-size:2rem;font-weight:700;}
+    .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+    @media(max-width:600px){.result-grid{grid-template-columns:1fr;}}
+    table{width:100%;border-collapse:collapse;}
+    table th{background:#f1f3f4;text-align:left;padding:10px 12px;font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:11px 12px;border-bottom:1px solid #f1f3f4;font-size:.9rem;}
+    table td.valor{text-align:right;font-weight:600;color:var(--success);}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid var(--primary);color:var(--primary);border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    .btn-novo:hover{background:var(--primary);color:#fff;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🏦 Calculadora de FGTS</h1>
+  <p>Estime seu saldo, calcule a multa e simule o saque-aniversário</p>
+</header>
+<div class="nav"><a href="/">← FacilCalc</a> / Calculadora de FGTS</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+<main>
+  <div id="formulario">
+    <div class="card">
+      <h2>💼 Seus Dados</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label>Salário Bruto Mensal</label>
+          <input type="number" id="salario" placeholder="Ex: 3500,00" min="0" step="0.01"/>
+        </div>
+        <div class="field">
+          <label>Data de Admissão <span style="color:#aaa;font-size:.78rem">(opcional)</span></label>
+          <input type="date" id="admissao"/>
+          <span class="hint">Deixe em branco para estimativa</span>
+        </div>
+        <div class="field">
+          <label>Saldo Atual do FGTS <span style="color:#aaa;font-size:.78rem">(opcional)</span></label>
+          <input type="number" id="saldo_atual" placeholder="Consulte no app FGTS" min="0" step="0.01"/>
+          <span class="hint">Se não souber, calculamos pelo salário e tempo</span>
+        </div>
+        <div class="field">
+          <label>Motivo de interesse</label>
+          <select id="motivo">
+            <option value="demissao_sem_justa">Demissão sem justa causa (multa 40%)</option>
+            <option value="acordo">Acordo mútuo (multa 20%)</option>
+            <option value="aniversario">Saque-aniversário</option>
+            <option value="consulta">Apenas consultar saldo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:14px">
+      <button class="btn-calc" onclick="calcular()">⚡ Calcular FGTS</button>
+    </div>
+  </div>
+
+  <div id="resultado">
+    <div class="result-grid">
+      <div class="result-box blue">
+        <div class="label">Saldo Estimado FGTS</div>
+        <div class="valor" id="res_saldo">R$ 0,00</div>
+      </div>
+      <div class="result-box green">
+        <div class="label" id="res_label_multa">Multa (40%)</div>
+        <div class="valor" id="res_multa">R$ 0,00</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>📄 Detalhamento</h2>
+      <table>
+        <thead><tr><th>Item</th><th style="text-align:right">Valor</th></tr></thead>
+        <tbody id="tabela"></tbody>
+      </table>
+    </div>
+
+    <div class="aviso">⚠️ <strong>Atenção:</strong> Valores estimados com base no salário informado (8% ao mês). O saldo real pode variar por rendimentos da TR, horas extras e outros. Consulte o app <strong>FGTS</strong> da Caixa para o saldo exato.</div>
+
+    <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button></div>
+  </div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="/" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:8px">Calculadora de FGTS 2025 — Baseada na legislação vigente</p>
+</footer>
+
+<script>
+  const fmt = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  function diffMeses(d1,d2){
+    let m=(d2.getFullYear()-d1.getFullYear())*12+(d2.getMonth()-d1.getMonth());
+    if(d2.getDate()>=15)m++;
+    return Math.max(1,m);
+  }
+  // Saque aniversário - percentuais por faixa
+  function calcSaqueAniversario(saldo){
+    if(saldo<=500) return {perc:50,adicional:0};
+    if(saldo<=1000) return {perc:40,adicional:50};
+    if(saldo<=5000) return {perc:30,adicional:150};
+    if(saldo<=10000) return {perc:20,adicional:650};
+    if(saldo<=15000) return {perc:15,adicional:1150};
+    if(saldo<=20000) return {perc:10,adicional:1900};
+    return {perc:5,adicional:2900};
+  }
+  function calcular(){
+    const salario = parseFloat(document.getElementById('salario').value)||0;
+    if(!salario){alert('Informe o salário.');return;}
+    const admStr = document.getElementById('admissao').value;
+    const saldoInformado = parseFloat(document.getElementById('saldo_atual').value)||0;
+    const motivo = document.getElementById('motivo').value;
+    const hoje = new Date();
+    const admiss = admStr ? new Date(admStr+'T00:00:00') : null;
+    const meses = admiss ? diffMeses(admiss,hoje) : 24;
+    const isEstim = !saldoInformado;
+    const saldo = saldoInformado || (salario * 0.08 * meses);
+    let multa=0, percMulta=0;
+    if(motivo==='demissao_sem_justa'){multa=saldo*0.40;percMulta=40;}
+    if(motivo==='acordo'){multa=saldo*0.20;percMulta=20;}
+    document.getElementById('res_saldo').textContent = fmt(saldo)+(isEstim?' *':'');
+    if(motivo==='aniversario'){
+      const {perc,adicional}=calcSaqueAniversario(saldo);
+      const valorSaque = (saldo*(perc/100))+adicional;
+      document.getElementById('res_label_multa').textContent='Saque Aniversário';
+      document.getElementById('res_multa').textContent=fmt(valorSaque);
+    } else {
+      document.getElementById('res_label_multa').textContent=`Multa (${percMulta}%)`;
+      document.getElementById('res_multa').textContent=fmt(multa);
+    }
+    const tbody=document.getElementById('tabela');
+    tbody.innerHTML='';
+    const rows=[
+      ['Depósito mensal (8%)', fmt(salario*0.08), isEstim],
+      ['Meses estimados', `${meses} meses`, !admiss],
+      ['Saldo FGTS', fmt(saldo)+(isEstim?' (estimado)':''), isEstim],
+    ];
+    if(motivo==='demissao_sem_justa'||motivo==='acordo'){
+      rows.push([`Multa ${percMulta}%`, fmt(multa), isEstim]);
+      rows.push([`Total a receber (saldo + multa)`, fmt(saldo+multa), isEstim]);
+    }
+    if(motivo==='aniversario'){
+      const {perc,adicional}=calcSaqueAniversario(saldo);
+      const valorSaque=(saldo*(perc/100))+adicional;
+      rows.push([`Percentual do saque`, `${perc}% + R$ ${adicional.toFixed(0)} adicional`, false]);
+      rows.push([`Valor do saque`, fmt(valorSaque), isEstim]);
+      rows.push([`Saldo restante no FGTS`, fmt(saldo-valorSaque), isEstim]);
+    }
+    rows.forEach(([n,v,e])=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${n}${e?'<span class="estimate-badge" style="display:inline-block;background:#e8f0fe;color:#4285f4;border:1px solid #4285f4;border-radius:4px;font-size:.7rem;font-weight:600;padding:1px 6px;margin-left:6px;">ESTIMADO</span>':''}</td><td class="valor">${v}</td>`;
+      tbody.appendChild(tr);
+    });
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>

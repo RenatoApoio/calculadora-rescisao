@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simulador de Salário Líquido 2025 – Desconto INSS e IR | FacilCalc</title>
+  <meta name="description" content="Descubra quanto você recebe de fato. Calcule o salário líquido com descontos de INSS e Imposto de Renda atualizados para 2025."/>
+  <style>
+    :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#2e7d32;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#2e7d32;margin-bottom:14px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:5px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field input{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;transition:border .2s;}
+    .field input:focus{border-color:#2e7d32;}
+    .field .hint{font-size:.75rem;color:#888;}
+    .btn-calc{width:100%;background:#2e7d32;color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;}
+    .btn-calc:hover{background:#1b5e20;}
+    .resultado-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;}
+    @media(max-width:600px){.resultado-cards{grid-template-columns:1fr;}}
+    .mini-card{border-radius:10px;padding:16px;text-align:center;}
+    .mini-card .label{font-size:.78rem;opacity:.85;margin-bottom:4px;}
+    .mini-card .valor{font-size:1.4rem;font-weight:700;}
+    .bruto{background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;}
+    .desconto{background:linear-gradient(135deg,#c62828,#b71c1c);color:#fff;}
+    .liquido{background:linear-gradient(135deg,#2e7d32,#1b5e20);color:#fff;}
+    .barra-container{background:#f1f3f4;border-radius:8px;overflow:hidden;height:32px;margin:16px 0;display:flex;}
+    .barra-liquido{background:#2e7d32;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.78rem;font-weight:700;transition:width .5s;}
+    .barra-inss{background:#1565c0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.78rem;font-weight:700;transition:width .5s;}
+    .barra-ir{background:#c62828;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.78rem;font-weight:700;transition:width .5s;}
+    table{width:100%;border-collapse:collapse;}
+    table th{background:#f1f3f4;text-align:left;padding:10px 12px;font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:11px 12px;border-bottom:1px solid #f1f3f4;font-size:.9rem;}
+    .pos{text-align:right;font-weight:600;color:var(--success);}
+    .neg{text-align:right;font-weight:600;color:#c5221f;}
+    .neutro{text-align:right;font-weight:700;font-size:1rem;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid #2e7d32;color:#2e7d32;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>💵 Simulador de Salário Líquido</h1>
+  <p>Descubra quanto você realmente recebe após INSS e Imposto de Renda</p>
+</header>
+<div class="nav"><a href="/">← FacilCalc</a> / Simulador de Salário Líquido</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+<main>
+  <div id="formulario">
+    <div class="card">
+      <h2>💼 Seus Dados</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label>Salário Bruto Mensal</label>
+          <input type="number" id="salario" placeholder="Ex: 4500,00" min="0" step="0.01"/>
+        </div>
+        <div class="field">
+          <label>Número de Dependentes <span style="color:#aaa;font-size:.78rem">(opcional)</span></label>
+          <input type="number" id="dependentes" placeholder="0" min="0" max="20"/>
+          <span class="hint">Cônjuge, filhos — cada um deduz R$ 189,59</span>
+        </div>
+        <div class="field">
+          <label>Vale-Refeição/Alimentação <span style="color:#aaa;font-size:.78rem">(opcional)</span></label>
+          <input type="number" id="vr" placeholder="Ex: 600,00" min="0" step="0.01"/>
+          <span class="hint">Adicionado ao líquido (não tem desconto)</span>
+        </div>
+        <div class="field">
+          <label>Vale-Transporte <span style="color:#aaa;font-size:.78rem">(opcional)</span></label>
+          <input type="number" id="vt" placeholder="Ex: 200,00" min="0" step="0.01"/>
+          <span class="hint">Desconto máximo de 6% do salário bruto</span>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:14px">
+      <button class="btn-calc" onclick="calcular()">⚡ Calcular Salário Líquido</button>
+    </div>
+  </div>
+
+  <div id="resultado">
+    <div class="resultado-cards">
+      <div class="mini-card bruto"><div class="label">Salário Bruto</div><div class="valor" id="res_bruto">R$ 0</div></div>
+      <div class="mini-card desconto"><div class="label">Total Descontos</div><div class="valor" id="res_descontos">R$ 0</div></div>
+      <div class="mini-card liquido"><div class="label">Salário Líquido</div><div class="valor" id="res_liquido">R$ 0</div></div>
+    </div>
+
+    <div class="card">
+      <h2>📊 Distribuição do Salário</h2>
+      <div class="barra-container" id="barra"></div>
+      <div style="display:flex;gap:12px;font-size:.78rem;flex-wrap:wrap;margin-top:4px">
+        <span>🟢 Líquido</span><span>🔵 INSS</span><span>🔴 IR</span>
+      </div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>📄 Detalhamento Completo</h2>
+      <table>
+        <thead><tr><th>Item</th><th style="text-align:right">Valor</th></tr></thead>
+        <tbody id="tabela"></tbody>
+      </table>
+    </div>
+
+    <div class="aviso">⚠️ Cálculo baseado na tabela INSS e IR vigente em 2025. Não inclui contribuições sindicais, plano de saúde ou outros descontos específicos da empresa.</div>
+    <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button></div>
+  </div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="/" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+</footer>
+
+<script>
+  const fmt = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const fmtPct = v => v.toFixed(1)+'%';
+
+  function calcINSS(s){
+    const t=[{ate:1518,a:.075},{ate:2793.88,a:.09},{ate:4190.83,a:.12},{ate:8157.41,a:.14}];
+    let r=0,ant=0;
+    for(const f of t){
+      const fx=Math.min(s,f.ate)-ant;
+      if(fx<=0)break;
+      r+=fx*f.a;
+      ant=f.ate;
+      if(s<=f.ate)break;
+    }
+    return Math.min(r,1142.04);
+  }
+
+  function calcIR(base,dep){
+    const b=base-(189.59*dep);
+    if(b<=2259.20)return 0;
+    if(b<=2826.65)return b*.075-169.44;
+    if(b<=3751.05)return b*.15-381.44;
+    if(b<=4664.68)return b*.225-662.77;
+    return b*.275-896.00;
+  }
+
+  function calcular(){
+    const salario=parseFloat(document.getElementById('salario').value)||0;
+    if(!salario){alert('Informe o salário.');return;}
+    const dep=parseInt(document.getElementById('dependentes').value)||0;
+    const vr=parseFloat(document.getElementById('vr').value)||0;
+    const vtBruto=parseFloat(document.getElementById('vt').value)||0;
+    const descontoVT=Math.min(vtBruto, salario*0.06);
+
+    const inss=calcINSS(salario);
+    const baseIR=salario-inss;
+    const ir=Math.max(0,calcIR(baseIR,dep));
+    const liquido=salario-inss-ir-descontoVT+vr;
+    const totalDescontos=inss+ir+descontoVT;
+
+    document.getElementById('res_bruto').textContent=fmt(salario);
+    document.getElementById('res_descontos').textContent=fmt(totalDescontos);
+    document.getElementById('res_liquido').textContent=fmt(liquido);
+
+    // Barra
+    const pLiq=((salario-inss-ir)/salario*100).toFixed(1);
+    const pINSS=(inss/salario*100).toFixed(1);
+    const pIR=(ir/salario*100).toFixed(1);
+    document.getElementById('barra').innerHTML=`
+      <div class="barra-liquido" style="width:${pLiq}%">${pLiq}%</div>
+      <div class="barra-inss" style="width:${pINSS}%">${pINSS}%</div>
+      <div class="barra-ir" style="width:${pIR}%">${pIR > 1 ? pIR+'%' : ''}</div>`;
+
+    // Tabela
+    const rows=[
+      ['Salário Bruto', fmt(salario), 'pos'],
+      ['(-) INSS ('+fmtPct(inss/salario*100)+')', '-'+fmt(inss), 'neg'],
+      ['(-) IR Estimado', ir>0?'-'+fmt(ir):'Isento', ir>0?'neg':'pos'],
+    ];
+    if(descontoVT>0) rows.push(['(-) Vale-Transporte (6%)', '-'+fmt(descontoVT), 'neg']);
+    rows.push(['= Salário Líquido', fmt(salario-inss-ir-descontoVT), 'neutro']);
+    if(vr>0) rows.push(['(+) Vale-Refeição/Alimentação', '+'+fmt(vr), 'pos']);
+    if(vr>0) rows.push(['= Total a Receber', fmt(liquido), 'neutro']);
+
+    const tbody=document.getElementById('tabela');
+    tbody.innerHTML='';
+    rows.forEach(([n,v,cls])=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${n}</td><td class="${cls}">${v}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
