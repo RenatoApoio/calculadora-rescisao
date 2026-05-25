@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de Horas Extras 2025 – 50%, 100% e Noturno | FacilCalc</title>
+  <meta name="description" content="Calcule o valor das suas horas extras com adicional de 50%, 100% (feriado/domingo) e adicional noturno. Estimativa automática pela CLT 2025."/>
+  <style>
+    :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#4527a0;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#4527a0;margin-bottom:14px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:5px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field label .opt{font-weight:400;color:#aaa;font-size:.78rem;}
+    .field input,.field select{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;transition:border .2s;}
+    .field input:focus,.field select:focus{border-color:#4527a0;}
+    .field .hint{font-size:.75rem;color:#888;}
+    .tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
+    @media(max-width:500px){.tipo-grid{grid-template-columns:1fr;}}
+    .tipo-card{border:2px solid var(--border);border-radius:8px;padding:12px;cursor:pointer;transition:all .2s;}
+    .tipo-card:hover{border-color:#4527a0;background:#ede7f6;}
+    .tipo-card input[type=radio]{display:none;}
+    .tipo-card.selected{border-color:#4527a0;background:#ede7f6;}
+    .tipo-card .titulo{font-weight:600;font-size:.9rem;}
+    .tipo-card .perc{font-size:1.2rem;font-weight:800;color:#4527a0;}
+    .tipo-card .desc{font-size:.78rem;color:var(--muted);margin-top:2px;}
+    .btn-calc{width:100%;background:#4527a0;color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;}
+    .btn-calc:hover{background:#311b92;}
+    .total-box{background:linear-gradient(135deg,#4527a0,#311b92);color:#fff;border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;}
+    .total-box .label{font-size:.85rem;opacity:.85;}
+    .total-box .valor{font-size:2rem;font-weight:700;}
+    .total-box .sub{font-size:.75rem;opacity:.7;margin-top:4px;}
+    .resumo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+    @media(max-width:500px){.resumo-grid{grid-template-columns:1fr;}}
+    .mini{border-radius:8px;padding:14px;text-align:center;background:#f3e5f5;}
+    .mini .lbl{font-size:.75rem;color:#6a1b9a;font-weight:600;}
+    .mini .val{font-size:1.1rem;font-weight:700;color:#4527a0;margin-top:2px;}
+    table{width:100%;border-collapse:collapse;}
+    table th{background:#f1f3f4;text-align:left;padding:10px 12px;font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:10px 12px;border-bottom:1px solid #f1f3f4;font-size:.9rem;vertical-align:middle;}
+    .pos{text-align:right;font-weight:600;color:var(--success);}
+    .bold{text-align:right;font-weight:700;font-size:1rem;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid #4527a0;color:#4527a0;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    .regra-box{background:#ede7f6;border-radius:8px;padding:14px;font-size:.83rem;color:#311b92;}
+    .regra-box ul{padding-left:16px;margin-top:6px;}
+    .regra-box li{margin-bottom:4px;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>⏰ Calculadora de Horas Extras</h1>
+  <p>50%, 100%, adicional noturno — calcule com o que tem</p>
+</header>
+<div class="nav"><a href="/">← FacilCalc</a> / Calculadora de Horas Extras</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+
+<main>
+  <div id="formulario">
+
+    <div class="card">
+      <h2>⏰ Tipo de Hora Extra</h2>
+      <div class="tipo-grid">
+        <label class="tipo-card selected" onclick="selecionarTipo(this,'50')">
+          <input type="radio" name="tipo" value="50" checked/>
+          <div class="perc">+50%</div>
+          <div class="titulo">Hora Extra Comum</div>
+          <div class="desc">Dias úteis — mínimo legal pela CLT</div>
+        </label>
+        <label class="tipo-card" onclick="selecionarTipo(this,'100')">
+          <input type="radio" name="tipo" value="100"/>
+          <div class="perc">+100%</div>
+          <div class="titulo">Domingo / Feriado</div>
+          <div class="desc">Hora extra em folga semanal ou feriado</div>
+        </label>
+        <label class="tipo-card" onclick="selecionarTipo(this,'noturno')">
+          <input type="radio" name="tipo" value="noturno"/>
+          <div class="perc">+20%</div>
+          <div class="titulo">Adicional Noturno</div>
+          <div class="desc">Entre 22h e 5h — hora reduzida (52min30s)</div>
+        </label>
+        <label class="tipo-card" onclick="selecionarTipo(this,'noturno_extra')">
+          <input type="radio" name="tipo" value="noturno_extra"/>
+          <div class="perc">+70%</div>
+          <div class="titulo">HE Noturna</div>
+          <div class="desc">Hora extra noturna: 50% HE + 20% noturno</div>
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>💼 Seus Dados</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label>Salário Bruto Mensal</label>
+          <input type="number" id="salario" placeholder="Ex: 3500,00" min="0" step="0.01"/>
+        </div>
+        <div class="field">
+          <label>Carga horária semanal</label>
+          <select id="carga">
+            <option value="44">44 horas semanais (padrão CLT)</option>
+            <option value="40">40 horas semanais</option>
+            <option value="36">36 horas semanais</option>
+            <option value="30">30 horas semanais</option>
+            <option value="outro">Outra (informar abaixo)</option>
+          </select>
+        </div>
+        <div class="field" id="campo_carga_custom" style="display:none">
+          <label>Carga horária semanal (horas)</label>
+          <input type="number" id="carga_custom" placeholder="Ex: 42" min="1" max="60"/>
+        </div>
+        <div class="field">
+          <label>Quantidade de horas extras</label>
+          <input type="number" id="qtd_horas" placeholder="Ex: 10" min="0" step="0.5"/>
+          <span class="hint">Pode usar decimais: 1.5 = 1h30min</span>
+        </div>
+        <div class="field">
+          <label>Adicional previsto em convenção <span class="opt">(opcional)</span></label>
+          <input type="number" id="adicional_conv" placeholder="Ex: 60 para 60%" min="0" max="200"/>
+          <span class="hint">Se seu sindicato pagar mais que 50%, informe aqui</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:14px">
+      <button class="btn-calc" onclick="calcular()">⚡ Calcular Horas Extras</button>
+    </div>
+  </div>
+
+  <div id="resultado">
+
+    <div class="total-box">
+      <div class="label">Total de Horas Extras a Receber</div>
+      <div class="valor" id="res_total">R$ 0,00</div>
+      <div class="sub">Valor bruto — INSS e IR incidem no salário total do mês</div>
+    </div>
+
+    <div class="resumo-grid">
+      <div class="mini"><div class="lbl">Valor por hora</div><div class="val" id="res_hora">R$ 0,00</div></div>
+      <div class="mini"><div class="lbl">Adicional aplicado</div><div class="val" id="res_adicional">0%</div></div>
+      <div class="mini"><div class="lbl">Horas calculadas</div><div class="val" id="res_qtd">0h</div></div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>📄 Detalhamento</h2>
+      <table>
+        <thead><tr><th>Item</th><th style="text-align:right">Valor</th></tr></thead>
+        <tbody id="tabela"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>📚 Regras da CLT</h2>
+      <div class="regra-box">
+        <strong>O que diz a lei:</strong>
+        <ul>
+          <li>Hora extra em dia útil: mínimo <strong>50%</strong> sobre o valor da hora normal</li>
+          <li>Hora extra em domingo/feriado: <strong>100%</strong></li>
+          <li>Adicional noturno (22h–5h): <strong>20%</strong> + hora reduzida (52min30s = 1h)</li>
+          <li>Limite: <strong>2 horas extras por dia</strong> (salvo acordo coletivo)</li>
+          <li>Convenção coletiva pode garantir percentual maior</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="aviso">⚠️ Verifique a convenção coletiva da sua categoria — muitos sindicatos garantem 60%, 70% ou mais nas horas extras. O valor calculado é o mínimo legal.</div>
+
+    <br/><div style="text-align:center">
+      <button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="/" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:8px">Calculadora de Horas Extras 2025 — Baseada na CLT</p>
+</footer>
+
+<script>
+  const fmt = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+
+  document.getElementById('carga').addEventListener('change',function(){
+    document.getElementById('campo_carga_custom').style.display=this.value==='outro'?'flex':'none';
+  });
+
+  function selecionarTipo(el,tipo){
+    document.querySelectorAll('.tipo-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function calcular(){
+    const salario=parseFloat(document.getElementById('salario').value)||0;
+    if(!salario){alert('Informe o salário.');return;}
+
+    const cargaSel=document.getElementById('carga').value;
+    const cargaSemana=cargaSel==='outro'
+      ?(parseFloat(document.getElementById('carga_custom').value)||44)
+      :parseFloat(cargaSel);
+    const cargaMensal=(cargaSemana/6)*30;
+    const valorHoraNormal=salario/cargaMensal;
+
+    const tipo=document.querySelector('input[name=tipo]:checked').value;
+    const qtd=parseFloat(document.getElementById('qtd_horas').value)||0;
+    if(!qtd){alert('Informe a quantidade de horas extras.');return;}
+
+    const adicConv=parseFloat(document.getElementById('adicional_conv').value)||0;
+
+    let percAdicional, label;
+    switch(tipo){
+      case '50':
+        percAdicional=adicConv||50;
+        label=`Hora extra comum (+${percAdicional}%)`;
+        break;
+      case '100':
+        percAdicional=adicConv||100;
+        label=`Domingo/Feriado (+${percAdicional}%)`;
+        break;
+      case 'noturno':
+        percAdicional=20;
+        label='Adicional noturno (+20%)';
+        break;
+      case 'noturno_extra':
+        percAdicional=70;
+        label='Hora extra noturna (+70%)';
+        break;
+    }
+
+    // Hora extra noturna: hora reduzida (52min30s = 60min para fins de cálculo CLT)
+    const fatorNoturno=(tipo==='noturno'||tipo==='noturno_extra')?1.142857:1;
+    const valorHoraExtra=valorHoraNormal*(1+(percAdicional/100))*fatorNoturno;
+    const totalHorasExtras=valorHoraExtra*qtd;
+
+    document.getElementById('res_total').textContent=fmt(totalHorasExtras);
+    document.getElementById('res_hora').textContent=fmt(valorHoraExtra);
+    document.getElementById('res_adicional').textContent='+'+percAdicional+'%';
+    document.getElementById('res_qtd').textContent=qtd+'h';
+
+    const rows=[
+      ['Salário bruto mensal', fmt(salario)],
+      ['Carga horária mensal', cargaMensal.toFixed(0)+' horas'],
+      ['Valor hora normal', fmt(valorHoraNormal)],
+      ['Adicional aplicado', '+'+percAdicional+'%'],
+      ['Valor hora extra ('+label+')', fmt(valorHoraExtra)],
+      ['Quantidade de horas', qtd+'h'],
+      ['Total horas extras', fmt(totalHorasExtras)],
+      ['Salário do mês com HE', fmt(salario+totalHorasExtras)],
+    ];
+
+    const tbody=document.getElementById('tabela');
+    tbody.innerHTML='';
+    rows.forEach(([n,v],i)=>{
+      const tr=document.createElement('tr');
+      const isTotal=i>=rows.length-2;
+      tr.innerHTML=`<td>${n}</td><td style="text-align:right;font-weight:${isTotal?'700':'600'};color:${isTotal?'#137333':'#202124'}">${v}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
