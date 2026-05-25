@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sobre o FacilCalc – Calculadoras Gratuitas para Brasileiros</title>
+  <meta name="description" content="Conheça o FacilCalc: o projeto de calculadoras gratuitas criado para ajudar trabalhadores e cidadãos brasileiros a calcularem com o que têm."/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#f8f9fa;color:#202124;font-size:15px;line-height:1.7;}
+    header{background:linear-gradient(135deg,#1a237e,#1a73e8);color:#fff;padding:28px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:800;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid #dadce0;padding:10px 16px;font-size:.85rem;}
+    .nav a{color:#1a73e8;text-decoration:none;}
+    main{max-width:760px;margin:0 auto;padding:28px 16px;}
+    .hero{background:linear-gradient(135deg,#1a237e,#1a73e8);color:#fff;border-radius:16px;padding:32px 24px;text-align:center;margin-bottom:20px;}
+    .hero .logo{font-size:3rem;margin-bottom:8px;}
+    .hero h2{font-size:1.6rem;font-weight:900;}
+    .hero p{opacity:.88;margin-top:8px;font-size:.95rem;}
+    .card{background:#fff;border:1px solid #dadce0;border-radius:12px;padding:24px;margin-bottom:16px;}
+    .card h2{font-size:1.05rem;font-weight:700;color:#1a237e;margin-bottom:12px;}
+    p{margin-bottom:10px;color:#3c4043;}
+    .valores-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;}
+    @media(max-width:500px){.valores-grid{grid-template-columns:1fr;}}
+    .valor-item{background:#e8eaf6;border-radius:10px;padding:16px;text-align:center;}
+    .valor-item .icon{font-size:1.8rem;margin-bottom:6px;}
+    .valor-item .titulo{font-weight:700;font-size:.9rem;color:#1a237e;}
+    .valor-item .desc{font-size:.78rem;color:#5f6368;margin-top:4px;}
+    .contato-box{background:#e8f5e9;border-radius:10px;padding:18px;text-align:center;}
+    .contato-box a{color:#2e7d32;font-weight:700;font-size:1rem;text-decoration:none;}
+    .stats{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:16px;}
+    .stat{text-align:center;}
+    .stat .n{font-size:2rem;font-weight:900;color:#1a237e;}
+    .stat .l{font-size:.75rem;color:#5f6368;}
+    footer{text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>⚡ Sobre o FacilCalc</h1>
+  <p>Calculadoras gratuitas — feitas para brasileiros</p>
+</header>
+<div class="nav"><a href="../">← FacilCalc</a> / Sobre</div>
+<main>
+
+  <div class="hero">
+    <div class="logo">⚡</div>
+    <h2>FacilCalc</h2>
+    <p>Calculadoras gratuitas para trabalhadores, estudantes e profissionais brasileiros.<br/>Calcule com o que tem — estimativas automáticas incluídas.</p>
+    <div class="stats">
+      <div class="stat"><div class="n" id="n-tools">20+</div><div class="l">Calculadoras</div></div>
+      <div class="stat"><div class="n">R$0</div><div class="l">Custo para usar</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">Cadastros exigidos</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>💡 O que é o FacilCalc?</h2>
+    <p>O FacilCalc nasceu de uma necessidade simples: quando as pessoas precisam calcular rescisão, FGTS, IR ou parcelas de empréstimo, muitas vezes <strong>não têm todas as informações em mãos</strong>.</p>
+    <p>A maioria das calculadoras na internet exige todos os dados preenchidos ou apresenta resultados difíceis de entender. O FacilCalc foi criado com um diferencial: <strong>"calcule com o que tem"</strong> — estimativas automáticas preenchem o que falta, e tudo é explicado em linguagem simples.</p>
+  </div>
+
+  <div class="card">
+    <h2>🎯 Nossos valores</h2>
+    <div class="valores-grid">
+      <div class="valor-item">
+        <div class="icon">✅</div>
+        <div class="titulo">100% Gratuito</div>
+        <div class="desc">Sem planos pagos, sem freemium, sem limite de uso.</div>
+      </div>
+      <div class="valor-item">
+        <div class="icon">🔒</div>
+        <div class="titulo">Sem cadastro</div>
+        <div class="desc">Nenhum dado pessoal é coletado. Zero contas criadas.</div>
+      </div>
+      <div class="valor-item">
+        <div class="icon">📱</div>
+        <div class="titulo">Funciona em tudo</div>
+        <div class="desc">Celular, tablet ou computador — sem instalar nada.</div>
+      </div>
+      <div class="valor-item">
+        <div class="icon">🇧🇷</div>
+        <div class="titulo">Feito no Brasil</div>
+        <div class="desc">CLT, INSS, IRPF — legislação brasileira atualizada.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🛠️ Como foi feito</h2>
+    <p>O FacilCalc é um projeto desenvolvido por um programador brasileiro independente, utilizando apenas <strong>HTML, CSS e JavaScript puro</strong> — sem frameworks ou bibliotecas externas.</p>
+    <p>O site é hospedado no <strong>GitHub Pages</strong> (gratuito) com domínio próprio <strong>facilcalc.com.br</strong>. Todo o código é executado diretamente no navegador do usuário — nenhum servidor próprio processa seus dados.</p>
+    <p>As calculadoras são baseadas na legislação vigente (CLT, tabelas INSS/IR 2025, EC 103/2019) e são atualizadas regularmente.</p>
+  </div>
+
+  <div class="card">
+    <h2>☕ Apoiar o projeto</h2>
+    <p>O FacilCalc é e sempre será gratuito. Se ele te ajudou, considere apoiar o desenvolvimento com qualquer valor via PIX:</p>
+    <div class="contato-box">
+      <div style="font-size:.82rem;color:#5f6368;margin-bottom:6px">🔑 Chave PIX</div>
+      <a href="mailto:renatoapoio@gmail.com">renatoapoio@gmail.com</a>
+      <div style="font-size:.75rem;color:#888;margin-top:8px">Qualquer valor ajuda a manter o projeto no ar. Obrigado! 🙏</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📬 Contato e Sugestões</h2>
+    <p>Encontrou um erro em alguma calculadora? Tem sugestão de nova ferramenta? Entre em contato:</p>
+    <div class="contato-box">
+      <a href="mailto:renatoapoio@gmail.com">renatoapoio@gmail.com</a>
+    </div>
+    <p style="margin-top:12px;font-size:.82rem;color:#888">Respondemos todas as mensagens. Sugestões de novas calculadoras são muito bem-vindas!</p>
+  </div>
+
+</main>
+<footer>
+  FacilCalc © <script>document.write(new Date().getFullYear())</script> — 100% Gratuito · Sem cadastro · Feito no Brasil
+  <br/><a href="../politica-privacidade/" style="color:#1a73e8">Política de Privacidade</a>
+</footer>
+<script src="../shared.js"></script>
+</body>
+</html>

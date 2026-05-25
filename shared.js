@@ -1,4 +1,12 @@
 (function () {
+  // ── Favicon ⚡ ─────────────────────────────────────────────────────────
+  if (!document.querySelector('link[rel="icon"]')) {
+    const lnk = document.createElement('link');
+    lnk.rel = 'icon';
+    lnk.href = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>";
+    document.head.appendChild(lnk);
+  }
+
   // ── Ano dinâmico no rodapé ─────────────────────────────────────────────
   const ano = new Date().getFullYear();
   document.querySelectorAll('footer').forEach(f => {
