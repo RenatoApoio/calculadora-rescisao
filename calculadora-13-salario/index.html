@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de 13º Salário 2025 – Proporcional e Completo | FacilCalc</title>
+  <meta name="description" content="Calcule o valor do seu 13º salário completo ou proporcional. Veja quanto recebe na 1ª e 2ª parcela com descontos de INSS e IR. Estimativa automática."/>
+  <style>
+    :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;}
+    header{background:#e65100;color:#fff;padding:20px 16px;text-align:center;}
+    header h1{font-size:1.5rem;font-weight:700;}
+    header p{font-size:.9rem;opacity:.85;margin-top:4px;}
+    .nav{background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;font-size:.85rem;}
+    .nav a{color:var(--primary);text-decoration:none;}
+    .ad-slot{background:#f1f3f4;border:1px dashed #bbb;text-align:center;color:#999;font-size:12px;padding:12px;margin:12px auto;max-width:900px;border-radius:6px;}
+    main{max-width:900px;margin:0 auto;padding:16px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;}
+    .card h2{font-size:1rem;font-weight:600;color:#e65100;margin-bottom:14px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .field{display:flex;flex-direction:column;gap:5px;}
+    .field label{font-size:.85rem;font-weight:600;color:var(--muted);}
+    .field label .opt{font-weight:400;color:#aaa;font-size:.78rem;}
+    .field input,.field select{border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:.95rem;outline:none;transition:border .2s;}
+    .field input:focus,.field select:focus{border-color:#e65100;}
+    .field .hint{font-size:.75rem;color:#888;}
+    .btn-calc{width:100%;background:#e65100;color:#fff;border:none;border-radius:8px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;}
+    .btn-calc:hover{background:#bf360c;}
+    .estimate-badge{display:inline-block;background:#e8f0fe;color:#4285f4;border:1px solid #4285f4;border-radius:4px;font-size:.7rem;font-weight:600;padding:1px 6px;margin-left:6px;vertical-align:middle;}
+    .parcelas-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+    @media(max-width:600px){.parcelas-grid{grid-template-columns:1fr;}}
+    .parcela-card{border-radius:10px;padding:18px;color:#fff;text-align:center;}
+    .parcela-card .num{font-size:.8rem;opacity:.85;margin-bottom:4px;}
+    .parcela-card .valor{font-size:1.6rem;font-weight:700;}
+    .parcela-card .sub{font-size:.75rem;opacity:.75;margin-top:4px;}
+    .p1{background:linear-gradient(135deg,#f57c00,#e65100);}
+    .p2{background:linear-gradient(135deg,#c62828,#b71c1c);}
+    .total-card{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;border-radius:10px;padding:18px;text-align:center;margin-bottom:16px;}
+    .total-card .label{font-size:.85rem;opacity:.85;}
+    .total-card .valor{font-size:2rem;font-weight:700;}
+    table{width:100%;border-collapse:collapse;}
+    table th{background:#f1f3f4;text-align:left;padding:10px 12px;font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--border);}
+    table td{padding:11px 12px;border-bottom:1px solid #f1f3f4;font-size:.9rem;vertical-align:middle;}
+    .pos{text-align:right;font-weight:600;color:var(--success);}
+    .neg{text-align:right;font-weight:600;color:#c5221f;}
+    .bold{text-align:right;font-weight:700;font-size:1rem;}
+    .info-box{background:#fff3e0;border-left:4px solid #e65100;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#bf360c;margin-bottom:12px;}
+    .aviso{background:#fef7e0;border-left:4px solid #f29900;padding:12px 14px;border-radius:0 6px 6px 0;font-size:.83rem;color:#7a4f00;margin-top:12px;}
+    .btn-novo{background:#fff;border:2px solid #e65100;color:#e65100;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;}
+    #resultado{display:none;}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🎁 Calculadora de 13º Salário</h1>
+  <p>Calcule o valor completo ou proporcional — com estimativa automática</p>
+</header>
+<div class="nav"><a href="/">← FacilCalc</a> / Calculadora de 13º Salário</div>
+<div class="ad-slot">Anúncio Google AdSense</div>
+
+<main>
+  <div id="formulario">
+    <div class="card">
+      <h2>💼 Seus Dados</h2>
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Salário Bruto Mensal</label>
+          <input type="number" id="salario" placeholder="Ex: 3500,00" min="0" step="0.01"/>
+        </div>
+
+        <div class="field">
+          <label>Meses trabalhados em 2025 <span class="opt">(opcional)</span></label>
+          <input type="number" id="meses" placeholder="Calculamos pelo mês atual" min="1" max="12"/>
+          <span class="hint">Deixe em branco para usar o mês atual do ano</span>
+        </div>
+
+        <div class="field">
+          <label>Já recebeu a 1ª parcela?</label>
+          <select id="primeira_parcela">
+            <option value="nao">Não recebi ainda</option>
+            <option value="sim">Sim, já recebi</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Valor da 1ª parcela recebida <span class="opt">(opcional)</span></label>
+          <input type="number" id="valor_p1" placeholder="Deixe em branco se não recebeu" min="0" step="0.01"/>
+          <span class="hint">Se informar, calculamos o restante exato</span>
+        </div>
+
+        <div class="field">
+          <label>Número de dependentes <span class="opt">(opcional)</span></label>
+          <input type="number" id="dependentes" placeholder="0" min="0" max="20"/>
+          <span class="hint">Para cálculo do IR — deduz R$ 189,59 cada</span>
+        </div>
+
+        <div class="field">
+          <label>Outros rendimentos <span class="opt">(opcional)</span></label>
+          <input type="number" id="outros" placeholder="Horas extras, comissões..." min="0" step="0.01"/>
+          <span class="hint">Integram a base do 13º</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card" style="padding:14px">
+      <button class="btn-calc" onclick="calcular()">⚡ Calcular 13º Salário</button>
+    </div>
+  </div>
+
+  <div id="resultado">
+
+    <div class="parcelas-grid">
+      <div class="parcela-card p1">
+        <div class="num">1ª PARCELA</div>
+        <div class="valor" id="res_p1">R$ 0,00</div>
+        <div class="sub">Sem descontos • Pago até nov/30</div>
+      </div>
+      <div class="parcela-card p2">
+        <div class="num">2ª PARCELA</div>
+        <div class="valor" id="res_p2">R$ 0,00</div>
+        <div class="sub">Com INSS e IR • Pago até dez/20</div>
+      </div>
+    </div>
+
+    <div class="total-card">
+      <div class="label">Total Líquido do 13º Salário</div>
+      <div class="valor" id="res_total">R$ 0,00</div>
+    </div>
+
+    <div class="ad-slot">Anúncio Google AdSense</div>
+
+    <div class="card">
+      <h2>📄 Detalhamento Completo</h2>
+      <div id="aviso_estimado" class="info-box" style="display:none">
+        ℹ️ Meses não informados — usando <strong id="meses_usados">0</strong> meses (mês atual do ano).
+        <span class="estimate-badge">ESTIMADO</span>
+      </div>
+      <table>
+        <thead><tr><th>Item</th><th style="text-align:right">Valor</th></tr></thead>
+        <tbody id="tabela"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>📅 Calendário de Pagamento</h2>
+      <table>
+        <thead><tr><th>Parcela</th><th>Prazo Legal</th><th>Observação</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1ª Parcela</strong></td><td>Até 30 de novembro</td><td>Pode ser antecipada nas férias</td></tr>
+          <tr><td><strong>2ª Parcela</strong></td><td>Até 20 de dezembro</td><td>Com desconto de INSS e IR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="aviso">
+      ⚠️ <strong>Atenção:</strong> O 13º proporcional considera apenas meses com 15 ou mais dias trabalhados. Afastamentos prolongados podem reduzir o valor. Consulte o RH para o valor oficial.
+    </div>
+
+    <br/><div style="text-align:center">
+      <button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+
+<div class="ad-slot">Anúncio Google AdSense</div>
+<footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
+  <a href="/" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
+  <p style="margin-top:8px">Calculadora de 13º Salário 2025 — Baseada na CLT e legislação vigente</p>
+</footer>
+
+<script>
+  const fmt = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+
+  function calcINSS(s){
+    const t=[{ate:1518,a:.075},{ate:2793.88,a:.09},{ate:4190.83,a:.12},{ate:8157.41,a:.14}];
+    let r=0,ant=0;
+    for(const f of t){const fx=Math.min(s,f.ate)-ant;if(fx<=0)break;r+=fx*f.a;ant=f.ate;if(s<=f.ate)break;}
+    return Math.min(r,1142.04);
+  }
+
+  function calcIR(base,dep){
+    const b=base-(189.59*dep);
+    if(b<=2259.20)return 0;
+    if(b<=2826.65)return b*.075-169.44;
+    if(b<=3751.05)return b*.15-381.44;
+    if(b<=4664.68)return b*.225-662.77;
+    return b*.275-896.00;
+  }
+
+  function calcular(){
+    const salario=parseFloat(document.getElementById('salario').value)||0;
+    if(!salario){alert('Informe o salário.');return;}
+
+    const outros=parseFloat(document.getElementById('outros').value)||0;
+    const dep=parseInt(document.getElementById('dependentes').value)||0;
+    const mesAtual=new Date().getMonth()+1;
+    const mesesInput=parseInt(document.getElementById('meses').value)||0;
+    const meses=mesesInput||mesAtual;
+    const isEstim=!mesesInput;
+
+    const baseSalario=salario+outros;
+    const decimo3Bruto=(baseSalario/12)*meses;
+
+    // 1ª parcela: metade do bruto, sem descontos
+    const p1Calculada=decimo3Bruto/2;
+    const jaRecebeu=document.getElementById('primeira_parcela').value==='sim';
+    const valorP1Informado=parseFloat(document.getElementById('valor_p1').value)||0;
+    const p1Real=valorP1Informado||p1Calculada;
+
+    // 2ª parcela: bruto - INSS - IR - 1ª parcela
+    const inss=calcINSS(decimo3Bruto);
+    const baseIR=decimo3Bruto-inss;
+    const ir=Math.max(0,calcIR(baseIR,dep));
+    const p2=decimo3Bruto-inss-ir-p1Real;
+    const totalLiquido=decimo3Bruto-inss-ir;
+
+    document.getElementById('res_p1').textContent=fmt(p1Real);
+    document.getElementById('res_p2').textContent=fmt(Math.max(0,p2));
+    document.getElementById('res_total').textContent=fmt(totalLiquido);
+
+    // Aviso estimado
+    if(isEstim){
+      document.getElementById('aviso_estimado').style.display='block';
+      document.getElementById('meses_usados').textContent=meses;
+    } else {
+      document.getElementById('aviso_estimado').style.display='none';
+    }
+
+    // Tabela
+    const rows=[
+      ['Salário base', fmt(baseSalario), 'pos', isEstim?false:false],
+      ['Meses trabalhados', meses+'/12'+(isEstim?' (estimado)':''), null, isEstim],
+      ['13º Bruto ('+meses+'/12 × '+fmt(baseSalario)+')', fmt(decimo3Bruto), 'pos', isEstim],
+      ['1ª Parcela (sem desconto)', fmt(p1Real), 'pos', !valorP1Informado&&!jaRecebeu],
+      ['(-) INSS sobre 13º', '-'+fmt(inss), 'neg', false],
+      ['(-) IR estimado sobre 13º', ir>0?'-'+fmt(ir):'Isento', ir>0?'neg':'pos', false],
+      ['2ª Parcela líquida', fmt(Math.max(0,p2)), 'pos', false],
+      ['= Total Líquido', fmt(totalLiquido), 'bold', false],
+    ];
+
+    const tbody=document.getElementById('tabela');
+    tbody.innerHTML='';
+    rows.forEach(([n,v,cls,estim])=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td>${n}${estim?'<span class="estimate-badge">ESTIMADO</span>':''}</td>
+        <td class="${cls||''}" style="text-align:right;font-weight:${cls==='bold'?'700':'600'}">${v}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('resultado').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function novoCalculo(){
+    document.getElementById('resultado').style.display='none';
+    document.getElementById('formulario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
