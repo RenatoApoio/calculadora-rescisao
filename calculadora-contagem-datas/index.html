@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Contagem Regressiva — Aniversário, Casamento e Datas Especiais | FacilCalc</title>
+<meta name="description" content="Calcule quantos dias, horas, minutos e segundos faltam para seu aniversário, casamento, formatura ou qualquer data especial. Conta a idade exata também."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#6a1b9a,#1a73e8);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.55rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.93rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:16px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#1a73e8;outline:none;box-shadow:0 0 0 3px rgba(26,115,232,.12)}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#6a1b9a,#1a73e8);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px;transition:.15s}
+.btn-calc:hover{opacity:.9;transform:translateY(-1px)}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+.btn-add{background:#f3e5f5;color:#6a1b9a;border:none;border-radius:10px;padding:11px 20px;font-size:.9rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+
+/* Countdown display */
+.countdown-hero{background:linear-gradient(135deg,#6a1b9a,#1a73e8);border-radius:16px;padding:24px 16px;color:#fff;text-align:center;margin-bottom:14px}
+.countdown-hero .event-ico{font-size:3rem;display:block;margin-bottom:8px}
+.countdown-hero .event-name{font-size:1.1rem;font-weight:800;margin-bottom:4px;opacity:.95}
+.countdown-hero .event-date{font-size:.85rem;opacity:.75;margin-bottom:20px}
+.cd-units{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.cd-unit{background:rgba(255,255,255,.18);border-radius:12px;padding:10px 14px;min-width:68px;text-align:center}
+.cd-unit .num{font-size:2rem;font-weight:900;line-height:1;display:block}
+.cd-unit .lbl{font-size:.68rem;font-weight:600;opacity:.85;margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
+.countdown-hero .total-days{margin-top:16px;font-size:.85rem;opacity:.8}
+
+/* Age / info box */
+.info-box{background:#f3e5f5;border-radius:12px;padding:14px 18px;margin-bottom:14px}
+.info-box p{font-size:.9rem;color:#4a148c;line-height:1.6}
+.info-box strong{font-size:1.05rem}
+
+/* Saved events */
+.saved-list{display:flex;flex-direction:column;gap:8px}
+.saved-item{background:#f8f9ff;border:1px solid #e0e0e0;border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:.15s}
+.saved-item:hover{border-color:#1a73e8;background:#e8f0fe}
+.saved-item .si-left .si-name{font-weight:700;font-size:.9rem}
+.saved-item .si-left .si-date{font-size:.78rem;color:#666;margin-top:2px}
+.saved-item .si-right{font-size:.85rem;font-weight:700;color:#1a73e8;white-space:nowrap}
+.saved-item .si-del{background:none;border:none;cursor:pointer;color:#bbb;font-size:1rem;padding:0 4px;margin-left:8px}
+.saved-item .si-del:hover{color:#e53935}
+.empty-hint{text-align:center;color:#bbb;font-size:.85rem;padding:16px}
+
+.past-badge{background:#ffebee;border:2px solid #ef9a9a;border-radius:12px;padding:12px 16px;text-align:center;margin-bottom:14px}
+.past-badge p{color:#c62828;font-size:.9rem;font-weight:600}
+
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){
+  .grid{grid-template-columns:1fr}
+  .full{grid-column:1}
+  .cd-unit{min-width:58px}
+  .cd-unit .num{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎉 Contagem Regressiva</h1>
+  <p>Quantos dias, horas, minutos e segundos faltam para a sua data especial?</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>📅 Nova Contagem</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Tipo de Evento</label>
+        <select id="tipo">
+          <option value="aniversario">🎂 Aniversário (recorrente)</option>
+          <option value="casamento">💍 Casamento / Aniversário de casal</option>
+          <option value="formatura">🎓 Formatura</option>
+          <option value="viagem">✈️ Viagem</option>
+          <option value="natal">🎄 Natal</option>
+          <option value="reveillon">🎆 Réveillon</option>
+          <option value="outro">📌 Data personalizada</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Nome do evento (opcional)</label>
+        <input type="text" id="nome" placeholder="Ex: Meu aniversário"/>
+      </div>
+      <div class="field full">
+        <label>Data <span id="lbl-tipo">(nascimento)</span></label>
+        <input type="date" id="data"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">⏱️ Calcular Contagem</button>
+  </div>
+
+  <div id="resultado">
+    <div id="countdown-hero-wrap"></div>
+    <div id="info-wrap"></div>
+    <div style="text-align:center;margin:8px 0 16px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+      <button class="btn-add" onclick="salvar()">💾 Salvar esta data</button>
+      <button class="btn-novo" onclick="novo()">➕ Nova contagem</button>
+    </div>
+  </div>
+
+  <div class="card" id="card-salvas">
+    <h2>⭐ Datas Salvas</h2>
+    <div id="lista-salvas"><div class="empty-hint">Nenhuma data salva ainda.<br>Calcule e clique em "Salvar esta data".</div></div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+const ICONES = {aniversario:'🎂',casamento:'💍',formatura:'🎓',viagem:'✈️',natal:'🎄',reveillon:'🎆',outro:'📌'};
+const NOMES_TIPO = {aniversario:'Aniversário',casamento:'Casamento',formatura:'Formatura',viagem:'Viagem',natal:'Natal',reveillon:'Réveillon',outro:'Data'};
+const LBTS = {aniversario:'(data de nascimento)',casamento:'(data do casamento)',formatura:'(data da formatura)',viagem:'(data da viagem)',natal:'(não é necessário — fixo em 25/12)',reveillon:'(não é necessário — fixo em 31/12)',outro:'(data do evento)'};
+
+let _timer=null, _curEvt=null;
+
+document.getElementById('tipo').addEventListener('change',function(){
+  document.getElementById('lbl-tipo').textContent = LBTS[this.value]||'';
+  if(this.value==='natal'){document.getElementById('data').value='';document.getElementById('data').disabled=true;}
+  else if(this.value==='reveillon'){document.getElementById('data').value='';document.getElementById('data').disabled=true;}
+  else{document.getElementById('data').disabled=false;}
+});
+
+function proximaOcorrencia(mes0, dia){
+  const hoje = new Date();
+  const ano = hoje.getFullYear();
+  let d = new Date(ano, mes0, dia);
+  if(d<=hoje) d=new Date(ano+1, mes0, dia);
+  return d;
+}
+
+function calcular(){
+  const tipo = document.getElementById('tipo').value;
+  const nomeInput = document.getElementById('nome').value.trim();
+  let dataVal = document.getElementById('data').value;
+
+  let alvo, nomeEvento, icon=ICONES[tipo]||'📌', recorrente=false, dataNasc=null;
+
+  if(tipo==='natal'){
+    const hoje=new Date(); const ano=hoje.getFullYear();
+    alvo=new Date(ano,11,25); if(alvo<=hoje) alvo=new Date(ano+1,11,25);
+    nomeEvento=nomeInput||'Natal';
+  } else if(tipo==='reveillon'){
+    const hoje=new Date(); const ano=hoje.getFullYear();
+    alvo=new Date(ano,11,31); if(alvo<=hoje) alvo=new Date(ano+1,11,31);
+    nomeEvento=nomeInput||'Réveillon';
+  } else {
+    if(!dataVal){alert('Informe a data do evento.');return;}
+    const [ano,mes,dia]=dataVal.split('-').map(Number);
+    dataNasc=new Date(ano,mes-1,dia);
+    if(tipo==='aniversario'||tipo==='casamento'){
+      alvo=proximaOcorrencia(mes-1,dia);
+      recorrente=true;
+      nomeEvento=nomeInput||(tipo==='aniversario'?'Aniversário':'Casamento');
+    } else {
+      alvo=new Date(ano,mes-1,dia);
+      nomeEvento=nomeInput||NOMES_TIPO[tipo]||'Evento';
+    }
+  }
+
+  _curEvt={tipo,nome:nomeEvento,icon,alvo,recorrente,dataNasc,dataStr:dataVal};
+  document.getElementById('resultado').style.display='block';
+  iniciarTimer(alvo,nomeEvento,icon,recorrente,dataNasc);
+}
+
+function iniciarTimer(alvo, nome, icon, recorrente, dataNasc){
+  if(_timer) clearInterval(_timer);
+  renderContagem(alvo,nome,icon,recorrente,dataNasc);
+  _timer=setInterval(()=>{
+    if(recorrente){
+      const agora=new Date();
+      if(alvo<=agora){
+        alvo=proximaOcorrencia(alvo.getMonth(),alvo.getDate());
+      }
+    }
+    renderContagem(alvo,nome,icon,recorrente,dataNasc);
+  },1000);
+}
+
+function renderContagem(alvo,nome,icon,recorrente,dataNasc){
+  const agora=new Date();
+  const diff=alvo-agora;
+
+  const heroWrap=document.getElementById('countdown-hero-wrap');
+  const infoWrap=document.getElementById('info-wrap');
+
+  if(diff<=0 && !recorrente){
+    heroWrap.innerHTML=`<div class="past-badge"><p>🎉 Esta data já passou ou é hoje!</p></div>`;
+    infoWrap.innerHTML='';
+    return;
+  }
+
+  const totalSeg=Math.max(0,Math.floor(diff/1000));
+  const dias=Math.floor(totalSeg/86400);
+  const horas=Math.floor((totalSeg%86400)/3600);
+  const mins=Math.floor((totalSeg%3600)/60);
+  const segs=totalSeg%60;
+
+  const fmtData=alvo.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+
+  heroWrap.innerHTML=`
+    <div class="countdown-hero">
+      <span class="event-ico">${icon}</span>
+      <div class="event-name">${nome}</div>
+      <div class="event-date">${fmtData}</div>
+      <div class="cd-units">
+        <div class="cd-unit"><span class="num">${String(dias).padStart(2,'0')}</span><span class="lbl">dias</span></div>
+        <div class="cd-unit"><span class="num">${String(horas).padStart(2,'0')}</span><span class="lbl">horas</span></div>
+        <div class="cd-unit"><span class="num">${String(mins).padStart(2,'0')}</span><span class="lbl">min</span></div>
+        <div class="cd-unit"><span class="num">${String(segs).padStart(2,'0')}</span><span class="lbl">seg</span></div>
+      </div>
+      <div class="total-days">Total: ${totalSeg.toLocaleString('pt-BR')} segundos · ${(totalSeg/3600).toFixed(1)} horas · ${dias} dias</div>
+    </div>`;
+
+  // Informações extras
+  let infoHtml='';
+  if(dataNasc){
+    const hoje=new Date();
+    const idade=hoje.getFullYear()-dataNasc.getFullYear()-
+      (hoje<new Date(hoje.getFullYear(),dataNasc.getMonth(),dataNasc.getDate())?1:0);
+    const proxAniver=alvo;
+    const idadeProx=proxAniver.getFullYear()-dataNasc.getFullYear();
+    if(recorrente && (document.getElementById('tipo').value==='aniversario')){
+      infoHtml=`<div class="info-box">
+        <p>🎂 Você tem <strong>${idade} anos</strong> hoje.</p>
+        <p>No próximo aniversário, fará <strong>${idadeProx} anos</strong>.</p>
+        <p>📅 Data de nascimento: <strong>${dataNasc.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}</strong></p>
+      </div>`;
+    } else if(recorrente && (document.getElementById('tipo').value==='casamento')){
+      infoHtml=`<div class="info-box">
+        <p>💍 Casamento há <strong>${idade} anos</strong>!</p>
+        <p>No próximo aniversário, serão <strong>${idadeProx} anos juntos</strong>.</p>
+      </div>`;
+    }
+  }
+  infoWrap.innerHTML=infoHtml;
+}
+
+function salvar(){
+  if(!_curEvt) return;
+  const salvas=JSON.parse(localStorage.getItem('fc_datas')||'[]');
+  const ja=salvas.find(s=>s.nome===_curEvt.nome&&s.dataStr===_curEvt.dataStr);
+  if(ja){alert('Esta data já está salva!');return;}
+  salvas.push({tipo:_curEvt.tipo,nome:_curEvt.nome,icon:_curEvt.icon,dataStr:_curEvt.dataStr,recorrente:_curEvt.recorrente});
+  localStorage.setItem('fc_datas',JSON.stringify(salvas));
+  renderSalvas();
+  const btn=document.querySelector('.btn-add');
+  btn.textContent='✅ Salvo!';
+  setTimeout(()=>btn.textContent='💾 Salvar esta data',2000);
+}
+
+function renderSalvas(){
+  const salvas=JSON.parse(localStorage.getItem('fc_datas')||'[]');
+  const el=document.getElementById('lista-salvas');
+  if(!salvas.length){el.innerHTML='<div class="empty-hint">Nenhuma data salva ainda.<br>Calcule e clique em "Salvar esta data".</div>';return;}
+  el.innerHTML=salvas.map((s,idx)=>{
+    const agora=new Date();
+    let alvo, texto='';
+    if(s.tipo==='natal'){const ano=agora.getFullYear();alvo=new Date(ano,11,25);if(alvo<=agora)alvo=new Date(ano+1,11,25);}
+    else if(s.tipo==='reveillon'){const ano=agora.getFullYear();alvo=new Date(ano,11,31);if(alvo<=agora)alvo=new Date(ano+1,11,31);}
+    else if(s.dataStr){
+      const[a,m,d]=s.dataStr.split('-').map(Number);
+      if(s.recorrente){alvo=proximaOcorrencia(m-1,d);}
+      else{alvo=new Date(a,m-1,d);}
+    }
+    if(alvo){
+      const dias=Math.ceil((alvo-agora)/86400000);
+      texto=dias>0?`${dias} dias`:(dias===0?'Hoje! 🎉':'Passou');
+    }
+    return`<div class="saved-item" onclick="carregarSalva(${idx})">
+      <div class="si-left">
+        <div class="si-name">${s.icon} ${s.nome}</div>
+        <div class="si-date">${s.dataStr?new Date(s.dataStr+'T12:00:00').toLocaleDateString('pt-BR'):''}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <div class="si-right">${texto}</div>
+        <button class="si-del" onclick="deletarSalva(event,${idx})">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function carregarSalva(idx){
+  const salvas=JSON.parse(localStorage.getItem('fc_datas')||'[]');
+  const s=salvas[idx];
+  document.getElementById('tipo').value=s.tipo;
+  document.getElementById('nome').value=s.nome;
+  if(s.dataStr) document.getElementById('data').value=s.dataStr;
+  document.getElementById('lbl-tipo').textContent=LBTS[s.tipo]||'';
+  calcular();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deletarSalva(e,idx){
+  e.stopPropagation();
+  const salvas=JSON.parse(localStorage.getItem('fc_datas')||'[]');
+  salvas.splice(idx,1);
+  localStorage.setItem('fc_datas',JSON.stringify(salvas));
+  renderSalvas();
+}
+
+function novo(){
+  if(_timer) clearInterval(_timer);
+  document.getElementById('resultado').style.display='none';
+  document.getElementById('countdown-hero-wrap').innerHTML='';
+  document.getElementById('info-wrap').innerHTML='';
+  document.getElementById('nome').value='';
+  document.getElementById('data').value='';
+  document.getElementById('tipo').value='aniversario';
+  document.getElementById('lbl-tipo').textContent=LBTS['aniversario'];
+  _curEvt=null;
+}
+
+renderSalvas();
+</script>
+</body>
+</html>

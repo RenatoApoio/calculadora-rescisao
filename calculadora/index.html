@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora Online — Simples e Científica | FacilCalc</title>
+<meta name="description" content="Calculadora online gratuita com modo simples e científico. Suporta seno, cosseno, raiz quadrada, logaritmo, potência e muito mais. Funciona no celular."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#1a73e8);color:#fff;padding:22px 16px 16px;text-align:center}
+header h1{font-size:1.45rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.88rem;opacity:.88;margin-top:4px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:420px;margin:0 auto;padding:16px}
+
+/* Toggle */
+.toggle-row{display:flex;background:#fff;border-radius:10px;padding:4px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:14px}
+.tog-btn{flex:1;padding:9px 4px;border:none;border-radius:8px;font-size:.88rem;font-weight:700;cursor:pointer;background:transparent;color:#666;transition:.2s}
+.tog-btn.active{background:#1a237e;color:#fff}
+
+/* Calculator body */
+.calc{background:#fff;border-radius:18px;box-shadow:0 4px 20px rgba(0,0,0,.12);overflow:hidden}
+
+/* Display */
+.display{background:#1a237e;padding:16px 18px 12px;color:#fff;min-height:90px;display:flex;flex-direction:column;justify-content:flex-end}
+.display .hist{font-size:.78rem;opacity:.6;min-height:20px;text-align:right;word-break:break-all;margin-bottom:4px}
+.display .main-val{font-size:2.2rem;font-weight:300;text-align:right;word-break:break-all;line-height:1.2}
+.display .main-val.small{font-size:1.5rem}
+
+/* Buttons */
+.btns{padding:10px}
+.btn-row{display:grid;gap:7px;margin-bottom:7px}
+.btn-row.cols-4{grid-template-columns:repeat(4,1fr)}
+.btn-row.cols-5{grid-template-columns:repeat(5,1fr)}
+button.b{border:none;border-radius:10px;font-size:1.1rem;font-weight:600;cursor:pointer;padding:18px 6px;transition:.1s;line-height:1}
+button.b:active{transform:scale(.94);filter:brightness(.9)}
+button.b.num{background:#f0f4f8;color:#1a237e}
+button.b.op{background:#e8f0fe;color:#1a73e8}
+button.b.eq{background:linear-gradient(135deg,#1a73e8,#1565c0);color:#fff;font-size:1.3rem}
+button.b.fn{background:#f3e5f5;color:#6a1b9a;font-size:.9rem}
+button.b.clr{background:#ffebee;color:#c62828}
+button.b.clr2{background:#fff3e0;color:#e65100}
+button.b.zero{grid-column:span 2}
+button.b.sci-op{background:#e8f5e9;color:#2e7d32;font-size:.85rem}
+
+/* History */
+.hist-panel{background:#f8f9ff;border-top:1px solid #e8eaf6;padding:10px 14px;max-height:160px;overflow-y:auto}
+.hist-panel h4{font-size:.78rem;color:#888;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
+.hist-item{font-size:.85rem;color:#333;padding:4px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between}
+.hist-item:last-child{border:none}
+.hist-item .expr{color:#666}
+.hist-item .res{font-weight:700;color:#1a237e;cursor:pointer}
+.hist-item .res:hover{text-decoration:underline}
+.no-hist{font-size:.8rem;color:#bbb;text-align:center;padding:8px}
+
+.mode-sci{display:none}
+
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+
+@media(max-width:360px){
+  button.b{padding:15px 4px;font-size:1rem}
+  .display .main-val{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧮 Calculadora</h1>
+  <p>Modo simples e científica — use o teclado ou clique</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="toggle-row">
+    <button class="tog-btn active" id="btn-simples" onclick="setMode('simples')">📟 Simples</button>
+    <button class="tog-btn" id="btn-cient" onclick="setMode('cientifica')">🔬 Científica</button>
+  </div>
+
+  <div class="calc">
+    <div class="display">
+      <div class="hist" id="hist-disp"></div>
+      <div class="main-val" id="main-disp">0</div>
+    </div>
+
+    <!-- Scientific extra rows -->
+    <div class="btns mode-sci" id="sci-btns">
+      <div class="btn-row cols-5">
+        <button class="b fn" onclick="fn('sin')">sin</button>
+        <button class="b fn" onclick="fn('cos')">cos</button>
+        <button class="b fn" onclick="fn('tan')">tan</button>
+        <button class="b fn" onclick="fn('log')">log</button>
+        <button class="b fn" onclick="fn('ln')">ln</button>
+      </div>
+      <div class="btn-row cols-5">
+        <button class="b sci-op" onclick="fn('sqrt')">√x</button>
+        <button class="b sci-op" onclick="fn('sq')">x²</button>
+        <button class="b sci-op" onclick="fn('pow')">xʸ</button>
+        <button class="b sci-op" onclick="fn('inv')">1/x</button>
+        <button class="b sci-op" onclick="fn('fact')">n!</button>
+      </div>
+      <div class="btn-row cols-5">
+        <button class="b sci-op" onclick="fn('pi')">π</button>
+        <button class="b sci-op" onclick="fn('e')">e</button>
+        <button class="b sci-op" onclick="fn('abs')">|x|</button>
+        <button class="b sci-op" onclick="fn('deg')">DEG</button>
+        <button class="b sci-op" onclick="fn('rad')">RAD</button>
+      </div>
+    </div>
+
+    <!-- Common buttons -->
+    <div class="btns" id="main-btns">
+      <div class="btn-row cols-4">
+        <button class="b clr" onclick="ac()">AC</button>
+        <button class="b clr2" onclick="del()">⌫</button>
+        <button class="b op" onclick="inputOp('%')">%</button>
+        <button class="b op" onclick="inputOp('/')">÷</button>
+      </div>
+      <div class="btn-row cols-4">
+        <button class="b num" onclick="inp('7')">7</button>
+        <button class="b num" onclick="inp('8')">8</button>
+        <button class="b num" onclick="inp('9')">9</button>
+        <button class="b op" onclick="inputOp('*')">×</button>
+      </div>
+      <div class="btn-row cols-4">
+        <button class="b num" onclick="inp('4')">4</button>
+        <button class="b num" onclick="inp('5')">5</button>
+        <button class="b num" onclick="inp('6')">6</button>
+        <button class="b op" onclick="inputOp('-')">−</button>
+      </div>
+      <div class="btn-row cols-4">
+        <button class="b num" onclick="inp('1')">1</button>
+        <button class="b num" onclick="inp('2')">2</button>
+        <button class="b num" onclick="inp('3')">3</button>
+        <button class="b op" onclick="inputOp('+')">+</button>
+      </div>
+      <div class="btn-row cols-4">
+        <button class="b num zero" onclick="inp('0')">0</button>
+        <button class="b num" onclick="inp('.')">.</button>
+        <button class="b eq" onclick="calcular()">=</button>
+      </div>
+    </div>
+
+    <div class="hist-panel">
+      <h4>Histórico</h4>
+      <div id="hist-list"><div class="no-hist">Nenhum cálculo ainda</div></div>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+let expr='', lastResult=null, history=[], angleMode='DEG', waitingForOp=false, lastWasEq=false;
+
+function updateDisplay(main, hist){
+  const el=document.getElementById('main-disp');
+  el.textContent=main||'0';
+  el.className='main-val'+(main.length>12?' small':'');
+  document.getElementById('hist-disp').textContent=hist||'';
+}
+
+function inp(v){
+  if(lastWasEq){expr='';lastWasEq=false;}
+  if(v==='.'&&expr.split(/[\+\-\*\/]/).pop().includes('.')) return;
+  expr+=v;
+  updateDisplay(fmtExpr(expr),'');
+}
+
+function inputOp(op){
+  if(lastWasEq){lastWasEq=false;}
+  if(expr===''&&op==='-'){expr='-';updateDisplay('-','');return;}
+  if(expr===''&&lastResult!==null){expr=String(lastResult);}
+  if(/[\+\-\*\/]$/.test(expr)){expr=expr.slice(0,-1);}
+  expr+=op;
+  updateDisplay(fmtExpr(expr),'');
+}
+
+function fmtExpr(e){
+  return e.replace(/\*/g,'×').replace(/\//g,'÷');
+}
+
+function calcular(){
+  if(!expr) return;
+  try{
+    let safe=expr.replace(/÷/g,'/').replace(/×/g,'*');
+    // handle % as /100 for last operand
+    safe=safe.replace(/(\d+\.?\d*)%/g,'($1/100)');
+    const result=Function('"use strict";return('+safe+')')();
+    if(!isFinite(result)){updateDisplay('Erro','');return;}
+    const resStr=fmtNum(result);
+    history.unshift({expr:fmtExpr(expr), res:resStr, val:result});
+    if(history.length>20) history.pop();
+    updateDisplay(resStr, fmtExpr(expr)+' =');
+    lastResult=result;
+    expr='';
+    lastWasEq=true;
+    renderHist();
+  }catch(e){updateDisplay('Erro','');expr='';}
+}
+
+function fn(f){
+  let v=lastResult;
+  if(expr){try{v=Function('"use strict";return('+expr.replace(/÷/g,'/').replace(/×/g,'*')+')')();}catch(e){}}
+  if(v===null||isNaN(v)){updateDisplay('Erro','');return;}
+  const toRad=angleMode==='DEG'?Math.PI/180:1;
+  const fromRad=angleMode==='DEG'?180/Math.PI:1;
+  let res, label;
+  switch(f){
+    case'sin': res=Math.sin(v*toRad);label=`sin(${v})`; break;
+    case'cos': res=Math.cos(v*toRad);label=`cos(${v})`; break;
+    case'tan': res=Math.tan(v*toRad);label=`tan(${v})`; break;
+    case'log': if(v<=0){updateDisplay('Erro','');return;} res=Math.log10(v);label=`log(${v})`; break;
+    case'ln':  if(v<=0){updateDisplay('Erro','');return;} res=Math.log(v);label=`ln(${v})`; break;
+    case'sqrt':if(v<0){updateDisplay('Erro','');return;} res=Math.sqrt(v);label=`√(${v})`; break;
+    case'sq':  res=v*v;label=`(${v})²`; break;
+    case'pow': expr=String(v)+'**';updateDisplay(fmtExpr(String(v))+'^','');return;
+    case'inv': if(v===0){updateDisplay('Erro','');return;} res=1/v;label=`1/(${v})`; break;
+    case'fact':if(v<0||v>170||!Number.isInteger(v)){updateDisplay('Erro','');return;} res=factorial(v);label=`${v}!`; break;
+    case'pi':  expr=(expr||'')+'3.14159265358979';updateDisplay(fmtExpr(expr),'');return;
+    case'e':   expr=(expr||'')+'2.71828182845904';updateDisplay(fmtExpr(expr),'');return;
+    case'abs': res=Math.abs(v);label=`|${v}|`; break;
+    case'deg': angleMode='DEG'; document.querySelector('.b.sci-op[onclick*="deg"]').style.background='#c8e6c9'; document.querySelector('.b.sci-op[onclick*="rad"]').style.background=''; return;
+    case'rad': angleMode='RAD'; document.querySelector('.b.sci-op[onclick*="rad"]').style.background='#c8e6c9'; document.querySelector('.b.sci-op[onclick*="deg"]').style.background=''; return;
+    default: return;
+  }
+  const resStr=fmtNum(res);
+  history.unshift({expr:label,res:resStr,val:res});
+  if(history.length>20) history.pop();
+  updateDisplay(resStr,label+' =');
+  lastResult=res; expr=''; lastWasEq=true;
+  renderHist();
+}
+
+function factorial(n){let r=1;for(let i=2;i<=n;i++)r*=i;return r;}
+
+function fmtNum(v){
+  if(!isFinite(v)) return 'Erro';
+  if(Number.isInteger(v)&&Math.abs(v)<1e15) return v.toLocaleString('pt-BR');
+  const s=parseFloat(v.toPrecision(10));
+  if(Math.abs(s)>=1e-4&&Math.abs(s)<1e12) return s.toLocaleString('pt-BR',{maximumFractionDigits:10});
+  return s.toExponential(6).replace('e+','e').replace('.','___').replace(',','___').replace('___','.');
+}
+
+function ac(){expr='';lastResult=null;lastWasEq=false;updateDisplay('0','');}
+function del(){
+  if(lastWasEq){ac();return;}
+  expr=expr.slice(0,-1);
+  updateDisplay(fmtExpr(expr)||'0','');
+}
+
+function renderHist(){
+  const el=document.getElementById('hist-list');
+  if(!history.length){el.innerHTML='<div class="no-hist">Nenhum cálculo ainda</div>';return;}
+  el.innerHTML=history.map((h,i)=>
+    `<div class="hist-item"><span class="expr">${h.expr}</span><span class="res" onclick="useHist(${i})" title="Usar este valor">${h.res}</span></div>`
+  ).join('');
+}
+
+function useHist(i){
+  const h=history[i];
+  lastResult=h.val; expr=''; lastWasEq=true;
+  updateDisplay(h.res,'');
+}
+
+function setMode(m){
+  const isSci=m==='cientifica';
+  document.getElementById('btn-simples').className='tog-btn'+(isSci?'':' active');
+  document.getElementById('btn-cient').className='tog-btn'+(isSci?' active':'');
+  document.querySelectorAll('.mode-sci').forEach(el=>el.style.display=isSci?'block':'none');
+}
+
+// Keyboard support
+document.addEventListener('keydown',e=>{
+  if('0123456789'.includes(e.key)){inp(e.key);}
+  else if(e.key==='.'){inp('.');}
+  else if(['+','-','*','/'].includes(e.key)){inputOp(e.key);}
+  else if(e.key==='Enter'||e.key==='='){calcular();}
+  else if(e.key==='Backspace'){del();}
+  else if(e.key==='Escape'){ac();}
+  else if(e.key==='%'){inputOp('%');}
+});
+</script>
+</body>
+</html>

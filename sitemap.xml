@@ -14,6 +14,9 @@
   <url><loc>https://facilcalc.com.br/calculadora-aposentadoria/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://facilcalc.com.br/calculadora-ir/</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
   <url><loc>https://facilcalc.com.br/calculadora-emprestimo/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://facilcalc.com.br/calculadora-sac-price/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://facilcalc.com.br/calculadora-contagem-datas/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://facilcalc.com.br/calculadora/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://facilcalc.com.br/calculadora-imc/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://facilcalc.com.br/calculadora-calorias/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://facilcalc.com.br/cotacao-moedas/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>

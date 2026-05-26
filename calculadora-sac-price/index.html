@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora SAC vs Price 2025 — Qual Sistema Vale Mais? | FacilCalc</title>
+<meta name="description" content="Compare Tabela SAC e Tabela Price: parcelas, juros totais, amortização. Descubra qual sistema paga menos e se vale quitar o financiamento ou investir no CDI."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#1a73e8);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.55rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.93rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:720px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:16px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#1a73e8;outline:none;box-shadow:0 0 0 3px rgba(26,115,232,.12)}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a73e8,#1565c0);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px;transition:.15s}
+.btn-calc:hover{opacity:.9;transform:translateY(-1px)}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.cmp{border-radius:12px;padding:16px}
+.cmp.sac{background:#e8f5e9;border:2px solid #4caf50}
+.cmp.price{background:#e3f2fd;border:2px solid #2196f3}
+.cmp h3{font-size:.95rem;font-weight:800;margin-bottom:10px;text-align:center}
+.cmp.sac h3{color:#2e7d32}
+.cmp.price h3{color:#1565c0}
+.crow{display:flex;justify-content:space-between;align-items:baseline;font-size:.82rem;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.07)}
+.crow:last-child{border:none;font-weight:700}
+.crow span:last-child{font-weight:700;text-align:right}
+.winner{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:2px solid #ffc107;border-radius:12px;padding:16px;text-align:center;margin-bottom:14px}
+.winner .ico{font-size:2rem;display:block;margin-bottom:6px}
+.winner strong{color:#e65100;font-size:1rem}
+.winner p{font-size:.85rem;color:#555;margin-top:6px}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+thead th{background:#1a237e;color:#fff;padding:8px 10px;text-align:right;white-space:nowrap}
+thead th:first-child{text-align:left}
+tbody td{padding:7px 10px;border-bottom:1px solid #f0f0f0;text-align:right;white-space:nowrap}
+tbody td:first-child{text-align:left;font-weight:600;color:#1a237e}
+tbody tr:nth-child(even){background:#f8f9ff}
+tbody tr.sep td{text-align:center;color:#bbb;padding:3px;font-size:.75rem;background:#fafafa}
+.rec{border-radius:12px;padding:18px;margin-top:14px;text-align:center}
+.rec.quitar{background:#e8f5e9;border:2px solid #4caf50}
+.rec.investir{background:#e3f2fd;border:2px solid #2196f3}
+.rec .rico{font-size:2.2rem;display:block;margin-bottom:6px}
+.rec h3{font-weight:800;font-size:1.05rem;margin-bottom:8px}
+.rec.quitar h3{color:#2e7d32}
+.rec.investir h3{color:#1565c0}
+.rec p{font-size:.85rem;color:#444;line-height:1.55}
+.rec .pill{display:inline-block;border-radius:20px;padding:3px 14px;font-size:.8rem;font-weight:700;margin:4px 4px 0}
+.pill-g{background:#c8e6c9;color:#2e7d32}
+.pill-b{background:#bbdefb;color:#1565c0}
+.hint{font-size:.78rem;color:#888;margin-top:8px;line-height:1.5}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:500px){
+  .grid,.compare-grid{grid-template-columns:1fr}
+  .full{grid-column:1}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏦 Calculadora SAC vs Price</h1>
+  <p>Compare os sistemas de amortização — e descubra se vale quitar ou investir no CDI</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>💰 Dados do Financiamento</h2>
+    <div class="grid">
+      <div class="field full">
+        <label>Valor Total do Financiamento (R$)</label>
+        <input type="text" id="valor" placeholder="Ex: 300.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Taxa de Juros (% ao mês)</label>
+        <input type="text" id="taxa" placeholder="Ex: 0,80"/>
+      </div>
+      <div class="field">
+        <label>Prazo (meses)</label>
+        <input type="number" id="prazo" placeholder="Ex: 360" min="1" max="600"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">⚖️ Comparar SAC × Price</button>
+  </div>
+
+  <div id="resultado">
+    <div class="card">
+      <h2>📊 Comparativo SAC × Price</h2>
+      <div class="compare-grid">
+        <div class="cmp sac">
+          <h3>📉 Tabela SAC</h3>
+          <div class="crow"><span>1ª parcela</span><span id="sac-p1">—</span></div>
+          <div class="crow"><span>Última parcela</span><span id="sac-pn">—</span></div>
+          <div class="crow"><span>Total pago</span><span id="sac-total">—</span></div>
+          <div class="crow"><span>Total de juros</span><span id="sac-juros">—</span></div>
+        </div>
+        <div class="cmp price">
+          <h3>📋 Tabela Price</h3>
+          <div class="crow"><span>1ª parcela</span><span id="price-p1">—</span></div>
+          <div class="crow"><span>Última parcela</span><span id="price-pn">—</span></div>
+          <div class="crow"><span>Total pago</span><span id="price-total">—</span></div>
+          <div class="crow"><span>Total de juros</span><span id="price-juros">—</span></div>
+        </div>
+      </div>
+      <div class="winner">
+        <span class="ico">🏆</span>
+        <strong id="winner-txt"></strong>
+        <p id="winner-sub"></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📋 Evolução das Parcelas</h2>
+      <p class="hint" style="margin-bottom:10px">Primeiras, meio e últimas parcelas</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="text-align:left">Mês</th>
+              <th>SAC Parcela</th>
+              <th>SAC Juros</th>
+              <th>SAC Saldo</th>
+              <th>Price Parcela</th>
+              <th>Price Juros</th>
+              <th>Price Saldo</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>💡 Vale Quitar ou Investir no CDI?</h2>
+      <p class="hint" style="margin-bottom:14px">Compare a taxa do seu financiamento com o rendimento líquido do CDI</p>
+      <div class="grid">
+        <div class="field">
+          <label>Saldo Devedor Atual (R$)</label>
+          <input type="text" id="saldo-dev" placeholder="Ex: 200.000,00" oninput="maskMoeda(this)"/>
+        </div>
+        <div class="field">
+          <label>CDI atual (% ao ano)</label>
+          <input type="text" id="cdi-val" placeholder="Ex: 14,75"/>
+        </div>
+        <div class="field">
+          <label>Meses restantes</label>
+          <input type="number" id="meses-rest" placeholder="Ex: 240" min="1"/>
+        </div>
+        <div class="field">
+          <label>IR sobre CDI (prazo do investimento)</label>
+          <select id="ir-aliq">
+            <option value="0.15">15% — acima de 720 dias (recomendado)</option>
+            <option value="0.175">17,5% — 361 a 720 dias</option>
+            <option value="0.20">20% — 181 a 360 dias</option>
+            <option value="0.225">22,5% — até 180 dias</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-calc" onclick="calcQuitar()" style="margin-top:12px">💰 Calcular: Quitar ou Investir?</button>
+      <div id="res-quitar"></div>
+    </div>
+
+    <div style="text-align:center;margin:8px 0 4px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){
+  const d = el.value.replace(/\D/g,'');
+  if(!d){el.value='';return;}
+  el.value = (parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=2){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+let _i=0, _pv=0, _n=0;
+
+function calcSAC(pv,i,n){
+  const A = pv/n;
+  let bal=pv, totPago=0, totJuros=0, rows=[];
+  for(let k=1;k<=n;k++){
+    const jur=bal*i, pmt=A+jur;
+    bal-=A; if(bal<0.005)bal=0;
+    totPago+=pmt; totJuros+=jur;
+    rows.push({pmt,jur,bal});
+  }
+  return{p1:rows[0].pmt,pn:rows[n-1].pmt,total:totPago,juros:totJuros,rows};
+}
+
+function calcPrice(pv,i,n){
+  const f=Math.pow(1+i,n);
+  const pmt=pv*i*f/(f-1);
+  let bal=pv, totJuros=0, rows=[];
+  for(let k=1;k<=n;k++){
+    const jur=bal*i, amort=pmt-jur;
+    bal-=amort; if(bal<0.005)bal=0;
+    totJuros+=jur;
+    rows.push({pmt,jur,bal});
+  }
+  return{p1:pmt,pn:pmt,total:pmt*n,juros:totJuros,rows};
+}
+
+function calcular(){
+  const pv=parseMoeda(document.getElementById('valor').value);
+  const iStr=document.getElementById('taxa').value.replace(',','.');
+  const i=parseFloat(iStr)/100;
+  const n=parseInt(document.getElementById('prazo').value)||0;
+  if(!pv||!i||!n){alert('Preencha todos os campos corretamente.');return;}
+  _i=i;_pv=pv;_n=n;
+
+  const sac=calcSAC(pv,i,n);
+  const price=calcPrice(pv,i,n);
+
+  document.getElementById('sac-p1').textContent=fmtR(sac.p1);
+  document.getElementById('sac-pn').textContent=fmtR(sac.pn);
+  document.getElementById('sac-total').textContent=fmtR(sac.total);
+  document.getElementById('sac-juros').textContent=fmtR(sac.juros);
+  document.getElementById('price-p1').textContent=fmtR(price.p1);
+  document.getElementById('price-pn').textContent=fmtR(price.pn);
+  document.getElementById('price-total').textContent=fmtR(price.total);
+  document.getElementById('price-juros').textContent=fmtR(price.juros);
+
+  const diff=price.juros-sac.juros;
+  document.getElementById('winner-txt').textContent='Tabela SAC economiza '+fmtR(diff)+' em juros';
+  document.getElementById('winner-sub').textContent='O SAC paga menos juros no total pois reduz o saldo mais rapidamente. '+
+    'As primeiras parcelas do SAC ('+fmtR(sac.p1)+') são maiores que o Price ('+fmtR(price.p1)+'), mas caem mês a mês.';
+
+  // Tabela: primeiras 3, meio, últimas 3
+  const mid=Math.ceil(n/2);
+  const keys=[1,2,3,mid,n-2,n-1,n].filter((v,idx,a)=>v>=1&&v<=n&&a.indexOf(v)===idx).sort((a,b)=>a-b);
+  let html='', prev=0;
+  for(const k of keys){
+    if(prev&&k-prev>1) html+=`<tr class="sep"><td colspan="7">· · ·</td></tr>`;
+    const s=sac.rows[k-1], p=price.rows[k-1];
+    html+=`<tr><td>${k}º</td><td>${fmtR(s.pmt)}</td><td>${fmtR(s.jur)}</td><td>${fmtR(s.bal)}</td><td>${fmtR(p.pmt)}</td><td>${fmtR(p.jur)}</td><td>${fmtR(p.bal)}</td></tr>`;
+    prev=k;
+  }
+  document.getElementById('tbody').innerHTML=html;
+
+  // Pré-preenche campos do quitar
+  document.getElementById('saldo-dev').value=document.getElementById('valor').value;
+  document.getElementById('meses-rest').value=n;
+
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+
+function calcQuitar(){
+  const saldo=parseMoeda(document.getElementById('saldo-dev').value);
+  const cdiA=parseFloat((document.getElementById('cdi-val').value||'').replace(',','.'))||0;
+  const meses=parseInt(document.getElementById('meses-rest').value)||0;
+  const ir=parseFloat(document.getElementById('ir-aliq').value)||0.15;
+  if(!saldo||!cdiA||!meses||!_i){alert('Preencha todos os campos.');return;}
+
+  const cdiM=Math.pow(1+cdiA/100,1/12)-1;
+  const cdiLiqM=cdiM*(1-ir);
+  const cdiLiqA=(Math.pow(1+cdiLiqM,12)-1)*100;
+  const finAnual=(Math.pow(1+_i,12)-1)*100;
+
+  // Juros restantes pelo SAC
+  const A=saldo/meses;
+  let bal=saldo, jurosRestantes=0;
+  for(let k=1;k<=meses;k++){jurosRestantes+=bal*_i;bal-=A;}
+
+  // Rendimento CDI líquido no período
+  const rendCDI=saldo*(Math.pow(1+cdiLiqM,meses)-1);
+
+  const quitar=jurosRestantes>rendCDI;
+  const diff=Math.abs(jurosRestantes-rendCDI);
+
+  document.getElementById('res-quitar').innerHTML=`
+    <div class="rec ${quitar?'quitar':'investir'}">
+      <span class="rico">${quitar?'🏠':'📈'}</span>
+      <h3>${quitar?'Vale a pena QUITAR o financiamento':'Vale a pena INVESTIR no CDI'}</h3>
+      <span class="pill pill-g">Financiamento: ${fmtN(finAnual)}% a.a.</span>
+      <span class="pill pill-b">CDI líquido: ${fmtN(cdiLiqA)}% a.a.</span>
+      <p style="margin-top:12px">
+        ${quitar
+          ? `Quitando agora, você deixa de pagar <strong>${fmtR(jurosRestantes)}</strong> em juros.<br>
+             O CDI renderia apenas <strong>${fmtR(rendCDI)}</strong> no mesmo período.<br>
+             <strong>Vantagem de quitar: ${fmtR(diff)}</strong>`
+          : `Investindo no CDI, você ganha <strong>${fmtR(rendCDI)}</strong> líquido.<br>
+             Os juros que pagaria seriam <strong>${fmtR(jurosRestantes)}</strong>.<br>
+             <strong>Vantagem de investir: ${fmtR(diff)}</strong>`
+        }
+      </p>
+      <p class="hint" style="margin-top:10px">* Cálculo baseado em SAC. Considere também a liquidez: o dinheiro investido fica disponível para emergências.</p>
+    </div>`;
+}
+
+function novo(){
+  document.getElementById('formulario').style.display='';
+  document.getElementById('resultado').style.display='none';
+  document.getElementById('res-quitar').innerHTML='';
+  document.querySelectorAll('#formulario input').forEach(el=>el.value='');
+}
+</script>
+</body>
+</html>
