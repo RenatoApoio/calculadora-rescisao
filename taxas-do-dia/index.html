@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Taxas do Dia — Selic, CDI, IPCA, IGP-M em Tempo Real 2025 | FacilCalc</title>
+<meta name="description" content="Consulte as principais taxas de juros do Brasil em tempo real: Selic, CDI, IPCA, IGP-M, TR e mais. Dados atualizados pelo Banco Central."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1565c0,#0288d1);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1565c0;margin-bottom:14px;font-weight:700}
+#loading{text-align:center;padding:40px;color:#888;font-size:1rem}
+.spinner{display:inline-block;width:32px;height:32px;border:4px solid #e0e0e0;border-top-color:#0288d1;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.taxa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:16px}
+.taxa-box{background:#f8faff;border:2px solid #e3eaff;border-radius:12px;padding:16px;text-align:center;transition:.2s}
+.taxa-box:hover{border-color:#0288d1;box-shadow:0 2px 8px rgba(2,136,209,.15)}
+.taxa-icon{font-size:1.6rem;margin-bottom:6px}
+.taxa-nome{font-size:.78rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px}
+.taxa-valor{font-size:1.6rem;font-weight:900;color:#1565c0;margin:4px 0}
+.taxa-desc{font-size:.72rem;color:#888;line-height:1.4}
+.info-box{background:#e3f2fd;border:1px solid #90caf9;border-radius:10px;padding:12px 16px;font-size:.82rem;color:#0d47a1;line-height:1.7;margin-bottom:12px}
+.ultima-atualizacao{text-align:center;font-size:.75rem;color:#999;margin-top:12px}
+.erro{background:#ffebee;border:1px solid #ef9a9a;border-radius:10px;padding:16px;color:#c62828;text-align:center;font-size:.9rem}
+.btn-reload{background:#1565c0;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-weight:700;cursor:pointer;margin-top:12px;font-size:.9rem}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>📊 Taxas do Dia</h1>
+  <p>Selic, CDI, IPCA, IGP-M e mais — dados em tempo real do Banco Central</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card">
+    <h2>📈 Taxas de Juros Vigentes</h2>
+    <div id="loading"><div class="spinner"></div><br>Buscando dados...</div>
+    <div id="content" style="display:none">
+      <div class="taxa-grid" id="taxa-grid"></div>
+      <div class="ultima-atualizacao" id="ultima-att"></div>
+    </div>
+    <div id="erro" style="display:none" class="erro">
+      <div>⚠️ Não foi possível carregar os dados agora.</div>
+      <button class="btn-reload" onclick="carregarTaxas()">🔄 Tentar novamente</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📚 O que significa cada taxa?</h2>
+    <div class="info-box">
+      <strong>Selic:</strong> Taxa básica de juros da economia. Definida pelo Copom (Banco Central). Referência para todos os outros juros do país.<br>
+      <strong>CDI:</strong> Certificado de Depósito Interbancário. Muito próximo da Selic. Base para a maioria dos investimentos de renda fixa.<br>
+      <strong>IPCA:</strong> Inflação oficial do Brasil, medida pelo IBGE. Usada no Tesouro IPCA+ e reajuste de contratos.<br>
+      <strong>IGP-M:</strong> Índice Geral de Preços do Mercado, calculado pela FGV. Muito usado em reajuste de aluguéis.<br>
+      <strong>TR:</strong> Taxa Referencial. Usada no cálculo do FGTS e algumas poupanças. Pode ser zero ou positiva.<br>
+      <strong>Poupança:</strong> Rendimento da caderneta de poupança. Quando Selic &gt; 8,5% a.a.: 0,5% ao mês + TR.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>💡 Como usar essas taxas?</h2>
+    <div class="info-box">
+      📈 <strong>Para investimentos:</strong> Use o CDI como benchmark. Bons investimentos rendem acima de 100% do CDI.<br>
+      🏠 <strong>Para financiamentos:</strong> A Selic influencia diretamente as taxas dos bancos. Quando sobe, crédito fica mais caro.<br>
+      📋 <strong>Para aluguéis:</strong> O IGP-M é o índice mais usado em contratos de aluguel residencial.<br>
+      🛒 <strong>Para reajustes:</strong> O IPCA é a inflação oficial — base para reajuste de salários e contratos de serviço.
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Dados: BrasilAPI / Banco Central do Brasil</footer>
+<script src="../shared.js"></script>
+<script>
+const ICONES = {
+  'Selic':'🏦', 'CDI':'💹', 'IPCA':'📦', 'IGP-M':'🏠', 'TR':'📋',
+  'TBF':'📊', 'TJLP':'🏗️', 'SELIC':'🏦', 'CDI acum. mês':'💰',
+  'Poupança':'🐷', 'IPCA-E':'📦', 'IPC-Fipe':'🛒'
+};
+const DESCS = {
+  'Selic':'Taxa básica do Banco Central — define o custo do dinheiro no Brasil.',
+  'CDI':'Referência da renda fixa — base para CDB, LCI, fundos e outros.',
+  'IPCA':'Inflação oficial medida pelo IBGE — meta do Banco Central.',
+  'IGP-M':'Inflação FGV — muito usado em reajuste de aluguéis.',
+  'TR':'Taxa Referencial — incide sobre FGTS e poupança.',
+  'TBF':'Taxa Básica Financeira — referência para alguns títulos.',
+  'TJLP':'Taxa de Juros de Longo Prazo — usada no BNDES.',
+};
+
+function fmtPct(v){
+  if(v===null||v===undefined)return '—';
+  return v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'% a.a.';
+}
+
+async function carregarTaxas() {
+  document.getElementById('loading').style.display='block';
+  document.getElementById('content').style.display='none';
+  document.getElementById('erro').style.display='none';
+  try {
+    const r = await fetch('https://brasilapi.com.br/api/taxas/v1');
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    renderTaxas(data);
+  } catch(e) {
+    document.getElementById('loading').style.display='none';
+    document.getElementById('erro').style.display='block';
+  }
+}
+
+function renderTaxas(data) {
+  const grid = document.getElementById('taxa-grid');
+  grid.innerHTML = data.map(function(t){
+    var icone = ICONES[t.nome] || '📊';
+    var desc  = DESCS[t.nome]  || 'Taxa de referência do mercado financeiro brasileiro.';
+    var valor = t.valor !== null ? fmtPct(t.valor) : '—';
+    return '<div class="taxa-box">' +
+      '<div class="taxa-icon">' + icone + '</div>' +
+      '<div class="taxa-nome">' + t.nome + '</div>' +
+      '<div class="taxa-valor">' + valor + '</div>' +
+      '<div class="taxa-desc">' + desc + '</div>' +
+      '</div>';
+  }).join('');
+
+  var now = new Date();
+  document.getElementById('ultima-att').textContent =
+    '🕐 Atualizado em ' + now.toLocaleDateString('pt-BR') + ' às ' + now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+
+  document.getElementById('loading').style.display='none';
+  document.getElementById('content').style.display='block';
+}
+
+carregarTaxas();
+</script>
+</body>
+</html>

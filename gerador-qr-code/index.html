@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Gerador de QR Code Grátis — Crie QR Code em Segundos 2025 | FacilCalc</title>
+<meta name="description" content="Gere QR Code grátis para qualquer link, texto, WhatsApp ou PIX. Baixe em alta resolução PNG sem cadastro. Rápido e fácil."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#311b92,#5e35b1);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#311b92;margin-bottom:14px;font-weight:700}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-size:.8rem;font-weight:700;color:#555}
+.field input,.field select,.field textarea{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:.95rem;transition:.2s;font-family:inherit}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#5e35b1;outline:none}
+.field textarea{resize:vertical;min-height:80px}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:7px 16px;border-radius:20px;font-size:.82rem;font-weight:700;cursor:pointer;border:2px solid #e0e0e0;background:#f5f5f5;color:#555;transition:.15s}
+.tab.ativo{background:#311b92;color:#fff;border-color:#311b92}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-gerar{width:100%;background:linear-gradient(135deg,#311b92,#5e35b1);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:6px}
+#area-qr{display:none;text-align:center;padding:24px}
+#qr-img{max-width:260px;width:100%;border:6px solid #fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.qr-size-info{font-size:.8rem;color:#888;margin-top:8px}
+.btn-baixar{display:inline-flex;align-items:center;gap:8px;background:#311b92;color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:14px;text-decoration:none}
+.btn-novo{background:#ede7f6;color:#311b92;border:none;border-radius:10px;padding:11px 28px;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:10px}
+.dica{background:#ede7f6;border:1px solid #ce93d8;border-radius:10px;padding:12px 14px;font-size:.82rem;color:#4a148c;line-height:1.7;margin-bottom:12px}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid-2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>📱 Gerador de QR Code</h1>
+  <p>Crie QR Codes grátis em segundos — para link, WhatsApp, PIX ou texto</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>⚡ Escolha o tipo de QR Code</h2>
+    <div class="tabs">
+      <button class="tab ativo" onclick="setTipo('url')">🔗 Link/URL</button>
+      <button class="tab" onclick="setTipo('whatsapp')">💬 WhatsApp</button>
+      <button class="tab" onclick="setTipo('pix')">💰 PIX (Chave)</button>
+      <button class="tab" onclick="setTipo('texto')">📝 Texto livre</button>
+    </div>
+
+    <div id="form-url">
+      <div class="field"><label>URL ou Link</label><input type="url" id="inp-url" placeholder="https://exemplo.com.br"/></div>
+    </div>
+
+    <div id="form-whatsapp" style="display:none">
+      <div class="field"><label>Número com DDD (só dígitos)</label><input type="tel" id="inp-wpp" placeholder="11999998888" maxlength="13"/></div>
+      <div class="field"><label>Mensagem pré-definida (opcional)</label><textarea id="inp-wpp-msg" placeholder="Olá, vim pelo QR Code!"></textarea></div>
+    </div>
+
+    <div id="form-pix" style="display:none">
+      <div class="field"><label>Chave PIX (e-mail, CPF, telefone ou chave aleatória)</label><input type="text" id="inp-pix" placeholder="email@exemplo.com ou 00000000000"/></div>
+    </div>
+
+    <div id="form-texto" style="display:none">
+      <div class="field"><label>Texto livre</label><textarea id="inp-texto" placeholder="Digite qualquer texto aqui..."></textarea></div>
+    </div>
+
+    <div class="grid-2" style="margin-top:12px">
+      <div class="field">
+        <label>Tamanho (pixels)</label>
+        <select id="tamanho">
+          <option value="200">200×200 — Pequeno</option>
+          <option value="300" selected>300×300 — Médio</option>
+          <option value="500">500×500 — Grande</option>
+          <option value="800">800×800 — Alta resolução</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Cor do QR Code</label>
+        <select id="cor">
+          <option value="000000">⬛ Preto (padrão)</option>
+          <option value="1a237e">🔵 Azul escuro</option>
+          <option value="1b5e20">🟢 Verde escuro</option>
+          <option value="b71c1c">🔴 Vermelho</option>
+          <option value="4a148c">🟣 Roxo</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-gerar" onclick="gerar()">📱 Gerar QR Code</button>
+  </div>
+
+  <div id="area-qr" class="card">
+    <h2>✅ Seu QR Code</h2>
+    <img id="qr-img" alt="QR Code gerado"/>
+    <div class="qr-size-info" id="qr-info"></div>
+    <br>
+    <a id="btn-baixar" class="btn-baixar" download="qrcode-facilcalc.png">⬇️ Baixar PNG</a>
+    <br>
+    <button class="btn-novo" onclick="novo()">🔄 Novo QR Code</button>
+  </div>
+
+  <div class="card">
+    <h2>💡 Para que serve um QR Code?</h2>
+    <div class="dica">
+      📲 <strong>Links de site:</strong> Coloque em cartões, banners ou embalagens para direcionar clientes ao seu site.<br>
+      💬 <strong>WhatsApp:</strong> Clientes escaneiam e abrem uma conversa direta com sua empresa.<br>
+      💰 <strong>PIX:</strong> Facilite pagamentos — o cliente escaneia e já tem sua chave preenchida no app.<br>
+      📝 <strong>Texto:</strong> Cardápios, informações de produto, instruções — qualquer texto em QR Code.
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+var tipoAtivo='url';
+
+function setTipo(tipo){
+  tipoAtivo=tipo;
+  document.querySelectorAll('.tab').forEach(function(t,i){
+    t.classList.toggle('ativo',['url','whatsapp','pix','texto'][i]===tipo);
+  });
+  ['url','whatsapp','pix','texto'].forEach(function(t){
+    document.getElementById('form-'+t).style.display=t===tipo?'block':'none';
+  });
+}
+
+function getConteudo(){
+  if(tipoAtivo==='url'){
+    var u=document.getElementById('inp-url').value.trim();
+    if(!u){alert('Informe a URL.');return null;}
+    if(!/^https?:\/\//i.test(u))u='https://'+u;
+    return u;
+  }
+  if(tipoAtivo==='whatsapp'){
+    var n=document.getElementById('inp-wpp').value.replace(/\D/g,'');
+    if(!n){alert('Informe o número do WhatsApp.');return null;}
+    var msg=encodeURIComponent(document.getElementById('inp-wpp-msg').value.trim());
+    return 'https://wa.me/55'+n+(msg?'?text='+msg:'');
+  }
+  if(tipoAtivo==='pix'){
+    var p=document.getElementById('inp-pix').value.trim();
+    if(!p){alert('Informe a chave PIX.');return null;}
+    return p;
+  }
+  if(tipoAtivo==='texto'){
+    var t=document.getElementById('inp-texto').value.trim();
+    if(!t){alert('Informe o texto.');return null;}
+    return t;
+  }
+  return null;
+}
+
+function gerar(){
+  var conteudo=getConteudo();
+  if(!conteudo)return;
+  var tamanho=document.getElementById('tamanho').value;
+  var cor=document.getElementById('cor').value;
+  var url='https://api.qrserver.com/v1/create-qr-code/?size='+tamanho+'x'+tamanho+'&data='+encodeURIComponent(conteudo)+'&color='+cor+'&bgcolor=FFFFFF&margin=16&format=png';
+  var img=document.getElementById('qr-img');
+  img.src=url;
+  img.onload=function(){
+    document.getElementById('qr-info').textContent=tamanho+'×'+tamanho+' pixels · Pronto para imprimir';
+    document.getElementById('btn-baixar').href=url;
+    document.getElementById('formulario').style.display='none';
+    document.getElementById('area-qr').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+  img.onerror=function(){alert('Erro ao gerar QR Code. Verifique o conteúdo e tente novamente.');};
+}
+
+function novo(){
+  document.getElementById('formulario').style.display='block';
+  document.getElementById('area-qr').style.display='none';
+  document.getElementById('inp-url').value='';
+  document.getElementById('inp-wpp').value='';
+  document.getElementById('inp-pix').value='';
+  document.getElementById('inp-texto').value='';
+}
+</script>
+</body>
+</html>

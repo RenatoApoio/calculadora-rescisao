@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Consulta CEP Grátis — Endereço Completo por CEP 2025 | FacilCalc</title>
+<meta name="description" content="Consulte qualquer CEP e obtenha o endereço completo: logradouro, bairro, cidade e estado. Dados dos Correios em tempo real. Grátis e sem cadastro."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#00695c,#00897b);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#00695c;margin-bottom:14px;font-weight:700}
+.field label{font-size:.82rem;font-weight:700;color:#555;display:block;margin-bottom:6px}
+.input-row{display:flex;gap:10px}
+.field input{flex:1;padding:12px 16px;border:2px solid #ddd;border-radius:10px;font-size:1.3rem;letter-spacing:2px;font-weight:700;transition:.2s;text-align:center}
+.field input:focus{border-color:#00897b;outline:none}
+.btn-calc{background:linear-gradient(135deg,#00695c,#00897b);color:#fff;border:none;border-radius:10px;padding:13px 24px;font-size:1rem;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-novo{background:#e0f2f1;color:#00695c;border:1.5px solid #80cbc4;border-radius:10px;padding:10px 24px;font-size:.95rem;font-weight:700;cursor:pointer;display:block;margin:14px auto 0}
+.spinner{display:inline-block;width:28px;height:28px;border:4px solid #e0e0e0;border-top-color:#00897b;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loading{text-align:center;padding:20px;display:none}
+#resultado{display:none}
+.hero{background:linear-gradient(135deg,#00695c,#00897b);color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:14px;text-align:center}
+.hero .cep-num{font-size:2rem;font-weight:900;letter-spacing:2px}
+.hero .cep-sub{font-size:.9rem;opacity:.8;margin-top:4px}
+.dados-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.dado{background:#f0fdfa;border:1.5px solid #b2dfdb;border-radius:10px;padding:12px}
+.dado label{font-size:.72rem;font-weight:700;color:#00695c;text-transform:uppercase;display:block;margin-bottom:3px}
+.dado span{font-size:.92rem;font-weight:600;color:#222}
+.full{grid-column:1/-1}
+.erro{background:#ffebee;border:1px solid #ef9a9a;border-radius:10px;padding:16px;color:#c62828;text-align:center;font-size:.9rem;display:none}
+.exemplos{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.ex-btn{background:#e0f2f1;color:#00695c;border:1.5px solid #80cbc4;border-radius:20px;padding:5px 14px;font-size:.78rem;font-weight:700;cursor:pointer}
+.dica{background:#e0f2f1;border:1px solid #80cbc4;border-radius:10px;padding:12px 14px;font-size:.82rem;color:#004d40;line-height:1.7;margin-bottom:12px}
+.link-maps{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:#1a73e8;color:#fff;border-radius:8px;padding:8px 16px;font-size:.85rem;font-weight:700;text-decoration:none}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.dados-grid{grid-template-columns:1fr}.full{grid-column:1}.input-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+  <h1>📍 Consulta CEP</h1>
+  <p>Endereço completo por CEP — dados dos Correios em tempo real</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>🔍 Informe o CEP</h2>
+    <div class="field">
+      <label>CEP (somente números)</label>
+      <div class="input-row">
+        <input type="text" id="cep-input" placeholder="00000-000" oninput="maskCEP(this)" maxlength="9" inputmode="numeric"/>
+        <button class="btn-calc" onclick="consultar()">🔍 Consultar</button>
+      </div>
+    </div>
+    <div class="exemplos">
+      <span style="font-size:.75rem;color:#888;align-self:center">Exemplos:</span>
+      <button class="ex-btn" onclick="usarEx('01001-000')">01001-000 SP</button>
+      <button class="ex-btn" onclick="usarEx('20040-020')">20040-020 RJ</button>
+      <button class="ex-btn" onclick="usarEx('70040-900')">70040-900 BSB</button>
+    </div>
+    <div id="loading"><br><div class="spinner"></div> &nbsp; Consultando...</div>
+    <div class="erro" id="erro"></div>
+  </div>
+
+  <div id="resultado">
+    <div class="hero">
+      <div class="cep-num" id="r-cep">—</div>
+      <div class="cep-sub" id="r-cidade-uf">—</div>
+    </div>
+
+    <div class="card">
+      <h2>📋 Endereço Completo</h2>
+      <div class="dados-grid">
+        <div class="dado full"><label>Logradouro</label><span id="r-logradouro">—</span></div>
+        <div class="dado full"><label>Complemento</label><span id="r-complemento">—</span></div>
+        <div class="dado"><label>Bairro</label><span id="r-bairro">—</span></div>
+        <div class="dado"><label>DDD</label><span id="r-ddd">—</span></div>
+        <div class="dado"><label>Município</label><span id="r-localidade">—</span></div>
+        <div class="dado"><label>Estado (UF)</label><span id="r-uf">—</span></div>
+        <div class="dado"><label>Código IBGE</label><span id="r-ibge">—</span></div>
+        <div class="dado"><label>GIA</label><span id="r-gia">—</span></div>
+      </div>
+      <div id="maps-link-box"></div>
+    </div>
+
+    <button class="btn-novo" onclick="novo()">🔄 Nova Consulta</button>
+  </div>
+
+  <div class="card">
+    <h2>💡 Dicas sobre CEP</h2>
+    <div class="dica">
+      📦 <strong>CEP errado nos Correios?</strong> Use o <a href="https://buscacepinter.correios.com.br" target="_blank" rel="noopener" style="color:#00695c">site oficial dos Correios</a> para busca por endereço.<br>
+      🏢 <strong>CEP de grandes empresas:</strong> Grandes empresas têm CEP próprio — diferente do CEP do logradouro.<br>
+      🔢 <strong>Formato:</strong> O CEP tem 8 dígitos. Os 5 primeiros identificam a região, os 3 últimos o trecho da rua.
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Dados: ViaCEP / Correios do Brasil</footer>
+<script src="../shared.js"></script>
+<script>
+function maskCEP(el){
+  var v=el.value.replace(/\D/g,'').slice(0,8);
+  if(v.length>5)v=v.slice(0,5)+'-'+v.slice(5);
+  el.value=v;
+  if(v.replace(/\D/g,'').length===8)consultar();
+}
+function usarEx(cep){document.getElementById('cep-input').value=cep;consultar();}
+
+async function consultar(){
+  var raw=document.getElementById('cep-input').value.replace(/\D/g,'');
+  if(raw.length!==8){if(raw.length>0&&raw.length!==8){}return;}
+  document.getElementById('loading').style.display='block';
+  document.getElementById('erro').style.display='none';
+  document.getElementById('resultado').style.display='none';
+  try{
+    var r=await fetch('https://viacep.com.br/ws/'+raw+'/json/');
+    var d=await r.json();
+    if(d.erro){throw new Error('CEP não encontrado. Verifique se o CEP está correto.');}
+    renderCEP(d);
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    var er=document.getElementById('erro');
+    er.textContent='⚠️ '+(e.message||'Erro ao consultar CEP.');
+    er.style.display='block';
+  }
+}
+
+function renderCEP(d){
+  document.getElementById('r-cep').textContent=d.cep||'—';
+  document.getElementById('r-cidade-uf').textContent=(d.localidade||'')+(d.uf?' / '+d.uf:'');
+  document.getElementById('r-logradouro').textContent=d.logradouro||'(CEP geral do município)';
+  document.getElementById('r-complemento').textContent=d.complemento||'—';
+  document.getElementById('r-bairro').textContent=d.bairro||'—';
+  document.getElementById('r-ddd').textContent=d.ddd?'('+d.ddd+')':'—';
+  document.getElementById('r-localidade').textContent=d.localidade||'—';
+  document.getElementById('r-uf').textContent=d.uf||'—';
+  document.getElementById('r-ibge').textContent=d.ibge||'—';
+  document.getElementById('r-gia').textContent=d.gia||'—';
+
+  // Link Google Maps
+  var endMaps=[d.logradouro,d.bairro,d.localidade,d.uf,d.cep].filter(Boolean).join(', ');
+  document.getElementById('maps-link-box').innerHTML=
+    '<a class="link-maps" href="https://maps.google.com/maps?q='+encodeURIComponent(endMaps)+'" target="_blank" rel="noopener">🗺️ Ver no Google Maps</a>';
+
+  document.getElementById('loading').style.display='none';
+  document.getElementById('formulario').style.display='none';
+  document.getElementById('resultado').style.display='block';
+}
+
+function novo(){
+  document.getElementById('formulario').style.display='block';
+  document.getElementById('resultado').style.display='none';
+  document.getElementById('erro').style.display='none';
+  document.getElementById('cep-input').value='';
+}
+
+document.getElementById('cep-input').addEventListener('keydown',function(e){if(e.key==='Enter')consultar();});
+</script>
+</body>
+</html>

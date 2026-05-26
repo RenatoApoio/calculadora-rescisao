@@ -59,6 +59,9 @@
     'calculadora-media-escolar':'EducationApplication',
     'calculadora-gravidez':'HealthApplication','calculadora-imc':'HealthApplication',
     'calculadora-calorias':'HealthApplication',
+    'taxas-do-dia':'FinanceApplication','consulta-cnpj':'FinanceApplication',
+    'consulta-cep':'UtilitiesApplication','feriados':'UtilitiesApplication',
+    'gerador-qr-code':'UtilitiesApplication',
   };
 
   if (!isHome && !document.querySelector('script[type="application/ld+json"]')) {
@@ -139,6 +142,11 @@
     'verificar-dominio':'Verificar Domínio',
     'calculadora':'Calculadora Científica',
     'calculadora-contagem-datas':'Contagem de Datas',
+    'taxas-do-dia':'Taxas do Dia (Selic/CDI)',
+    'consulta-cnpj':'Consulta CNPJ',
+    'consulta-cep':'Consulta CEP',
+    'feriados':'Feriados 2025/2026',
+    'gerador-qr-code':'Gerador de QR Code',
   };
 
   // 5 related tools per page — ordered by relevance
@@ -186,6 +194,11 @@
     'calculadora':             ['conversor-unidades','calculadora-juros-compostos','divisor-de-conta','calculadora-media-escolar','calculadora-contagem-datas'],
     'calculadora-contagem-datas':['calculadora','calculadora-gravidez','calculadora-rescisao','calculadora-ferias','calculadora-media-escolar'],
     'calculadora-sac-price':   ['simulador-financiamento','calculadora-emprestimo','alugar-ou-comprar','calculadora-itbi','calculadora-juros-compostos'],
+    'taxas-do-dia':            ['calculadora-cdb-lci-lca','simulador-tesouro-direto','calculadora-juros-compostos','calculadora-fire','cotacao-moedas'],
+    'consulta-cnpj':           ['comparador-pj-clt-mei','calculadora-das-mei','calculadora-icms-iss','calculadora-ir','consulta-cep'],
+    'consulta-cep':            ['consulta-cnpj','calculadora-itbi','alugar-ou-comprar','verificar-dominio','calculadora-reforma'],
+    'feriados':                ['calculadora-ferias','calculadora-rescisao','banco-de-horas','calculadora-contagem-datas','calculadora-hora-trabalho'],
+    'gerador-qr-code':         ['encurtador-url','verificar-dominio','consulta-cnpj','cotacao-moedas','calculadora'],
   };
 
   if (!isHome && RELATED[currentSlug]) {
