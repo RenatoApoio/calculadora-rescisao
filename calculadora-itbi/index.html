@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora de ITBI 2025 — Imposto na Compra do Imóvel | FacilCalc</title>
+<meta name="description" content="Calcule o ITBI (Imposto de Transmissão de Bens Imóveis) na compra do seu imóvel. Alíquotas por cidade e valor total dos custos cartoriais."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#4e342e,#e65100);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:620px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#e65100;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#4e342e,#e65100);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.res-hero{background:linear-gradient(135deg,#4e342e,#e65100);color:#fff;border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.res-hero label{font-size:.85rem;opacity:.8;display:block;margin-bottom:4px}
+.res-hero .big{font-size:2.4rem;font-weight:900}
+.res-hero .sub{font-size:.88rem;opacity:.8;margin-top:6px}
+.custos-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:14px}
+.custos-table th{background:#1a237e;color:#fff;padding:8px 12px;text-align:left}
+.custos-table td{padding:8px 12px;border-bottom:1px solid #f0f0f0}
+.custos-table tr:last-child td{font-weight:700;background:#f8f9ff}
+.obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏠 Calculadora de ITBI</h1>
+  <p>Imposto na compra do imóvel + custos cartoriais</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>🏘️ Dados da Compra</h2>
+    <div class="grid">
+      <div class="field full">
+        <label>Valor do Imóvel (R$)</label>
+        <input type="text" id="valor" placeholder="Ex: 400.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field full">
+        <label>Cidade</label>
+        <select id="cidade">
+          <option value="2.0">São Paulo — SP (2,0%)</option>
+          <option value="3.0">Rio de Janeiro — RJ (3,0%)</option>
+          <option value="2.0">Brasília — DF (2,0%)</option>
+          <option value="2.0">Belo Horizonte — MG (2,0%)</option>
+          <option value="2.0">Curitiba — PR (2,0%)</option>
+          <option value="2.0">Porto Alegre — RS (2,0%)</option>
+          <option value="2.0">Fortaleza — CE (2,0%)</option>
+          <option value="2.0">Recife — PE (2,0%)</option>
+          <option value="2.0">Salvador — BA (2,0%)</option>
+          <option value="2.0">Manaus — AM (2,0%)</option>
+          <option value="2.0">Belém — PA (2,0%)</option>
+          <option value="2.0">Goiânia — GO (2,0%)</option>
+          <option value="custom">Outra cidade (informar %)</option>
+        </select>
+      </div>
+      <div class="field full" id="campo-custom" style="display:none">
+        <label>Alíquota ITBI da sua cidade (%)</label>
+        <input type="text" id="aliq-custom" placeholder="Ex: 2,5"/>
+      </div>
+      <div class="field">
+        <label>Incluir escritura e registro?</label>
+        <select id="cartorio">
+          <option value="sim">Sim — estimar custos</option>
+          <option value="nao">Não</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Tipo de financiamento</label>
+        <select id="financiamento">
+          <option value="nao">Compra à vista</option>
+          <option value="sim">Financiamento bancário</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">🧮 Calcular ITBI e Custos</button>
+  </div>
+  <div id="resultado">
+    <div class="res-hero">
+      <label>Total de Custos na Compra</label>
+      <div class="big" id="r-total">—</div>
+      <div class="sub" id="r-sub">—</div>
+    </div>
+    <table class="custos-table">
+      <thead><tr><th>Item</th><th>Valor</th><th>% do Imóvel</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="obs">
+      ⚠️ ITBI incide sobre o maior valor entre o de venda e o venal (avaliação municipal).<br>
+      Escritura e registro são obrigatórios para financiamento. Valores cartoriais são estimativas — variam por estado.<br>
+      Imóveis pelo SFH (até R$ 1,5M) podem ter ITBI reduzido ou isento em alguns municípios para primeira compra.
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function parsePct(s){return parseFloat((s||'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=2){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+document.getElementById('cidade').addEventListener('change',function(){
+  document.getElementById('campo-custom').style.display=this.value==='custom'?'':'none';
+});
+
+function calcular(){
+  const v=parseMoeda(document.getElementById('valor').value);
+  if(!v){alert('Informe o valor do imóvel.');return;}
+  const cidSel=document.getElementById('cidade').value;
+  const aliq=cidSel==='custom'?parsePct(document.getElementById('aliq-custom').value):parseFloat(cidSel);
+  const comCartorio=document.getElementById('cartorio').value==='sim';
+  const financiado=document.getElementById('financiamento').value==='sim';
+
+  const itbi=v*(aliq/100);
+  const escritura=comCartorio?v*0.015:0; // ~1.5%
+  const registro=comCartorio?v*0.008:0; // ~0.8%
+  const avaliacao=financiado?v*0.005:0; // ~0.5%
+
+  const total=itbi+escritura+registro+avaliacao;
+  const itens=[
+    {nome:'ITBI ('+fmtN(aliq)+'%)',val:itbi},
+    ...(comCartorio?[{nome:'Escritura pública (~1,5%)',val:escritura},{nome:'Registro de imóvel (~0,8%)',val:registro}]:[]),
+    ...(financiado?[{nome:'Avaliação bancária (~0,5%)',val:avaliacao}]:[]),
+    {nome:'TOTAL',val:total}
+  ];
+
+  document.getElementById('r-total').textContent=fmtR(total);
+  document.getElementById('r-sub').textContent='Além do valor do imóvel de '+fmtR(v)+', você pagará +'+fmtN(total/v*100)+'%';
+  document.getElementById('tbody').innerHTML=itens.map(i=>`<tr><td>${i.nome}</td><td>${fmtR(i.val)}</td><td>${fmtN(i.val/v*100)}%</td></tr>`).join('');
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

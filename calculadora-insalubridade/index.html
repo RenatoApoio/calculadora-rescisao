@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora de Insalubridade e Periculosidade 2025 | FacilCalc</title>
+<meta name="description" content="Calcule o adicional de insalubridade (grau mínimo 10%, médio 20%, máximo 40%) e periculosidade (30%) sobre salário mínimo ou base. CLT 2025."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#bf360c,#e65100);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:660px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#e65100;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#bf360c,#e65100);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.res-hero{background:linear-gradient(135deg,#bf360c,#e65100);color:#fff;border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.res-hero .tipo{font-size:.9rem;opacity:.85;margin-bottom:6px}
+.res-hero .adicional{font-size:2.4rem;font-weight:900}
+.res-hero .salario-final{font-size:1.1rem;margin-top:8px;opacity:.9}
+.detalhes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.det-box{background:#f8f9ff;border-radius:10px;padding:14px;text-align:center}
+.det-box label{font-size:.78rem;color:#666;display:block;margin-bottom:4px}
+.det-box .val{font-size:1.2rem;font-weight:800;color:#1a237e}
+.info-box{background:#fff8e1;border:1px solid #ffc107;border-radius:10px;padding:14px;font-size:.83rem;line-height:1.7;color:#555}
+.info-box strong{color:#e65100}
+.tipos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.tipo-card{background:#fff;border:2px solid #eee;border-radius:10px;padding:12px;text-align:center;cursor:pointer;transition:.2s}
+.tipo-card:hover,.tipo-card.ativo{border-color:#e65100;background:#fff3e0}
+.tipo-card .pct{font-size:1.4rem;font-weight:900;color:#e65100}
+.tipo-card .nome{font-size:.75rem;color:#555;margin-top:2px}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid,.detalhes,.tipos-grid{grid-template-columns:1fr 1fr}.full{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚠️ Insalubridade e Periculosidade</h1>
+  <p>Calcule seu adicional conforme a CLT — graus e percentuais 2025</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>📋 Dados do Trabalhador</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Salário Base (R$)</label>
+        <input type="text" id="salario" placeholder="Deixe em branco = sal. mín." oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Tipo de Adicional</label>
+        <select id="tipo" onchange="atualizarBase()">
+          <option value="insalub_min">Insalubridade Grau Mínimo (10%)</option>
+          <option value="insalub_med">Insalubridade Grau Médio (20%)</option>
+          <option value="insalub_max">Insalubridade Grau Máximo (40%)</option>
+          <option value="periculosidade">Periculosidade (30%)</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>Base de Cálculo</label>
+        <select id="base-calc">
+          <option value="minimo">Salário Mínimo Nacional (R$ 1.518,00 — 2025)</option>
+          <option value="base">Salário Base informado acima</option>
+          <option value="conv">Piso da Categoria (por convenção coletiva)</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">🧮 Calcular Adicional</button>
+  </div>
+
+  <div id="resultado">
+    <div class="res-hero">
+      <div class="tipo" id="res-tipo">—</div>
+      <div class="adicional" id="res-adicional">—</div>
+      <div class="salario-final" id="res-final">—</div>
+    </div>
+    <div class="detalhes">
+      <div class="det-box"><label>Base de Cálculo</label><div class="val" id="det-base">—</div></div>
+      <div class="det-box"><label>Percentual</label><div class="val" id="det-pct">—</div></div>
+      <div class="det-box"><label>Adicional Mensal</label><div class="val" id="det-add">—</div></div>
+      <div class="det-box"><label>Salário Total</label><div class="val" id="det-total">—</div></div>
+    </div>
+    <div class="info-box" id="info-txt"></div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+const SAL_MIN=1518.00;
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+
+const TIPOS={
+  insalub_min:{nome:'Insalubridade Grau Mínimo',pct:0.10,desc:'Ruído moderado, poeiras não tóxicas, frio (câmaras frigoríficas), vibrações leves.'},
+  insalub_med:{nome:'Insalubridade Grau Médio',pct:0.20,desc:'Ruído intenso (85-90 dB), agentes químicos com LT, trabalho sob pressão, calor.'},
+  insalub_max:{nome:'Insalubridade Grau Máximo',pct:0.40,desc:'Arsênico, ruído >90 dB prolongado, agentes biológicos em hospitais, amianto.'},
+  periculosidade:{nome:'Periculosidade',pct:0.30,desc:'Inflamáveis, explosivos, energia elétrica, vigilância armada, motociclista em entrega.'}
+};
+
+function calcular(){
+  const tipo=document.getElementById('tipo').value;
+  const baseCalc=document.getElementById('base-calc').value;
+  const salInput=parseMoeda(document.getElementById('salario').value);
+  const info=TIPOS[tipo];
+
+  let base;
+  if(baseCalc==='minimo') base=SAL_MIN;
+  else if(baseCalc==='base') base=salInput||SAL_MIN;
+  else base=salInput||SAL_MIN;
+
+  const adicional=base*info.pct;
+  const total=base+adicional;
+
+  document.getElementById('res-tipo').textContent=info.nome;
+  document.getElementById('res-adicional').textContent=fmtR(adicional)+'/mês';
+  document.getElementById('res-final').textContent='Salário total: '+fmtR(base)+' + '+fmtR(adicional)+' = '+fmtR(total);
+  document.getElementById('det-base').textContent=fmtR(base);
+  document.getElementById('det-pct').textContent=(info.pct*100)+'%';
+  document.getElementById('det-add').textContent=fmtR(adicional);
+  document.getElementById('det-total').textContent=fmtR(total);
+  document.getElementById('info-txt').innerHTML=`
+    <strong>${info.nome}</strong> — Percentual: ${info.pct*100}%<br>
+    <strong>Exemplos de atividades:</strong> ${info.desc}<br>
+    <strong>⚠️ Cumulatividade:</strong> Insalubridade e periculosidade <strong>não são cumulativos</strong> — o trabalhador pode optar pelo mais vantajoso (Art. 193 §2° CLT).<br>
+    <strong>Base legal:</strong> Art. 192 e 193 CLT. Portaria MTE nº 3.214/78 (NR-15 e NR-16).
+  `;
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

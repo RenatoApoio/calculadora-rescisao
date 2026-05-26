@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora de Custo Real do Carro por km 2025 | FacilCalc</title>
+<meta name="description" content="Calcule o custo real do seu carro por quilômetro rodado: parcela, seguro, combustível, manutenção, IPVA e licenciamento. Saiba o verdadeiro custo mensal."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#e65100);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus{border-color:#e65100;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a237e,#e65100);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.hero{background:linear-gradient(135deg,#1a237e,#e65100);color:#fff;border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.hero label{font-size:.85rem;opacity:.8;display:block;margin-bottom:4px}
+.hero .big{font-size:2.4rem;font-weight:900}
+.hero .sub{font-size:.88rem;opacity:.8;margin-top:6px}
+.custos-tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:14px}
+.custos-tbl th{background:#1a237e;color:#fff;padding:8px 10px;text-align:left}
+.custos-tbl td{padding:8px 10px;border-bottom:1px solid #f0f0f0}
+.custos-tbl td:last-child{font-weight:700;text-align:right}
+.custos-tbl tr:last-child td{background:#f8f9ff;font-weight:900}
+.dica{background:#e3f2fd;border:1px solid #90caf9;border-radius:10px;padding:12px 14px;font-size:.83rem;color:#0d47a1;line-height:1.7;margin-bottom:12px}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🚗 Custo Real do Carro</h1>
+  <p>Quanto seu carro custa por quilômetro rodado — na prática</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>🔧 Dados do Veículo e Uso</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Parcela/Financiamento mensal (R$)</label>
+        <input type="text" id="parcela" placeholder="Ex: 1.200,00 (0 se quitado)" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Seguro anual (R$)</label>
+        <input type="text" id="seguro" placeholder="Ex: 3.600,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>KM rodados por mês</label>
+        <input type="number" id="km-mes" placeholder="Ex: 1.500" min="1"/>
+      </div>
+      <div class="field">
+        <label>Consumo (km/litro)</label>
+        <input type="number" id="consumo" placeholder="Ex: 12" step="0.1" min="1"/>
+      </div>
+      <div class="field">
+        <label>Preço do combustível (R$/litro)</label>
+        <input type="text" id="preco-comb" placeholder="Ex: 6,39" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Manutenção mensal média (R$)</label>
+        <input type="text" id="manutencao" placeholder="Ex: 200,00 (revisão, pneu, etc.)" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>IPVA anual (R$)</label>
+        <input type="text" id="ipva" placeholder="Ex: 1.200,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Licenciamento + outros (R$/ano)</label>
+        <input type="text" id="outros" placeholder="Ex: 200,00" oninput="maskMoeda(this)"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">🧮 Calcular Custo Real</button>
+  </div>
+
+  <div id="resultado">
+    <div class="hero">
+      <label>Custo por Quilômetro Rodado</label>
+      <div class="big" id="r-km">—</div>
+      <div class="sub" id="r-sub">—</div>
+    </div>
+    <table class="custos-tbl">
+      <thead><tr><th>Item</th><th>Mensal</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="dica" id="dica-box"></div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=2){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+function calcular(){
+  const parc=parseMoeda(document.getElementById('parcela').value);
+  const segAn=parseMoeda(document.getElementById('seguro').value);
+  const km=parseFloat(document.getElementById('km-mes').value)||0;
+  const cons=parseFloat(document.getElementById('consumo').value)||1;
+  const pComb=parseMoeda(document.getElementById('preco-comb').value);
+  const manut=parseMoeda(document.getElementById('manutencao').value);
+  const ipvaAn=parseMoeda(document.getElementById('ipva').value);
+  const outros=parseMoeda(document.getElementById('outros').value);
+  if(!km||!cons||!pComb){alert('Informe ao menos km/mês, consumo e preço do combustível.');return;}
+
+  const combustMes=(km/cons)*pComb;
+  const segMes=segAn/12;
+  const ipvaMes=ipvaAn/12;
+  const outrosMes=outros/12;
+  const total=parc+segMes+combustMes+manut+ipvaMes+outrosMes;
+  const custKm=km>0?total/km:0;
+
+  document.getElementById('r-km').textContent=fmtR(custKm)+'/km';
+  document.getElementById('r-sub').textContent='Total mensal: '+fmtR(total)+' · '+km.toLocaleString('pt-BR')+' km/mês';
+
+  const itens=[
+    ['Financiamento/Parcela',parc],
+    ['Combustível ('+fmtN(km/cons,1)+'L × '+fmtR(pComb)+')',combustMes],
+    ['Seguro',segMes],
+    ['Manutenção',manut],
+    ['IPVA',ipvaMes],
+    ['Licenciamento / outros',outrosMes],
+    ['TOTAL MENSAL',total]
+  ];
+  document.getElementById('tbody').innerHTML=itens.map(([n,v])=>`<tr><td>${n}</td><td>${fmtR(v)}</td></tr>`).join('');
+
+  document.getElementById('dica-box').innerHTML=
+    `🚕 <strong>Comparação com Uber/99:</strong> Se o custo por km real é ${fmtR(custKm)}, viagens curtas no app podem ser mais baratas do que manter o carro.<br>`+
+    `💡 Rodando ${km.toLocaleString('pt-BR')} km/mês, você gasta <strong>${fmtR(combustMes)}</strong> só em combustível e <strong>${fmtR(total)}</strong> no total.`;
+
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

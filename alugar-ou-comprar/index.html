@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Alugar ou Comprar Imóvel — Qual Compensa Mais? 2025 | FacilCalc</title>
+<meta name="description" content="Compare se é melhor alugar ou comprar um imóvel. Análise financeira completa: custo total, ponto de equilíbrio e retorno do investimento."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#e65100);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:700px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus{border-color:#e65100;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a237e,#e65100);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.comp{border-radius:12px;padding:18px}
+.comp.alugar{background:#e3f2fd;border:2px solid #1e88e5}
+.comp.comprar{background:#e8f5e9;border:2px solid #43a047}
+.comp h3{font-size:.95rem;font-weight:800;margin-bottom:10px}
+.comp.alugar h3{color:#1565c0}
+.comp.comprar h3{color:#2e7d32}
+.comp .total{font-size:1.5rem;font-weight:900;margin:6px 0}
+.comp.alugar .total{color:#1565c0}
+.comp.comprar .total{color:#2e7d32}
+.comp .row{display:flex;justify-content:space-between;font-size:.8rem;padding:3px 0;border-bottom:1px solid rgba(0,0,0,.07)}
+.comp .row:last-child{border:none}
+.winner-banner{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:2px solid #ffc107;border-radius:12px;padding:14px;text-align:center;margin-bottom:14px}
+.winner-banner strong{font-size:1rem;color:#e65100}
+.winner-banner p{font-size:.85rem;color:#555;margin-top:4px}
+.obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid,.comp-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏠 Alugar ou Comprar?</h1>
+  <p>Descubra qual opção compensa mais para você financeiramente</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>🏘️ Dados do Imóvel e Financiamento</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Valor do Imóvel (R$)</label>
+        <input type="text" id="valor-imovel" placeholder="Ex: 400.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Entrada (R$)</label>
+        <input type="text" id="entrada" placeholder="Ex: 80.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Taxa de Juros Financiamento (% a.m.)</label>
+        <input type="text" id="taxa-fin" placeholder="Ex: 0,80"/>
+      </div>
+      <div class="field">
+        <label>Prazo Financiamento (meses)</label>
+        <input type="number" id="prazo-fin" placeholder="Ex: 360" min="12"/>
+      </div>
+      <div class="field">
+        <label>Aluguel Atual (R$/mês)</label>
+        <input type="text" id="aluguel" placeholder="Ex: 2.500,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Rentabilidade se investir a entrada (% a.a.)</label>
+        <input type="text" id="rentab-entrada" placeholder="Ex: 14,75 (CDI)" value="14,75"/>
+      </div>
+      <div class="field">
+        <label>Prazo de análise (anos)</label>
+        <input type="number" id="prazo-analise" placeholder="Ex: 10" value="10" min="1" max="30"/>
+      </div>
+      <div class="field">
+        <label>Valorização anual imóvel (% a.a.)</label>
+        <input type="text" id="valorizacao" placeholder="Ex: 5,0" value="5,0"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">⚖️ Comparar Alugar vs Comprar</button>
+  </div>
+
+  <div id="resultado">
+    <div class="comp-grid">
+      <div class="comp alugar">
+        <h3>🏡 Alugar</h3>
+        <div class="total" id="al-total">—</div>
+        <div class="row"><span>Aluguel no período</span><span id="al-alug">—</span></div>
+        <div class="row"><span>Rendimento da entrada</span><span id="al-rend">—</span></div>
+        <div class="row"><span>Custo líquido</span><span id="al-liq">—</span></div>
+      </div>
+      <div class="comp comprar">
+        <h3>🔑 Comprar</h3>
+        <div class="total" id="cp-total">—</div>
+        <div class="row"><span>Total pago (financ.)</span><span id="cp-fin">—</span></div>
+        <div class="row"><span>Valorização imóvel</span><span id="cp-valz">—</span></div>
+        <div class="row"><span>Custo líquido</span><span id="cp-liq">—</span></div>
+      </div>
+    </div>
+    <div class="winner-banner">
+      <strong id="winner-txt"></strong>
+      <p id="winner-sub"></p>
+    </div>
+    <div class="obs" id="obs-txt"></div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function parsePct(s){return parseFloat((s||'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+
+function calcular(){
+  const vi=parseMoeda(document.getElementById('valor-imovel').value);
+  const entrada=parseMoeda(document.getElementById('entrada').value);
+  const im=parsePct(document.getElementById('taxa-fin').value)/100;
+  const prazoFin=parseInt(document.getElementById('prazo-fin').value)||360;
+  const aluguel=parseMoeda(document.getElementById('aluguel').value);
+  const rentab=parsePct(document.getElementById('rentab-entrada').value)/100;
+  const prazoA=parseInt(document.getElementById('prazo-analise').value)||10;
+  const valz=parsePct(document.getElementById('valorizacao').value)/100;
+  const meses=prazoA*12;
+  if(!vi||!entrada||!im||!aluguel){alert('Preencha os campos obrigatórios.');return;}
+
+  // Comprar: parcela Price
+  const pv=vi-entrada;
+  const fator=Math.pow(1+im,prazoFin);
+  const parcela=pv*im*fator/(fator-1);
+  const mesesPagos=Math.min(meses,prazoFin);
+  const totalFin=parcela*mesesPagos+entrada;
+  const valorFuturo=vi*Math.pow(1+valz,prazoA);
+  const custoComprarLiq=totalFin-valorFuturo+vi;
+
+  // Alugar: total aluguel + rendimento da entrada investida
+  const rentabMensal=Math.pow(1+rentab,1/12)-1;
+  const rendEntrada=entrada*(Math.pow(1+rentabMensal,meses)-1);
+  const totalAluguel=aluguel*meses;
+  const custoAlugarLiq=totalAluguel-rendEntrada;
+
+  document.getElementById('al-total').textContent=fmtR(custoAlugarLiq);
+  document.getElementById('al-alug').textContent=fmtR(totalAluguel);
+  document.getElementById('al-rend').textContent='+'+fmtR(rendEntrada);
+  document.getElementById('al-liq').textContent=fmtR(custoAlugarLiq);
+
+  document.getElementById('cp-total').textContent=fmtR(custoComprarLiq);
+  document.getElementById('cp-fin').textContent=fmtR(totalFin);
+  document.getElementById('cp-valz').textContent='+'+fmtR(valorFuturo-vi);
+  document.getElementById('cp-liq').textContent=fmtR(custoComprarLiq);
+
+  const melhorAlugar=custoAlugarLiq<custoComprarLiq;
+  const diff=Math.abs(custoAlugarLiq-custoComprarLiq);
+  document.getElementById('winner-txt').textContent=(melhorAlugar?'🏡 Alugar':'🔑 Comprar')+' compensa mais em '+prazoA+' anos';
+  document.getElementById('winner-sub').textContent='Diferença: '+fmtR(diff)+' no período analisado';
+  document.getElementById('obs-txt').innerHTML=`
+    ⚠️ Análise simplificada. Não inclui: ITBI (~3%), cartório (~1,5%), reformas, condomínio, IPTU.<br>
+    💡 Comprar pode ser vantajoso pelo aspecto emocional e estabilidade, mesmo que financeiramente menor.
+  `;
+
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

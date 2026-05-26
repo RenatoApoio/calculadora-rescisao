@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora de Banco de Horas 2025 — Saldo, Compensação e Pagamento | FacilCalc</title>
+<meta name="description" content="Calcule seu banco de horas: saldo positivo ou negativo, valor a receber por horas extras não compensadas e prazo legal. Conforme CLT 2025."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#1a73e8);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#1a73e8;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a73e8,#1565c0);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.res-box{border-radius:12px;padding:16px;text-align:center}
+.res-box.positivo{background:#e8f5e9;border:2px solid #4caf50}
+.res-box.negativo{background:#ffebee;border:2px solid #ef9a9a}
+.res-box.neutro{background:#e3f2fd;border:2px solid #42a5f5}
+.res-box label{font-size:.78rem;font-weight:600;color:#555;display:block;margin-bottom:4px}
+.res-box .val{font-size:1.5rem;font-weight:900}
+.positivo .val{color:#2e7d32}
+.negativo .val{color:#c62828}
+.neutro .val{color:#1565c0}
+.info-box{background:#f8f9ff;border-radius:10px;padding:14px;margin-bottom:12px;font-size:.85rem;line-height:1.7;color:#333}
+.info-box strong{color:#1a237e}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid,.res-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>⏱️ Banco de Horas</h1>
+  <p>Calcule seu saldo e o valor a receber — conforme CLT 2025</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>📋 Dados do Funcionário</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Salário Mensal Bruto (R$)</label>
+        <input type="text" id="salario" placeholder="Ex: 3.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Jornada Contratual (h/semana)</label>
+        <input type="number" id="jornada" placeholder="Ex: 44" value="44" min="1" max="44"/>
+      </div>
+      <div class="field">
+        <label>Horas Trabalhadas no Período</label>
+        <input type="number" id="horas-trab" placeholder="Ex: 200" step="0.5" min="0"/>
+      </div>
+      <div class="field">
+        <label>Horas Devidas no Período</label>
+        <input type="number" id="horas-dev" placeholder="Ex: 176" step="0.5" min="0"/>
+      </div>
+      <div class="field full">
+        <label>Período (meses)</label>
+        <input type="number" id="periodo" placeholder="Ex: 1" value="1" min="1" max="12"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">⚖️ Calcular Banco de Horas</button>
+  </div>
+
+  <div id="resultado">
+    <div class="res-grid">
+      <div class="res-box" id="box-saldo">
+        <label>Saldo de Horas</label>
+        <div class="val" id="saldo-h">—</div>
+      </div>
+      <div class="res-box neutro">
+        <label>Valor da Hora</label>
+        <div class="val" id="val-hora">—</div>
+      </div>
+      <div class="res-box" id="box-pag">
+        <label>Valor a Receber / Descontar</label>
+        <div class="val" id="val-pag">—</div>
+      </div>
+      <div class="res-box neutro">
+        <label>Horas Extras com Adicional (50%)</label>
+        <div class="val" id="val-extra">—</div>
+      </div>
+    </div>
+    <div class="info-box" id="info-txt"></div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtH(h){const sinal=h<0?'-':'';const abs=Math.abs(h);const hh=Math.floor(abs);const mm=Math.round((abs-hh)*60);return sinal+hh+'h'+(mm?mm+'min':'');}
+
+function calcular(){
+  const sal=parseMoeda(document.getElementById('salario').value);
+  const jorSem=parseFloat(document.getElementById('jornada').value)||44;
+  const hTrab=parseFloat(document.getElementById('horas-trab').value)||0;
+  const hDev=parseFloat(document.getElementById('horas-dev').value);
+  const per=parseInt(document.getElementById('periodo').value)||1;
+  if(!sal||!hTrab||isNaN(hDev)){alert('Preencha todos os campos.');return;}
+
+  const hMes=jorSem*(52/12)/7*5; // horas mensais contratuais aprox
+  const valorHora=sal/hMes;
+  const saldo=hTrab-hDev;
+
+  const boxSaldo=document.getElementById('box-saldo');
+  const boxPag=document.getElementById('box-pag');
+  document.getElementById('saldo-h').textContent=fmtH(saldo);
+  document.getElementById('val-hora').textContent=fmtR(valorHora);
+  boxSaldo.className='res-box '+(saldo>0?'positivo':saldo<0?'negativo':'neutro');
+
+  let valPag, valExtra, info;
+  if(saldo>0){
+    valPag=saldo*valorHora*1.5; // horas extras com 50%
+    valExtra=saldo*valorHora*1.5;
+    boxPag.className='res-box positivo';
+    info=`✅ Você tem <strong>${fmtH(saldo)} positivas</strong> no banco de horas.<br>
+    Se não compensadas no prazo de ${per<=6?'6 meses (acordo individual)':'1 ano (acordo coletivo)'}, devem ser pagas com adicional de <strong>50%</strong>.<br>
+    Valor bruto a receber: <strong>${fmtR(valPag)}</strong><br>
+    <strong>⚠️ Prazo legal:</strong> 6 meses (acordo individual) ou 1 ano (acordo coletivo). Art. 59 CLT.`;
+  } else if(saldo<0){
+    valPag=Math.abs(saldo)*valorHora;
+    valExtra=0;
+    boxPag.className='res-box negativo';
+    info=`⚠️ Você tem <strong>${fmtH(saldo)} negativas</strong> (débito no banco de horas).<br>
+    Você precisa compensar essas horas ou o empregador pode descontar <strong>${fmtR(valPag)}</strong> do salário.<br>
+    <strong>Importante:</strong> só pode ser descontado com previsão em acordo coletivo. Verifique seu contrato.`;
+  } else {
+    valPag=0; valExtra=0;
+    boxPag.className='res-box neutro';
+    info='✅ Banco de horas zerado. Horas trabalhadas = horas devidas.';
+  }
+
+  document.getElementById('val-pag').textContent=fmtR(valPag);
+  document.getElementById('val-extra').textContent=fmtR(valExtra);
+  document.getElementById('info-txt').innerHTML=info;
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';document.querySelectorAll('#formulario input').forEach(el=>el.value='');}
+</script>
+</body>
+</html>

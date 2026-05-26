@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora de Reforma — Estimativa de Custo por m² 2025 | FacilCalc</title>
+<meta name="description" content="Estime o custo da sua reforma por metro quadrado. Calcula reforma simples, média e completa para apartamentos e casas. Baseado em preços 2025."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#4e342e,#795548);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#795548;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#4e342e,#795548);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.range-box{background:linear-gradient(135deg,#4e342e,#795548);color:#fff;border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.range-box label{font-size:.85rem;opacity:.8;display:block;margin-bottom:8px}
+.range-box .range{font-size:1.8rem;font-weight:900}
+.range-box .sub{font-size:.88rem;opacity:.8;margin-top:6px}
+.niveis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.nivel{border-radius:12px;padding:14px;text-align:center}
+.nivel.simples{background:#e8f5e9;border:2px solid #66bb6a}
+.nivel.media{background:#fff8e1;border:2px solid #ffd54f}
+.nivel.completa{background:#fff3e0;border:2px solid #ff9800}
+.nivel h3{font-size:.82rem;font-weight:800;margin-bottom:6px}
+.nivel.simples h3{color:#2e7d32}
+.nivel.media h3{color:#f57f17}
+.nivel.completa h3{color:#e65100}
+.nivel .nval{font-size:1.1rem;font-weight:900}
+.nivel.simples .nval{color:#2e7d32}
+.nivel.media .nval{color:#f57f17}
+.nivel.completa .nval{color:#e65100}
+.nivel .ndesc{font-size:.72rem;color:#666;margin-top:4px;line-height:1.4}
+.itens-table{width:100%;border-collapse:collapse;font-size:.83rem;margin-bottom:14px}
+.itens-table th{background:#4e342e;color:#fff;padding:8px 10px;text-align:left}
+.itens-table td{padding:7px 10px;border-bottom:1px solid #f0f0f0}
+.itens-table tr:last-child td{font-weight:700;background:#f8f9ff}
+.obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid,.niveis{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏗️ Calculadora de Reforma</h1>
+  <p>Estime o custo da sua reforma por m² — baseado em preços 2025</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>🏠 Dados da Reforma</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Área Total (m²)</label>
+        <input type="number" id="area" placeholder="Ex: 80" min="1" step="1"/>
+      </div>
+      <div class="field">
+        <label>Tipo de Imóvel</label>
+        <select id="tipo">
+          <option value="apartamento">Apartamento</option>
+          <option value="casa">Casa</option>
+          <option value="comercial">Comercial</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>O que será reformado?</label>
+        <select id="escopo" multiple size="5" style="height:auto">
+          <option value="pintura" selected>🖌️ Pintura</option>
+          <option value="piso" selected>🪵 Piso</option>
+          <option value="banheiro" selected>🚿 Banheiro</option>
+          <option value="cozinha">🍳 Cozinha</option>
+          <option value="eletrica">⚡ Elétrica</option>
+          <option value="hidraulica">🚰 Hidráulica</option>
+          <option value="gesso">🏛️ Gesso/Forro</option>
+          <option value="fachada">🏠 Fachada</option>
+        </select>
+        <span style="font-size:.74rem;color:#999;margin-top:4px">Segure Ctrl para selecionar vários</span>
+      </div>
+      <div class="field">
+        <label>Padrão do Material</label>
+        <select id="padrao">
+          <option value="popular">Popular (básico)</option>
+          <option value="medio" selected>Médio (bom custo-benefício)</option>
+          <option value="alto">Alto (premium)</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">🧮 Estimar Custo</button>
+  </div>
+
+  <div id="resultado">
+    <div class="range-box">
+      <label>Estimativa de Custo Total</label>
+      <div class="range" id="r-range">—</div>
+      <div class="sub" id="r-sub">—</div>
+    </div>
+    <div class="niveis">
+      <div class="nivel simples"><h3>🟢 Estimativa Mín.</h3><div class="nval" id="n-min">—</div><div class="ndesc">Materiais básicos, mão de obra simples</div></div>
+      <div class="nivel media"><h3>🟡 Estimativa Média</h3><div class="nval" id="n-med">—</div><div class="ndesc">Materiais médios, acabamento adequado</div></div>
+      <div class="nivel completa"><h3>🟠 Estimativa Máx.</h3><div class="nval" id="n-max">—</div><div class="ndesc">Materiais premium, alto padrão</div></div>
+    </div>
+    <div class="card">
+      <h2>📋 Detalhamento por Item</h2>
+      <table class="itens-table"><thead><tr><th>Item</th><th>Área/Un.</th><th>Custo estimado</th></tr></thead>
+      <tbody id="itens-body"></tbody></table>
+    </div>
+    <div class="obs">
+      ⚠️ Valores baseados em médias nacionais 2025. Podem variar conforme cidade, fornecedor e mão de obra local.<br>
+      💡 Sempre peça ao menos 3 orçamentos. Reserve 15-20% extra para imprevistos.<br>
+      Não inclui mobiliário, eletrodomésticos ou decoração.
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+
+// R$/m² por item e padrão [min,med,max]
+const ITENS={
+  pintura:{nome:'🖌️ Pintura',unit:'m²',custo:{popular:[25,35,45],medio:[40,55,70],alto:[70,100,140]}},
+  piso:{nome:'🪵 Piso (material+assentamento)',unit:'m²',custo:{popular:[80,120,160],medio:[150,220,300],alto:[300,500,800]}},
+  banheiro:{nome:'🚿 Banheiro (completo)',unit:'un',area:1,custoUn:{popular:[3000,5000,8000],medio:[8000,15000,25000],alto:[20000,40000,80000]}},
+  cozinha:{nome:'🍳 Cozinha (azulejo+piso)',unit:'m²',custo:{popular:[120,180,250],medio:[250,400,600],alto:[600,1000,2000]}},
+  eletrica:{nome:'⚡ Elétrica (revisão)',unit:'m²',custo:{popular:[40,60,80],medio:[70,100,140],alto:[130,200,300]}},
+  hidraulica:{nome:'🚰 Hidráulica (revisão)',unit:'m²',custo:{popular:[30,50,70],medio:[60,90,130],alto:[120,180,280]}},
+  gesso:{nome:'🏛️ Gesso/Forro',unit:'m²',custo:{popular:[50,80,110],medio:[90,130,180],alto:[150,250,400]}},
+  fachada:{nome:'🏠 Fachada (pintura ext.)',unit:'m²',custo:{popular:[30,50,70],medio:[60,90,130],alto:[120,200,300]}}
+};
+
+function calcular(){
+  const area=parseFloat(document.getElementById('area').value)||0;
+  const padrao=document.getElementById('padrao').value;
+  const sel=Array.from(document.getElementById('escopo').selectedOptions).map(o=>o.value);
+  if(!area||!sel.length){alert('Informe a área e selecione ao menos um item.');return;}
+
+  let totalMin=0,totalMed=0,totalMax=0;
+  let rows='';
+  for(const key of sel){
+    const it=ITENS[key];
+    let min,med,max;
+    if(it.custoUn){[min,med,max]=it.custoUn[padrao];}
+    else{const c=it.custo[padrao];[min,med,max]=[c[0]*area,c[1]*area,c[2]*area];}
+    totalMin+=min;totalMed+=med;totalMax+=max;
+    rows+=`<tr><td>${it.nome}</td><td>${it.custoUn?'1 un.':area+' m²'}</td><td>${fmtR(min)} – ${fmtR(max)}</td></tr>`;
+  }
+  rows+=`<tr><td>TOTAL</td><td>—</td><td>${fmtR(totalMin)} – ${fmtR(totalMax)}</td></tr>`;
+
+  document.getElementById('r-range').textContent=fmtR(totalMin)+' – '+fmtR(totalMax);
+  document.getElementById('r-sub').textContent='Para '+area+' m² · Padrão '+(padrao==='popular'?'popular':padrao==='medio'?'médio':'alto');
+  document.getElementById('n-min').textContent=fmtR(totalMin);
+  document.getElementById('n-med').textContent=fmtR(totalMed);
+  document.getElementById('n-max').textContent=fmtR(totalMax);
+  document.getElementById('itens-body').innerHTML=rows;
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

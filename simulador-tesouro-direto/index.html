@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Simulador Tesouro Direto 2025 — Selic, IPCA+ e Prefixado | FacilCalc</title>
+<meta name="description" content="Simule o rendimento do Tesouro Direto: Tesouro Selic, IPCA+ e Prefixado. Veja rendimento bruto, IR regressivo e valor líquido final."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#00695c);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#00695c;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a237e,#00695c);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.res-hero{background:linear-gradient(135deg,#1a237e,#00695c);color:#fff;border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.res-hero .tipo{font-size:.88rem;opacity:.8;margin-bottom:4px}
+.res-hero .liq{font-size:2.5rem;font-weight:900}
+.res-hero .sub{font-size:.9rem;opacity:.8;margin-top:8px}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.r-box{background:#f8f9ff;border-radius:10px;padding:12px;text-align:center}
+.r-box label{font-size:.75rem;color:#666;display:block;margin-bottom:3px}
+.r-box .val{font-size:1.1rem;font-weight:800;color:#1a237e}
+.campo-extra{display:none}
+.info-bar{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:12px 14px;font-size:.83rem;color:#1b5e20;line-height:1.7;margin-bottom:12px}
+.obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid,.res-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏛️ Simulador Tesouro Direto</h1>
+  <p>Selic · IPCA+ · Prefixado — rendimento com IR regressivo</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>📊 Dados do Investimento</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Valor Inicial (R$)</label>
+        <input type="text" id="valor" placeholder="Ex: 5.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Prazo (anos)</label>
+        <input type="number" id="prazo" placeholder="Ex: 2" min="0.1" step="0.5"/>
+      </div>
+      <div class="field full">
+        <label>Tipo de Título</label>
+        <select id="tipo" onchange="onTipo()">
+          <option value="selic">Tesouro Selic (pós-fixado)</option>
+          <option value="prefixado">Tesouro Prefixado</option>
+          <option value="ipca">Tesouro IPCA+</option>
+        </select>
+      </div>
+      <div class="field" id="campo-selic">
+        <label>Selic atual (% a.a.)</label>
+        <input type="text" id="taxa-selic" placeholder="Ex: 14,75" value="14,75"/>
+      </div>
+      <div class="campo-extra field" id="campo-prefixado" style="display:none">
+        <label>Taxa Prefixada (% a.a.)</label>
+        <input type="text" id="taxa-pre" placeholder="Ex: 13,50"/>
+      </div>
+      <div class="campo-extra field" id="campo-ipca-real" style="display:none">
+        <label>Taxa Real IPCA+ (% a.a.)</label>
+        <input type="text" id="taxa-ipca-real" placeholder="Ex: 7,50"/>
+      </div>
+      <div class="campo-extra field" id="campo-ipca-inf" style="display:none">
+        <label>IPCA projetado (% a.a.)</label>
+        <input type="text" id="taxa-ipca-inf" placeholder="Ex: 5,50"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">📈 Simular Rendimento</button>
+  </div>
+
+  <div id="resultado">
+    <div class="res-hero">
+      <div class="tipo" id="r-tipo">—</div>
+      <div class="liq" id="r-liq">—</div>
+      <div class="sub" id="r-sub">—</div>
+    </div>
+    <div class="res-grid">
+      <div class="r-box"><label>Valor Inicial</label><div class="val" id="r-inicial">—</div></div>
+      <div class="r-box"><label>Rendimento Bruto</label><div class="val" id="r-bruto">—</div></div>
+      <div class="r-box"><label>IR Retido</label><div class="val" id="r-ir">—</div></div>
+      <div class="r-box"><label>Alíquota IR</label><div class="val" id="r-aliq">—</div></div>
+      <div class="r-box"><label>Rentabilidade Líquida</label><div class="val" id="r-rent">—</div></div>
+      <div class="r-box"><label>CDI Equivalente</label><div class="val" id="r-cdi">—</div></div>
+    </div>
+    <div class="info-bar" id="r-info"></div>
+    <div class="obs">
+      ⚠️ Taxa de custódia B3: 0,20% a.a. sobre posições acima de R$ 10.000 (isenta até essa faixa).<br>
+      IR: 22,5% (até 180 dias) · 20% (181–360 dias) · 17,5% (361–720 dias) · 15% (acima de 720 dias).<br>
+      Simulação não desconta taxa de custódia. Consulte o site do Tesouro Direto para valores atualizados.
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function parsePct(s){return parseFloat((s||'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=2){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+function onTipo(){
+  const t=document.getElementById('tipo').value;
+  document.getElementById('campo-selic').style.display=t==='selic'?'':'none';
+  document.getElementById('campo-prefixado').style.display=t==='prefixado'?'flex':'none';
+  document.getElementById('campo-ipca-real').style.display=t==='ipca'?'flex':'none';
+  document.getElementById('campo-ipca-inf').style.display=t==='ipca'?'flex':'none';
+}
+
+function irAliq(dias){
+  if(dias<=180)return 0.225;if(dias<=360)return 0.20;if(dias<=720)return 0.175;return 0.15;
+}
+
+function calcular(){
+  const pv=parseMoeda(document.getElementById('valor').value);
+  const anos=parseFloat(document.getElementById('prazo').value)||0;
+  const tipo=document.getElementById('tipo').value;
+  if(!pv||!anos){alert('Preencha todos os campos.');return;}
+  const dias=Math.round(anos*252);
+  const ir=irAliq(dias);
+
+  let taxaAn, nomeT, infoExtra='';
+  if(tipo==='selic'){
+    taxaAn=parsePct(document.getElementById('taxa-selic').value);
+    nomeT='Tesouro Selic '+fmtN(taxaAn)+'% a.a.';
+    infoExtra='Tesouro Selic acompanha a taxa Selic. Liquidez diária — ideal para reserva de emergência.';
+  } else if(tipo==='prefixado'){
+    taxaAn=parsePct(document.getElementById('taxa-pre').value);
+    nomeT='Tesouro Prefixado '+fmtN(taxaAn)+'% a.a.';
+    infoExtra='Taxa fixa — se a Selic cair, você ganha mais; se subir, pode perder na marcação a mercado antes do vencimento.';
+  } else {
+    const real=parsePct(document.getElementById('taxa-ipca-real').value);
+    const inf=parsePct(document.getElementById('taxa-ipca-inf').value);
+    taxaAn=((1+real/100)*(1+inf/100)-1)*100;
+    nomeT=`Tesouro IPCA+ ${fmtN(real)}% + IPCA (projetado ${fmtN(inf)}% a.a.) = ${fmtN(taxaAn)}% a.a.`;
+    infoExtra=`Protege da inflação + ganho real de ${fmtN(real)}% a.a. Ideal para aposentadoria ou longo prazo.`;
+  }
+
+  const rdDia=Math.pow(1+taxaAn/100,1/252)-1;
+  const montante=pv*Math.pow(1+rdDia,dias);
+  const rendBruto=montante-pv;
+  const irValor=rendBruto*ir;
+  const liq=montante-irValor;
+  const rentLiq=((liq/pv)-1)*100;
+  const cdiAnual=parsePct(document.getElementById('taxa-selic').value)||14.75;
+  const cdiEquiv=rentLiq/anos;
+
+  document.getElementById('r-tipo').textContent=nomeT;
+  document.getElementById('r-liq').textContent=fmtR(liq);
+  document.getElementById('r-sub').textContent='Lucro líquido: '+fmtR(liq-pv);
+  document.getElementById('r-inicial').textContent=fmtR(pv);
+  document.getElementById('r-bruto').textContent=fmtR(rendBruto);
+  document.getElementById('r-ir').textContent=fmtR(irValor);
+  document.getElementById('r-aliq').textContent=fmtN(ir*100)+'%';
+  document.getElementById('r-rent').textContent=fmtN(rentLiq)+'%';
+  document.getElementById('r-cdi').textContent=fmtN(cdiEquiv)+'% a.a.';
+  document.getElementById('r-info').innerHTML='ℹ️ '+infoExtra;
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';onTipo();}
+onTipo();
+</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Conversor de Unidades — Peso, Distância, Temperatura, Volume | FacilCalc</title>
+<meta name="description" content="Conversor de unidades online: peso (kg, lb, oz), distância (km, mi, m), temperatura (°C, °F, K), volume (L, ml, galão) e área (m², ft²)."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#0288d1);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:620px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{padding:8px 14px;border-radius:20px;border:1.5px solid #ddd;background:#fff;font-size:.85rem;font-weight:600;cursor:pointer;transition:.15s;color:#555}
+.tab.active{background:#1a237e;color:#fff;border-color:#1a237e}
+.panel{display:none;background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px}
+.panel.active{display:block}
+.panel h2{font-size:1.05rem;color:#1a237e;margin-bottom:16px;font-weight:700}
+.conv-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.conv-row input{flex:1;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.conv-row input:focus{border-color:#1a73e8;outline:none}
+.conv-row .unit{background:#e8f0fe;border-radius:8px;padding:10px 12px;font-size:.85rem;font-weight:700;color:#1a237e;white-space:nowrap;min-width:60px;text-align:center}
+.sep{text-align:center;color:#1a73e8;font-size:1.2rem;font-weight:700;margin:4px 0}
+.result-box{background:#f0f4f8;border-radius:10px;padding:14px;margin-top:12px}
+.result-box .res-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid #e0e0e0;font-size:.9rem}
+.result-box .res-row:last-child{border:none}
+.result-box .res-row .rv{font-weight:700;color:#1a237e}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔄 Conversor de Unidades</h1>
+  <p>Peso · Distância · Temperatura · Volume · Área</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('peso')">⚖️ Peso</button>
+    <button class="tab" onclick="showTab('dist')">📏 Distância</button>
+    <button class="tab" onclick="showTab('temp')">🌡️ Temperatura</button>
+    <button class="tab" onclick="showTab('vol')">💧 Volume</button>
+    <button class="tab" onclick="showTab('area')">📐 Área</button>
+  </div>
+
+  <!-- Peso -->
+  <div id="panel-peso" class="panel active">
+    <h2>⚖️ Conversor de Peso</h2>
+    <div class="conv-row">
+      <input type="number" id="peso-kg" placeholder="Quilogramas" oninput="convPeso('kg')" step="any"/>
+      <span class="unit">kg</span>
+    </div>
+    <div class="result-box" id="res-peso"></div>
+  </div>
+
+  <!-- Distância -->
+  <div id="panel-dist" class="panel">
+    <h2>📏 Conversor de Distância</h2>
+    <div class="conv-row">
+      <input type="number" id="dist-km" placeholder="Quilômetros" oninput="convDist('km')" step="any"/>
+      <span class="unit">km</span>
+    </div>
+    <div class="result-box" id="res-dist"></div>
+  </div>
+
+  <!-- Temperatura -->
+  <div id="panel-temp" class="panel">
+    <h2>🌡️ Conversor de Temperatura</h2>
+    <div class="conv-row">
+      <input type="number" id="temp-c" placeholder="Celsius" oninput="convTemp('c')" step="any"/>
+      <span class="unit">°C</span>
+    </div>
+    <div class="result-box" id="res-temp"></div>
+  </div>
+
+  <!-- Volume -->
+  <div id="panel-vol" class="panel">
+    <h2>💧 Conversor de Volume</h2>
+    <div class="conv-row">
+      <input type="number" id="vol-l" placeholder="Litros" oninput="convVol('l')" step="any"/>
+      <span class="unit">litros</span>
+    </div>
+    <div class="result-box" id="res-vol"></div>
+  </div>
+
+  <!-- Área -->
+  <div id="panel-area" class="panel">
+    <h2>📐 Conversor de Área</h2>
+    <div class="conv-row">
+      <input type="number" id="area-m2" placeholder="Metros quadrados" oninput="convArea('m2')" step="any"/>
+      <span class="unit">m²</span>
+    </div>
+    <div class="result-box" id="res-area"></div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',['peso','dist','temp','vol','area'][i]===id)});
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+}
+function fmtN(v){if(Math.abs(v)<0.0001&&v!==0)return v.toExponential(4);return v.toLocaleString('pt-BR',{maximumFractionDigits:6});}
+function row(label,val,unit){return`<div class="res-row"><span>${label}</span><span class="rv">${fmtN(val)} ${unit}</span></div>`;}
+
+function convPeso(from){
+  const kg=parseFloat(document.getElementById('peso-kg').value)||0;
+  document.getElementById('res-peso').innerHTML=
+    row('Quilograma',kg,'kg')+
+    row('Grama',kg*1000,'g')+
+    row('Miligrama',kg*1e6,'mg')+
+    row('Tonelada',kg/1000,'t')+
+    row('Libra (lb)',kg*2.20462,'lb')+
+    row('Onça (oz)',kg*35.274,'oz')+
+    row('Arroba',kg/15,'@');
+}
+
+function convDist(from){
+  const km=parseFloat(document.getElementById('dist-km').value)||0;
+  document.getElementById('res-dist').innerHTML=
+    row('Quilômetro',km,'km')+
+    row('Metro',km*1000,'m')+
+    row('Centímetro',km*100000,'cm')+
+    row('Milha (mi)',km*0.621371,'mi')+
+    row('Jardas (yd)',km*1093.61,'yd')+
+    row('Pés (ft)',km*3280.84,'ft')+
+    row('Polegadas (in)',km*39370.1,'in')+
+    row('Milha náutica',km*0.539957,'nmi');
+}
+
+function convTemp(from){
+  const c=parseFloat(document.getElementById('temp-c').value);
+  if(isNaN(c)){document.getElementById('res-temp').innerHTML='';return;}
+  const f=c*9/5+32, k=c+273.15;
+  document.getElementById('res-temp').innerHTML=
+    row('Celsius',c,'°C')+
+    row('Fahrenheit',f,'°F')+
+    row('Kelvin',k,'K')+
+    row('Rankine',k*1.8,'°Ra');
+}
+
+function convVol(from){
+  const l=parseFloat(document.getElementById('vol-l').value)||0;
+  document.getElementById('res-vol').innerHTML=
+    row('Litro',l,'L')+
+    row('Mililitro',l*1000,'mL')+
+    row('Centilitro',l*100,'cL')+
+    row('Galão (EUA)',l*0.264172,'gal')+
+    row('Galão (UK)',l*0.219969,'gal UK')+
+    row('Onça líquida (fl oz)',l*33.814,'fl oz')+
+    row('Metros cúbicos',l/1000,'m³')+
+    row('Centímetros cúbicos',l*1000,'cm³');
+}
+
+function convArea(from){
+  const m2=parseFloat(document.getElementById('area-m2').value)||0;
+  document.getElementById('res-area').innerHTML=
+    row('Metro quadrado',m2,'m²')+
+    row('Centímetro quadrado',m2*10000,'cm²')+
+    row('Hectare',m2/10000,'ha')+
+    row('Quilômetro quadrado',m2/1e6,'km²')+
+    row('Pé quadrado (ft²)',m2*10.7639,'ft²')+
+    row('Polegada quadrada',m2*1550,'in²')+
+    row('Jarda quadrada',m2*1.19599,'yd²')+
+    row('Acre',m2/4046.86,'acres');
+}
+</script>
+</body>
+</html>

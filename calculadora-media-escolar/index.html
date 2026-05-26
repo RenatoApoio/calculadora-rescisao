@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora de Média Escolar — Nota para Passar 2025 | FacilCalc</title>
+<meta name="description" content="Calcule sua média escolar, descubra se você passou ou reprovou e quanto precisa tirar na prova final para ser aprovado."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#1a73e8);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:620px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#1a73e8;outline:none}
+.full{grid-column:1/-1}
+.notas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.nota-field{display:flex;flex-direction:column;gap:3px}
+.nota-field label{font-size:.72rem;font-weight:600;color:#666;text-align:center}
+.nota-field input{padding:8px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;text-align:center;transition:.2s}
+.nota-field input:focus{border-color:#1a73e8;outline:none}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a73e8,#1565c0);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:4px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.res-hero{border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.res-hero.aprovado{background:linear-gradient(135deg,#1b5e20,#4caf50)}
+.res-hero.reprovado{background:linear-gradient(135deg,#b71c1c,#ef5350)}
+.res-hero.final{background:linear-gradient(135deg,#e65100,#ff9800)}
+.res-hero label{font-size:.85rem;opacity:.85;display:block;margin-bottom:4px;color:#fff}
+.res-hero .status{font-size:2rem;font-weight:900;color:#fff}
+.res-hero .media{font-size:1.2rem;color:#fff;opacity:.9;margin-top:6px}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.r-box{background:#f8f9ff;border-radius:10px;padding:12px;text-align:center}
+.r-box label{font-size:.75rem;color:#666;display:block;margin-bottom:3px}
+.r-box .val{font-size:1.2rem;font-weight:800;color:#1a237e}
+.notas-tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.notas-tbl th{background:#1a237e;color:#fff;padding:7px 10px;text-align:center}
+.notas-tbl td{padding:7px 10px;border-bottom:1px solid #f0f0f0;text-align:center}
+.notas-tbl td.nota{font-weight:700}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:400px){.notas-grid{grid-template-columns:repeat(2,1fr)}.grid,.res-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>📚 Média Escolar</h1>
+  <p>Calcule sua média, veja se passou e quanto precisa na prova final</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>📝 Notas e Configuração</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Número de Notas</label>
+        <select id="qtd-notas" onchange="buildNotas()">
+          <option value="2">2 notas (bimestral)</option>
+          <option value="3" selected>3 notas (trimestral)</option>
+          <option value="4">4 notas (bimestral anual)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Média para Aprovação</label>
+        <select id="media-apr">
+          <option value="5">5,0</option>
+          <option value="6" selected>6,0</option>
+          <option value="7">7,0</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label>Tipo de Média</label>
+        <select id="tipo-media">
+          <option value="simples">Média Aritmética Simples</option>
+          <option value="ponderada">Média Ponderada (informar pesos)</option>
+        </select>
+      </div>
+    </div>
+    <div class="notas-grid" id="notas-wrap"></div>
+    <button class="btn-calc" onclick="calcular()">📊 Calcular Média</button>
+  </div>
+
+  <div id="resultado">
+    <div class="res-hero" id="status-hero">
+      <label id="status-label">—</label>
+      <div class="status" id="status-txt">—</div>
+      <div class="media" id="media-txt">—</div>
+    </div>
+    <div class="res-grid">
+      <div class="r-box"><label>Sua Média</label><div class="val" id="r-media">—</div></div>
+      <div class="r-box"><label>Média Necessária</label><div class="val" id="r-minima">—</div></div>
+    </div>
+    <div class="card" id="card-final" style="display:none">
+      <h2>🎯 Nota na Prova Final</h2>
+      <p style="font-size:.85rem;color:#555;margin-bottom:10px">Você está em recuperação. Precisa tirar <strong id="nota-final-min">—</strong> na prova final para ser aprovado.</p>
+      <div class="field">
+        <label>Simular nota na prova final</label>
+        <input type="number" id="nota-final" placeholder="Ex: 7,0" min="0" max="10" step="0.1" oninput="simFinal()"/>
+      </div>
+      <div id="sim-final-res" style="margin-top:8px;font-size:.9rem;font-weight:600"></div>
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+let _media=0, _apr=6, _mediaFinal=0;
+
+function buildNotas(){
+  const n=parseInt(document.getElementById('qtd-notas').value)||3;
+  const tipo=document.getElementById('tipo-media').value;
+  document.getElementById('tipo-media').addEventListener('change',buildNotas);
+  let html='';
+  for(let i=1;i<=n;i++){
+    html+=`<div class="nota-field"><label>Nota ${i}</label><input type="number" id="nota-${i}" placeholder="0-10" min="0" max="10" step="0.1"/></div>`;
+    if(tipo==='ponderada') html+=`<div class="nota-field"><label>Peso ${i}</label><input type="number" id="peso-${i}" placeholder="1" value="1" min="0.1" step="0.1"/></div>`;
+  }
+  document.getElementById('notas-wrap').innerHTML=html;
+}
+
+function calcular(){
+  const n=parseInt(document.getElementById('qtd-notas').value)||3;
+  const tipo=document.getElementById('tipo-media').value;
+  _apr=parseFloat(document.getElementById('media-apr').value)||6;
+  let notas=[],pesos=[],sum=0,sumPesos=0;
+  for(let i=1;i<=n;i++){
+    const v=parseFloat(document.getElementById('nota-'+i).value);
+    if(isNaN(v)){alert('Preencha todas as notas (0 a 10).');return;}
+    const p=tipo==='ponderada'?(parseFloat(document.getElementById('peso-'+i).value)||1):1;
+    notas.push(v);pesos.push(p);sum+=v*p;sumPesos+=p;
+  }
+  _media=sum/sumPesos;
+  const minFinal=_apr*2-_media;
+
+  const hero=document.getElementById('status-hero');
+  const aprovado=_media>=_apr, emFinal=_media>=(_apr*0.5)&&_media<_apr;
+
+  if(aprovado){
+    hero.className='res-hero aprovado';
+    document.getElementById('status-label').textContent='Resultado';
+    document.getElementById('status-txt').textContent='✅ APROVADO';
+    document.getElementById('media-txt').textContent='Média: '+_media.toFixed(2)+' (mínima: '+_apr+')';
+    document.getElementById('card-final').style.display='none';
+  } else if(emFinal&&minFinal<=10){
+    hero.className='res-hero final';
+    document.getElementById('status-label').textContent='Resultado';
+    document.getElementById('status-txt').textContent='⚠️ PROVA FINAL';
+    document.getElementById('media-txt').textContent='Média: '+_media.toFixed(2)+' — precisa de '+minFinal.toFixed(1)+' na final';
+    document.getElementById('card-final').style.display='block';
+    document.getElementById('nota-final-min').textContent=minFinal.toFixed(1);
+    _mediaFinal=minFinal;
+  } else {
+    hero.className='res-hero reprovado';
+    document.getElementById('status-label').textContent='Resultado';
+    document.getElementById('status-txt').textContent='❌ REPROVADO';
+    document.getElementById('media-txt').textContent='Média: '+_media.toFixed(2)+' (mínima: '+_apr+')';
+    document.getElementById('card-final').style.display='none';
+  }
+
+  document.getElementById('r-media').textContent=_media.toFixed(2);
+  document.getElementById('r-minima').textContent=_apr.toFixed(1);
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+
+function simFinal(){
+  const nf=parseFloat(document.getElementById('nota-final').value);
+  if(isNaN(nf)) return;
+  const mediaF=(_media+nf)/2;
+  const apr=mediaF>=_apr;
+  document.getElementById('sim-final-res').innerHTML=
+    apr?`<span style="color:#2e7d32">✅ Com ${nf.toFixed(1)}, sua média final seria ${mediaF.toFixed(2)} — APROVADO!</span>`
+       :`<span style="color:#c62828">❌ Com ${nf.toFixed(1)}, sua média final seria ${mediaF.toFixed(2)} — REPROVADO.</span>`;
+}
+
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+buildNotas();
+document.getElementById('tipo-media').addEventListener('change',buildNotas);
+document.getElementById('qtd-notas').addEventListener('change',buildNotas);
+</script>
+</body>
+</html>

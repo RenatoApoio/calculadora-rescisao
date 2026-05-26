@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Divisor de Conta — Restaurante com Gorjeta | FacilCalc</title>
+<meta name="description" content="Divida a conta do restaurante entre amigos. Calcule gorjeta, valor por pessoa e quanto cada um deve. Simples e rápido."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#00897b);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:600px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#00897b;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a237e,#00897b);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+.hero{background:linear-gradient(135deg,#1a237e,#00897b);color:#fff;border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.hero label{font-size:.85rem;opacity:.8;display:block;margin-bottom:4px}
+.hero .big{font-size:2.8rem;font-weight:900}
+.hero .sub{font-size:.88rem;opacity:.8;margin-top:6px}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.s-box{background:#f8f9ff;border-radius:10px;padding:12px;text-align:center}
+.s-box label{font-size:.75rem;color:#666;display:block;margin-bottom:3px}
+.s-box .val{font-size:1.1rem;font-weight:800;color:#1a237e}
+.gorj-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.gorj-btn{background:#f0f4f8;border:1.5px solid #ddd;border-radius:8px;padding:8px 16px;font-size:.88rem;font-weight:600;cursor:pointer;transition:.15s}
+.gorj-btn:hover,.gorj-btn.ativo{background:#00897b;color:#fff;border-color:#00897b}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:400px){.grid,.summary-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🍽️ Divisor de Conta</h1>
+  <p>Divida a conta do restaurante com gorjeta — rápido e sem confusão</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card">
+    <h2>🧾 Dados da Conta</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Valor Total da Conta (R$)</label>
+        <input type="text" id="total" placeholder="Ex: 180,00" oninput="maskMoeda(this);calc()"/>
+      </div>
+      <div class="field">
+        <label>Número de Pessoas</label>
+        <input type="number" id="pessoas" placeholder="Ex: 4" value="4" min="1" max="50" oninput="calc()"/>
+      </div>
+      <div class="field full">
+        <label>Gorjeta</label>
+        <div class="gorj-btns">
+          <button class="gorj-btn" onclick="setGorj(0)">0%</button>
+          <button class="gorj-btn ativo" onclick="setGorj(10)">10%</button>
+          <button class="gorj-btn" onclick="setGorj(15)">15%</button>
+          <button class="gorj-btn" onclick="setGorj(20)">20%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero" id="resultado">
+    <label>Cada pessoa paga</label>
+    <div class="big" id="r-pessoa">—</div>
+    <div class="sub" id="r-sub">—</div>
+  </div>
+  <div class="summary-grid">
+    <div class="s-box"><label>Conta original</label><div class="val" id="r-conta">—</div></div>
+    <div class="s-box"><label>Gorjeta total</label><div class="val" id="r-gorjeta">—</div></div>
+    <div class="s-box"><label>Total com gorjeta</label><div class="val" id="r-total-gorj">—</div></div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+let gorjPct=10;
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+
+function setGorj(pct){
+  gorjPct=pct;
+  document.querySelectorAll('.gorj-btn').forEach(b=>b.classList.remove('ativo'));
+  event.target.classList.add('ativo');
+  calc();
+}
+
+function calc(){
+  const total=parseMoeda(document.getElementById('total').value);
+  const pessoas=parseInt(document.getElementById('pessoas').value)||1;
+  if(!total){document.getElementById('r-pessoa').textContent='—';return;}
+  const gorjeta=total*(gorjPct/100);
+  const totalG=total+gorjeta;
+  const porPessoa=totalG/pessoas;
+  document.getElementById('r-pessoa').textContent=fmtR(porPessoa);
+  document.getElementById('r-sub').textContent=pessoas+' pessoas · gorjeta '+gorjPct+'%';
+  document.getElementById('r-conta').textContent=fmtR(total);
+  document.getElementById('r-gorjeta').textContent=fmtR(gorjeta);
+  document.getElementById('r-total-gorj').textContent=fmtR(totalG);
+  document.getElementById('resultado').style.display='block';
+}
+// Mostrar resultado imediatamente se tiver valor
+document.getElementById('resultado').style.display='block';
+</script>
+</body>
+</html>

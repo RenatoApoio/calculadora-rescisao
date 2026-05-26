@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora FIRE — Independência Financeira 2025 | FacilCalc</title>
+<meta name="description" content="Descubra quanto precisa acumular para viver de renda. Calcule em quantos anos atinge a independência financeira com base nos seus aportes e rentabilidade."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#4a148c,#1a73e8);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus{border-color:#4a148c;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#4a148c,#1a73e8);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.fire-hero{background:linear-gradient(135deg,#4a148c,#1a73e8);color:#fff;border-radius:14px;padding:24px;text-align:center;margin-bottom:14px}
+.fire-hero .chama{font-size:3rem;display:block;margin-bottom:8px}
+.fire-hero .anos{font-size:2.8rem;font-weight:900;line-height:1}
+.fire-hero .ano-label{font-size:.88rem;opacity:.8;margin-top:4px}
+.fire-hero .meta{font-size:1rem;margin-top:12px;opacity:.9}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.r-box{background:#f8f9ff;border-radius:10px;padding:12px;text-align:center}
+.r-box label{font-size:.75rem;color:#666;display:block;margin-bottom:3px}
+.r-box .val{font-size:1.1rem;font-weight:800;color:#1a237e}
+.progresso{background:#f0f4f8;border-radius:10px;padding:14px;margin-bottom:14px}
+.progresso label{font-size:.82rem;color:#555;font-weight:600;display:block;margin-bottom:8px}
+.barra-wrap{background:#e0e0e0;border-radius:20px;height:16px;overflow:hidden;margin-bottom:6px}
+.barra-fill{background:linear-gradient(90deg,#4a148c,#1a73e8);height:100%;border-radius:20px;transition:.5s}
+.barra-pct{font-size:.82rem;font-weight:700;color:#4a148c}
+.regras{background:#f3e5f5;border-radius:10px;padding:14px;font-size:.83rem;line-height:1.7;color:#333}
+.regras strong{color:#4a148c}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid,.res-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔥 Calculadora FIRE</h1>
+  <p>Independência Financeira — descubra quando você pode parar de trabalhar</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>💡 Seus Dados Financeiros</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Gastos Mensais Atuais (R$)</label>
+        <input type="text" id="gastos" placeholder="Ex: 4.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Patrimônio Atual (R$)</label>
+        <input type="text" id="patrimonio" placeholder="Ex: 50.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Aporte Mensal (R$)</label>
+        <input type="text" id="aporte" placeholder="Ex: 1.500,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Rentabilidade Real (% a.a.)</label>
+        <input type="text" id="rentab" placeholder="Ex: 6,0 (acima da inflação)" value="6,0"/>
+      </div>
+      <div class="field">
+        <label>Taxa de Retirada Anual (%)</label>
+        <select id="taxa-ret">
+          <option value="4">4% — Regra dos 4% (recomendado)</option>
+          <option value="3">3% — Conservador</option>
+          <option value="5">5% — Agressivo</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Sua Idade Atual</label>
+        <input type="number" id="idade" placeholder="Ex: 30" min="18" max="80"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">🔥 Calcular Independência Financeira</button>
+  </div>
+
+  <div id="resultado">
+    <div class="fire-hero">
+      <span class="chama">🔥</span>
+      <div class="anos" id="r-anos">—</div>
+      <div class="ano-label">anos para a independência financeira</div>
+      <div class="meta" id="r-meta">—</div>
+    </div>
+    <div class="res-grid">
+      <div class="r-box"><label>Meta FIRE (patrimônio)</label><div class="val" id="r-metaV">—</div></div>
+      <div class="r-box"><label>Renda Mensal da Renda</label><div class="val" id="r-renda">—</div></div>
+      <div class="r-box"><label>Idade na Independência</label><div class="val" id="r-idade">—</div></div>
+      <div class="r-box"><label>Patrimônio Atual</label><div class="val" id="r-pat">—</div></div>
+      <div class="r-box"><label>Aporte Total no Período</label><div class="val" id="r-total-aport">—</div></div>
+      <div class="r-box"><label>Juros Gerados</label><div class="val" id="r-juros">—</div></div>
+    </div>
+    <div class="progresso">
+      <label>Progresso atual: <span id="r-pct">0%</span></label>
+      <div class="barra-wrap"><div class="barra-fill" id="barra" style="width:0%"></div></div>
+      <div class="barra-pct" id="r-pct2"></div>
+    </div>
+    <div class="regras">
+      <strong>🔥 Regra dos 4% (Trinity Study):</strong> você pode retirar 4% do patrimônio por ano sem esgotá-lo em 30+ anos, com portfólio diversificado.<br>
+      <strong>Meta FIRE</strong> = Gastos anuais ÷ Taxa de retirada. Ex: R$ 4.000/mês × 12 ÷ 0,04 = R$ 1.200.000<br>
+      <strong>Rentabilidade real:</strong> desconta inflação. CDI de 14,75% com IPCA de 5,5% → real ≈ 8,8%. Use 5-7% como estimativa conservadora.
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function parsePct(s){return parseFloat((s||'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=1){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+function calcular(){
+  const gastos=parseMoeda(document.getElementById('gastos').value);
+  const pat=parseMoeda(document.getElementById('patrimonio').value);
+  const aporte=parseMoeda(document.getElementById('aporte').value);
+  const rentab=parsePct(document.getElementById('rentab').value)/100;
+  const taxaRet=parseFloat(document.getElementById('taxa-ret').value)/100;
+  const idade=parseInt(document.getElementById('idade').value)||30;
+  if(!gastos||!aporte){alert('Preencha gastos e aporte.');return;}
+
+  const meta=gastos*12/taxaRet;
+  const rendaMensal=meta*taxaRet/12;
+  const rm=Math.pow(1+rentab,1/12)-1;
+
+  let p=pat,meses=0;
+  while(p<meta&&meses<1200){p=p*(1+rm)+aporte;meses++;}
+
+  const anos=meses/12;
+  const idadeFire=idade+anos;
+  const totalAport=aporte*meses;
+  const juros=p-pat-totalAport;
+  const pct=Math.min(100,(pat/meta)*100);
+
+  document.getElementById('r-anos').textContent=fmtN(anos,0);
+  document.getElementById('r-meta').textContent='Meta: '+fmtR(meta)+' · '+new Date().getFullYear()+' + '+fmtN(anos,0)+' = '+Math.round(new Date().getFullYear()+anos);
+  document.getElementById('r-metaV').textContent=fmtR(meta);
+  document.getElementById('r-renda').textContent=fmtR(rendaMensal);
+  document.getElementById('r-idade').textContent=fmtN(idadeFire,0)+' anos';
+  document.getElementById('r-pat').textContent=fmtR(pat);
+  document.getElementById('r-total-aport').textContent=fmtR(totalAport);
+  document.getElementById('r-juros').textContent=fmtR(juros);
+  document.getElementById('r-pct').textContent=fmtN(pct)+'%';
+  document.getElementById('r-pct2').textContent='Você já tem '+fmtN(pct)+'% da meta';
+  document.getElementById('barra').style.width=pct+'%';
+
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

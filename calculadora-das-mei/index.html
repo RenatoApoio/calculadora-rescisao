@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora DAS MEI 2025 — Boleto Mensal do Microempreendedor | FacilCalc</title>
+<meta name="description" content="Calcule o DAS do MEI 2025: valor do boleto mensal, INSS, ICMS e ISS. Verifique o limite de faturamento e simule o Simples Nacional para ME."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1b5e20,#43a047);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:640px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#43a047;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1b5e20,#43a047);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.hero{background:linear-gradient(135deg,#1b5e20,#43a047);color:#fff;border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.hero label{font-size:.85rem;opacity:.8;display:block;margin-bottom:4px}
+.hero .das{font-size:2.8rem;font-weight:900}
+.hero .sub{font-size:.88rem;opacity:.8;margin-top:6px}
+.det-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:14px}
+.det-table th{background:#1b5e20;color:#fff;padding:8px 12px;text-align:left}
+.det-table td{padding:8px 12px;border-bottom:1px solid #f0f0f0}
+.det-table tr:last-child td{font-weight:700;background:#f8f9ff}
+.limite-bar{background:#f8f9ff;border-radius:10px;padding:14px;margin-bottom:14px}
+.limite-bar h3{font-size:.85rem;font-weight:700;color:#1a237e;margin-bottom:8px}
+.barra-wrap{background:#e8f5e9;border-radius:20px;height:16px;overflow:hidden;margin-bottom:6px}
+.barra-fill{background:linear-gradient(90deg,#1b5e20,#43a047);height:100%;border-radius:20px}
+.barra-fill.danger{background:linear-gradient(90deg,#c62828,#ef5350)}
+.alerta{background:#fff3e0;border:1px solid #ffb74d;border-radius:10px;padding:12px 14px;font-size:.83rem;color:#333;line-height:1.7;margin-bottom:12px}
+.alerta strong{color:#e65100}
+.obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🪪 Calculadora DAS MEI</h1>
+  <p>Valor do boleto mensal do Microempreendedor Individual 2025</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>🏪 Dados do MEI</h2>
+    <div class="grid">
+      <div class="field full">
+        <label>Tipo de Atividade</label>
+        <select id="atividade">
+          <option value="comercio">Comércio / Indústria (ICMS)</option>
+          <option value="servico">Serviços (ISS)</option>
+          <option value="ambos">Comércio + Serviços (ICMS + ISS)</option>
+          <option value="caminhoneiro">MEI Caminhoneiro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Faturamento Mensal Médio (R$)</label>
+        <input type="text" id="faturamento" placeholder="Ex: 4.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Meses de atividade no ano</label>
+        <input type="number" id="meses" placeholder="Ex: 12" value="12" min="1" max="12"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">🧮 Calcular DAS</button>
+  </div>
+
+  <div id="resultado">
+    <div class="hero">
+      <label>DAS Mensal</label>
+      <div class="das" id="r-das">—</div>
+      <div class="sub" id="r-sub">—</div>
+    </div>
+    <table class="det-table">
+      <thead><tr><th>Componente</th><th>Valor</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="limite-bar">
+      <h3>Limite de Faturamento Anual (R$ 81.000,00)</h3>
+      <div class="barra-wrap"><div class="barra-fill" id="barra" style="width:0%"></div></div>
+      <div style="font-size:.82rem;color:#555" id="r-limite-txt">—</div>
+    </div>
+    <div class="alerta" id="alerta-box" style="display:none"></div>
+    <div class="obs">
+      📌 O DAS vence todo dia 20 do mês seguinte. Atraso gera multa de 0,33%/dia (máx 20%) + juros Selic.<br>
+      📌 MEI pode ter um único empregado — salário mínimo ou piso da categoria.<br>
+      📌 Limite MEI 2025: R$ 81.000/ano (R$ 6.750/mês). MEI Caminhoneiro: R$ 251.600/ano.
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+const SAL_MIN=1518.00;
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=2){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+function calcular(){
+  const ativ=document.getElementById('atividade').value;
+  const fat=parseMoeda(document.getElementById('faturamento').value)||0;
+  const meses=parseInt(document.getElementById('meses').value)||12;
+
+  const inss=SAL_MIN*0.05; // 5% salário mínimo
+  let icms=0,iss=0,nome='';
+  if(ativ==='comercio'){icms=1.00;nome='Comércio/Indústria';}
+  else if(ativ==='servico'){iss=5.00;nome='Serviços';}
+  else if(ativ==='ambos'){icms=1.00;iss=5.00;nome='Comércio + Serviços';}
+  else{
+    // Caminhoneiro: INSS 12% do salário mínimo
+    const inssC=SAL_MIN*0.12;
+    const dasC=inssC;
+    const fatAnual=fat*meses, limite=251600;
+    const pct=Math.min(100,fatAnual/limite*100);
+    document.getElementById('r-das').textContent=fmtR(dasC);
+    document.getElementById('r-sub').textContent='INSS 12% sobre sal. mínimo · '+fmtR(fat)+'/mês faturado';
+    document.getElementById('tbody').innerHTML=`<tr><td>INSS (12% × R$ 1.518,00)</td><td>${fmtR(inssC)}</td></tr><tr><td>ICMS/ISS</td><td>R$ 0,00</td></tr><tr><td>TOTAL DAS</td><td>${fmtR(dasC)}</td></tr>`;
+    document.getElementById('barra').className='barra-fill'+(pct>90?' danger':'');
+    document.getElementById('barra').style.width=pct+'%';
+    document.getElementById('r-limite-txt').textContent=fmtR(fatAnual)+' / R$ 251.600,00 ('+fmtN(pct)+'%)';
+    document.getElementById('alerta-box').style.display=pct>80?'block':'none';
+    if(pct>80) document.getElementById('alerta-box').innerHTML=`<strong>⚠️ Atenção:</strong> Você já utilizou ${fmtN(pct)}% do limite anual do MEI Caminhoneiro. Se ultrapassar R$ 251.600,00, precisará migrar para ME.`;
+    document.getElementById('resultado').style.display='block';
+    document.getElementById('formulario').style.display='none';
+    return;
+  }
+
+  const das=inss+icms+iss;
+  const fatAnual=fat*meses, limite=81000;
+  const pct=Math.min(100,fatAnual/limite*100);
+
+  document.getElementById('r-das').textContent=fmtR(das);
+  document.getElementById('r-sub').textContent=nome+' · Faturamento: '+fmtR(fat)+'/mês';
+  let rows=`<tr><td>INSS (5% × R$ ${fmtN(SAL_MIN)} — sal. mínimo)</td><td>${fmtR(inss)}</td></tr>`;
+  if(icms) rows+=`<tr><td>ICMS (Comércio/Indústria)</td><td>${fmtR(icms)}</td></tr>`;
+  if(iss) rows+=`<tr><td>ISS (Serviços)</td><td>${fmtR(iss)}</td></tr>`;
+  rows+=`<tr><td>TOTAL DAS Mensal</td><td>${fmtR(das)}</td></tr>`;
+  rows+=`<tr><td>Total Anual (${meses} meses)</td><td>${fmtR(das*meses)}</td></tr>`;
+  document.getElementById('tbody').innerHTML=rows;
+
+  document.getElementById('barra').className='barra-fill'+(pct>90?' danger':'');
+  document.getElementById('barra').style.width=pct+'%';
+  document.getElementById('r-limite-txt').textContent=fmtR(fatAnual)+' / R$ 81.000,00 ('+fmtN(pct)+'% do limite)';
+
+  const alertEl=document.getElementById('alerta-box');
+  if(pct>100){alertEl.style.display='block';alertEl.innerHTML=`<strong>🚨 Limite excedido!</strong> Faturamento anual projetado de ${fmtR(fatAnual)} ultrapassa o limite MEI de R$ 81.000. Você deve migrar para ME (Microempresa) no Simples Nacional.`;}
+  else if(pct>80){alertEl.style.display='block';alertEl.innerHTML=`<strong>⚠️ Atenção:</strong> Você já utilizou ${fmtN(pct)}% do limite anual. Fique atento para não ultrapassar R$ 81.000,00.`;}
+  else{alertEl.style.display='none';}
+
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

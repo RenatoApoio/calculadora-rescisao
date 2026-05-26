@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora Yield de Imóvel — Rentabilidade do Aluguel 2025 | FacilCalc</title>
+<meta name="description" content="Calcule o yield bruto e líquido do aluguel do seu imóvel. Compare com CDI e poupança e descubra se vale a pena alugar ou vender."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1b5e20,#1a73e8);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:660px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus{border-color:#1b5e20;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1b5e20,#1a73e8);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.hero{background:linear-gradient(135deg,#1b5e20,#1a73e8);color:#fff;border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
+.hero label{font-size:.85rem;opacity:.8;display:block;margin-bottom:4px}
+.hero .big{font-size:2.6rem;font-weight:900}
+.hero .sub{font-size:.88rem;opacity:.8;margin-top:6px}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.r-box{background:#f8f9ff;border-radius:10px;padding:12px;text-align:center}
+.r-box label{font-size:.75rem;color:#666;display:block;margin-bottom:3px}
+.r-box .val{font-size:1rem;font-weight:800;color:#1a237e}
+.comp-bar{background:#f8f9ff;border-radius:10px;padding:14px;margin-bottom:14px}
+.comp-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem}
+.comp-row:last-child{border:none}
+.comp-row .nome{font-weight:600}
+.comp-row .pct{font-weight:900;font-size:1rem}
+.melhor{color:#2e7d32}
+.pior{color:#c62828}
+.obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid,.res-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏠 Yield do Imóvel</h1>
+  <p>Calcule a rentabilidade real do aluguel e compare com investimentos</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>🏘️ Dados do Imóvel</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Valor do Imóvel (R$)</label>
+        <input type="text" id="valor" placeholder="Ex: 400.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Aluguel Mensal (R$)</label>
+        <input type="text" id="aluguel" placeholder="Ex: 2.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Taxa de Vacância (% do ano)</label>
+        <input type="number" id="vacancia" placeholder="Ex: 8" value="8" min="0" max="100"/>
+      </div>
+      <div class="field">
+        <label>IPTU mensal (R$)</label>
+        <input type="text" id="iptu" placeholder="Ex: 200,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Condomínio mensal (R$)</label>
+        <input type="text" id="condominio" placeholder="Ex: 0 (se pago pelo locatário)" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>CDI atual (% a.a.)</label>
+        <input type="text" id="cdi" placeholder="Ex: 14,75" value="14,75"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">📊 Calcular Yield</button>
+  </div>
+
+  <div id="resultado">
+    <div class="hero">
+      <label>Yield Líquido Anual</label>
+      <div class="big" id="r-yield">—</div>
+      <div class="sub" id="r-sub">—</div>
+    </div>
+    <div class="res-grid">
+      <div class="r-box"><label>Yield Bruto</label><div class="val" id="r-bruto">—</div></div>
+      <div class="r-box"><label>Aluguel Efetivo/mês</label><div class="val" id="r-ef">—</div></div>
+      <div class="r-box"><label>Custo mensal</label><div class="val" id="r-custo">—</div></div>
+      <div class="r-box"><label>Lucro líquido/mês</label><div class="val" id="r-lucro">—</div></div>
+      <div class="r-box"><label>Payback</label><div class="val" id="r-payback">—</div></div>
+      <div class="r-box"><label>vs CDI</label><div class="val" id="r-vs-cdi">—</div></div>
+    </div>
+    <div class="comp-bar">
+      <h3 style="font-size:.85rem;font-weight:700;color:#1a237e;margin-bottom:8px">📊 Comparativo de Rentabilidade</h3>
+      <div class="comp-row"><span class="nome">🏠 Imóvel (yield líquido)</span><span class="pct" id="cp-imovel">—</span></div>
+      <div class="comp-row"><span class="nome">💰 CDI líquido (15% IR)</span><span class="pct" id="cp-cdi">—</span></div>
+      <div class="comp-row"><span class="nome">🐷 Poupança</span><span class="pct" id="cp-poupa">—</span></div>
+    </div>
+    <div class="obs">
+      ⚠️ O yield do imóvel não inclui potencial de valorização, que pode ser significativo em regiões em crescimento.<br>
+      💡 Yield ideal: acima de 0,5% ao mês (6% a.a.). Abaixo disso, investir o capital pode ser mais vantajoso.
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function parsePct(s){return parseFloat((s||'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=2){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+function calcular(){
+  const v=parseMoeda(document.getElementById('valor').value);
+  const alug=parseMoeda(document.getElementById('aluguel').value);
+  const vac=parseFloat(document.getElementById('vacancia').value)||0;
+  const iptu=parseMoeda(document.getElementById('iptu').value);
+  const cond=parseMoeda(document.getElementById('condominio').value);
+  const cdi=parsePct(document.getElementById('cdi').value);
+  if(!v||!alug){alert('Informe o valor do imóvel e o aluguel.');return;}
+
+  const alugEfetivo=alug*(1-vac/100);
+  const custoMensal=iptu+cond;
+  const lucroLiq=alugEfetivo-custoMensal;
+  const yieldBrutoA=(alug*12/v)*100;
+  const yieldLiqA=(lucroLiq*12/v)*100;
+  const payback=lucroLiq>0?(v/(lucroLiq*12)):Infinity;
+  const cdiLiq=cdi*0.85;
+
+  document.getElementById('r-yield').textContent=fmtN(yieldLiqA)+'% a.a.';
+  document.getElementById('r-sub').textContent=fmtR(lucroLiq)+'/mês líquido · Bruto: '+fmtN(yieldBrutoA)+'% a.a.';
+  document.getElementById('r-bruto').textContent=fmtN(yieldBrutoA)+'% a.a.';
+  document.getElementById('r-ef').textContent=fmtR(alugEfetivo);
+  document.getElementById('r-custo').textContent=fmtR(custoMensal);
+  document.getElementById('r-lucro').textContent=fmtR(lucroLiq);
+  document.getElementById('r-payback').textContent=payback<Infinity?fmtN(payback,1)+' anos':'—';
+  const melhor=yieldLiqA>cdiLiq;
+  document.getElementById('r-vs-cdi').innerHTML=`<span style="color:${melhor?'#2e7d32':'#c62828'}">${melhor?'✅ Acima':'⚠️ Abaixo'} CDI</span>`;
+
+  document.getElementById('cp-imovel').textContent=fmtN(yieldLiqA)+'% a.a.';
+  document.getElementById('cp-cdi').textContent=fmtN(cdiLiq)+'% a.a.';
+  document.getElementById('cp-poupa').textContent=fmtN(cdi*0.07)+'% a.a. (est.)';
+  document.getElementById('cp-imovel').className='pct '+(yieldLiqA>cdiLiq?'melhor':'pior');
+
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

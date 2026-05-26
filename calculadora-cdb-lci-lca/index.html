@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora CDB LCI LCA 2025 — Rendimento Líquido e Comparação | FacilCalc</title>
+<meta name="description" content="Simule o rendimento líquido de CDB, LCI e LCA. Compare com poupança e CDI. Calcule IR regressivo e veja qual investimento rende mais."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#00897b);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:700px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#00897b;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a237e,#00897b);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.inv-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.inv-card{border-radius:12px;padding:16px;text-align:center}
+.inv-card.cdb{background:#e3f2fd;border:2px solid #1e88e5}
+.inv-card.lcilca{background:#e8f5e9;border:2px solid #43a047}
+.inv-card.poupanca{background:#fafafa;border:2px solid #bbb}
+.inv-card.cdb.winner,.inv-card.lcilca.winner,.inv-card.poupanca.winner{box-shadow:0 0 0 3px #ffd700,0 4px 16px rgba(0,0,0,.15)}
+.inv-card h3{font-size:.88rem;font-weight:800;margin-bottom:8px}
+.inv-card.cdb h3{color:#1565c0}
+.inv-card.lcilca h3{color:#2e7d32}
+.inv-card.poupanca h3{color:#666}
+.inv-card .liq{font-size:1.3rem;font-weight:900;margin:4px 0}
+.inv-card.cdb .liq{color:#1565c0}
+.inv-card.lcilca .liq{color:#2e7d32}
+.inv-card .row{display:flex;justify-content:space-between;font-size:.76rem;padding:2px 0;border-bottom:1px solid rgba(0,0,0,.07)}
+.inv-card .row:last-child{border:none}
+.winner-banner{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:2px solid #ffc107;border-radius:12px;padding:14px;text-align:center;margin-bottom:14px}
+.obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:500px){.inv-cards,.grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>💹 CDB · LCI · LCA</h1>
+  <p>Compare rendimentos líquidos e descubra o melhor investimento</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>💰 Dados do Investimento</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Valor Inicial (R$)</label>
+        <input type="text" id="valor" placeholder="Ex: 10.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Prazo (dias)</label>
+        <input type="number" id="prazo" placeholder="Ex: 365" min="1"/>
+      </div>
+      <div class="field">
+        <label>Taxa CDB (% do CDI)</label>
+        <input type="text" id="taxa-cdb" placeholder="Ex: 100 (= 100% CDI)"/>
+      </div>
+      <div class="field">
+        <label>Taxa LCI ou LCA (% do CDI)</label>
+        <input type="text" id="taxa-lci" placeholder="Ex: 92 (= 92% CDI)"/>
+      </div>
+      <div class="field full">
+        <label>CDI atual (% ao ano)</label>
+        <input type="text" id="cdi" placeholder="Ex: 14,75" value="14,75"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">📊 Comparar Investimentos</button>
+  </div>
+
+  <div id="resultado">
+    <div class="inv-cards">
+      <div class="inv-card cdb" id="card-cdb">
+        <h3>🏦 CDB</h3>
+        <div class="liq" id="cdb-liq">—</div>
+        <div class="row"><span>Rendimento bruto</span><span id="cdb-bruto">—</span></div>
+        <div class="row"><span>IR retido</span><span id="cdb-ir">—</span></div>
+        <div class="row"><span>Rent. líquida</span><span id="cdb-rent">—</span></div>
+      </div>
+      <div class="inv-card lcilca" id="card-lci">
+        <h3>🌱 LCI/LCA</h3>
+        <div class="liq" id="lci-liq">—</div>
+        <div class="row"><span>Rendimento bruto</span><span id="lci-bruto">—</span></div>
+        <div class="row"><span>IR retido</span><span id="lci-ir">—</span></div>
+        <div class="row"><span>Rent. líquida</span><span id="lci-rent">—</span></div>
+      </div>
+      <div class="inv-card poupanca" id="card-poup">
+        <h3>🐷 Poupança</h3>
+        <div class="liq" id="poup-liq">—</div>
+        <div class="row"><span>Rendimento</span><span id="poup-bruto">—</span></div>
+        <div class="row"><span>IR retido</span><span id="poup-ir">—</span></div>
+        <div class="row"><span>Rent. líquida</span><span id="poup-rent">—</span></div>
+      </div>
+    </div>
+    <div class="winner-banner">
+      <strong id="winner-txt"></strong><br>
+      <span id="winner-sub" style="font-size:.85rem;color:#555"></span>
+    </div>
+    <div class="obs">
+      📌 <strong>IR CDB:</strong> 22,5% (até 180 dias) · 20% (181-360 dias) · 17,5% (361-720 dias) · 15% (acima de 720 dias)<br>
+      📌 <strong>LCI/LCA:</strong> isento de IR para pessoa física (mín. 90 dias LCI · 90 dias LCA após 2024)<br>
+      📌 <strong>Poupança:</strong> 0,5%/mês + TR quando Selic > 8,5% a.a.
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function parsePct(s){return parseFloat((s||'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=2){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+function irAliq(dias){
+  if(dias<=180) return 0.225;
+  if(dias<=360) return 0.20;
+  if(dias<=720) return 0.175;
+  return 0.15;
+}
+
+function rendDiario(taxaAnual){return Math.pow(1+taxaAnual/100,1/252)-1;}
+
+function calcular(){
+  const pv=parseMoeda(document.getElementById('valor').value);
+  const dias=parseInt(document.getElementById('prazo').value)||0;
+  const taxaCDB=parsePct(document.getElementById('taxa-cdb').value)/100;
+  const taxaLCI=parsePct(document.getElementById('taxa-lci').value)/100;
+  const cdiAnual=parsePct(document.getElementById('cdi').value);
+  if(!pv||!dias||!cdiAnual){alert('Preencha todos os campos.');return;}
+
+  const cdiDiario=rendDiario(cdiAnual);
+  const ir=irAliq(dias);
+
+  // CDB
+  const taxaCDBef=cdiAnual*taxaCDB;
+  const rdCDB=rendDiario(taxaCDBef);
+  const rendBrutoCDB=pv*(Math.pow(1+rdCDB,dias)-1);
+  const irCDB=rendBrutoCDB*ir;
+  const liqCDB=pv+rendBrutoCDB-irCDB;
+  const rentCDB=((liqCDB/pv)-1)*100;
+
+  // LCI/LCA (isento)
+  const taxaLCIef=cdiAnual*taxaLCI;
+  const rdLCI=rendDiario(taxaLCIef);
+  const rendBrutoLCI=pv*(Math.pow(1+rdLCI,dias)-1);
+  const liqLCI=pv+rendBrutoLCI;
+  const rentLCI=((liqLCI/pv)-1)*100;
+
+  // Poupança (0.5%/mês + TR estimada em 0.1%/mês)
+  const meses=dias/30;
+  const rdPoup=Math.pow(1+0.006,meses)-1;
+  const rendBrutoPoup=pv*rdPoup;
+  const liqPoup=pv+rendBrutoPoup;
+  const rentPoup=rdPoup*100;
+
+  // Preencher
+  const fill=(id,val)=>document.getElementById(id).textContent=val;
+  fill('cdb-liq',fmtR(liqCDB)); fill('cdb-bruto','+'+fmtR(rendBrutoCDB));
+  fill('cdb-ir','-'+fmtR(irCDB)); fill('cdb-rent',fmtN(rentCDB)+'%');
+  fill('lci-liq',fmtR(liqLCI)); fill('lci-bruto','+'+fmtR(rendBrutoLCI));
+  fill('lci-ir','Isento'); fill('lci-rent',fmtN(rentLCI)+'%');
+  fill('poup-liq',fmtR(liqPoup)); fill('poup-bruto','+'+fmtR(rendBrutoPoup));
+  fill('poup-ir','Isento'); fill('poup-rent',fmtN(rentPoup)+'%');
+
+  const opts=[{n:'CDB',v:liqCDB,id:'card-cdb'},{n:'LCI/LCA',v:liqLCI,id:'card-lci'},{n:'Poupança',v:liqPoup,id:'card-poup'}];
+  opts.sort((a,b)=>b.v-a.v);
+  opts.forEach((o,i)=>{
+    const el=document.getElementById(o.id);
+    el.classList.toggle('winner',i===0);
+  });
+  document.getElementById('winner-txt').textContent='🏆 Melhor opção: '+opts[0].n+' — '+fmtR(opts[0].v);
+  document.getElementById('winner-sub').textContent='Diferença CDB vs LCI/LCA: '+fmtR(Math.abs(liqCDB-liqLCI))+' · Diferença vs Poupança: '+fmtR(Math.abs(opts[0].v-liqPoup));
+
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

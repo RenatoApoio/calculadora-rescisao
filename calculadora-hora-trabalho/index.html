@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Quanto Custa Sua Hora de Trabalho? 2025 | FacilCalc</title>
+<meta name="description" content="Descubra quanto sua hora de trabalho realmente vale. Calcule o custo real da hora considerando salário líquido, horas trabalhadas e deslocamento."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#1a73e8);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:640px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus{border-color:#1a73e8;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a73e8,#1565c0);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.hero{background:linear-gradient(135deg,#1a237e,#1a73e8);color:#fff;border-radius:14px;padding:24px;text-align:center;margin-bottom:14px}
+.hero label{font-size:.85rem;opacity:.8;display:block;margin-bottom:4px}
+.hero .big{font-size:2.6rem;font-weight:900}
+.hero .sub{font-size:.88rem;opacity:.8;margin-top:6px}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.r-box{background:#f8f9ff;border-radius:10px;padding:12px;text-align:center}
+.r-box label{font-size:.75rem;color:#666;display:block;margin-bottom:3px}
+.r-box .val{font-size:1rem;font-weight:800;color:#1a237e}
+.compras{background:#fff3e0;border:1px solid #ffa726;border-radius:10px;padding:14px;font-size:.85rem;line-height:1.8;color:#333}
+.compras strong{color:#e65100}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid,.res-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>⏰ Quanto Custa Sua Hora?</h1>
+  <p>Descubra o valor real da sua hora de trabalho</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>💼 Seus Dados de Trabalho</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Salário Líquido Mensal (R$)</label>
+        <input type="text" id="salario" placeholder="Ex: 3.500,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Horas por dia de trabalho</label>
+        <input type="number" id="horas-dia" placeholder="Ex: 8" value="8" step="0.5" min="1"/>
+      </div>
+      <div class="field">
+        <label>Dias trabalhados por semana</label>
+        <input type="number" id="dias-sem" placeholder="Ex: 5" value="5" min="1" max="7"/>
+      </div>
+      <div class="field">
+        <label>Tempo de deslocamento/dia (min)</label>
+        <input type="number" id="desloc" placeholder="Ex: 60" value="0" min="0"/>
+      </div>
+      <div class="field full">
+        <label>Gastos mensais por causa do trabalho (R$) <span style="font-weight:400;color:#999">— transporte, alimentação fora, roupas</span></label>
+        <input type="text" id="gastos-trab" placeholder="Ex: 400,00" oninput="maskMoeda(this)"/>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">⏱️ Calcular Valor da Hora</button>
+  </div>
+
+  <div id="resultado">
+    <div class="hero">
+      <label>Sua hora de trabalho vale</label>
+      <div class="big" id="r-hora">—</div>
+      <div class="sub" id="r-sub">—</div>
+    </div>
+    <div class="res-grid">
+      <div class="r-box"><label>Horas/mês (contratadas)</label><div class="val" id="r-h-contrat">—</div></div>
+      <div class="r-box"><label>Horas reais/mês</label><div class="val" id="r-h-reais">—</div></div>
+      <div class="r-box"><label>Salário real (após gastos)</label><div class="val" id="r-sal-real">—</div></div>
+      <div class="r-box"><label>Hora pelo contrato</label><div class="val" id="r-hora-contrat">—</div></div>
+      <div class="r-box"><label>Hora real (com deslocamento)</label><div class="val" id="r-hora-real">—</div></div>
+      <div class="r-box"><label>Horas de vida no trabalho/ano</label><div class="val" id="r-h-ano">—</div></div>
+    </div>
+    <div class="compras" id="compras-box"></div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=1){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+function calcular(){
+  const sal=parseMoeda(document.getElementById('salario').value);
+  const hDia=parseFloat(document.getElementById('horas-dia').value)||8;
+  const dSem=parseFloat(document.getElementById('dias-sem').value)||5;
+  const desloc=parseFloat(document.getElementById('desloc').value)||0;
+  const gastos=parseMoeda(document.getElementById('gastos-trab').value);
+  if(!sal){alert('Informe o salário líquido.');return;}
+
+  const semanasM=52/12;
+  const hMes=hDia*dSem*semanasM;
+  const deslocHMes=(desloc/60)*dSem*semanasM;
+  const hReaisMes=hMes+deslocHMes;
+  const salReal=sal-gastos;
+  const horaContrat=sal/hMes;
+  const horaReal=salReal/hReaisMes;
+  const hAno=hReaisMes*12;
+
+  document.getElementById('r-hora').textContent=fmtR(horaReal);
+  document.getElementById('r-sub').textContent='Pelo contrato: '+fmtR(horaContrat)+'/h — com deslocamento e gastos: '+fmtR(horaReal)+'/h';
+  document.getElementById('r-h-contrat').textContent=fmtN(hMes)+'h';
+  document.getElementById('r-h-reais').textContent=fmtN(hReaisMes)+'h';
+  document.getElementById('r-sal-real').textContent=fmtR(salReal);
+  document.getElementById('r-hora-contrat').textContent=fmtR(horaContrat);
+  document.getElementById('r-hora-real').textContent=fmtR(horaReal);
+  document.getElementById('r-h-ano').textContent=fmtN(hAno,0)+'h';
+
+  // Tabela de quanto custam coisas em "horas de vida"
+  const itens=[['☕ Café com bolo (R$ 20)',20],['🍔 Almoço (R$ 45)',45],['📱 Netflix mensal (R$ 55,90)',55.90],['👟 Tênis (R$ 300)',300],['📺 TV 55" (R$ 2.500)',2500],['✈️ Passagem nacional (R$ 800)',800]];
+  document.getElementById('compras-box').innerHTML='<strong>💡 Quanto você trabalha para pagar:</strong><br>'+
+    itens.map(([nome,preco])=>{const h=preco/horaReal;return `${nome}: <strong>${fmtN(h)}h</strong> (${fmtN(h*60,0)} min)`}).join('<br>');
+
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>

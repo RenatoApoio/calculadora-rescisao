@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Calculadora ICMS e ISS 2025 — Impostos sobre Produto e Serviço | FacilCalc</title>
+<meta name="description" content="Calcule o ICMS por estado e o ISS por município. Veja o imposto embutido no preço ou adicione ao preço final. Para MEI, ME e empresas."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:660px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tab{flex:1;padding:10px;border-radius:10px;border:1.5px solid #ddd;background:#fff;font-size:.9rem;font-weight:700;cursor:pointer;text-align:center;transition:.15s}
+.tab.active{background:#1a237e;color:#fff;border-color:#1a237e}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#1a237e;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a237e,#283593);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+.res{display:none}
+.res-hero{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;border-radius:14px;padding:20px;text-align:center;margin-bottom:14px}
+.res-hero label{font-size:.85rem;opacity:.8;display:block;margin-bottom:4px}
+.res-hero .big{font-size:2.2rem;font-weight:900}
+.res-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.r-box{background:#f8f9ff;border-radius:10px;padding:12px;text-align:center}
+.r-box label{font-size:.75rem;color:#666;display:block;margin-bottom:3px}
+.r-box .val{font-size:1.1rem;font-weight:800;color:#1a237e}
+.obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:400px){.grid,.res-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧾 ICMS e ISS</h1>
+  <p>Calcule impostos sobre produtos e serviços por estado e município</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('icms')">📦 ICMS (Produto)</button>
+    <button class="tab" onclick="showTab('iss')">🔧 ISS (Serviço)</button>
+  </div>
+
+  <!-- ICMS -->
+  <div id="panel-icms" class="panel active">
+    <div class="card">
+      <h2>📦 Cálculo de ICMS</h2>
+      <div class="grid">
+        <div class="field">
+          <label>Valor do Produto/NF (R$)</label>
+          <input type="text" id="icms-valor" placeholder="Ex: 1.000,00" oninput="maskMoeda(this)"/>
+        </div>
+        <div class="field">
+          <label>Estado (alíquota)</label>
+          <select id="icms-estado">
+            <option value="12">SP, MG, RS, PR, SC — 12%</option>
+            <option value="17">RJ, DF — 20% (produtos específicos)</option>
+            <option value="17">GO, BA, CE, PE, ES — 17%</option>
+            <option value="18">MT, MS, MA, RN — 18%</option>
+            <option value="19">PA, AM, AC, RR, AP, TO, PI, AL, SE, PB, RO — 19%</option>
+            <option value="custom">Outra alíquota</option>
+          </select>
+        </div>
+        <div class="field" id="icms-custom-field" style="display:none">
+          <label>Alíquota ICMS (%)</label>
+          <input type="text" id="icms-aliq-custom" placeholder="Ex: 17"/>
+        </div>
+        <div class="field">
+          <label>O imposto está embutido?</label>
+          <select id="icms-embutido">
+            <option value="sim">Sim — calcular imposto por dentro</option>
+            <option value="nao">Não — adicionar ao valor</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-calc" onclick="calcICMS()">🧮 Calcular ICMS</button>
+    </div>
+    <div class="res" id="res-icms">
+      <div class="res-hero"><label>ICMS</label><div class="big" id="icms-val">—</div></div>
+      <div class="res-grid">
+        <div class="r-box"><label>Base de Cálculo</label><div class="val" id="icms-base">—</div></div>
+        <div class="r-box"><label>ICMS</label><div class="val" id="icms-imp">—</div></div>
+        <div class="r-box"><label>Valor sem ICMS</label><div class="val" id="icms-sem">—</div></div>
+      </div>
+      <div style="text-align:center;margin-top:8px"><button class="btn-novo" onclick="document.getElementById('res-icms').style.display='none'">🔄 Novo</button></div>
+    </div>
+  </div>
+
+  <!-- ISS -->
+  <div id="panel-iss" class="panel">
+    <div class="card">
+      <h2>🔧 Cálculo de ISS</h2>
+      <div class="grid">
+        <div class="field">
+          <label>Valor do Serviço (R$)</label>
+          <input type="text" id="iss-valor" placeholder="Ex: 2.000,00" oninput="maskMoeda(this)"/>
+        </div>
+        <div class="field">
+          <label>Alíquota ISS do Município</label>
+          <select id="iss-aliq">
+            <option value="2">2% — mínimo legal (LC 116/03)</option>
+            <option value="3">3%</option>
+            <option value="4">4%</option>
+            <option value="5">5% — máximo legal</option>
+            <option value="custom">Outra alíquota</option>
+          </select>
+        </div>
+        <div class="field" id="iss-custom-field" style="display:none">
+          <label>Alíquota ISS (%)</label>
+          <input type="text" id="iss-aliq-custom" placeholder="Ex: 3,5"/>
+        </div>
+        <div class="field">
+          <label>O imposto está embutido?</label>
+          <select id="iss-embutido">
+            <option value="sim">Sim — por dentro</option>
+            <option value="nao">Não — adicionar</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-calc" onclick="calcISS()">🧮 Calcular ISS</button>
+    </div>
+    <div class="res" id="res-iss">
+      <div class="res-hero"><label>ISS</label><div class="big" id="iss-val">—</div></div>
+      <div class="res-grid">
+        <div class="r-box"><label>Base de Cálculo</label><div class="val" id="iss-base">—</div></div>
+        <div class="r-box"><label>ISS</label><div class="val" id="iss-imp">—</div></div>
+        <div class="r-box"><label>Valor sem ISS</label><div class="val" id="iss-sem">—</div></div>
+      </div>
+      <div style="text-align:center;margin-top:8px"><button class="btn-novo" onclick="document.getElementById('res-iss').style.display='none'">🔄 Novo</button></div>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function showTab(id){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['icms','iss'][i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+}
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function parsePct(s){return parseFloat((s||'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtN(v,d=2){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+
+document.getElementById('icms-estado').addEventListener('change',function(){
+  document.getElementById('icms-custom-field').style.display=this.value==='custom'?'':'none';
+});
+document.getElementById('iss-aliq').addEventListener('change',function(){
+  document.getElementById('iss-custom-field').style.display=this.value==='custom'?'':'none';
+});
+
+function calcImposto(valor, aliq, embutido){
+  if(embutido==='sim'){
+    const base=valor; const imp=base*(aliq/100); const sem=base-imp;
+    return{base,imp,sem,total:base};
+  } else {
+    const base=valor; const imp=base*(aliq/100); const total=base+imp;
+    return{base,imp,sem:base,total};
+  }
+}
+
+function calcICMS(){
+  const v=parseMoeda(document.getElementById('icms-valor').value);
+  const sel=document.getElementById('icms-estado').value;
+  const aliq=sel==='custom'?parsePct(document.getElementById('icms-aliq-custom').value):parseFloat(sel);
+  const emb=document.getElementById('icms-embutido').value;
+  if(!v||!aliq){alert('Preencha todos os campos.');return;}
+  const r=calcImposto(v,aliq,emb);
+  document.getElementById('icms-val').textContent=fmtR(r.imp)+' ('+fmtN(aliq)+'%)';
+  document.getElementById('icms-base').textContent=fmtR(r.base);
+  document.getElementById('icms-imp').textContent=fmtR(r.imp);
+  document.getElementById('icms-sem').textContent=fmtR(r.sem);
+  document.getElementById('res-icms').style.display='block';
+}
+function calcISS(){
+  const v=parseMoeda(document.getElementById('iss-valor').value);
+  const sel=document.getElementById('iss-aliq').value;
+  const aliq=sel==='custom'?parsePct(document.getElementById('iss-aliq-custom').value):parseFloat(sel);
+  const emb=document.getElementById('iss-embutido').value;
+  if(!v||!aliq){alert('Preencha todos os campos.');return;}
+  const r=calcImposto(v,aliq,emb);
+  document.getElementById('iss-val').textContent=fmtR(r.imp)+' ('+fmtN(aliq)+'%)';
+  document.getElementById('iss-base').textContent=fmtR(r.base);
+  document.getElementById('iss-imp').textContent=fmtR(r.imp);
+  document.getElementById('iss-sem').textContent=fmtR(r.sem);
+  document.getElementById('res-iss').style.display='block';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PGBL vs VGBL — Qual Previdência Privada Vale Mais? 2025 | FacilCalc</title>
+<meta name="description" content="Compare PGBL e VGBL: veja qual previdência privada é mais vantajosa para seu perfil de IR. Calcule a economia fiscal do PGBL e o retorno real."/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
+header{background:linear-gradient(135deg,#1a237e,#6a1b9a);color:#fff;padding:28px 16px 20px;text-align:center}
+header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+header p{font-size:.92rem;opacity:.88;margin-top:6px}
+.nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
+.nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
+main{max-width:680px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
+.card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.8rem;font-weight:600;color:#555}
+.field input,.field select{padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:1rem;transition:.2s}
+.field input:focus,.field select:focus{border-color:#6a1b9a;outline:none}
+.full{grid-column:1/-1}
+.btn-calc{width:100%;background:linear-gradient(135deg,#1a237e,#6a1b9a);color:#fff;border:none;border-radius:10px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-novo{background:#e8f0fe;color:#1a73e8;border:none;border-radius:10px;padding:11px 28px;font-size:.95rem;font-weight:700;cursor:pointer}
+#resultado{display:none}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.cmp{border-radius:12px;padding:18px}
+.cmp.pgbl{background:#e8eaf6;border:2px solid #3949ab}
+.cmp.vgbl{background:#f3e5f5;border:2px solid #8e24aa}
+.cmp h3{font-size:.95rem;font-weight:800;margin-bottom:10px}
+.cmp.pgbl h3{color:#1a237e}
+.cmp.vgbl h3{color:#6a1b9a}
+.cmp .val-big{font-size:1.5rem;font-weight:900;margin:6px 0}
+.cmp.pgbl .val-big{color:#1a237e}
+.cmp.vgbl .val-big{color:#6a1b9a}
+.cmp .row{display:flex;justify-content:space-between;font-size:.8rem;padding:3px 0;border-bottom:1px solid rgba(0,0,0,.07)}
+.cmp .row:last-child{border:none}
+.winner{background:linear-gradient(135deg,#fff8e1,#fff3cd);border:2px solid #ffc107;border-radius:12px;padding:14px;text-align:center;margin-bottom:14px}
+.obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
+footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
+footer a{color:#1a73e8;text-decoration:none}
+@media(max-width:480px){.grid,.comp-grid{grid-template-columns:1fr}.full{grid-column:1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>💜 PGBL vs VGBL</h1>
+  <p>Previdência privada — qual vale mais para você?</p>
+</header>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<main>
+  <div class="card" id="formulario">
+    <h2>📊 Seus Dados</h2>
+    <div class="grid">
+      <div class="field">
+        <label>Renda Bruta Anual (R$)</label>
+        <input type="text" id="renda" placeholder="Ex: 84.000,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Aporte Mensal na Previdência (R$)</label>
+        <input type="text" id="aporte" placeholder="Ex: 500,00" oninput="maskMoeda(this)"/>
+      </div>
+      <div class="field">
+        <label>Regime de tributação IR</label>
+        <select id="regime-ir">
+          <option value="completo">Declaração Completa (pode deduzir)</option>
+          <option value="simplificado">Declaração Simplificada (desconto 20%)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Prazo do investimento (anos)</label>
+        <input type="number" id="prazo" placeholder="Ex: 20" value="20" min="1" max="40"/>
+      </div>
+      <div class="field">
+        <label>Rentabilidade anual (%)</label>
+        <input type="text" id="rentab" placeholder="Ex: 10,0" value="10,0"/>
+      </div>
+      <div class="field">
+        <label>Regime de saída (tributação no resgate)</label>
+        <select id="regime-saida">
+          <option value="regressivo">Tabela Regressiva (15% acima de 10 anos)</option>
+          <option value="progressivo">Tabela Progressiva (IR normal)</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-calc" onclick="calcular()">💡 Comparar PGBL vs VGBL</button>
+  </div>
+
+  <div id="resultado">
+    <div class="comp-grid">
+      <div class="cmp pgbl">
+        <h3>🔵 PGBL</h3>
+        <div class="val-big" id="pgbl-liq">—</div>
+        <div class="row"><span>Patrimônio bruto</span><span id="pgbl-pat">—</span></div>
+        <div class="row"><span>Economia IR (entrada)</span><span id="pgbl-eco">—</span></div>
+        <div class="row"><span>IR no resgate</span><span id="pgbl-ir-res">—</span></div>
+        <div class="row"><span>Líquido final</span><span id="pgbl-liq2">—</span></div>
+      </div>
+      <div class="cmp vgbl">
+        <h3>🟣 VGBL</h3>
+        <div class="val-big" id="vgbl-liq">—</div>
+        <div class="row"><span>Patrimônio bruto</span><span id="vgbl-pat">—</span></div>
+        <div class="row"><span>Economia IR (entrada)</span><span id="vgbl-eco">—</span></div>
+        <div class="row"><span>IR no resgate</span><span id="vgbl-ir-res">—</span></div>
+        <div class="row"><span>Líquido final</span><span id="vgbl-liq2">—</span></div>
+      </div>
+    </div>
+    <div class="winner">
+      <strong id="winner-txt"></strong>
+      <p id="winner-sub" style="font-size:.85rem;color:#555;margin-top:4px"></p>
+    </div>
+    <div class="obs">
+      <strong>PGBL:</strong> deduz até 12% da renda bruta do IR na declaração completa. No resgate, IR incide sobre TUDO (principal + rendimentos).<br>
+      <strong>VGBL:</strong> sem dedução fiscal na entrada. No resgate, IR incide apenas sobre os rendimentos.<br>
+      <strong>Regra geral:</strong> PGBL para quem declara completo e paga IR alto. VGBL para os demais.
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+    </div>
+  </div>
+</main>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<script src="../shared.js"></script>
+<script>
+function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function parseMoeda(s){return parseFloat((s||'').replace(/\./g,'').replace(',','.'))||0;}
+function parsePct(s){return parseFloat((s||'').replace(',','.'))||0;}
+function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+
+function calcIR(base){
+  const tb=[[2259.20,0,0],[2826.65,0.075,169.44],[3751.05,0.15,381.44],[4664.68,0.225,662.77],[Infinity,0.275,896.00]];
+  for(const[l,a,d] of tb){if(base/12<=l)return Math.max(0,base*a-d*12);}return 0;
+}
+
+function calcular(){
+  const renda=parseMoeda(document.getElementById('renda').value);
+  const aporteMes=parseMoeda(document.getElementById('aporte').value);
+  const regime=document.getElementById('regime-ir').value;
+  const anos=parseInt(document.getElementById('prazo').value)||20;
+  const rentab=parsePct(document.getElementById('rentab').value)/100;
+  const regimeSaida=document.getElementById('regime-saida').value;
+  if(!renda||!aporteMes){alert('Preencha renda e aporte.');return;}
+
+  const aporteAnual=aporteMes*12;
+  const limDedPGBL=renda*0.12;
+  const dedPGBL=Math.min(aporteAnual,limDedPGBL);
+  const rm=Math.pow(1+rentab,1/12)-1;
+  const meses=anos*12;
+
+  // Patrimônio acumulado
+  const pat=aporteMes*(Math.pow(1+rm,meses)-1)/rm;
+  const totalAport=aporteMes*meses;
+  const rendimentos=pat-totalAport;
+
+  // Economia IR PGBL
+  let ecoIR=0;
+  if(regime==='completo'){
+    const irSem=calcIR(renda);
+    const irCom=calcIR(renda-dedPGBL);
+    ecoIR=(irSem-irCom)*anos;
+  }
+
+  // IR no resgate
+  const aliqSaida=regimeSaida==='regressivo'?0.15:0.275;
+  const irPGBL=pat*aliqSaida; // incide sobre tudo
+  const irVGBL=rendimentos*aliqSaida; // só sobre rendimentos
+
+  const liqPGBL=pat-irPGBL+ecoIR;
+  const liqVGBL=pat-irVGBL;
+
+  const fill=(id,v)=>document.getElementById(id).textContent=v;
+  fill('pgbl-pat',fmtR(pat)); fill('pgbl-eco','+'+fmtR(ecoIR));
+  fill('pgbl-ir-res','-'+fmtR(irPGBL)); fill('pgbl-liq',fmtR(liqPGBL));
+  fill('pgbl-liq2',fmtR(liqPGBL));
+  fill('vgbl-pat',fmtR(pat)); fill('vgbl-eco',fmtR(0));
+  fill('vgbl-ir-res','-'+fmtR(irVGBL)); fill('vgbl-liq',fmtR(liqVGBL));
+  fill('vgbl-liq2',fmtR(liqVGBL));
+
+  const melhorPGBL=liqPGBL>liqVGBL;
+  document.getElementById('winner-txt').textContent=(melhorPGBL?'🔵 PGBL':'🟣 VGBL')+' é mais vantajoso: '+fmtR(melhorPGBL?liqPGBL:liqVGBL);
+  document.getElementById('winner-sub').textContent='Diferença: '+fmtR(Math.abs(liqPGBL-liqVGBL))+' em '+anos+' anos'+(regime==='simplificado'&&melhorPGBL?' — mas você declarou simplificado, então o PGBL pode não compensar':'');
+
+  document.getElementById('resultado').style.display='block';
+  document.getElementById('formulario').style.display='none';
+}
+function novo(){document.getElementById('formulario').style.display='';document.getElementById('resultado').style.display='none';}
+</script>
+</body>
+</html>
