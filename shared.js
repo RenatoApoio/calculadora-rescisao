@@ -255,10 +255,21 @@
     if (mainEl) mainEl.id = mainEl.id || 'main-content';
   }
 
-  // ── Ano dinâmico no rodapé ─────────────────────────────────────────────
+  // ── Ano dinâmico + links institucionais em todos os rodapés ───────────
   var ano = new Date().getFullYear();
+  var _origin = window.location.origin;
   document.querySelectorAll('footer').forEach(function(f) {
     f.innerHTML = f.innerHTML.replace(/©\s*\d{4}/g, '© ' + ano);
+    if (!f.querySelector('.fc-inst')) {
+      var inst = document.createElement('p');
+      inst.className = 'fc-inst';
+      inst.style.cssText = 'margin-top:8px;font-size:.75rem;';
+      inst.innerHTML =
+        '<a href="' + _origin + '/sobre/" style="color:inherit;opacity:.7;margin:0 8px;text-decoration:none;">Sobre</a>' +
+        '·' +
+        '<a href="' + _origin + '/politica-privacidade/" style="color:inherit;opacity:.7;margin:0 8px;text-decoration:none;">Política de Privacidade</a>';
+      f.appendChild(inst);
+    }
   });
 
   // ── Autocomplete off em todos os inputs ────────────────────────────────
