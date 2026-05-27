@@ -394,7 +394,7 @@
       {ano:2025,H:102,M:92},{ano:2026,H:103,M:93},{ano:2027,H:104,M:94},
     ];
     const pontosFinais={H:105,M:100};
-    const minContribPontos=(sexo==='M'?30:35)-redProf; // anos
+    const minContribPontos=(sexo==='M'?35:30)-redProf; // anos — H:35, M:30
 
     function getPontosDoAno(ano){
       const row=pontosTabela.find(r=>r.ano===ano);
@@ -424,16 +424,16 @@
     // Tabela de idade mínima por ano (H: +0.5 a partir de 61 em 2019 até 65; M: +0.5 a partir de 56 até 62)
     function getIdadeProgDoAno(ano){
       if(sexo==='M'){
-        const base=56, max=62;
+        const base=61, max=65; // Homem: 61→65
         const v=base+(ano-2019)*0.5;
         return Math.min(v,max)-redProf;
       } else {
-        const base=61, max=65;
+        const base=56, max=62; // Mulher: 56→62
         const v=base+(ano-2019)*0.5;
         return Math.min(v,max)-redProf;
       }
     }
-    const minContribIdade=(sexo==='M'?30:35)-redProf;
+    const minContribIdade=(sexo==='M'?35:30)-redProf; // H:35, M:30
 
     function calcIdadeProgressiva(){
       for(let m=0;m<=600;m++){
@@ -453,7 +453,7 @@
     function calcPedagio50(){
       if(!preReforma)return null;
       const baseH=35-redProf, baseM=30-redProf;
-      const base=sexo==='M'?baseM:baseH;
+      const base=sexo==='M'?baseH:baseM; // H:35, M:30
 
       // Tempo de contribuição em nov/2019
       let contrib2019M=contribEmMeses(
@@ -484,8 +484,8 @@
 
     // ── REGRA NOVA ───────────────────────────────────────────────────────
     function calcRegraNova(){
-      const idadeNec=sexo==='M'?62-redProf:65-redProf;
-      const contribNec=(sexo==='M'?15:20)-redProf;
+      const idadeNec=sexo==='M'?65-redProf:62-redProf; // EC 103/2019: H=65, M=62
+      const contribNec=(sexo==='M'?20:15)-redProf; // H=20 anos, M=15 anos
       let mRes=0;
       for(let m=0;m<=600;m++){
         const idadeFutM=idadeEmMeses+m;
@@ -582,7 +582,7 @@
     const boxBen=document.getElementById('box_beneficio');
     const contribFinalM=melhor.dados.contribFutM||contribAtualM;
     const contribFinalAnos=contribFinalM/12;
-    const baseContrib=sexo==='M'?15:20;
+    const baseContrib=sexo==='M'?20:15; // EC 103/2019: H=20 anos, M=15 anos (base 60%)
     const pct=Math.min(100,60+Math.max(0,contribFinalAnos-baseContrib)*2);
 
     let htmlBen=`<div style="background:#e8eaf6;border-radius:8px;padding:14px;font-size:.83rem;color:#1a237e">
@@ -594,7 +594,7 @@
       const benefReal=Math.min(benef,teto);
       htmlBen+=`<p style="margin-top:6px">Estimativa: <strong>${fmt(benefReal)}/mês</strong>${benef>teto?' (limitado ao teto INSS '+fmt(teto)+')':''}</p>`;
     }
-    htmlBen+=`<p style="margin-top:10px;opacity:.75">Para 100% do benefício: H=${35-redProf} anos / M=${30-redProf} anos de contribuição</p>
+    htmlBen+=`<p style="margin-top:10px;opacity:.75">Para 100% do benefício: H=${40-redProf} anos / M=${35-redProf} anos de contribuição</p>
     </div>`;
     boxBen.innerHTML=htmlBen;
 

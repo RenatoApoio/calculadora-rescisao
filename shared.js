@@ -180,6 +180,47 @@
     document.head.appendChild(ld);
   }
 
+  // ── FAQ JSON-LD Schema — Rich snippets para FAQ ────────────────────────
+  // Auto-gera a partir dos elementos .faq-item .faq-q / .faq-item .faq-a
+  (function injectFaqSchema() {
+    if (isHome) return;
+    // Se já existe um JSON-LD com FAQPage, não duplicar
+    var existing = document.querySelectorAll('script[type="application/ld+json"]');
+    for (var i = 0; i < existing.length; i++) {
+      try { if (JSON.parse(existing[i].textContent)['@type'] === 'FAQPage') return; } catch(e) {}
+      try {
+        var g = JSON.parse(existing[i].textContent)['@graph'];
+        if (g && g.some(function(x){ return x['@type'] === 'FAQPage'; })) return;
+      } catch(e) {}
+    }
+    var faqItems = document.querySelectorAll('.faq-item');
+    if (!faqItems.length) return;
+    var entries = [];
+    faqItems.forEach(function(item) {
+      var qEl = item.querySelector('.faq-q');
+      var aEl = item.querySelector('.faq-a');
+      if (!qEl || !aEl) return;
+      var q = qEl.textContent.trim();
+      var a = aEl.textContent.trim();
+      if (!q || !a) return;
+      entries.push({
+        '@type': 'Question',
+        'name': q,
+        'acceptedAnswer': { '@type': 'Answer', 'text': a }
+      });
+    });
+    if (!entries.length) return;
+    var faqSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': entries
+    };
+    var ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify(faqSchema);
+    document.head.appendChild(ld);
+  })();
+
   // ── Internal links — "Veja também" ────────────────────────────────────
   const TOOL_LABELS = {
     'calculadora-rescisao':'Rescisão CLT',
