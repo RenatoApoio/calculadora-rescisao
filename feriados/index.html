@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Feriados Nacionais 2025 e 2026 — Calendário Completo | FacilCalc</title>
-<meta name="description" content="Calendário completo de feriados nacionais do Brasil em 2025 e 2026. Veja quantos dias faltam para cada feriado e planeje suas férias."/>
+<title>Feriados Nacionais 2025 e 2026 â CalendÃ¡rio Completo | FacilCalc</title>
+<meta name="description" content="CalendÃ¡rio completo de feriados nacionais do Brasil em 2025 e 2026. Veja quantos dias faltam para cada feriado e planeje suas fÃ©rias."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -49,33 +49,74 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>🎉 Feriados Nacionais</h1>
-  <p>Calendário completo 2025 e 2026 — saiba quantos dias faltam</p>
+  <h1>ð Feriados Nacionais</h1>
+  <p>CalendÃ¡rio completo 2025 e 2026 â saiba quantos dias faltam</p>
 </header>
-<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<nav class="nav"><a href="../">â FacilCalc</a></nav>
 <main>
   <div class="card">
-    <h2>📅 Selecione o Ano</h2>
+    <h2>ð Selecione o Ano</h2>
     <div class="ano-tabs">
-      <button class="ano-tab ativo" id="tab-2025" onclick="setAno(2025)">📅 2025</button>
-      <button class="ano-tab" id="tab-2026" onclick="setAno(2026)">📅 2026</button>
+      <button class="ano-tab ativo" id="tab-2025" onclick="setAno(2025)">ð 2025</button>
+      <button class="ano-tab" id="tab-2026" onclick="setAno(2026)">ð 2026</button>
     </div>
     <div id="loading"><div class="spinner"></div><br>Carregando feriados...</div>
     <div id="content-area"></div>
-    <div id="erro-box" style="display:none" class="erro">⚠️ Erro ao carregar feriados. Tente novamente.</div>
+    <div id="erro-box" style="display:none" class="erro">â ï¸ Erro ao carregar feriados. Tente novamente.</div>
   </div>
+  <div class="explic">
+    <h3>📅 Feriados Nacionais, Estaduais e Municipais</h3>
+    <p>O Brasil tem três tipos de feriados: <strong>nacionais</strong> (lei federal), <strong>estaduais</strong> (lei estadual) e <strong>municipais</strong> (lei municipal). Cada tipo tem regras diferentes para o trabalho.</p>
+    <h4>📋 Feriados Nacionais Fixos (Lei 9.093/1995)</h4>
+    <table>
+      <thead><tr><th>Data</th><th>Feriado</th></tr></thead>
+      <tbody>
+        <tr><td>1° de Janeiro</td><td>Confraternização Universal (Ano Novo)</td></tr>
+        <tr><td>21 de Abril</td><td>Tiradentes</td></tr>
+        <tr><td>1° de Maio</td><td>Dia do Trabalho</td></tr>
+        <tr><td>7 de Setembro</td><td>Independência do Brasil</td></tr>
+        <tr><td>12 de Outubro</td><td>Nossa Senhora Aparecida</td></tr>
+        <tr><td>2 de Novembro</td><td>Finados</td></tr>
+        <tr><td>15 de Novembro</td><td>Proclamação da República</td></tr>
+        <tr><td>20 de Novembro</td><td>Consciência Negra (desde 2024)</td></tr>
+        <tr><td>25 de Dezembro</td><td>Natal</td></tr>
+      </tbody>
+    </table>
+    <h4>🗓️ Feriados Móveis (Religiosos)</h4>
+    <ul>
+      <li><strong>Carnaval:</strong> 47 dias antes da Páscoa (segunda e terça)</li>
+      <li><strong>Sexta-feira Santa:</strong> 2 dias antes da Páscoa</li>
+      <li><strong>Corpus Christi:</strong> 60 dias após a Páscoa</li>
+    </ul>
+    <div class="info-box">ℹ️ Carnaval e Corpus Christi são <strong>pontos facultativos</strong> em âmbito federal — empresas privadas não são obrigadas a conceder folga. Verifique a convenção coletiva da sua categoria.</div>
+    <div class="warn-box">⚠️ Trabalhar em feriado nacional sem acordo coletivo dá direito a <strong>hora em dobro</strong> (100% de adicional) ou folga compensatória, conforme a CLT.</div>
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">Empresa pode obrigar funcionário a trabalhar em feriado?</div>
+      <div class="faq-a">Sim, desde que haja previsão em convenção coletiva ou acordo individual e o trabalhador receba compensação (pagamento em dobro ou folga). Para comércios, a abertura em feriados depende da legislação municipal.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Feriado estadual vale para o setor privado?</div>
+      <div class="faq-a">Sim. Feriados estaduais e municipais têm a mesma força que os nacionais para fins trabalhistas — empresas devem conceder folga ou pagar em dobro para trabalhadores da localidade.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O que é "ponto facultativo"?</div>
+      <div class="faq-a">Ponto facultativo é um dia em que o governo dispensa seus servidores, mas não obriga empresas privadas. Para o setor privado, só tem efeito se previsto em convenção coletiva.</div>
+    </div>
+  </div>
+
 </main>
-<footer>© 2025 <a href="../">FacilCalc</a> · Dados: BrasilAPI / Ministério do Trabalho</footer>
+<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Dados: BrasilAPI / MinistÃ©rio do Trabalho</footer>
 <script src="../shared.js"></script>
 <script>
-var anoAtual=2025;
+var anoAtual=new Date().getFullYear();
 var cacheData={};
 var hoje=new Date();
 hoje.setHours(0,0,0,0);
 
 var MESES=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-var DIAS_SEM=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-var MESES_EXT=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+var DIAS_SEM=['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b'];
+var MESES_EXT=['Janeiro','Fevereiro','MarÃ§o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
 function setAno(ano){
   anoAtual=ano;
@@ -116,16 +157,16 @@ function renderFeriados(data){
 
   var html='';
 
-  // Próximo feriado
+  // PrÃ³ximo feriado
   if(proximos.length>0){
     var prox=proximos[0];
     var dProx=new Date(prox.date+'T00:00:00');
     var diff=Math.round((dProx-hoje)/(1000*60*60*24));
     html+='<div class="proximo-box">';
-    html+='<label>⏳ Próximo Feriado</label>';
+    html+='<label>â³ PrÃ³ximo Feriado</label>';
     html+='<div class="pname">'+prox.name+'</div>';
     var dataFmt=dProx.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
-    var diffTxt=diff===0?' — HOJE!':diff===1?' — Amanhã!':' — em '+diff+' dias';
+    var diffTxt=diff===0?' â HOJE!':diff===1?' â AmanhÃ£!':' â em '+diff+' dias';
     html+='<div class="pdays">'+dataFmt+diffTxt+'</div>';
     html+='</div>';
   }
@@ -133,7 +174,7 @@ function renderFeriados(data){
   // Stats
   html+='<div class="stats-row">';
   html+='<div class="stat"><div class="sn">'+total+'</div><div class="sl">Feriados totais</div></div>';
-  html+='<div class="stat"><div class="sn">'+uteis+'</div><div class="sl">Dias úteis afetados</div></div>';
+  html+='<div class="stat"><div class="sn">'+uteis+'</div><div class="sl">Dias Ãºteis afetados</div></div>';
   html+='<div class="stat"><div class="sn">'+proximos.length+'</div><div class="sl">Ainda por vir</div></div>';
   html+='</div>';
 
@@ -144,12 +185,12 @@ function renderFeriados(data){
     var diff=Math.round((d-hoje)/(1000*60*60*24));
     var diaSem=DIAS_SEM[d.getDay()];
     var badge='';
-    if(diff===0){badge='<span class="badge-hoje">🎉 Hoje!</span>';}
+    if(diff===0){badge='<span class="badge-hoje">ð Hoje!</span>';}
     else if(diff<0){badge='<span class="badge-passou">Passou</span>';}
-    else if(diff===1){badge='<span class="badge-dias">Amanhã</span>';}
+    else if(diff===1){badge='<span class="badge-dias">AmanhÃ£</span>';}
     else{badge='<span class="badge-dias">em '+diff+'d</span>';}
 
-    var tipo=f.type==='national'?'🇧🇷 Nacional':f.type==='optional'?'📋 Facultativo':'📅 Observância';
+    var tipo=f.type==='national'?'ð§ð· Nacional':f.type==='optional'?'ð Facultativo':'ð ObservÃ¢ncia';
     html+='<div class="feriado-item">';
     html+='<div class="feriado-date"><div class="dia">'+d.getDate()+'</div><div class="mes">'+MESES[d.getMonth()]+'</div><div class="dsem">'+diaSem+'</div></div>';
     html+='<div class="feriado-nome"><strong>'+f.name+'</strong><div class="tipo">'+tipo+'</div></div>';
@@ -162,7 +203,7 @@ function renderFeriados(data){
   document.getElementById('loading').style.display='none';
 }
 
-carregarFeriados(2025);
+carregarFeriados(anoAtual);
 </script>
 </body>
 </html>

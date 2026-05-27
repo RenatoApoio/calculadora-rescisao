@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Calculadora de Custo Real do Carro por km 2025 | FacilCalc</title>
-<meta name="description" content="Calcule o custo real do seu carro por quilômetro rodado: parcela, seguro, combustível, manutenção, IPVA e licenciamento. Saiba o verdadeiro custo mensal."/>
+<meta name="description" content="Calcule o custo real do seu carro por quilÃ´metro rodado: parcela, seguro, combustÃ­vel, manutenÃ§Ã£o, IPVA e licenciamento. Saiba o verdadeiro custo mensal."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -42,13 +42,13 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>🚗 Custo Real do Carro</h1>
-  <p>Quanto seu carro custa por quilômetro rodado — na prática</p>
+  <h1>ð Custo Real do Carro</h1>
+  <p>Quanto seu carro custa por quilÃ´metro rodado â na prÃ¡tica</p>
 </header>
-<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<nav class="nav"><a href="../">â FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>🔧 Dados do Veículo e Uso</h2>
+    <h2>ð§ Dados do VeÃ­culo e Uso</h2>
     <div class="grid">
       <div class="field">
         <label>Parcela/Financiamento mensal (R$)</label>
@@ -59,7 +59,7 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="text" id="seguro" placeholder="Ex: 3.600,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
-        <label>KM rodados por mês</label>
+        <label>KM rodados por mÃªs</label>
         <input type="number" id="km-mes" placeholder="Ex: 1.500" min="1"/>
       </div>
       <div class="field">
@@ -67,12 +67,12 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="number" id="consumo" placeholder="Ex: 12" step="0.1" min="1"/>
       </div>
       <div class="field">
-        <label>Preço do combustível (R$/litro)</label>
+        <label>PreÃ§o do combustÃ­vel (R$/litro)</label>
         <input type="text" id="preco-comb" placeholder="Ex: 6,39" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
-        <label>Manutenção mensal média (R$)</label>
-        <input type="text" id="manutencao" placeholder="Ex: 200,00 (revisão, pneu, etc.)" oninput="maskMoeda(this)"/>
+        <label>ManutenÃ§Ã£o mensal mÃ©dia (R$)</label>
+        <input type="text" id="manutencao" placeholder="Ex: 200,00 (revisÃ£o, pneu, etc.)" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
         <label>IPVA anual (R$)</label>
@@ -83,14 +83,14 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="text" id="outros" placeholder="Ex: 200,00" oninput="maskMoeda(this)"/>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">🧮 Calcular Custo Real</button>
+    <button class="btn-calc" onclick="calcular()">ð§® Calcular Custo Real</button>
   </div>
 
   <div id="resultado">
     <div class="hero">
-      <label>Custo por Quilômetro Rodado</label>
-      <div class="big" id="r-km">—</div>
-      <div class="sub" id="r-sub">—</div>
+      <label>Custo por QuilÃ´metro Rodado</label>
+      <div class="big" id="r-km">â</div>
+      <div class="sub" id="r-sub">â</div>
     </div>
     <table class="custos-tbl">
       <thead><tr><th>Item</th><th>Mensal</th></tr></thead>
@@ -98,11 +98,47 @@ footer a{color:#1a73e8;text-decoration:none}
     </table>
     <div class="dica" id="dica-box"></div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
     </div>
   </div>
+  <div class="explic">
+    <h3>🚗 Custo Real do Carro — Muito Além do Combustível</h3>
+    <p>O <strong>custo total de propriedade</strong> inclui muito mais do que combustível. Depreciação, seguro, IPVA e manutenção são custos invisíveis que somam muito no longo prazo.</p>
+    <h4>💸 Componentes do Custo Real</h4>
+    <table>
+      <thead><tr><th>Custo</th><th>Tipo</th><th>Estimativa típica</th></tr></thead>
+      <tbody>
+        <tr><td>Depreciação</td><td>Fixo (maior custo)</td><td>15–25% ao ano (primeiros 3 anos)</td></tr>
+        <tr><td>Seguro</td><td>Fixo anual</td><td>2–6% do valor do carro/ano</td></tr>
+        <tr><td>IPVA</td><td>Fixo anual</td><td>1–4% do valor FIPE (varia por estado)</td></tr>
+        <tr><td>Combustível</td><td>Variável</td><td>Depende do consumo e km rodado</td></tr>
+        <tr><td>Manutenção preventiva</td><td>Semi-variável</td><td>R$ 80–200/mês em média</td></tr>
+      </tbody>
+    </table>
+    <div class="warn-box">⚠️ A <strong>depreciação</strong> é o maior custo ignorado. Um carro de R$ 80.000 pode perder R$ 15.000–20.000 no primeiro ano — independentemente de você dirigir ou não.</div>
+    <h4>💡 Custo por km — Referências</h4>
+    <ul>
+      <li><strong>Carro popular seminovo conservado:</strong> R$ 0,80–1,20/km</li>
+      <li><strong>SUV compacto novo com financiamento:</strong> R$ 1,50–2,50/km</li>
+      <li><strong>Carro de luxo:</strong> R$ 3,00–6,00/km</li>
+    </ul>
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">Carro elétrico é mais barato para manter?</div>
+      <div class="faq-a">Em custo variável (energia vs combustível) sim — ~60–70% mais barato por km. O custo total começa a compensar a partir de ~30.000 km/ano para modelos de entrada.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">IPVA varia muito entre estados?</div>
+      <div class="faq-a">Sim. Em São Paulo é 4% do valor FIPE para carros de passeio. No Rio de Janeiro 4%, no Paraná 3,5%, em MG 4%. Estados do Norte têm alíquotas menores.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Vale financiar um carro?</div>
+      <div class="faq-a">Financiar agrega custo de juros (15–30% a.a.) sobre um bem que se deprecia. Se o dinheiro da entrada investido rende mais que os juros do financiamento, pode valer a pena esperar e pagar à vista.</div>
+    </div>
+  </div>
+
 </main>
-<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -119,7 +155,7 @@ function calcular(){
   const manut=parseMoeda(document.getElementById('manutencao').value);
   const ipvaAn=parseMoeda(document.getElementById('ipva').value);
   const outros=parseMoeda(document.getElementById('outros').value);
-  if(!km||!cons||!pComb){alert('Informe ao menos km/mês, consumo e preço do combustível.');return;}
+  if(!km||!cons||!pComb){alert('Informe ao menos km/mÃªs, consumo e preÃ§o do combustÃ­vel.');return;}
 
   const combustMes=(km/cons)*pComb;
   const segMes=segAn/12;
@@ -129,13 +165,13 @@ function calcular(){
   const custKm=km>0?total/km:0;
 
   document.getElementById('r-km').textContent=fmtR(custKm)+'/km';
-  document.getElementById('r-sub').textContent='Total mensal: '+fmtR(total)+' · '+km.toLocaleString('pt-BR')+' km/mês';
+  document.getElementById('r-sub').textContent='Total mensal: '+fmtR(total)+' Â· '+km.toLocaleString('pt-BR')+' km/mÃªs';
 
   const itens=[
     ['Financiamento/Parcela',parc],
-    ['Combustível ('+fmtN(km/cons,1)+'L × '+fmtR(pComb)+')',combustMes],
+    ['CombustÃ­vel ('+fmtN(km/cons,1)+'L Ã '+fmtR(pComb)+')',combustMes],
     ['Seguro',segMes],
-    ['Manutenção',manut],
+    ['ManutenÃ§Ã£o',manut],
     ['IPVA',ipvaMes],
     ['Licenciamento / outros',outrosMes],
     ['TOTAL MENSAL',total]
@@ -143,8 +179,8 @@ function calcular(){
   document.getElementById('tbody').innerHTML=itens.map(([n,v])=>`<tr><td>${n}</td><td>${fmtR(v)}</td></tr>`).join('');
 
   document.getElementById('dica-box').innerHTML=
-    `🚕 <strong>Comparação com Uber/99:</strong> Se o custo por km real é ${fmtR(custKm)}, viagens curtas no app podem ser mais baratas do que manter o carro.<br>`+
-    `💡 Rodando ${km.toLocaleString('pt-BR')} km/mês, você gasta <strong>${fmtR(combustMes)}</strong> só em combustível e <strong>${fmtR(total)}</strong> no total.`;
+    `ð <strong>ComparaÃ§Ã£o com Uber/99:</strong> Se o custo por km real Ã© ${fmtR(custKm)}, viagens curtas no app podem ser mais baratas do que manter o carro.<br>`+
+    `ð¡ Rodando ${km.toLocaleString('pt-BR')} km/mÃªs, vocÃª gasta <strong>${fmtR(combustMes)}</strong> sÃ³ em combustÃ­vel e <strong>${fmtR(total)}</strong> no total.`;
 
   document.getElementById('resultado').style.display='block';
   document.getElementById('formulario').style.display='none';

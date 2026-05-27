@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Calculadora de Rescisão de Aluguel 2025 – Multa e Direitos | FacilCalc</title>
-  <meta name="description" content="Calcule a multa por rescisão antecipada de aluguel, devolução de caução e aviso prévio. Lei do Inquilinato (Lei 8.245/91) atualizada 2025."/>
+  <title>Calculadora de RescisÃ£o de Aluguel 2025 â Multa e Direitos | FacilCalc</title>
+  <meta name="description" content="Calcule a multa por rescisÃ£o antecipada de aluguel, devoluÃ§Ã£o de cauÃ§Ã£o e aviso prÃ©vio. Lei do Inquilinato (Lei 8.245/91) atualizada 2025."/>
   <style>
     :root{--primary:#1a73e8;--success:#137333;--bg:#f8f9fa;--card:#fff;--border:#dadce0;--text:#202124;--muted:#5f6368;}
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -62,31 +62,31 @@
 </head>
 <body>
 <header>
-  <h1>🏠 Calculadora de Rescisão de Aluguel</h1>
-  <p>Multa proporcional, aviso prévio e devolução de caução — Lei 8.245/91</p>
+  <h1>ð  Calculadora de RescisÃ£o de Aluguel</h1>
+  <p>Multa proporcional, aviso prÃ©vio e devoluÃ§Ã£o de cauÃ§Ã£o â Lei 8.245/91</p>
 </header>
-<div class="nav"><a href="../">← FacilCalc</a> / Rescisão de Aluguel</div>
+<div class="nav"><a href="../">â FacilCalc</a> / RescisÃ£o de Aluguel</div>
 <main>
   <div id="formulario">
 
     <div class="card">
-      <h2>👤 Quem está rescindindo?</h2>
+      <h2>ð¤ Quem estÃ¡ rescindindo?</h2>
       <div class="tipo-grid">
         <label class="tipo-card selected" onclick="selecionarTipo(this,'locatario')">
           <input type="radio" name="quem" value="locatario" checked/>
-          <div class="titulo">Locatário (inquilino)</div>
-          <div class="desc">Você quer sair do imóvel antes do prazo</div>
+          <div class="titulo">LocatÃ¡rio (inquilino)</div>
+          <div class="desc">VocÃª quer sair do imÃ³vel antes do prazo</div>
         </label>
         <label class="tipo-card" onclick="selecionarTipo(this,'locador')">
           <input type="radio" name="quem" value="locador"/>
-          <div class="titulo">Locador (proprietário)</div>
-          <div class="desc">O dono quer reaver o imóvel antes do prazo</div>
+          <div class="titulo">Locador (proprietÃ¡rio)</div>
+          <div class="desc">O dono quer reaver o imÃ³vel antes do prazo</div>
         </label>
       </div>
     </div>
 
     <div class="card">
-      <h2>📄 Dados do Contrato</h2>
+      <h2>ð Dados do Contrato</h2>
       <div class="form-grid">
 
         <div class="field">
@@ -95,7 +95,7 @@
         </div>
 
         <div class="field">
-          <label>Duração do contrato</label>
+          <label>DuraÃ§Ã£o do contrato</label>
           <select id="tipo_prazo" onchange="togglePrazo()">
             <option value="determinado">Prazo determinado (com data de fim)</option>
             <option value="indeterminado">Prazo indeterminado (sem data de fim)</option>
@@ -103,7 +103,7 @@
         </div>
 
         <div class="field" id="campo_inicio">
-          <label>Data de início do contrato</label>
+          <label>Data de inÃ­cio do contrato</label>
           <input type="date" id="data_inicio"/>
         </div>
 
@@ -113,53 +113,53 @@
         </div>
 
         <div class="field">
-          <label>Data de rescisão pretendida</label>
+          <label>Data de rescisÃ£o pretendida</label>
           <input type="date" id="data_rescisao"/>
-          <span class="hint">Quando você quer sair ou quando foi notificado</span>
+          <span class="hint">Quando vocÃª quer sair ou quando foi notificado</span>
         </div>
 
         <div class="field">
           <label>Multa contratual <span class="opt">(opcional)</span></label>
           <input type="text" id="multa_base" placeholder="Ex: 4.500,00 (3x aluguel)" inputmode="numeric" oninput="maskMoeda(this)"/>
-          <span class="hint">Se em branco, usamos 3 aluguéis (padrão CLT)</span>
+          <span class="hint">Se em branco, usamos 3 aluguÃ©is (padrÃ£o CLT)</span>
         </div>
 
       </div>
     </div>
 
     <div class="card">
-      <h2>💰 Caução e Débitos <span style="font-weight:400;font-size:.85rem;color:#888">(opcional)</span></h2>
+      <h2>ð° CauÃ§Ã£o e DÃ©bitos <span style="font-weight:400;font-size:.85rem;color:#888">(opcional)</span></h2>
       <div class="form-grid">
 
         <div class="field">
-          <label>Possui caução?</label>
+          <label>Possui cauÃ§Ã£o?</label>
           <select id="tem_caucao" onchange="toggleCaucao()">
-            <option value="nao">Não</option>
-            <option value="sim">Sim, tenho caução em dinheiro</option>
+            <option value="nao">NÃ£o</option>
+            <option value="sim">Sim, tenho cauÃ§Ã£o em dinheiro</option>
           </select>
         </div>
 
         <div class="field" id="campo_valor_caucao_wrap">
-          <label>Valor depositado na caução</label>
+          <label>Valor depositado na cauÃ§Ã£o</label>
           <input type="text" id="valor_caucao" placeholder="Ex: 3.000,00" inputmode="numeric" oninput="maskMoeda(this)"/>
         </div>
 
         <div class="field" id="campo_data_caucao_wrap">
-          <label>Data do depósito da caução</label>
+          <label>Data do depÃ³sito da cauÃ§Ã£o</label>
           <input type="date" id="data_caucao"/>
         </div>
 
         <div class="field">
-          <label>Débitos pendentes <span class="opt">(opcional)</span></label>
+          <label>DÃ©bitos pendentes <span class="opt">(opcional)</span></label>
           <input type="text" id="debitos" placeholder="Ex: 500,00" inputmode="numeric" oninput="maskMoeda(this)"/>
-          <span class="hint">Aluguel em atraso, condomínio, IPTU etc.</span>
+          <span class="hint">Aluguel em atraso, condomÃ­nio, IPTU etc.</span>
         </div>
 
       </div>
     </div>
 
     <div class="card" style="padding:14px">
-      <button class="btn-calc" onclick="calcular()">⚡ Calcular Rescisão</button>
+      <button class="btn-calc" onclick="calcular()">â¡ Calcular RescisÃ£o</button>
     </div>
   </div>
 
@@ -177,16 +177,16 @@
         <div class="val" style="color:#c62828" id="res_multa">R$ 0,00</div>
       </div>
       <div class="mini" style="background:#e8f5e9">
-        <div class="lbl" style="color:#2e7d32">Devolução caução</div>
+        <div class="lbl" style="color:#2e7d32">DevoluÃ§Ã£o cauÃ§Ã£o</div>
         <div class="val" style="color:#2e7d32" id="res_caucao">R$ 0,00</div>
       </div>
       <div class="mini" style="background:#fff3e0">
-        <div class="lbl" style="color:#e65100">Aviso prévio</div>
+        <div class="lbl" style="color:#e65100">Aviso prÃ©vio</div>
         <div class="val" style="color:#e65100" id="res_aviso">30 dias</div>
       </div>
     </div>
 <div class="card">
-      <h2>📄 Detalhamento</h2>
+      <h2>ð Detalhamento</h2>
       <div id="aviso_situacao" class="info-box" style="display:none"></div>
       <table>
         <thead><tr><th>Item</th><th style="text-align:right">Valor</th></tr></thead>
@@ -195,19 +195,51 @@
     </div>
 
     <div class="card">
-      <h2>📚 Direitos e Deveres (Lei 8.245/91)</h2>
+      <h2>ð Direitos e Deveres (Lei 8.245/91)</h2>
       <div id="box_regras"></div>
     </div>
 
-    <div class="aviso">⚠️ Este cálculo é uma estimativa baseada na Lei do Inquilinato. O valor exato depende das cláusulas do seu contrato. Consulte um advogado para orientação específica.</div>
+    <div class="aviso">â ï¸ Este cÃ¡lculo Ã© uma estimativa baseada na Lei do Inquilinato. O valor exato depende das clÃ¡usulas do seu contrato. Consulte um advogado para orientaÃ§Ã£o especÃ­fica.</div>
     <br/><div style="text-align:center">
-      <button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button>
+      <button class="btn-novo" onclick="novoCalculo()">ð Novo CÃ¡lculo</button>
     </div>
   </div>
+  <div class="explic">
+    <h3>🏠 Como Funciona a Rescisão de Contrato de Aluguel?</h3>
+    <p>A rescisão de aluguel é regulamentada pela <strong>Lei do Inquilinato (Lei 8.245/1991)</strong>. As regras de multa e aviso prévio variam conforme quem pede a rescisão e o tipo de imóvel.</p>
+    <h4>📋 Situações de Rescisão</h4>
+    <table>
+      <thead><tr><th>Situação</th><th>Multa</th><th>Aviso Prévio</th></tr></thead>
+      <tbody>
+        <tr><td>Locatário antes do prazo</td><td>Proporcional (padrão 3 meses)</td><td>30 dias</td></tr>
+        <tr><td>Locatário após prazo (ind.)</td><td>Sem multa</td><td>30 dias obrigatórios</td></tr>
+        <tr><td>Transferência de trabalho (CLT)</td><td>Sem multa</td><td>30 dias + comprovação</td></tr>
+        <tr><td>Locador — uso próprio</td><td>Sem multa</td><td>30 dias mínimo</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box">✅ Se o locatário foi <strong>transferido de cidade pelo empregador</strong>, pode rescindir sem multa com aviso de 30 dias (art. 4º, parágrafo único, Lei 8.245/91).</div>
+    <h4>💰 Fórmula da Multa Proporcional</h4>
+    <p><strong>Multa = (Meses restantes ÷ Total do contrato) × Multa cheia (3 meses de aluguel)</strong></p>
+    <div class="warn-box">⚠️ Multas acima de 3 meses de aluguel em contratos residenciais são geralmente consideradas abusivas pelo Judiciário.</div>
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">O fiador paga a multa rescisória?</div>
+      <div class="faq-a">O fiador responde pelas obrigações do locatário, incluindo a multa, caso o locatário não pague. Deve estar ciente de todas as cláusulas do contrato.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O que acontece com a caução na rescisão?</div>
+      <div class="faq-a">A caução (até 3 meses de aluguel) deve ser devolvida em até 30 dias após a entrega das chaves, descontados eventuais débitos.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Locador pode entrar no imóvel sem aviso?</div>
+      <div class="faq-a">Não. O acesso deve ser combinado com o locatário em horários razoáveis. Acesso arbitrário viola o direito de privacidade do inquilino.</div>
+    </div>
+  </div>
+
 </main>
 <footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
-  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
-  <p style="margin-top:8px">Calculadora de Rescisão de Aluguel 2025 — Baseada na Lei 8.245/91</p>
+  <a href="../" style="color:#1a73e8;text-decoration:none">â Voltar para FacilCalc</a>
+  <p style="margin-top:8px">Calculadora de RescisÃ£o de Aluguel 2025 â Baseada na Lei 8.245/91</p>
 </footer>
 
 <script>
@@ -236,7 +268,7 @@
     document.getElementById('campo_data_caucao_wrap').style.display=sim?'flex':'none';
   }
 
-  // IPCA acumulado anual estimado para correção de caução (simplificado)
+  // IPCA acumulado anual estimado para correÃ§Ã£o de cauÃ§Ã£o (simplificado)
   function correcaoIPCA(dataDeposito, dataRescisao){
     const anos=(dataRescisao-dataDeposito)/(1000*60*60*24*365.25);
     const ipca=0.045; // ~4,5% ao ano estimado
@@ -257,8 +289,8 @@
     const dataInicio=new Date(document.getElementById('data_inicio').value);
     const dataRescisao=new Date(document.getElementById('data_rescisao').value);
 
-    if(!document.getElementById('data_rescisao').value){alert('Informe a data de rescisão.');return;}
-    if(!document.getElementById('data_inicio').value){alert('Informe a data de início do contrato.');return;}
+    if(!document.getElementById('data_rescisao').value){alert('Informe a data de rescisÃ£o.');return;}
+    if(!document.getElementById('data_inicio').value){alert('Informe a data de inÃ­cio do contrato.');return;}
 
     let dataFim=null;
     let totalMeses=0, mesesDecorridos=0, mesesRestantes=0;
@@ -271,7 +303,7 @@
       mesesRestantes=Math.max(0,totalMeses-mesesDecorridos);
     }
 
-    // Multa base: 3 aluguéis ou valor informado
+    // Multa base: 3 aluguÃ©is ou valor informado
     const multaBaseInformada=parseMoeda(document.getElementById('multa_base').value);
     const multaBase=multaBaseInformada||(aluguel*3);
 
@@ -285,19 +317,19 @@
       descMulta='Sem multa (contrato por prazo indeterminado)';
     } else if(mesesRestantes<=0){
       semMulta=true;
-      descMulta='Sem multa (contrato já no prazo ou vencido)';
+      descMulta='Sem multa (contrato jÃ¡ no prazo ou vencido)';
     } else if(totalMeses>0){
       if(quem==='locatario'){
         multa=(multaBase/totalMeses)*mesesRestantes;
-        descMulta=`${fmt(multaBase)} × ${mesesRestantes}/${totalMeses} meses restantes`;
+        descMulta=`${fmt(multaBase)} Ã ${mesesRestantes}/${totalMeses} meses restantes`;
       } else {
-        // Locador rescinde: deve pagar indenização equivalente ao locatário pagaria
+        // Locador rescinde: deve pagar indenizaÃ§Ã£o equivalente ao locatÃ¡rio pagaria
         multa=(multaBase/totalMeses)*mesesRestantes;
-        descMulta=`Indenização ao inquilino: ${fmt(multaBase)} × ${mesesRestantes}/${totalMeses} meses`;
+        descMulta=`IndenizaÃ§Ã£o ao inquilino: ${fmt(multaBase)} Ã ${mesesRestantes}/${totalMeses} meses`;
       }
     }
 
-    // Caução
+    // CauÃ§Ã£o
     const temCaucao=document.getElementById('tem_caucao').value==='sim';
     let caucaoDevolvida=0, caucaoCorrigida=0;
     if(temCaucao){
@@ -317,7 +349,7 @@
       totalAPagar=multa+debitos;
       totalAReceber=caucaoDevolvida;
     } else {
-      totalAPagar=multa; // locador paga indenização
+      totalAPagar=multa; // locador paga indenizaÃ§Ã£o
       totalAReceber=0;
     }
 
@@ -325,17 +357,17 @@
 
     // Preencher resultado
     document.getElementById('res_total').textContent=fmt(Math.abs(saldo));
-    document.getElementById('res_sub').textContent=saldo>=0?'Valor a receber de volta':'Valor líquido a pagar';
+    document.getElementById('res_sub').textContent=saldo>=0?'Valor a receber de volta':'Valor lÃ­quido a pagar';
     document.getElementById('res_multa').textContent=fmt(multa);
     document.getElementById('res_caucao').textContent=temCaucao?fmt(caucaoCorrigida):'-';
     document.getElementById('res_aviso').textContent=quem==='locatario'?'30 dias':'30 dias';
 
-    // Situação
+    // SituaÃ§Ã£o
     const avisoDiv=document.getElementById('aviso_situacao');
     if(tipoPrazo==='indeterminado'||mesesRestantes<=0){
       avisoDiv.style.display='block';
       avisoDiv.className='ok-box';
-      avisoDiv.innerHTML=`✅ <strong>${tipoPrazo==='indeterminado'?'Contrato por prazo indeterminado':'Contrato no prazo ou vencido'}:</strong> Não há multa por rescisão. Basta cumprir o aviso prévio de 30 dias.`;
+      avisoDiv.innerHTML=`â <strong>${tipoPrazo==='indeterminado'?'Contrato por prazo indeterminado':'Contrato no prazo ou vencido'}:</strong> NÃ£o hÃ¡ multa por rescisÃ£o. Basta cumprir o aviso prÃ©vio de 30 dias.`;
     } else {
       avisoDiv.style.display='none';
     }
@@ -344,17 +376,17 @@
     const rows=[];
     rows.push(['Aluguel mensal',fmt(aluguel),null]);
     if(tipoPrazo==='determinado'){
-      rows.push(['Duração total do contrato',totalMeses+' meses',null]);
+      rows.push(['DuraÃ§Ã£o total do contrato',totalMeses+' meses',null]);
       rows.push(['Meses decorridos',mesesDecorridos+' meses',null]);
       rows.push(['Meses restantes',mesesRestantes+' meses',null]);
     }
     rows.push(['Multa base contratual',fmt(multaBase),null]);
     rows.push([semMulta?'Multa proporcional':'Multa proporcional ('+descMulta+')',semMulta?'R$ 0,00':fmt(multa),'neg']);
-    if(debitos>0) rows.push(['Débitos pendentes','-'+fmt(debitos),'neg']);
+    if(debitos>0) rows.push(['DÃ©bitos pendentes','-'+fmt(debitos),'neg']);
     if(temCaucao){
-      rows.push(['Caução depositada',fmt(parseMoeda(document.getElementById('valor_caucao').value)||0),null]);
-      rows.push(['Caução corrigida (IPCA estimado)',fmt(caucaoCorrigida),'pos']);
-      rows.push(['Caução a receber (líquida)',fmt(caucaoDevolvida),'pos']);
+      rows.push(['CauÃ§Ã£o depositada',fmt(parseMoeda(document.getElementById('valor_caucao').value)||0),null]);
+      rows.push(['CauÃ§Ã£o corrigida (IPCA estimado)',fmt(caucaoCorrigida),'pos']);
+      rows.push(['CauÃ§Ã£o a receber (lÃ­quida)',fmt(caucaoDevolvida),'pos']);
     }
     rows.push(['Saldo final ('+( saldo>=0?'a receber':'a pagar')+')',fmt(Math.abs(saldo)),saldo>=0?'pos':'neg']);
 
@@ -371,25 +403,25 @@
     if(quem==='locatario'){
       boxRegras.innerHTML=`
         <div style="background:#efebe9;border-radius:8px;padding:14px;font-size:.83rem;color:#3e2723">
-          <strong>Direitos do Inquilino (art. 4º):</strong>
+          <strong>Direitos do Inquilino (art. 4Âº):</strong>
           <ul style="padding-left:16px;margin-top:8px;line-height:1.8">
             <li>Pode rescindir a qualquer momento pagando a <strong>multa proporcional</strong> ao tempo restante</li>
-            <li>Deve dar <strong>30 dias de aviso prévio</strong> ao proprietário</li>
-            <li>A caução deve ser devolvida <strong>corrigida pelo IPCA</strong>, descontando débitos</li>
+            <li>Deve dar <strong>30 dias de aviso prÃ©vio</strong> ao proprietÃ¡rio</li>
+            <li>A cauÃ§Ã£o deve ser devolvida <strong>corrigida pelo IPCA</strong>, descontando dÃ©bitos</li>
             <li>Se o contrato vencer ou for por prazo indeterminado: <strong>sem multa</strong></li>
-            <li>Se transferido de emprego: pode sair sem multa com 30 dias de aviso (art. 4º, § único)</li>
-            <li>Após 30 meses: pode encerrar com 30 dias de aviso, <strong>sem multa</strong></li>
+            <li>Se transferido de emprego: pode sair sem multa com 30 dias de aviso (art. 4Âº, Â§ Ãºnico)</li>
+            <li>ApÃ³s 30 meses: pode encerrar com 30 dias de aviso, <strong>sem multa</strong></li>
           </ul>
         </div>`;
     } else {
       boxRegras.innerHTML=`
         <div style="background:#efebe9;border-radius:8px;padding:14px;font-size:.83rem;color:#3e2723">
-          <strong>Situações em que o Locador pode pedir o imóvel (art. 9º e 47):</strong>
+          <strong>SituaÃ§Ãµes em que o Locador pode pedir o imÃ³vel (art. 9Âº e 47):</strong>
           <ul style="padding-left:16px;margin-top:8px;line-height:1.8">
-            <li>Uso próprio ou de familiar direto (com notificação de 30 dias)</li>
-            <li>Demolição ou reforma aprovada pelo poder público</li>
-            <li>Inadimplência do inquilino</li>
-            <li>Venda do imóvel (inquilino tem preferência — art. 27)</li>
+            <li>Uso prÃ³prio ou de familiar direto (com notificaÃ§Ã£o de 30 dias)</li>
+            <li>DemoliÃ§Ã£o ou reforma aprovada pelo poder pÃºblico</li>
+            <li>InadimplÃªncia do inquilino</li>
+            <li>Venda do imÃ³vel (inquilino tem preferÃªncia â art. 27)</li>
             <li>Se rescindir sem motivo legal: deve <strong>indenizar o inquilino</strong> com multa equivalente</li>
           </ul>
         </div>`;

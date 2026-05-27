@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora de PLR 2025 — Participação nos Lucros e Resultados | FacilCalc</title>
-<meta name="description" content="Calcule o imposto de renda sobre sua PLR com a tabela exclusiva 2025. Veja o valor líquido da participação nos lucros e resultados."/>
+<title>Calculadora de PLR 2025 â ParticipaÃ§Ã£o nos Lucros e Resultados | FacilCalc</title>
+<meta name="description" content="Calcule o imposto de renda sobre sua PLR com a tabela exclusiva 2025. Veja o valor lÃ­quido da participaÃ§Ã£o nos lucros e resultados."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -37,7 +37,7 @@ main{max-width:900px;margin:0 auto;padding:16px}
 .tabela td{padding:7px 10px;border-bottom:1px solid #f0f0f0;text-align:right}
 .tabela td:first-child{text-align:left}
 .tabela tr.ativo{background:#e8f5e9;font-weight:700}
-.tabela tr.ativo td:first-child::before{content:'▶ '}
+.tabela tr.ativo td:first-child::before{content:'â¶ '}
 .obs{font-size:.78rem;color:#888;background:#f8f9ff;border-radius:8px;padding:10px 14px;line-height:1.6}
 footer{text-align:center;padding:20px;font-size:.8rem;color:#888;background:#fff;margin-top:20px;border-top:1px solid #eee}
 footer a{color:#1a73e8;text-decoration:none}
@@ -45,50 +45,88 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>💰 Calculadora de PLR</h1>
-  <p>Participação nos Lucros e Resultados — IR com tabela exclusiva 2025</p>
+  <h1>ð° Calculadora de PLR</h1>
+  <p>ParticipaÃ§Ã£o nos Lucros e Resultados â IR com tabela exclusiva 2025</p>
 </header>
-<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<nav class="nav"><a href="../">â FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>💵 Valor da PLR</h2>
+    <h2>ðµ Valor da PLR</h2>
     <div class="field">
       <label>Valor Bruto da PLR (R$)</label>
       <input type="text" id="plr" placeholder="Ex: 8.000,00" oninput="maskMoeda(this)"/>
     </div>
-    <p style="font-size:.82rem;color:#666;margin-bottom:12px">A PLR tem tabela de IR <strong>exclusiva e separada</strong> do salário. Não há desconto de INSS sobre a PLR.</p>
-    <button class="btn-calc" onclick="calcular()">🧮 Calcular IR da PLR</button>
+    <p style="font-size:.82rem;color:#666;margin-bottom:12px">A PLR tem tabela de IR <strong>exclusiva e separada</strong> do salÃ¡rio. NÃ£o hÃ¡ desconto de INSS sobre a PLR.</p>
+    <button class="btn-calc" onclick="calcular()">ð§® Calcular IR da PLR</button>
   </div>
 
   <div id="resultado">
     <div class="res-hero">
-      <label>Valor Líquido da PLR</label>
-      <div class="liq" id="plr-liq">—</div>
-      <div class="bruto" id="plr-sub">—</div>
+      <label>Valor LÃ­quido da PLR</label>
+      <div class="liq" id="plr-liq">â</div>
+      <div class="bruto" id="plr-sub">â</div>
     </div>
     <div class="details">
-      <div class="det"><label>PLR Bruta</label><div class="val" id="d-bruto">—</div></div>
-      <div class="det"><label>IR Retido</label><div class="val" id="d-ir">—</div></div>
-      <div class="det"><label>Alíquota Efetiva</label><div class="val" id="d-aliq">—</div></div>
+      <div class="det"><label>PLR Bruta</label><div class="val" id="d-bruto">â</div></div>
+      <div class="det"><label>IR Retido</label><div class="val" id="d-ir">â</div></div>
+      <div class="det"><label>AlÃ­quota Efetiva</label><div class="val" id="d-aliq">â</div></div>
     </div>
     <div class="card">
-      <h2>📊 Tabela PLR 2025</h2>
+      <h2>ð Tabela PLR 2025</h2>
       <table class="tabela">
-        <thead><tr><th>Faixa (R$)</th><th>Alíquota</th><th>Dedução</th></tr></thead>
+        <thead><tr><th>Faixa (R$)</th><th>AlÃ­quota</th><th>DeduÃ§Ã£o</th></tr></thead>
         <tbody id="tabela-body"></tbody>
       </table>
     </div>
     <div class="obs">
-      ⚠️ A PLR é tributada na fonte com tabela <strong>exclusiva e progressiva</strong> (Lei 10.101/2000).<br>
-      Não entra na base do IRPF anual. Não sofre desconto de INSS.<br>
-      Pode ser paga em até 2 vezes por ano — cada parcela calculada separadamente.
+      â ï¸ A PLR Ã© tributada na fonte com tabela <strong>exclusiva e progressiva</strong> (Lei 10.101/2000).<br>
+      NÃ£o entra na base do IRPF anual. NÃ£o sofre desconto de INSS.<br>
+      Pode ser paga em atÃ© 2 vezes por ano â cada parcela calculada separadamente.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
     </div>
   </div>
+  <div class="explic">
+    <h3>🏆 Como Funciona a PLR — Participação nos Lucros e Resultados?</h3>
+    <p>A <strong>PLR</strong> é um benefício previsto na <strong>Constituição Federal (art. 7º, XI)</strong> e regulamentada pela <strong>Lei 10.101/2000</strong>. É negociada entre empresa e empregados via convenção coletiva ou comissão interna.</p>
+    <h4>💰 Tabela de IR Exclusivo na Fonte — PLR 2025</h4>
+    <table>
+      <thead><tr><th>Faixa PLR</th><th>Alíquota</th><th>Parcela a deduzir</th></tr></thead>
+      <tbody>
+        <tr><td>Até R$ 7.407,11</td><td>Isento</td><td>—</td></tr>
+        <tr><td>R$ 7.407,12 a R$ 9.250,71</td><td>7,5%</td><td>R$ 555,54</td></tr>
+        <tr><td>R$ 9.250,72 a R$ 11.250,05</td><td>15%</td><td>R$ 1.249,00</td></tr>
+        <tr><td>R$ 11.250,06 a R$ 13.715,03</td><td>22,5%</td><td>R$ 2.091,55</td></tr>
+        <tr><td>Acima de R$ 13.715,03</td><td>27,5%</td><td>R$ 2.778,30</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box">✅ A PLR tem <strong>tributação exclusiva na fonte</strong> — não entra na base do IR anual. A tabela é mais vantajosa que a tabela mensal de IRRF sobre salários.</div>
+    <h4>📋 Regras Importantes</h4>
+    <ul>
+      <li>Não pode substituir ou complementar a remuneração — pagamento mensal é proibido</li>
+      <li>Pode ser pago em até 2 parcelas/ano, com intervalo mínimo de 1 trimestre</li>
+      <li>PLR <strong>não integra o salário</strong> — não incide FGTS nem base para férias e 13º</li>
+      <li>O INSS incide normalmente sobre a PLR (alíquota progressiva)</li>
+    </ul>
+    <div class="warn-box">⚠️ Se a PLR não for negociada conforme a Lei 10.101/2000, pode ser descaracterizada como salário — integrando a base de cálculo de FGTS, férias e 13º.</div>
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">PLR entra no cálculo de rescisão ou férias?</div>
+      <div class="faq-a">Não. A PLR não integra a remuneração para fins de férias, 13º, FGTS ou rescisão — desde que paga conforme a Lei 10.101/2000.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Empregado em aviso prévio tem direito à PLR?</div>
+      <div class="faq-a">Depende do acordo de PLR da empresa. Se prevê proporcionalidade por meses trabalhados e o aviso ocorreu no período, o empregado tem direito proporcional. Consulte o regulamento interno.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Autônomo ou PJ pode receber PLR?</div>
+      <div class="faq-a">Não. A PLR é exclusiva para trabalhadores com vínculo empregatício (CLT). Profissionais contratados como PJ, MEI ou autônomos não têm esse direito.</div>
+    </div>
+  </div>
+
 </main>
-<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -97,10 +135,10 @@ function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL
 function fmtN(v,d=2){return v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});}
 
 const TABELA_PLR=[
-  {ate:6677.55,aliq:0,ded:0,label:'Até R$ 6.677,55'},
-  {ate:9922.28,aliq:0.075,ded:500.82,label:'R$ 6.677,56 – R$ 9.922,28'},
-  {ate:13167.00,aliq:0.15,ded:1244.99,label:'R$ 9.922,29 – R$ 13.167,00'},
-  {ate:16380.38,aliq:0.225,ded:2232.51,label:'R$ 13.167,01 – R$ 16.380,38'},
+  {ate:6677.55,aliq:0,ded:0,label:'AtÃ© R$ 6.677,55'},
+  {ate:9922.28,aliq:0.075,ded:500.82,label:'R$ 6.677,56 â R$ 9.922,28'},
+  {ate:13167.00,aliq:0.15,ded:1244.99,label:'R$ 9.922,29 â R$ 13.167,00'},
+  {ate:16380.38,aliq:0.225,ded:2232.51,label:'R$ 13.167,01 â R$ 16.380,38'},
   {ate:Infinity,aliq:0.275,ded:3051.53,label:'Acima de R$ 16.380,38'}
 ];
 
@@ -118,7 +156,7 @@ function calcular(){
   const aliqEf=plr>0?(ir/plr)*100:0;
 
   document.getElementById('plr-liq').textContent=fmtR(liq);
-  document.getElementById('plr-sub').textContent='Bruto: '+fmtR(plr)+' — IR: -'+fmtR(ir);
+  document.getElementById('plr-sub').textContent='Bruto: '+fmtR(plr)+' â IR: -'+fmtR(ir);
   document.getElementById('d-bruto').textContent=fmtR(plr);
   document.getElementById('d-ir').textContent=fmtR(ir);
   document.getElementById('d-aliq').textContent=fmtN(aliqEf)+'%';

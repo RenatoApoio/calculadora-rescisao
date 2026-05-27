@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora FIRE — Independência Financeira 2025 | FacilCalc</title>
-<meta name="description" content="Descubra quanto precisa acumular para viver de renda. Calcule em quantos anos atinge a independência financeira com base nos seus aportes e rentabilidade."/>
+<title>Calculadora FIRE â IndependÃªncia Financeira 2025 | FacilCalc</title>
+<meta name="description" content="Descubra quanto precisa acumular para viver de renda. Calcule em quantos anos atinge a independÃªncia financeira com base nos seus aportes e rentabilidade."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -48,20 +48,20 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>🔥 Calculadora FIRE</h1>
-  <p>Independência Financeira — descubra quando você pode parar de trabalhar</p>
+  <h1>ð¥ Calculadora FIRE</h1>
+  <p>IndependÃªncia Financeira â descubra quando vocÃª pode parar de trabalhar</p>
 </header>
-<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<nav class="nav"><a href="../">â FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>💡 Seus Dados Financeiros</h2>
+    <h2>ð¡ Seus Dados Financeiros</h2>
     <div class="grid">
       <div class="field">
         <label>Gastos Mensais Atuais (R$)</label>
         <input type="text" id="gastos" placeholder="Ex: 4.000,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
-        <label>Patrimônio Atual (R$)</label>
+        <label>PatrimÃ´nio Atual (R$)</label>
         <input type="text" id="patrimonio" placeholder="Ex: 50.000,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
@@ -70,14 +70,14 @@ footer a{color:#1a73e8;text-decoration:none}
       </div>
       <div class="field">
         <label>Rentabilidade Real (% a.a.)</label>
-        <input type="text" id="rentab" placeholder="Ex: 6,0 (acima da inflação)" value="6,0"/>
+        <input type="text" id="rentab" placeholder="Ex: 6,0 (acima da inflaÃ§Ã£o)" value="6,0"/>
       </div>
       <div class="field">
         <label>Taxa de Retirada Anual (%)</label>
         <select id="taxa-ret">
-          <option value="4">4% — Regra dos 4% (recomendado)</option>
-          <option value="3">3% — Conservador</option>
-          <option value="5">5% — Agressivo</option>
+          <option value="4">4% â Regra dos 4% (recomendado)</option>
+          <option value="3">3% â Conservador</option>
+          <option value="5">5% â Agressivo</option>
         </select>
       </div>
       <div class="field">
@@ -85,23 +85,23 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="number" id="idade" placeholder="Ex: 30" min="18" max="80"/>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">🔥 Calcular Independência Financeira</button>
+    <button class="btn-calc" onclick="calcular()">ð¥ Calcular IndependÃªncia Financeira</button>
   </div>
 
   <div id="resultado">
     <div class="fire-hero">
-      <span class="chama">🔥</span>
-      <div class="anos" id="r-anos">—</div>
-      <div class="ano-label">anos para a independência financeira</div>
-      <div class="meta" id="r-meta">—</div>
+      <span class="chama">ð¥</span>
+      <div class="anos" id="r-anos">â</div>
+      <div class="ano-label">anos para a independÃªncia financeira</div>
+      <div class="meta" id="r-meta">â</div>
     </div>
     <div class="res-grid">
-      <div class="r-box"><label>Meta FIRE (patrimônio)</label><div class="val" id="r-metaV">—</div></div>
-      <div class="r-box"><label>Renda Mensal da Renda</label><div class="val" id="r-renda">—</div></div>
-      <div class="r-box"><label>Idade na Independência</label><div class="val" id="r-idade">—</div></div>
-      <div class="r-box"><label>Patrimônio Atual</label><div class="val" id="r-pat">—</div></div>
-      <div class="r-box"><label>Aporte Total no Período</label><div class="val" id="r-total-aport">—</div></div>
-      <div class="r-box"><label>Juros Gerados</label><div class="val" id="r-juros">—</div></div>
+      <div class="r-box"><label>Meta FIRE (patrimÃ´nio)</label><div class="val" id="r-metaV">â</div></div>
+      <div class="r-box"><label>Renda Mensal da Renda</label><div class="val" id="r-renda">â</div></div>
+      <div class="r-box"><label>Idade na IndependÃªncia</label><div class="val" id="r-idade">â</div></div>
+      <div class="r-box"><label>PatrimÃ´nio Atual</label><div class="val" id="r-pat">â</div></div>
+      <div class="r-box"><label>Aporte Total no PerÃ­odo</label><div class="val" id="r-total-aport">â</div></div>
+      <div class="r-box"><label>Juros Gerados</label><div class="val" id="r-juros">â</div></div>
     </div>
     <div class="progresso">
       <label>Progresso atual: <span id="r-pct">0%</span></label>
@@ -109,16 +109,53 @@ footer a{color:#1a73e8;text-decoration:none}
       <div class="barra-pct" id="r-pct2"></div>
     </div>
     <div class="regras">
-      <strong>🔥 Regra dos 4% (Trinity Study):</strong> você pode retirar 4% do patrimônio por ano sem esgotá-lo em 30+ anos, com portfólio diversificado.<br>
-      <strong>Meta FIRE</strong> = Gastos anuais ÷ Taxa de retirada. Ex: R$ 4.000/mês × 12 ÷ 0,04 = R$ 1.200.000<br>
-      <strong>Rentabilidade real:</strong> desconta inflação. CDI de 14,75% com IPCA de 5,5% → real ≈ 8,8%. Use 5-7% como estimativa conservadora.
+      <strong>ð¥ Regra dos 4% (Trinity Study):</strong> vocÃª pode retirar 4% do patrimÃ´nio por ano sem esgotÃ¡-lo em 30+ anos, com portfÃ³lio diversificado.<br>
+      <strong>Meta FIRE</strong> = Gastos anuais Ã· Taxa de retirada. Ex: R$ 4.000/mÃªs Ã 12 Ã· 0,04 = R$ 1.200.000<br>
+      <strong>Rentabilidade real:</strong> desconta inflaÃ§Ã£o. CDI de 14,75% com IPCA de 5,5% â real â 8,8%. Use 5-7% como estimativa conservadora.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
     </div>
   </div>
+  <div class="explic">
+    <h3>🔥 O que é FIRE — Financial Independence, Retire Early?</h3>
+    <p>O movimento <strong>FIRE</strong> busca acumular patrimônio suficiente para viver dos rendimentos sem trabalho ativo. A premissa central é a <strong>Regra dos 4%</strong>: um portfólio diversificado pode sustentar retiradas de 4% ao ano indefinidamente.</p>
+    <h4>📐 Patrimônio Necessário (Regra ×25)</h4>
+    <table>
+      <thead><tr><th>Gasto Mensal</th><th>Patrimônio FIRE</th></tr></thead>
+      <tbody>
+        <tr><td>R$ 3.000/mês</td><td>R$ 900.000</td></tr>
+        <tr><td>R$ 5.000/mês</td><td>R$ 1.500.000</td></tr>
+        <tr><td>R$ 10.000/mês</td><td>R$ 3.000.000</td></tr>
+        <tr><td>R$ 20.000/mês</td><td>R$ 6.000.000</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box">✅ Fórmula: <strong>Patrimônio FIRE = Gasto anual × 25</strong> (retirada de 4% a.a.). Para o Brasil, muitos especialistas recomendam ×30 (3,33%) por maior volatilidade local.</div>
+    <h4>🎯 Variações do FIRE</h4>
+    <ul>
+      <li><strong>Lean FIRE:</strong> Estilo de vida frugal</li>
+      <li><strong>Fat FIRE:</strong> Alto padrão de vida (acima de R$ 15.000/mês)</li>
+      <li><strong>Barista FIRE:</strong> Patrimônio parcial + trabalho de baixa intensidade</li>
+      <li><strong>Coast FIRE:</strong> Patrimônio suficiente para crescer sem aportes adicionais</li>
+    </ul>
+    <div class="warn-box">⚠️ A Regra dos 4% foi calculada para carteiras americanas em dólares. No Brasil, use taxa de retirada mais conservadora (3–3,5%) e mantenha parte em ativos atrelados ao IPCA.</div>
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">Como acelerar o caminho para o FIRE?</div>
+      <div class="faq-a">Aumentar a taxa de poupança é o principal acelerador. Quem poupa 50% leva ~17 anos; quem poupa 75% leva ~7 anos. Reduzir gastos é mais eficaz que aumentar renda no curto prazo.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O INSS entra no cálculo do FIRE?</div>
+      <div class="faq-a">Pode ser considerado como renda futura que reduz o patrimônio necessário. Use conservadorismo — a idade de aposentadoria e o valor do benefício podem mudar.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Onde investir o patrimônio FIRE no Brasil?</div>
+      <div class="faq-a">Carteira típica: Tesouro IPCA+ (30–40%), ações/ETFs (30–40%), FIIs (10–20%) e Tesouro Selic/emergência (10–20%). Diversificação protege contra diferentes cenários.</div>
+    </div>
+  </div>
+
 </main>
-<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -150,7 +187,7 @@ function calcular(){
   const pct=Math.min(100,(pat/meta)*100);
 
   document.getElementById('r-anos').textContent=fmtN(anos,0);
-  document.getElementById('r-meta').textContent='Meta: '+fmtR(meta)+' · '+new Date().getFullYear()+' + '+fmtN(anos,0)+' = '+Math.round(new Date().getFullYear()+anos);
+  document.getElementById('r-meta').textContent='Meta: '+fmtR(meta)+' Â· '+new Date().getFullYear()+' + '+fmtN(anos,0)+' = '+Math.round(new Date().getFullYear()+anos);
   document.getElementById('r-metaV').textContent=fmtR(meta);
   document.getElementById('r-renda').textContent=fmtR(rendaMensal);
   document.getElementById('r-idade').textContent=fmtN(idadeFire,0)+' anos';
@@ -158,7 +195,7 @@ function calcular(){
   document.getElementById('r-total-aport').textContent=fmtR(totalAport);
   document.getElementById('r-juros').textContent=fmtR(juros);
   document.getElementById('r-pct').textContent=fmtN(pct)+'%';
-  document.getElementById('r-pct2').textContent='Você já tem '+fmtN(pct)+'% da meta';
+  document.getElementById('r-pct2').textContent='VocÃª jÃ¡ tem '+fmtN(pct)+'% da meta';
   document.getElementById('barra').style.width=pct+'%';
 
   document.getElementById('resultado').style.display='block';

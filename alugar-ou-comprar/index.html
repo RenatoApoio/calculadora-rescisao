@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Alugar ou Comprar Imóvel — Qual Compensa Mais? 2025 | FacilCalc</title>
-<meta name="description" content="Compare se é melhor alugar ou comprar um imóvel. Análise financeira completa: custo total, ponto de equilíbrio e retorno do investimento."/>
+<title>Alugar ou Comprar ImÃ³vel â Qual Compensa Mais? 2025 | FacilCalc</title>
+<meta name="description" content="Compare se Ã© melhor alugar ou comprar um imÃ³vel. AnÃ¡lise financeira completa: custo total, ponto de equilÃ­brio e retorno do investimento."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -48,16 +48,16 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>🏠 Alugar ou Comprar?</h1>
-  <p>Descubra qual opção compensa mais para você financeiramente</p>
+  <h1>ð  Alugar ou Comprar?</h1>
+  <p>Descubra qual opÃ§Ã£o compensa mais para vocÃª financeiramente</p>
 </header>
-<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<nav class="nav"><a href="../">â FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>🏘️ Dados do Imóvel e Financiamento</h2>
+    <h2>ðï¸ Dados do ImÃ³vel e Financiamento</h2>
     <div class="grid">
       <div class="field">
-        <label>Valor do Imóvel (R$)</label>
+        <label>Valor do ImÃ³vel (R$)</label>
         <input type="text" id="valor-imovel" placeholder="Ex: 400.000,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
@@ -73,7 +73,7 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="number" id="prazo-fin" placeholder="Ex: 360" min="12"/>
       </div>
       <div class="field">
-        <label>Aluguel Atual (R$/mês)</label>
+        <label>Aluguel Atual (R$/mÃªs)</label>
         <input type="text" id="aluguel" placeholder="Ex: 2.500,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
@@ -81,32 +81,32 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="text" id="rentab-entrada" placeholder="Ex: 14,75 (CDI)" value="14,75"/>
       </div>
       <div class="field">
-        <label>Prazo de análise (anos)</label>
+        <label>Prazo de anÃ¡lise (anos)</label>
         <input type="number" id="prazo-analise" placeholder="Ex: 10" value="10" min="1" max="30"/>
       </div>
       <div class="field">
-        <label>Valorização anual imóvel (% a.a.)</label>
+        <label>ValorizaÃ§Ã£o anual imÃ³vel (% a.a.)</label>
         <input type="text" id="valorizacao" placeholder="Ex: 5,0" value="5,0"/>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">⚖️ Comparar Alugar vs Comprar</button>
+    <button class="btn-calc" onclick="calcular()">âï¸ Comparar Alugar vs Comprar</button>
   </div>
 
   <div id="resultado">
     <div class="comp-grid">
       <div class="comp alugar">
-        <h3>🏡 Alugar</h3>
-        <div class="total" id="al-total">—</div>
-        <div class="row"><span>Aluguel no período</span><span id="al-alug">—</span></div>
-        <div class="row"><span>Rendimento da entrada</span><span id="al-rend">—</span></div>
-        <div class="row"><span>Custo líquido</span><span id="al-liq">—</span></div>
+        <h3>ð¡ Alugar</h3>
+        <div class="total" id="al-total">â</div>
+        <div class="row"><span>Aluguel no perÃ­odo</span><span id="al-alug">â</span></div>
+        <div class="row"><span>Rendimento da entrada</span><span id="al-rend">â</span></div>
+        <div class="row"><span>Custo lÃ­quido</span><span id="al-liq">â</span></div>
       </div>
       <div class="comp comprar">
-        <h3>🔑 Comprar</h3>
-        <div class="total" id="cp-total">—</div>
-        <div class="row"><span>Total pago (financ.)</span><span id="cp-fin">—</span></div>
-        <div class="row"><span>Valorização imóvel</span><span id="cp-valz">—</span></div>
-        <div class="row"><span>Custo líquido</span><span id="cp-liq">—</span></div>
+        <h3>ð Comprar</h3>
+        <div class="total" id="cp-total">â</div>
+        <div class="row"><span>Total pago (financ.)</span><span id="cp-fin">â</span></div>
+        <div class="row"><span>ValorizaÃ§Ã£o imÃ³vel</span><span id="cp-valz">â</span></div>
+        <div class="row"><span>Custo lÃ­quido</span><span id="cp-liq">â</span></div>
       </div>
     </div>
     <div class="winner-banner">
@@ -115,11 +115,49 @@ footer a{color:#1a73e8;text-decoration:none}
     </div>
     <div class="obs" id="obs-txt"></div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
     </div>
   </div>
+  <div class="explic">
+    <h3>🏠 Alugar ou Comprar? A Análise Financeira Completa</h3>
+    <p>A decisão vai além de comparar parcela com aluguel. Envolve <strong>custo de oportunidade, valorização, custos de transação, liquidez e horizonte de tempo</strong>.</p>
+    <h4>💡 Custos Ocultos ao Comprar</h4>
+    <ul>
+      <li><strong>ITBI:</strong> 2–4% do valor do imóvel (pago na compra)</li>
+      <li><strong>Cartório:</strong> Escritura e registro (~1–2%)</li>
+      <li><strong>Custo de oportunidade:</strong> O que a entrada renderia investida em renda fixa</li>
+      <li><strong>Manutenção:</strong> Estimativa de 1–2% do valor do imóvel por ano</li>
+    </ul>
+    <div class="info-box">✅ Regra de bolso: se o <strong>yield do aluguel</strong> (aluguel anual ÷ valor do imóvel) for abaixo de 4–5%, alugar e investir a diferença pode ser mais vantajoso. Yields típicos no Brasil: 4–6% a.a.</div>
+    <h4>📊 Quando Comprar Tende a Ser Vantajoso</h4>
+    <ul>
+      <li>Horizonte longo (+10 anos no mesmo imóvel)</li>
+      <li>Entrada substancial (20–30%) disponível</li>
+      <li>Imóvel em região com perspectiva de valorização</li>
+    </ul>
+    <h4>📊 Quando Alugar Tende a Ser Vantajoso</h4>
+    <ul>
+      <li>Você tem mobilidade ou pode precisar mudar de cidade</li>
+      <li>Yield do imóvel abaixo de 4% a.a.</li>
+      <li>Juros altos encarecem o financiamento</li>
+    </ul>
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">Como calcular o custo de oportunidade?</div>
+      <div class="faq-a">Simule quanto o valor da entrada renderia em renda fixa segura (Tesouro Selic ou CDB 100%+ CDI) no mesmo período. Se esse rendimento superar a valorização esperada, alugar pode ser mais vantajoso.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Imóvel é sempre um bom investimento?</div>
+      <div class="faq-a">Não necessariamente. De 2014 a 2022, muitos imóveis perderam valor real no Brasil. O resultado depende da localização, momento do mercado e comparativo com alternativas.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O FGTS muda a análise?</div>
+      <div class="faq-a">Sim, favorece a compra. O FGTS rende apenas TR + 3% a.a. — bem abaixo do CDI. Usar o FGTS como entrada reduz custo que de outra forma seria perdido.</div>
+    </div>
+  </div>
+
 </main>
-<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -137,7 +175,7 @@ function calcular(){
   const prazoA=parseInt(document.getElementById('prazo-analise').value)||10;
   const valz=parsePct(document.getElementById('valorizacao').value)/100;
   const meses=prazoA*12;
-  if(!vi||!entrada||!im||!aluguel){alert('Preencha os campos obrigatórios.');return;}
+  if(!vi||!entrada||!im||!aluguel){alert('Preencha os campos obrigatÃ³rios.');return;}
 
   // Comprar: parcela Price
   const pv=vi-entrada;
@@ -166,11 +204,11 @@ function calcular(){
 
   const melhorAlugar=custoAlugarLiq<custoComprarLiq;
   const diff=Math.abs(custoAlugarLiq-custoComprarLiq);
-  document.getElementById('winner-txt').textContent=(melhorAlugar?'🏡 Alugar':'🔑 Comprar')+' compensa mais em '+prazoA+' anos';
-  document.getElementById('winner-sub').textContent='Diferença: '+fmtR(diff)+' no período analisado';
+  document.getElementById('winner-txt').textContent=(melhorAlugar?'ð¡ Alugar':'ð Comprar')+' compensa mais em '+prazoA+' anos';
+  document.getElementById('winner-sub').textContent='DiferenÃ§a: '+fmtR(diff)+' no perÃ­odo analisado';
   document.getElementById('obs-txt').innerHTML=`
-    ⚠️ Análise simplificada. Não inclui: ITBI (~3%), cartório (~1,5%), reformas, condomínio, IPTU.<br>
-    💡 Comprar pode ser vantajoso pelo aspecto emocional e estabilidade, mesmo que financeiramente menor.
+    â ï¸ AnÃ¡lise simplificada. NÃ£o inclui: ITBI (~3%), cartÃ³rio (~1,5%), reformas, condomÃ­nio, IPTU.<br>
+    ð¡ Comprar pode ser vantajoso pelo aspecto emocional e estabilidade, mesmo que financeiramente menor.
   `;
 
   document.getElementById('resultado').style.display='block';

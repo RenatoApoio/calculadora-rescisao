@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora de Combustível — Gasto por Viagem 2025 | FacilCalc</title>
-<meta name="description" content="Calcule o gasto de combustível por viagem, custo por km e compare gasolina, etanol e diesel. Descubra qual combustível é mais econômico para seu carro."/>
+<title>Calculadora de CombustÃ­vel â Gasto por Viagem 2025 | FacilCalc</title>
+<meta name="description" content="Calcule o gasto de combustÃ­vel por viagem, custo por km e compare gasolina, etanol e diesel. Descubra qual combustÃ­vel Ã© mais econÃ´mico para seu carro."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -49,16 +49,16 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>⛽ Calculadora de Combustível</h1>
-  <p>Gasto por viagem · Custo por km · Gasolina vs Etanol</p>
+  <h1>â½ Calculadora de CombustÃ­vel</h1>
+  <p>Gasto por viagem Â· Custo por km Â· Gasolina vs Etanol</p>
 </header>
-<nav class="nav"><a href="../">← FacilCalc</a></nav>
+<nav class="nav"><a href="../">â FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>🚗 Dados da Viagem e do Carro</h2>
+    <h2>ð Dados da Viagem e do Carro</h2>
     <div class="grid">
       <div class="field">
-        <label>Distância da Viagem (km)</label>
+        <label>DistÃ¢ncia da Viagem (km)</label>
         <input type="number" id="distancia" placeholder="Ex: 500" min="1"/>
       </div>
       <div class="field">
@@ -66,54 +66,88 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="number" id="consumo" placeholder="Ex: 12" step="0.1" min="1"/>
       </div>
       <div class="field">
-        <label>Preço Gasolina (R$/litro)</label>
+        <label>PreÃ§o Gasolina (R$/litro)</label>
         <input type="text" id="preco-gas" placeholder="Ex: 6,39" oninput="maskPreco(this)"/>
       </div>
       <div class="field">
-        <label>Preço Etanol (R$/litro)</label>
+        <label>PreÃ§o Etanol (R$/litro)</label>
         <input type="text" id="preco-eta" placeholder="Ex: 4,29 (opcional)" oninput="maskPreco(this)"/>
       </div>
       <div class="field">
-        <label>Preço Diesel (R$/litro)</label>
+        <label>PreÃ§o Diesel (R$/litro)</label>
         <input type="text" id="preco-die" placeholder="Ex: 6,10 (opcional)" oninput="maskPreco(this)"/>
       </div>
       <div class="field">
         <label>Viagens de ida e volta?</label>
         <select id="ida-volta">
-          <option value="1">Só ida</option>
+          <option value="1">SÃ³ ida</option>
           <option value="2">Ida e volta</option>
         </select>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">⛽ Calcular Gasto</button>
+    <button class="btn-calc" onclick="calcular()">â½ Calcular Gasto</button>
   </div>
 
   <div id="resultado">
     <div class="res-hero">
       <label>Custo Total da Viagem (gasolina)</label>
-      <div class="big" id="r-total">—</div>
-      <div style="font-size:.88rem;opacity:.8;margin-top:6px" id="r-sub">—</div>
+      <div class="big" id="r-total">â</div>
+      <div style="font-size:.88rem;opacity:.8;margin-top:6px" id="r-sub">â</div>
     </div>
     <div class="res-grid">
-      <div class="r-box"><label>Litros Necessários</label><div class="val" id="r-litros">—</div></div>
-      <div class="r-box"><label>Custo por km</label><div class="val" id="r-km">—</div></div>
-      <div class="r-box"><label>Distância Total</label><div class="val" id="r-dist">—</div></div>
+      <div class="r-box"><label>Litros NecessÃ¡rios</label><div class="val" id="r-litros">â</div></div>
+      <div class="r-box"><label>Custo por km</label><div class="val" id="r-km">â</div></div>
+      <div class="r-box"><label>DistÃ¢ncia Total</label><div class="val" id="r-dist">â</div></div>
     </div>
     <div class="card">
-      <h2>🔁 Comparativo de Combustíveis</h2>
+      <h2>ð Comparativo de CombustÃ­veis</h2>
       <div class="comp-grid">
-        <div class="comb-card gas" id="card-gas"><h3>⛽ Gasolina</h3><div class="cval" id="cv-gas">—</div><div class="csub" id="cs-gas">—</div></div>
-        <div class="comb-card eta" id="card-eta"><h3>🌿 Etanol</h3><div class="cval" id="cv-eta">—</div><div class="csub" id="cs-eta">—</div></div>
-        <div class="comb-card die" id="card-die"><h3>🛢️ Diesel</h3><div class="cval" id="cv-die">—</div><div class="csub" id="cs-die">—</div></div>
+        <div class="comb-card gas" id="card-gas"><h3>â½ Gasolina</h3><div class="cval" id="cv-gas">â</div><div class="csub" id="cs-gas">â</div></div>
+        <div class="comb-card eta" id="card-eta"><h3>ð¿ Etanol</h3><div class="cval" id="cv-eta">â</div><div class="csub" id="cs-eta">â</div></div>
+        <div class="comb-card die" id="card-die"><h3>ð¢ï¸ Diesel</h3><div class="cval" id="cv-die">â</div><div class="csub" id="cs-die">â</div></div>
       </div>
     </div>
     <div class="dica" id="dica-eta"></div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
+      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
     </div>
   </div>
+  <div class="explic">
+    <h3>⛽ Como Calcular o Custo Real de Combustível</h3>
+    <p>O custo de combustível é um dos maiores gastos variáveis de quem tem carro. Calcular o custo por km e por viagem ajuda a planejar a rota mais econômica e decidir entre combustíveis.</p>
+    <h4>💰 Etanol vs Gasolina — Qual é Mais Barato?</h4>
+    <p>O etanol vale mais a pena quando custa até <strong>70% do preço da gasolina</strong>.</p>
+    <table>
+      <thead><tr><th>Situação</th><th>Exemplo</th><th>Decisão</th></tr></thead>
+      <tbody>
+        <tr><td>Etanol ÷ Gasolina &lt; 0,70</td><td>R$ 3,50 ÷ R$ 5,50 = 0,636</td><td>✅ Use Etanol</td></tr>
+        <tr><td>Etanol ÷ Gasolina &gt; 0,70</td><td>R$ 4,10 ÷ R$ 5,50 = 0,745</td><td>✅ Use Gasolina</td></tr>
+        <tr><td>Etanol ÷ Gasolina = 0,70</td><td>R$ 3,85 ÷ R$ 5,50 = 0,70</td><td>⚖️ Indiferente</td></tr>
+      </tbody>
+    </table>
+    <h4>📊 Consumo Médio por Tipo de Veículo</h4>
+    <ul>
+      <li><strong>Carros populares (HB20, Onix, Argo):</strong> 10–13 km/l (cidade) / 13–16 km/l (estrada)</li>
+      <li><strong>SUVs compactos:</strong> 8–11 km/l (cidade) / 11–14 km/l (estrada)</li>
+      <li><strong>Pickup trucks:</strong> 6–9 km/l (cidade) / 9–12 km/l (estrada)</li>
+    </ul>
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">Como medir o consumo real do meu carro?</div>
+      <div class="faq-a">Encha o tanque, zere o hodômetro, dirija normalmente até ~metade do tanque, reabasteça e veja os litros colocados. Divida os km rodados pelos litros. Faça 3 vezes e tire a média.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Ar condicionado aumenta muito o consumo?</div>
+      <div class="faq-a">Sim — o AC aumenta o consumo em 10–20%. Em velocidades baixas (até 60 km/h) em cidade, janelas abertas são mais econômicas.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Compensa usar Uber vs dirigir?</div>
+      <div class="faq-a">Calcule o custo total do carro (parcela + seguro + IPVA + manutenção + combustível) e divida pelo km rodado. Se for maior que R$ 1,50–2,00/km, usar Uber pode ser mais econômico para quem roda pouco.</div>
+    </div>
+  </div>
+
 </main>
-<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskPreco(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -128,7 +162,7 @@ function calcular(){
   const precoEta=parseMoeda(document.getElementById('preco-eta').value);
   const preDie=parseMoeda(document.getElementById('preco-die').value);
   const mult=parseInt(document.getElementById('ida-volta').value)||1;
-  if(!dist||!cons||!precoGas){alert('Informe distância, consumo e preço da gasolina.');return;}
+  if(!dist||!cons||!precoGas){alert('Informe distÃ¢ncia, consumo e preÃ§o da gasolina.');return;}
 
   const distTotal=dist*mult;
   const litros=distTotal/cons;
@@ -137,32 +171,32 @@ function calcular(){
   const dieTotal=preDie?litros*preDie:null;
 
   document.getElementById('r-total').textContent=fmtR(gasTotal);
-  document.getElementById('r-sub').textContent=distTotal+' km · '+fmtN(litros,1)+' litros';
+  document.getElementById('r-sub').textContent=distTotal+' km Â· '+fmtN(litros,1)+' litros';
   document.getElementById('r-litros').textContent=fmtN(litros,1)+'L';
   document.getElementById('r-km').textContent=fmtR(gasTotal/distTotal)+'/km';
   document.getElementById('r-dist').textContent=distTotal+' km';
 
   document.getElementById('cv-gas').textContent=fmtR(gasTotal);
-  document.getElementById('cs-gas').textContent=fmtN(litros,1)+'L · '+fmtR(precoGas)+'/L';
+  document.getElementById('cs-gas').textContent=fmtN(litros,1)+'L Â· '+fmtR(precoGas)+'/L';
 
   if(etaTotal){
     document.getElementById('cv-eta').textContent=fmtR(etaTotal);
-    document.getElementById('cs-eta').textContent=fmtN(litros/0.7,1)+'L · '+fmtR(precoEta)+'/L';
+    document.getElementById('cs-eta').textContent=fmtN(litros/0.7,1)+'L Â· '+fmtR(precoEta)+'/L';
     const ratio=precoEta/precoGas;
     const etaMaisBar=etaTotal<gasTotal;
     document.getElementById('card-eta').classList.toggle('winner',etaMaisBar);
     document.getElementById('card-gas').classList.toggle('winner',!etaMaisBar);
     document.getElementById('dica-eta').innerHTML=
-      `⛽ <strong>Etanol vs Gasolina:</strong> razão ${fmtN(ratio*100,0)}% (ponto de equilíbrio = 70%).<br>`+
-      (etaMaisBar?`✅ Etanol compensa — economiza ${fmtR(gasTotal-etaTotal)} nessa viagem.`:`❌ Gasolina compensa — etanol gastaria ${fmtR(etaTotal-gasTotal)} a mais.`);
+      `â½ <strong>Etanol vs Gasolina:</strong> razÃ£o ${fmtN(ratio*100,0)}% (ponto de equilÃ­brio = 70%).<br>`+
+      (etaMaisBar?`â Etanol compensa â economiza ${fmtR(gasTotal-etaTotal)} nessa viagem.`:`â Gasolina compensa â etanol gastaria ${fmtR(etaTotal-gasTotal)} a mais.`);
   } else {
-    document.getElementById('cv-eta').textContent='—';
-    document.getElementById('cs-eta').textContent='Informe o preço';
-    document.getElementById('dica-eta').textContent='💡 Informe o preço do etanol para comparar com a gasolina.';
+    document.getElementById('cv-eta').textContent='â';
+    document.getElementById('cs-eta').textContent='Informe o preÃ§o';
+    document.getElementById('dica-eta').textContent='ð¡ Informe o preÃ§o do etanol para comparar com a gasolina.';
   }
 
-  if(dieTotal){document.getElementById('cv-die').textContent=fmtR(dieTotal);document.getElementById('cs-die').textContent=fmtN(litros,1)+'L · '+fmtR(preDie)+'/L';}
-  else{document.getElementById('cv-die').textContent='—';document.getElementById('cs-die').textContent='Informe o preço';}
+  if(dieTotal){document.getElementById('cv-die').textContent=fmtR(dieTotal);document.getElementById('cs-die').textContent=fmtN(litros,1)+'L Â· '+fmtR(preDie)+'/L';}
+  else{document.getElementById('cv-die').textContent='â';document.getElementById('cs-die').textContent='Informe o preÃ§o';}
 
   document.getElementById('resultado').style.display='block';
   document.getElementById('formulario').style.display='none';
