@@ -32,6 +32,13 @@
       '.fc-chip-8{background:var(--bk8);border-color:var(--bk8b);}',
       '.fc-chip-9{background:var(--bk9);border-color:var(--bk9b);}',
       '.fc-chip-10{background:var(--bk10);border-color:var(--bk10b);}',
+      /* Page-lead — cabeçalho profissional antes do formulário */
+      '.page-lead{padding:16px 0 20px;border-bottom:2px solid var(--border,#e0e0e0);margin-bottom:20px}',
+      '.page-lead .lead-title{font-size:1.15rem;font-weight:800;color:#1a237e;margin-bottom:8px;line-height:1.4}',
+      '.page-lead .lead-desc{font-size:.9rem;color:#555;line-height:1.75;margin-bottom:14px}',
+      '.lead-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}',
+      '.lead-chips span{background:#e8eaf6;color:#1a237e;border-radius:20px;padding:4px 13px;font-size:.76rem;font-weight:700}',
+      '.revisao-badge{display:inline-flex;align-items:center;gap:5px;background:#fff3cd;color:#856404;border-radius:20px;padding:4px 13px;font-size:.74rem;font-weight:600;border:1px solid #ffd970}',
     ].join('');
     document.head.appendChild(_ps);
   }
@@ -275,6 +282,262 @@
       '</div>';
     var footer = document.querySelector('footer');
     if (footer) footer.parentNode.insertBefore(section, footer);
+  }
+
+  // ── Page-lead: cabeçalho profissional antes do formulário ─────────────
+  const PAGE_LEAD = {
+    'calculadora-rescisao': {
+      title: '📋 Calculadora de Rescisão Trabalhista 2025',
+      desc: 'Calcule todos os valores da rescisão: saldo de salário, aviso prévio, 13º proporcional, férias + 1/3 e multa do FGTS. Funciona para demissão sem justa causa, pedido de demissão e acordo mútuo — com estimativas automáticas mesmo sem todas as informações.',
+      chips: ['✅ CLT Atualizada 2025', '✅ 3 tipos de rescisão', '✅ Estimativas automáticas']
+    },
+    'calculadora-fgts': {
+      title: '🏦 Calculadora de FGTS 2025 — Saldo, Multa e Saque-Aniversário',
+      desc: 'Estime seu saldo do FGTS, calcule a multa de 40% por demissão sem justa causa e simule os valores do saque-aniversário. Funciona com estimativas automáticas mesmo sem o saldo exato na conta.',
+      chips: ['✅ Multa de 40%', '✅ Saque-aniversário', '✅ Estimativa automática']
+    },
+    'calculadora-ferias': {
+      title: '🌴 Calculadora de Férias CLT 2025 — Período Aquisitivo e 1/3',
+      desc: 'Calcule o valor das suas férias com o adicional constitucional de 1/3, férias proporcionais e abono pecuniário (vender dias de férias). Tudo conforme as regras da CLT em vigor para 2025.',
+      chips: ['✅ CLT 2025', '✅ Férias proporcionais', '✅ Abono pecuniário']
+    },
+    'calculadora-horas-extras': {
+      title: '⏰ Calculadora de Horas Extras 2025 — 50%, 100% e Noturno',
+      desc: 'Calcule o valor correto das suas horas extras com os adicionais legais: 50% em dias úteis, 100% em domingos e feriados. Inclui adicional noturno (22h às 5h) e integração com banco de horas.',
+      chips: ['✅ 50% e 100%', '✅ Adicional noturno', '✅ Banco de horas']
+    },
+    'simulador-salario': {
+      title: '💰 Simulador de Salário Líquido 2025 — INSS e IR Descontados',
+      desc: 'Descubra quanto vai cair na sua conta após os descontos de INSS e Imposto de Renda. Use as tabelas oficiais atualizadas para 2025 e simule com qualquer salário bruto ou líquido.',
+      chips: ['✅ Tabela IR 2025', '✅ INSS progressivo', '✅ Simula qualquer salário']
+    },
+    'calculadora-inss': {
+      title: '🏛️ Calculadora de INSS 2025 — Contribuição Mensal Correta',
+      desc: 'Calcule sua contribuição ao INSS com a tabela progressiva de 2025. Veja o desconto exato para empregados CLT, autônomos e contribuintes facultativos — sem erro na alíquota.',
+      chips: ['✅ Tabela progressiva 2025', '✅ CLT e Autônomo', '✅ Contribuição correta']
+    },
+    'calculadora-ir': {
+      title: '📊 Calculadora de Imposto de Renda 2025 — IRPF',
+      desc: 'Calcule o Imposto de Renda com a tabela atualizada de 2025. Veja sua alíquota efetiva, dedução por dependente, desconto simplificado e se você está na faixa de isenção.',
+      chips: ['✅ Tabela IR 2025', '✅ Deduções e dependentes', '✅ Alíquota efetiva']
+    },
+    'calculadora-13-salario': {
+      title: '🎄 Calculadora de 13º Salário 2025 — Gratificação Natalina',
+      desc: 'Calcule o 13º salário líquido com todos os descontos corretos de INSS e Imposto de Renda. Veja o valor da 1ª e 2ª parcela e calcule o proporcional por meses trabalhados.',
+      chips: ['✅ 1ª e 2ª parcela', '✅ Descontos INSS e IR', '✅ Proporcional por mês']
+    },
+    'banco-de-horas': {
+      title: '🕐 Calculadora de Banco de Horas — Saldo e Compensação',
+      desc: 'Controle seu banco de horas: calcule o saldo acumulado, horas a compensar e o valor a receber em dinheiro caso o banco não seja compensado dentro do prazo máximo legal.',
+      chips: ['✅ Saldo acumulado', '✅ Pagamento em dobro', '✅ CLT 2025']
+    },
+    'calculadora-insalubridade': {
+      title: '⚠️ Calculadora de Insalubridade e Periculosidade 2025',
+      desc: 'Calcule o adicional de insalubridade nos graus mínimo (10%), médio (20%) e máximo (40%), e o adicional de periculosidade (30%). Baseado nas normas regulamentadoras NR-15 e NR-16.',
+      chips: ['✅ NR-15 e NR-16', '✅ Graus mín/médio/máx', '✅ Periculosidade 30%']
+    },
+    'calculadora-plr': {
+      title: '🏆 Calculadora de PLR 2025 — Participação nos Lucros',
+      desc: 'Calcule o valor líquido da PLR com a tabela de alíquotas exclusiva (diferente da tabela mensal de IR). Veja INSS e IR específicos da participação nos lucros e resultados.',
+      chips: ['✅ Tabela PLR exclusiva', '✅ IR e INSS corretos', '✅ Isenção até R$ 7.407']
+    },
+    'comparador-pj-clt-mei': {
+      title: '⚖️ Comparador PJ vs CLT vs MEI — Qual Vale Mais?',
+      desc: 'Compare os três regimes e descubra qual gera mais renda líquida. Análise completa com todos os custos: impostos, benefícios CLT, FGTS, INSS e encargos ocultos do PJ.',
+      chips: ['✅ Análise completa', '✅ Benefícios CLT incluídos', '✅ Custo real do PJ']
+    },
+    'calculadora-juros-compostos': {
+      title: '📈 Calculadora de Juros Compostos — Crescimento do Investimento',
+      desc: 'Simule o crescimento do seu dinheiro com juros compostos. Veja o montante final, total investido e total de juros gerados — com aporte inicial, aportes mensais e qualquer prazo.',
+      chips: ['✅ Aportes mensais', '✅ Qualquer período', '✅ Comparação de taxas']
+    },
+    'calculadora-cdb-lci-lca': {
+      title: '💳 Calculadora de CDB, LCI e LCA 2025 — Renda Fixa',
+      desc: 'Compare os rendimentos de CDB, LCI e LCA com o CDI real atualizado. Calcule rendimento bruto e líquido após IR regressivo e descubra qual investimento rende mais para você.',
+      chips: ['✅ CDI atualizado', '✅ IR sobre CDB', '✅ LCI/LCA isento']
+    },
+    'simulador-tesouro-direto': {
+      title: '🏛️ Simulador do Tesouro Direto 2025 — Selic, IPCA+ e Prefixado',
+      desc: 'Simule quanto vai render seu investimento no Tesouro Direto. Compare Tesouro Selic, IPCA+ e Prefixado com taxas reais atualizadas e veja o rendimento líquido após IR.',
+      chips: ['✅ Selic atual', '✅ Comparação de títulos', '✅ IR progressivo']
+    },
+    'calculadora-fire': {
+      title: '🔥 Calculadora FIRE — Independência Financeira',
+      desc: 'Descubra quanto você precisa acumular para viver de renda. Calcule sua meta FIRE com a regra dos 4%, quanto poupar por mês e em quanto tempo você vai atingir a independência.',
+      chips: ['✅ Regra dos 4%', '✅ Taxa de poupança', '✅ Simulação completa']
+    },
+    'calculadora-pgbl-vgbl': {
+      title: '📋 Comparador PGBL vs VGBL — Previdência Privada',
+      desc: 'Compare PGBL e VGBL e veja qual previdência privada é mais vantajosa. Considera dedução de IR na declaração anual, tributação no resgate e perfil tributário completo.',
+      chips: ['✅ Comparação de IR', '✅ Perfil tributário', '✅ Resgate simulado']
+    },
+    'alugar-ou-comprar': {
+      title: '🏠 Alugar ou Comprar Imóvel? — Análise Completa',
+      desc: 'Descubra se compensa mais alugar ou comprar um imóvel considerando todos os custos reais: ITBI, cartório, manutenção, valorização esperada e custo de oportunidade do capital.',
+      chips: ['✅ Custo de oportunidade', '✅ Valorização estimada', '✅ Análise 10 anos']
+    },
+    'calculadora-itbi': {
+      title: '🏡 Calculadora de ITBI 2025 — Imposto na Compra de Imóvel',
+      desc: 'Calcule o ITBI para qualquer município brasileiro. Estime também os custos com cartório, registro de imóvel e impostos no financiamento para planejar sua compra com precisão.',
+      chips: ['✅ Alíquotas por cidade', '✅ Custos de cartório', '✅ Financiamento incluído']
+    },
+    'calculadora-yield-imovel': {
+      title: '📊 Calculadora de Yield de Imóvel — Rentabilidade do Aluguel',
+      desc: 'Calcule o yield bruto e líquido do seu imóvel e descubra se o aluguel recebido é competitivo com outros investimentos como CDB, Selic ou Tesouro Direto.',
+      chips: ['✅ Yield bruto e líquido', '✅ Comparação CDI', '✅ Cap rate']
+    },
+    'calculadora-reforma': {
+      title: '🔨 Calculadora de Custo de Reforma — Estimativa por m²',
+      desc: 'Estime o custo da sua reforma com preços médios por metro quadrado. Calcule mão de obra, materiais e total para banheiro, cozinha, área de serviço e outros ambientes.',
+      chips: ['✅ Preços por m²', '✅ Mão de obra inclusa', '✅ Vários cômodos']
+    },
+    'calculadora-rescisao-aluguel': {
+      title: '📄 Rescisão de Aluguel — Multa Proporcional (Lei do Inquilinato)',
+      desc: 'Calcule a multa por rescisão antecipada do contrato de aluguel conforme a Lei do Inquilinato (Lei 8.245/91). Veja o valor proporcional ao tempo restante do contrato.',
+      chips: ['✅ Lei do Inquilinato', '✅ Multa proporcional', '✅ Sem e com multa']
+    },
+    'calculadora-das-mei': {
+      title: '📋 Calculadora DAS MEI 2025 — Guia de Pagamento Mensal',
+      desc: 'Calcule o valor correto do DAS MEI para 2025. Veja o detalhamento de INSS, ISS e ICMS conforme sua atividade (comércio, serviços ou indústria/transporte).',
+      chips: ['✅ Valores 2025', '✅ Comércio, Serviços e Indústria', '✅ Detalhamento completo']
+    },
+    'calculadora-icms-iss': {
+      title: '🧮 Calculadora de ICMS e ISS — Impostos sobre Vendas e Serviços',
+      desc: 'Calcule ICMS para operações comerciais e ISS para prestação de serviços. Identifique a base de cálculo correta, alíquota aplicável e se o imposto é por dentro ou por fora.',
+      chips: ['✅ ICMS por estado', '✅ ISS por município', '✅ Simples Nacional']
+    },
+    'calculadora-combustivel': {
+      title: '⛽ Calculadora de Combustível — Gasolina, Etanol e GNV',
+      desc: 'Compare gasolina, etanol e GNV e descubra o custo real por quilômetro rodado. Calcule o ponto de equilíbrio e qual combustível é mais vantajoso para o seu carro.',
+      chips: ['✅ Gasolina vs Etanol', '✅ Custo por km', '✅ GNV incluído']
+    },
+    'custo-do-carro': {
+      title: '🚗 Custo Real do Carro — Todos os Gastos Mensais',
+      desc: 'Descubra o custo total de ter um carro: financiamento, seguro, IPVA, combustível, manutenção e depreciação. Veja o custo real por quilômetro e o total mensal.',
+      chips: ['✅ Custo completo', '✅ Depreciação', '✅ Custo por km']
+    },
+    'calculadora-sac-price': {
+      title: '🏦 Calculadora SAC vs Price — Sistemas de Financiamento',
+      desc: 'Compare os sistemas de amortização SAC e Price para o seu financiamento. Veja as parcelas mês a mês, total de juros pagos e qual sistema é mais vantajoso no seu caso.',
+      chips: ['✅ SAC e Price', '✅ Tabela de parcelas', '✅ Comparação completa']
+    },
+    'simulador-financiamento': {
+      title: '🏠 Simulador de Financiamento — Casa, Carro e Crédito',
+      desc: 'Simule qualquer financiamento e veja o valor exato das parcelas, total de juros e custo efetivo total (CET). Compare diferentes prazos, taxas e sistemas de amortização.',
+      chips: ['✅ CET calculado', '✅ Tabela de parcelas', '✅ Múltiplos prazos']
+    },
+    'calculadora-emprestimo': {
+      title: '💳 Calculadora de Empréstimo — Parcelas, Juros e CET',
+      desc: 'Calcule as parcelas do seu empréstimo pessoal, consignado ou crédito pessoal. Descubra o custo total com juros e compare taxas para tomar a melhor decisão financeira.',
+      chips: ['✅ Juros reais', '✅ CET total', '✅ Consignado e pessoal']
+    },
+    'calculadora-hora-trabalho': {
+      title: '⏱️ Calculadora de Hora de Trabalho — Custo Real por Hora',
+      desc: 'Descubra quanto vale a sua hora de trabalho de verdade, descontando impostos, benefícios, deslocamento e tempo improdutivo. Essencial para autônomos, freelancers e CLT.',
+      chips: ['✅ Custo real', '✅ Tempo produtivo', '✅ Autônomo e CLT']
+    },
+    'calculadora-contagem-datas': {
+      title: '📅 Calculadora de Datas — Dias entre Datas e Prazos',
+      desc: 'Calcule a diferença entre datas em dias, semanas, meses ou anos. Desconte fins de semana e feriados para obter o prazo em dias úteis. Ideal para vencimentos e prazos legais.',
+      chips: ['✅ Dias úteis', '✅ Feriados descontados', '✅ Prazos e vencimentos']
+    },
+    'divisor-de-conta': {
+      title: '🍽️ Divisor de Conta — Divida Despesas de Forma Justa',
+      desc: 'Divida contas de restaurante e despesas entre amigos de forma simples e justa. Calcule quanto cada pessoa deve pagar com base nos consumos individuais e adicione gorjeta.',
+      chips: ['✅ Divisão proporcional', '✅ Gorjeta inclusa', '✅ Várias pessoas']
+    },
+    'conversor-unidades': {
+      title: '📐 Conversor de Unidades — Comprimento, Peso e Temperatura',
+      desc: 'Converta entre as principais unidades de medida: comprimento, peso, temperatura, área e volume. Conversão rápida, precisa e com as fórmulas explicadas.',
+      chips: ['✅ Múltiplas categorias', '✅ Resultado instantâneo', '✅ Fórmulas explicadas']
+    },
+    'calculadora-gravidez': {
+      title: '🤰 Calculadora de Gravidez — DPP e Semanas de Gestação',
+      desc: 'Calcule a data provável do parto (DPP), semanas e dias de gestação e os trimestres. Baseada na data da última menstruação (DUM) ou data estimada de concepção.',
+      chips: ['✅ DPP calculado', '✅ Semanas e trimestres', '✅ Baseado na DUM']
+    },
+    'calculadora-media-escolar': {
+      title: '🎓 Calculadora de Média Escolar — Aprovação e Recuperação',
+      desc: 'Calcule a média escolar ponderada e descubra se você está aprovado ou em recuperação. Funciona para ensino médio, superior e cursos com pesos diferentes por matéria.',
+      chips: ['✅ Média ponderada', '✅ Notas com pesos', '✅ Aprovação e recuperação']
+    },
+    'calculadora-imc': {
+      title: '⚖️ Calculadora de IMC — Índice de Massa Corporal',
+      desc: 'Calcule seu IMC e descubra sua classificação nutricional conforme os critérios da Organização Mundial da Saúde (OMS): abaixo do peso, normal, sobrepeso ou obesidade.',
+      chips: ['✅ Classificação OMS', '✅ Faixa ideal de peso', '✅ IMC adulto e infantil']
+    },
+    'calculadora-calorias': {
+      title: '🥗 Calculadora de Calorias — Necessidade Diária',
+      desc: 'Calcule sua necessidade calórica diária com base em peso, altura, idade, sexo e nível de atividade física. Baseada na equação científica de Harris-Benedict.',
+      chips: ['✅ Harris-Benedict', '✅ Nível de atividade', '✅ Meta de calorias']
+    },
+    'cotacao-moedas': {
+      title: '💱 Cotação de Moedas em Tempo Real — Dólar, Euro e Mais',
+      desc: 'Consulte a cotação atualizada de dólar, euro, libra, peso argentino e mais moedas em tempo real. Faça conversões e acompanhe a variação cambial do dia.',
+      chips: ['✅ Tempo real', '✅ Conversão automática', '✅ Principais moedas']
+    },
+    'encurtador-url': {
+      title: '🔗 Encurtador de URL — Links Curtos e Gratuitos',
+      desc: 'Encurte qualquer link de forma rápida e gratuita para compartilhar em mensagens, redes sociais e e-mails. Sem cadastro, sem limite, resultado instantâneo.',
+      chips: ['✅ Link instantâneo', '✅ Gratuito', '✅ Compartilhamento fácil']
+    },
+    'verificar-dominio': {
+      title: '🌐 Verificador de Domínio — Disponibilidade e Registro',
+      desc: 'Verifique se um domínio está disponível para registro. Consulte extensões como .com, .com.br, .net e .org, e veja informações de propriedade via WHOIS.',
+      chips: ['✅ Disponibilidade', '✅ Múltiplas extensões', '✅ WHOIS gratuito']
+    },
+    'calculadora': {
+      title: '🔢 Calculadora Científica — Operações Avançadas Online',
+      desc: 'Calculadora científica completa no navegador, sem instalar nada. Funções trigonométricas, logarítmicas, potências, raízes e cálculos avançados com histórico.',
+      chips: ['✅ Funções científicas', '✅ Histórico de cálculos', '✅ Sem instalação']
+    },
+    'taxas-do-dia': {
+      title: '📊 Taxas do Dia — Selic, CDI e Juros em Tempo Real',
+      desc: 'Consulte as taxas de juros oficiais atualizadas: Selic, CDI, TJLP, TR e outras. Dados direto da BrasilAPI com os valores vigentes do dia.',
+      chips: ['✅ Selic atual', '✅ CDI ao dia', '✅ Fonte oficial']
+    },
+    'consulta-cnpj': {
+      title: '🏢 Consulta CNPJ — Dados da Empresa em Tempo Real',
+      desc: 'Consulte dados completos de qualquer empresa pelo CNPJ: razão social, situação cadastral na Receita Federal, endereço, atividade econômica e quadro de sócios.',
+      chips: ['✅ Dados atualizados', '✅ Situação Receita Federal', '✅ Sócios e atividade']
+    },
+    'consulta-cep': {
+      title: '📮 Consulta CEP — Endereço Completo pelo CEP',
+      desc: 'Consulte o endereço completo de qualquer CEP brasileiro: logradouro, bairro, cidade e estado. Dados atualizados via ViaCEP com link direto para o Google Maps.',
+      chips: ['✅ Endereço completo', '✅ Google Maps', '✅ ViaCEP oficial']
+    },
+    'feriados': {
+      title: '📅 Feriados Nacionais 2025 e 2026 — Calendário Completo',
+      desc: 'Consulte todos os feriados nacionais de 2025 e 2026 com contagem regressiva para o próximo feriado. Dados oficiais do governo federal brasileiro.',
+      chips: ['✅ 2025 e 2026', '✅ Próximo feriado', '✅ Dados oficiais']
+    },
+    'gerador-qr-code': {
+      title: '📱 Gerador de QR Code — Link, WhatsApp, PIX e Texto',
+      desc: 'Gere QR Codes gratuitamente para links, mensagens WhatsApp, chaves PIX ou qualquer texto. Baixe a imagem em alta resolução com um único clique.',
+      chips: ['✅ Link e WhatsApp', '✅ QR Code PIX', '✅ Download PNG']
+    },
+  };
+
+  if (!isHome && PAGE_LEAD[currentSlug] && !document.querySelector('.page-lead')) {
+    var _pld = PAGE_LEAD[currentSlug];
+    var _plDiv = document.createElement('div');
+    _plDiv.className = 'page-lead';
+    _plDiv.innerHTML =
+      '<h2 class="lead-title">' + _pld.title + '</h2>' +
+      '<p class="lead-desc">' + _pld.desc + '</p>' +
+      '<div class="lead-chips">' +
+        _pld.chips.map(function(c){ return '<span>' + c + '</span>'; }).join('') +
+        '<span>🆓 100% Gratuito</span>' +
+      '</div>' +
+      '<div class="revisao-badge">📅 Atualizado para 2025 · Última revisão: Maio/2026</div>';
+    // Insere antes de #formulario, ou como primeiro filho de <main>
+    var _fEl = document.getElementById('formulario');
+    var _mainEl = document.querySelector('main');
+    if (_fEl) {
+      _fEl.parentNode.insertBefore(_plDiv, _fEl);
+    } else if (_mainEl) {
+      _mainEl.insertBefore(_plDiv, _mainEl.firstChild);
+    }
   }
 
   // ── Acessibilidade ─────────────────────────────────────────────────────
