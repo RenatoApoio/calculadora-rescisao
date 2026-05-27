@@ -1,4 +1,22 @@
 (function () {
+  // ── Remover ad-slot placeholders (AdSense injeta os reais automaticamente) ──
+  document.querySelectorAll('.ad-slot').forEach(function(el){ el.remove(); });
+
+  // ── Trust badges no header de todas as páginas de ferramenta ──────────
+  var _hdr = document.querySelector('header');
+  if (_hdr && !_hdr.querySelector('.fc-trust') && !_hdr.querySelector('.trust-badges')) {
+    var _tb = document.createElement('div');
+    _tb.className = 'fc-trust';
+    _tb.style.cssText = 'display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.18);';
+    var _bs = 'border-radius:20px;padding:3px 12px;font-size:.73rem;font-weight:700;';
+    _tb.innerHTML =
+      '<span style="' + _bs + 'background:rgba(52,168,83,.28);border:1px solid rgba(52,168,83,.5);color:#c8f7d8;">✅ Atualizado 2025</span>' +
+      '<span style="' + _bs + 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:#fff;">🆓 Gratuito</span>' +
+      '<span style="' + _bs + 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:#fff;">🔒 Sem cadastro</span>' +
+      '<span style="' + _bs + 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:#fff;">⚡ Instantâneo</span>';
+    _hdr.appendChild(_tb);
+  }
+
   // ── Favicon ⚡ ─────────────────────────────────────────────────────────
   if (!document.querySelector('link[rel="icon"]')) {
     const lnk = document.createElement('link');

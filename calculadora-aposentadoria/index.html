@@ -67,13 +67,13 @@
     table td{padding:8px 10px;border-bottom:1px solid #f1f3f4;}
     table td:last-child{text-align:right;font-weight:600;}
     #resultado{display:none;}
-    /* ── Hero intro ── */
-    .hero-intro{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
-    .hero-intro p{font-size:.91rem;color:#333;line-height:1.75;margin-bottom:14px}
-    .check-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
-    .check-list li{font-size:.84rem;font-weight:600;color:#137333}
-    @media(max-width:480px){.check-list{grid-template-columns:1fr}}
-    .revisao-badge{display:inline-flex;align-items:center;gap:6px;background:#e8eaf6;color:#1a237e;border-radius:20px;padding:5px 14px;font-size:.74rem;font-weight:600}
+    /* ── Page lead (cabeçalho profissional) ── */
+    .page-lead{padding:18px 0 20px;border-bottom:2px solid var(--border);margin-bottom:20px}
+    .page-lead .lead-title{font-size:1.15rem;font-weight:800;color:#1a237e;margin-bottom:8px;line-height:1.4}
+    .page-lead .lead-desc{font-size:.9rem;color:#555;line-height:1.75;margin-bottom:14px}
+    .lead-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+    .lead-chips span{background:#e8eaf6;color:#1a237e;border-radius:20px;padding:4px 13px;font-size:.76rem;font-weight:700}
+    .revisao-badge{display:inline-flex;align-items:center;gap:5px;background:#fff3cd;color:#856404;border-radius:20px;padding:4px 13px;font-size:.74rem;font-weight:600;border:1px solid #ffd970}
     /* ── Resultado compartilhável ── */
     .share-card{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;border-radius:10px;padding:18px;text-align:center;margin-bottom:14px}
     .share-card .sc-sub{font-size:.78rem;opacity:.75;margin-bottom:6px}
@@ -103,18 +103,18 @@
   <p>O que falta para se aposentar? Todas as regras 2025 — incluindo pedágio e transição</p>
 </header>
 <div class="nav"><a href="../">← FacilCalc</a> / Calculadora de Aposentadoria</div>
-<div class="ad-slot">Anúncio Google AdSense</div>
 
 <main>
-  <!-- ── Hero intro ───────────────────────────────────────────────────── -->
-  <div class="hero-intro">
-    <p>Descubra quanto tempo falta para se aposentar pelas regras do INSS 2025. Simule todas as regras de transição: idade mínima, sistema de pontos, pedágio de 50% e a regra nova permanente.</p>
-    <ul class="check-list">
-      <li>✅ Atualizado para 2025</li>
-      <li>✅ Simulação gratuita</li>
-      <li>✅ Regras da EC 103/2019</li>
-      <li>✅ Resultado instantâneo</li>
-    </ul>
+  <!-- ── Cabeçalho profissional ────────────────────────────────────────── -->
+  <div class="page-lead">
+    <h2 class="lead-title">Descubra quanto tempo falta para se aposentar pelas regras do INSS 2025</h2>
+    <p class="lead-desc">Simule todas as regras de transição da Reforma da Previdência: idade mínima, sistema de pontos progressivos, pedágio de 50% e a regra nova permanente. Resultado em segundos, sem cadastro.</p>
+    <div class="lead-chips">
+      <span>✅ Atualizado 2025</span>
+      <span>✅ Simulação gratuita</span>
+      <span>✅ Regras EC 103/2019</span>
+      <span>✅ Resultado instantâneo</span>
+    </div>
     <div class="revisao-badge">📅 Atualizado conforme regras do INSS de 2025 &nbsp;·&nbsp; Última revisão: Maio/2026</div>
   </div>
 
@@ -215,8 +215,7 @@
       <button class="sc-btn" onclick="compartilharResultado()">📤 Compartilhar resultado</button>
     </div>
 
-    <div class="ad-slot">Anúncio Google AdSense</div>
-
+    
     <div class="card">
       <h2>📋 Todas as Regras Aplicáveis</h2>
       <div id="lista_regras"></div>
@@ -314,7 +313,6 @@
   </div>
 </main>
 
-<div class="ad-slot">Anúncio Google AdSense</div>
 <footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
   <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
   <p style="margin-top:8px">Calculadora de Aposentadoria 2025 — Baseada na EC 103/2019</p>
@@ -610,6 +608,13 @@
     document.getElementById('formulario').style.display='block';
     window.scrollTo({top:0,behavior:'smooth'});
   }
+
+  // Mover .explic para fora do #resultado — sempre visível na página
+  (function(){
+    var el=document.querySelector('.explic');
+    var main=document.querySelector('main');
+    if(el&&main){main.appendChild(el);}
+  })();
 
   function compartilharResultado(){
     var texto=document.getElementById('res_falta_titulo').textContent;
