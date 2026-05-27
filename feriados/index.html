@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Feriados Nacionais 2025 e 2026 â CalendÃ¡rio Completo | FacilCalc</title>
-<meta name="description" content="CalendÃ¡rio completo de feriados nacionais do Brasil em 2025 e 2026. Veja quantos dias faltam para cada feriado e planeje suas fÃ©rias."/>
+<title>Feriados Nacionais 2025 e 2026 — Calendário Completo | FacilCalc</title>
+<meta name="description" content="Calendário completo de feriados nacionais do Brasil em 2025 e 2026. Veja quantos dias faltam para cada feriado e planeje suas férias."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -49,20 +49,20 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð Feriados Nacionais</h1>
-  <p>CalendÃ¡rio completo 2025 e 2026 â saiba quantos dias faltam</p>
+  <h1>🎉 Feriados Nacionais</h1>
+  <p>Calendário completo 2025 e 2026 — saiba quantos dias faltam</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card">
-    <h2>ð Selecione o Ano</h2>
+    <h2>📅 Selecione o Ano</h2>
     <div class="ano-tabs">
-      <button class="ano-tab ativo" id="tab-2025" onclick="setAno(2025)">ð 2025</button>
-      <button class="ano-tab" id="tab-2026" onclick="setAno(2026)">ð 2026</button>
+      <button class="ano-tab ativo" id="tab-2025" onclick="setAno(2025)">📅 2025</button>
+      <button class="ano-tab" id="tab-2026" onclick="setAno(2026)">📅 2026</button>
     </div>
     <div id="loading"><div class="spinner"></div><br>Carregando feriados...</div>
     <div id="content-area"></div>
-    <div id="erro-box" style="display:none" class="erro">â ï¸ Erro ao carregar feriados. Tente novamente.</div>
+    <div id="erro-box" style="display:none" class="erro">⚠️ Erro ao carregar feriados. Tente novamente.</div>
   </div>
   <div class="explic">
     <h3>📅 Feriados Nacionais, Estaduais e Municipais</h3>
@@ -106,7 +106,7 @@ footer a{color:#1a73e8;text-decoration:none}
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Dados: BrasilAPI / MinistÃ©rio do Trabalho</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Dados: BrasilAPI / Ministério do Trabalho</footer>
 <script src="../shared.js"></script>
 <script>
 var anoAtual=new Date().getFullYear();
@@ -115,8 +115,8 @@ var hoje=new Date();
 hoje.setHours(0,0,0,0);
 
 var MESES=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-var DIAS_SEM=['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b'];
-var MESES_EXT=['Janeiro','Fevereiro','MarÃ§o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+var DIAS_SEM=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+var MESES_EXT=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
 function setAno(ano){
   anoAtual=ano;
@@ -157,16 +157,16 @@ function renderFeriados(data){
 
   var html='';
 
-  // PrÃ³ximo feriado
+  // Próximo feriado
   if(proximos.length>0){
     var prox=proximos[0];
     var dProx=new Date(prox.date+'T00:00:00');
     var diff=Math.round((dProx-hoje)/(1000*60*60*24));
     html+='<div class="proximo-box">';
-    html+='<label>â³ PrÃ³ximo Feriado</label>';
+    html+='<label>⏳ Próximo Feriado</label>';
     html+='<div class="pname">'+prox.name+'</div>';
     var dataFmt=dProx.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
-    var diffTxt=diff===0?' â HOJE!':diff===1?' â AmanhÃ£!':' â em '+diff+' dias';
+    var diffTxt=diff===0?' — HOJE!':diff===1?' — Amanhã!':' — em '+diff+' dias';
     html+='<div class="pdays">'+dataFmt+diffTxt+'</div>';
     html+='</div>';
   }
@@ -174,7 +174,7 @@ function renderFeriados(data){
   // Stats
   html+='<div class="stats-row">';
   html+='<div class="stat"><div class="sn">'+total+'</div><div class="sl">Feriados totais</div></div>';
-  html+='<div class="stat"><div class="sn">'+uteis+'</div><div class="sl">Dias Ãºteis afetados</div></div>';
+  html+='<div class="stat"><div class="sn">'+uteis+'</div><div class="sl">Dias úteis afetados</div></div>';
   html+='<div class="stat"><div class="sn">'+proximos.length+'</div><div class="sl">Ainda por vir</div></div>';
   html+='</div>';
 
@@ -185,12 +185,12 @@ function renderFeriados(data){
     var diff=Math.round((d-hoje)/(1000*60*60*24));
     var diaSem=DIAS_SEM[d.getDay()];
     var badge='';
-    if(diff===0){badge='<span class="badge-hoje">ð Hoje!</span>';}
+    if(diff===0){badge='<span class="badge-hoje">🎉 Hoje!</span>';}
     else if(diff<0){badge='<span class="badge-passou">Passou</span>';}
-    else if(diff===1){badge='<span class="badge-dias">AmanhÃ£</span>';}
+    else if(diff===1){badge='<span class="badge-dias">Amanhã</span>';}
     else{badge='<span class="badge-dias">em '+diff+'d</span>';}
 
-    var tipo=f.type==='national'?'ð§ð· Nacional':f.type==='optional'?'ð Facultativo':'ð ObservÃ¢ncia';
+    var tipo=f.type==='national'?'🇧🇷 Nacional':f.type==='optional'?'📋 Facultativo':'📅 Observância';
     html+='<div class="feriado-item">';
     html+='<div class="feriado-date"><div class="dia">'+d.getDate()+'</div><div class="mes">'+MESES[d.getMonth()]+'</div><div class="dsem">'+diaSem+'</div></div>';
     html+='<div class="feriado-nome"><strong>'+f.name+'</strong><div class="tipo">'+tipo+'</div></div>';

@@ -78,6 +78,7 @@
     <div style="font-size:2.5rem">☕</div>
     <h3>Apoiar o FacilCalc</h3>
     <p>O FacilCalc é gratuito e sem anúncios intrusivos. Se ele te ajudou, considere um cafezinho para o desenvolvedor.</p>
+    <img id="pix-qr-img" alt="QR Code Pix para doação" width="160" height="160" style="border-radius:10px;border:2px solid #e0e0e0;margin:10px auto 4px;display:block;" loading="lazy"/>
     <div class="pix-box">
       <div style="font-size:.75rem;font-weight:600;color:#5f6368;margin-bottom:6px">🔑 Chave PIX (e-mail)</div>
       <div class="pix-key" id="pix-key-txt">renatoapoio@gmail.com</div>
@@ -506,6 +507,16 @@
       setTimeout(()=>{ btn.textContent = '📋 Copiar chave PIX'; }, 2500);
     });
   }
+  // Gera QR Code Pix via payload EMV
+  (function(){
+    function emv(id,val){var l=String(val.length).padStart(2,'0');return id+l+val;}
+    var mai=emv('00','BR.GOV.BCB.PIX')+emv('01','renatoapoio@gmail.com');
+    var body=emv('00','01')+emv('26',mai)+emv('52','0000')+emv('53','986')+emv('58','BR')+emv('59','FACILCALC')+emv('60','BRASIL')+emv('62',emv('05','***'))+'6304';
+    var crc=0xFFFF;
+    for(var i=0;i<body.length;i++){crc^=body.charCodeAt(i)<<8;for(var j=0;j<8;j++){crc=(crc&0x8000)?((crc<<1)^0x1021):(crc<<1);crc&=0xFFFF;}}
+    var payload=body+crc.toString(16).toUpperCase().padStart(4,'0');
+    document.getElementById('pix-qr-img').src='https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=4&data='+encodeURIComponent(payload);
+  })();
 </script>
 <script src="shared.js"></script>
 </body>
