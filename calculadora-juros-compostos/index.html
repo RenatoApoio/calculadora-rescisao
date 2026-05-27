@@ -159,6 +159,57 @@
     <div class="aviso">⚠️ Simulacao teorica sem descontos de IR (15-22,5% sobre rendimentos para renda fixa), IOF ou taxas de administracao. Para investimentos reais, considere esses custos.</div>
     <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Nova Simulacao</button></div>
   </div>
+
+  <!-- EXPLICAÇÃO SEMPRE VISÍVEL -->
+  <div class="explic">
+    <h3>📈 Como funcionam os Juros Compostos?</h3>
+    <p>Os <strong>juros compostos</strong> são chamados de "a oitava maravilha do mundo" (atribuído a Einstein). A diferença para juros simples é que, nos compostos, os <strong>juros incidem sobre os juros anteriores</strong>, criando um crescimento exponencial ao longo do tempo.</p>
+
+    <h4>🔢 A fórmula dos Juros Compostos</h4>
+    <p style="background:#f8f9ff;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:.88rem">
+      M = C × (1 + i)ⁿ<br>
+      Onde: M = montante final | C = capital inicial | i = taxa por período | n = número de períodos
+    </p>
+    <p>Com aportes mensais, a fórmula considera a soma de cada aporte composto ao longo do tempo:</p>
+    <p style="background:#f8f9ff;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:.88rem">
+      M = C×(1+i)ⁿ + PMT × [(1+i)ⁿ – 1] ÷ i
+    </p>
+
+    <h4>⚡ O poder do tempo nos juros compostos</h4>
+    <p>O tempo é o maior aliado dos juros compostos. Veja a diferença entre começar cedo e começar tarde — investindo R$ 500/mês a 0,9% ao mês (≈ 11,4% aa):</p>
+    <table>
+      <thead><tr><th>Começando com...</th><th>Período</th><th>Total investido</th><th>Montante final</th></tr></thead>
+      <tbody>
+        <tr><td>25 anos</td><td>40 anos</td><td>R$ 240.000</td><td>≈ R$ 3.400.000</td></tr>
+        <tr><td>35 anos</td><td>30 anos</td><td>R$ 180.000</td><td>≈ R$ 1.250.000</td></tr>
+        <tr><td>45 anos</td><td>20 anos</td><td>R$ 120.000</td><td>≈ R$ 430.000</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box">💡 Quem começa 10 anos mais cedo acumula quase <strong>3× mais patrimônio</strong>, mesmo investindo apenas R$ 60.000 a mais. Esse é o efeito exponencial dos juros compostos no longo prazo.</div>
+
+    <h4>📊 Referências de taxas de retorno no Brasil (2025)</h4>
+    <table>
+      <thead><tr><th>Investimento</th><th>Taxa mensal aprox.</th><th>Taxa anual aprox.</th></tr></thead>
+      <tbody>
+        <tr><td>Poupança</td><td>0,47% a.m.</td><td>~5,8% a.a.</td></tr>
+        <tr><td>CDB 100% CDI</td><td>~0,90% a.m.</td><td>~11,4% a.a.</td></tr>
+        <tr><td>Tesouro Selic</td><td>~0,90% a.m.</td><td>~11,3% a.a.</td></tr>
+        <tr><td>IPCA + 6% (Tesouro IPCA+)</td><td>~0,93% a.m.</td><td>~11,8% a.a.</td></tr>
+        <tr><td>Fundos imobiliários (FIIs)</td><td>0,7–1% a.m.</td><td>8–13% a.a.</td></tr>
+      </tbody>
+    </table>
+
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">Qual a diferença entre taxa nominal e taxa efetiva?</div>
+      <div class="faq-a">A <strong>taxa nominal</strong> é a taxa anunciada (ex: 12% ao ano). A <strong>taxa efetiva</strong> considera a capitalização (mensal, diária). Um CDB a "1% ao mês" equivale a 12,68% ao ano efetivo — não 12% — porque os juros se acumulam mês a mês.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Preciso pagar IR sobre os juros compostos?</div>
+      <div class="faq-a">Depende do investimento. Renda fixa como CDB e Tesouro Direto pagam IR regressivo: 22,5% (até 180 dias), 20% (181–360 dias), 17,5% (361–720 dias) e 15% (acima de 720 dias). LCI e LCA são isentos de IR para pessoa física.</div>
+    </div>
+  </div><!-- /explic -->
+
 </main>
 <footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
   <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>

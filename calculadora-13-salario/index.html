@@ -159,6 +159,57 @@
       <button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button>
     </div>
   </div>
+
+  <!-- EXPLICAÇÃO SEMPRE VISÍVEL -->
+  <div class="explic">
+    <h3>🎄 Como funciona o 13º Salário em 2025?</h3>
+    <p>O <strong>13º salário</strong> (gratificação natalina) é um direito garantido pela Constituição Federal a todos os empregados com carteira assinada. Equivale a um salário mensal adicional pago em duas parcelas ao longo do ano, proporcionalmente ao tempo trabalhado.</p>
+
+    <h4>📅 Prazos de Pagamento</h4>
+    <table>
+      <thead><tr><th>Parcela</th><th>Prazo</th><th>Valor</th><th>Descontos</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1ª Parcela</strong></td><td>Até 30 de novembro</td><td>50% do salário bruto</td><td>Nenhum (sem IR e INSS)</td></tr>
+        <tr><td><strong>2ª Parcela</strong></td><td>Até 20 de dezembro</td><td>50% restante</td><td>INSS e IR sobre o total</td></tr>
+        <tr><td>Antecipação em férias</td><td>Junto com as férias</td><td>50% (1ª parcela)</td><td>Nenhum</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box">💡 O empregado pode solicitar a antecipação da 1ª parcela do 13º junto com as férias — essa solicitação deve ser feita por escrito até o mês de janeiro do mesmo ano.</div>
+
+    <h4>🔢 Como calcular o 13º proporcional?</h4>
+    <p>Se você não trabalhou o ano inteiro, o 13º é proporcional aos meses trabalhados. Meses com <strong>15 dias ou mais</strong> contam como mês completo:</p>
+    <p style="background:#f8f9ff;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:.85rem">
+      13º bruto = (Salário bruto ÷ 12) × Meses trabalhados
+    </p>
+    <p>Exemplo: Salário R$ 4.000 | Admitido em abril (9 meses até dezembro) = R$ 4.000 ÷ 12 × 9 = <strong>R$ 3.000 bruto</strong></p>
+
+    <h4>✂️ Quais descontos incidem no 13º?</h4>
+    <ul>
+      <li><strong>INSS:</strong> calculado sobre o valor total (bruto) do 13º, com a tabela progressiva de 2025</li>
+      <li><strong>Imposto de Renda:</strong> calculado sobre o 13º após a dedução do INSS. Usa a tabela específica do 13º (não a mensal)</li>
+      <li><strong>Outros:</strong> pensão alimentícia, desconto de plano de saúde e outros benefícios contratuais podem ser descontados</li>
+    </ul>
+    <div class="warn-box">⚠️ O 13º possui uma <strong>tabela de IR exclusiva</strong> — o imposto é calculado separadamente do salário mensal, não se acumulam para fins fiscais.</div>
+
+    <h4>❓ Perguntas Frequentes sobre o 13º</h4>
+    <div class="faq-item">
+      <div class="faq-q">Pedido de demissão perde o 13º?</div>
+      <div class="faq-a">Não. O 13º proporcional é sempre devido, independente do tipo de desligamento — seja demissão sem justa causa, pedido de demissão ou acordo mútuo. A exceção é a demissão por justa causa, onde o trabalhador perde o 13º proporcional.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Horas extras e comissões entram no 13º?</div>
+      <div class="faq-a">Sim. A <strong>média das horas extras habituais</strong> e das comissões pagas regularmente ao longo do ano integra a base de cálculo do 13º. A empresa usa a média dos últimos 12 meses (ou do período trabalhado).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Empresa pode atrasar o 13º?</div>
+      <div class="faq-a">Não. Atrasar qualquer das parcelas gera <strong>multa de 1 salário</strong> ao trabalhador, além de juros. O empregado pode registrar reclamação no Ministério do Trabalho ou na Justiça do Trabalho.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O 13º conta para o FGTS?</div>
+      <div class="faq-a">Sim. A empresa também deposita <strong>8% do valor bruto do 13º</strong> no FGTS do trabalhador, no mês do pagamento da 2ª parcela (dezembro). Isso aumenta o saldo do FGTS.</div>
+    </div>
+  </div><!-- /explic -->
+
 </main>
 <footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
   <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>

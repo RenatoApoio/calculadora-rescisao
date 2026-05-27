@@ -108,6 +108,65 @@
     <div class="aviso">⚠️ O INSS é calculado de forma progressiva desde 2020. Cada faixa tem sua alíquota aplicada apenas sobre o valor dentro daquela faixa.</div>
     <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button></div>
   </div>
+
+  <!-- EXPLICAÇÃO SEMPRE VISÍVEL -->
+  <div class="explic">
+    <h3>🏛️ Como funciona o INSS em 2025?</h3>
+    <p>O <strong>INSS (Instituto Nacional do Seguro Social)</strong> é a contribuição previdenciária obrigatória de todo empregado com carteira assinada. Com ela, você financia aposentadorias, auxílio-doença, licença-maternidade, pensão por morte e outros benefícios do RGPS (Regime Geral de Previdência Social).</p>
+
+    <h4>📊 Tabela Progressiva INSS 2025 — Como funciona?</h4>
+    <p>Desde novembro de 2019, o INSS funciona com <strong>alíquotas progressivas</strong>, igual ao Imposto de Renda. Isso significa que você NÃO paga a mesma alíquota sobre todo o salário — cada faixa tem sua própria alíquota aplicada apenas sobre o valor dentro daquela faixa.</p>
+    <table>
+      <thead><tr><th>Faixa de Salário</th><th>Alíquota da faixa</th><th>Máximo que incide</th></tr></thead>
+      <tbody>
+        <tr><td>1ª faixa: até R$ 1.518,00</td><td>7,5%</td><td>R$ 113,85</td></tr>
+        <tr><td>2ª faixa: R$ 1.518,01 – R$ 2.793,88</td><td>9%</td><td>R$ 114,83</td></tr>
+        <tr><td>3ª faixa: R$ 2.793,89 – R$ 4.190,83</td><td>12%</td><td>R$ 167,51</td></tr>
+        <tr><td>4ª faixa: R$ 4.190,84 – R$ 8.157,41</td><td>14%</td><td>R$ 554,85</td></tr>
+        <tr><td>Acima de R$ 8.157,41</td><td>Teto</td><td>R$ 951,62 (teto 2025)</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box">💡 <strong>Exemplo prático — Salário R$ 5.000:</strong><br>
+      • 1ª faixa: 7,5% × R$ 1.518,00 = R$ 113,85<br>
+      • 2ª faixa: 9% × R$ 1.275,88 = R$ 114,83<br>
+      • 3ª faixa: 12% × R$ 1.396,95 = R$ 167,63<br>
+      • 4ª faixa: 14% × R$ 809,17 = R$ 113,28<br>
+      • <strong>Total INSS: R$ 509,59 | Alíquota efetiva: 10,19%</strong>
+    </div>
+
+    <h4>🔑 Quem contribui para o INSS?</h4>
+    <ul>
+      <li><strong>Empregado CLT:</strong> desconto direto na folha (7,5% a 14%), pago pelo empregador ao INSS.</li>
+      <li><strong>Autônomo / Contribuinte Individual:</strong> alíquota de 20% sobre o salário (até o teto), ou 11% se for microempreendedor individual (MEI) optante pelo Simples.</li>
+      <li><strong>MEI:</strong> valor fixo mensal de R$ 75,90 em 2025 (5% do salário mínimo).</li>
+      <li><strong>Facultativo / Doméstico:</strong> pode contribuir com 20%, 11% ou 5% (plano simplificado).</li>
+    </ul>
+
+    <h4>🏆 Benefícios garantidos pelo INSS</h4>
+    <ul>
+      <li>Aposentadoria por idade e por tempo de contribuição</li>
+      <li>Auxílio-doença (benefício durante afastamento por doença)</li>
+      <li>Aposentadoria por invalidez</li>
+      <li>Licença-maternidade (salário-maternidade)</li>
+      <li>Pensão por morte (para dependentes)</li>
+      <li>Salário-família (para trabalhadores de baixa renda com filhos)</li>
+    </ul>
+
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">Por que minha alíquota efetiva é menor que 14%?</div>
+      <div class="faq-a">Porque o INSS é progressivo. Se você ganha R$ 8.000, <strong>não paga 14% sobre R$ 8.000</strong>. Você paga 7,5% sobre a primeira faixa, 9% sobre a segunda, 12% sobre a terceira e 14% apenas sobre o valor que excede R$ 4.190,83. A alíquota efetiva fica entre 7,5% e 11,7%.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Contribuição ao INSS entra como dedução no IR?</div>
+      <div class="faq-a">Sim. O valor do INSS pago é <strong>deduzido integralmente da base de cálculo do Imposto de Renda</strong>, tanto na retenção na fonte (mensal) quanto na declaração anual do IRPF.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Qual o teto do INSS em 2025?</div>
+      <div class="faq-a">O <strong>teto de contribuição</strong> para o INSS em 2025 é de <strong>R$ 951,62</strong>, com salário teto de R$ 8.157,41. Quem ganha acima desse valor paga exatamente R$ 951,62, independente do salário.</div>
+    </div>
+  </div><!-- /explic -->
+
 </main>
 <footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
   <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>

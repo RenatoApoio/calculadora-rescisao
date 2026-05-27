@@ -13,7 +13,7 @@ header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
 header p{font-size:.92rem;opacity:.88;margin-top:6px}
 .nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
 .nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
-main{max-width:680px;margin:0 auto;padding:16px}
+main{max-width:900px;margin:0 auto;padding:16px}
 .card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
 .card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -100,6 +100,45 @@ footer a{color:#1a73e8;text-decoration:none}
       <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
+
+  <!-- EXPLICAÇÃO SEMPRE VISÍVEL -->
+  <div class="explic">
+    <h3>🕐 Como funciona o Banco de Horas pela CLT?</h3>
+    <p>O <strong>banco de horas</strong> é um sistema de compensação de jornada onde as horas trabalhadas além do normal não são pagas imediatamente, mas "guardadas" para serem compensadas com folgas futuras. É regulamentado pelo art. 59 da CLT.</p>
+
+    <h4>📋 Tipos de Banco de Horas</h4>
+    <table>
+      <thead><tr><th>Modalidade</th><th>Prazo para compensar</th><th>Quem autoriza</th></tr></thead>
+      <tbody>
+        <tr><td>Acordo individual escrito</td><td>Até 6 meses</td><td>Empresa + empregado</td></tr>
+        <tr><td>Acordo coletivo / CCT</td><td>Até 1 ano</td><td>Sindicato</td></tr>
+        <tr><td>Banco de horas anual (reforma 2017)</td><td>Até 12 meses</td><td>Acordo coletivo</td></tr>
+      </tbody>
+    </table>
+    <div class="warn-box">⚠️ Se o banco de horas não for compensado dentro do prazo legal, as horas acumuladas devem ser pagas como <strong>horas extras com adicional de 50%</strong>, não como hora normal.</div>
+
+    <h4>💰 O que acontece com saldo positivo não compensado?</h4>
+    <ul>
+      <li>Horas acumuladas não compensadas no prazo = pagamento como hora extra (hora normal + 50%)</li>
+      <li>Na rescisão do contrato, o saldo positivo é pago como hora extra</li>
+      <li>O empregador não pode "cancelar" o saldo sem compensação ou pagamento</li>
+    </ul>
+
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">A empresa pode impor banco de horas sem minha concordância?</div>
+      <div class="faq-a">Desde a Reforma Trabalhista de 2017, o banco de horas por <strong>acordo individual</strong> pode ser feito diretamente entre empresa e empregado (sem sindicato), mas apenas para compensação em até 6 meses. Para prazo de 1 ano, exige acordo coletivo com sindicato.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Posso ter saldo negativo de horas?</div>
+      <div class="faq-a">Sim. Se você faltou ou saiu mais cedo e a empresa registrou no banco de horas, pode ter saldo negativo. O desconto no salário só é permitido com previsão expressa em acordo coletivo — a empresa não pode descontar unilateralmente.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O banco de horas é extinto com a demissão?</div>
+      <div class="faq-a">Sim. Na rescisão do contrato, o saldo positivo deve ser pago junto com as verbas rescisórias, com o adicional de 50%. O saldo negativo só pode ser descontado se houver previsão em acordo coletivo.</div>
+    </div>
+  </div><!-- /explic -->
+
 </main>
 <footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
@@ -159,4 +198,5 @@ function novo(){document.getElementById('formulario').style.display='';document.
 </script>
 </body>
 </html>
+
 

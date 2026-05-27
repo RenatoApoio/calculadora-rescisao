@@ -178,6 +178,49 @@
       <button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button>
     </div>
   </div>
+
+  <!-- EXPLICAÇÃO SEMPRE VISÍVEL -->
+  <div class="explic">
+    <h3>⏰ Como funcionam as Horas Extras pela CLT em 2025?</h3>
+    <p>A <strong>hora extra</strong> é toda hora trabalhada além da jornada normal contratual. A CLT limita a jornada a 8 horas diárias e 44 horas semanais, com no máximo <strong>2 horas extras por dia</strong>. O excedente deve ser remunerado com adicional mínimo conforme a lei.</p>
+
+    <h4>💰 Adicionais Legais por Tipo de Hora Extra</h4>
+    <table>
+      <thead><tr><th>Tipo de Hora Extra</th><th>Adicional mínimo</th><th>Como calcular</th></tr></thead>
+      <tbody>
+        <tr><td>Dia útil (além da jornada)</td><td><strong>50%</strong></td><td>Valor hora × 1,50</td></tr>
+        <tr><td>Domingo e feriado</td><td><strong>100%</strong></td><td>Valor hora × 2,00</td></tr>
+        <tr><td>Adicional noturno (22h–5h)</td><td><strong>20%</strong></td><td>Hora noturna = 52min30s</td></tr>
+        <tr><td>HE noturna (noturna + extra)</td><td><strong>50% + 20%</strong></td><td>Valor hora × 1,50 × 1,20 = × 1,80</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box">💡 <strong>Convenção coletiva pode ser mais favorável.</strong> Muitas categorias têm convenções que garantem 60%, 70% ou até 100% para horas extras diurnas. Sempre verifique a CCT da sua categoria — o que for mais favorável ao trabalhador prevalece.</div>
+
+    <h4>🔢 Como calcular o valor da hora extra?</h4>
+    <p><strong>Passo 1:</strong> Calcule o valor da hora normal:</p>
+    <p style="background:#f8f9ff;border-radius:8px;padding:8px 14px;font-family:monospace;font-size:.84rem">Hora normal = Salário mensal ÷ (Horas semanais × 52 ÷ 12)</p>
+    <p>Para jornada de 44h semanais: salário ÷ 220 horas/mês.</p>
+    <p><strong>Passo 2:</strong> Multiplique pelo adicional:</p>
+    <p style="background:#f8f9ff;border-radius:8px;padding:8px 14px;font-family:monospace;font-size:.84rem">HE útil = Hora normal × 1,50 &nbsp;|&nbsp; HE domingo = Hora normal × 2,00</p>
+
+    <h4>🌙 Como funciona o Adicional Noturno?</h4>
+    <p>O trabalho entre <strong>22h e 5h</strong> tem adicional de 20% sobre a hora diurna. Além disso, a hora noturna é "reduzida": equivale a <strong>52 minutos e 30 segundos</strong> no relógio. Então quem trabalha 8 horas reais entre 22h-5h, na verdade cumpre 8h38min no relógio noturno.</p>
+
+    <h4>❓ Perguntas Frequentes sobre Horas Extras</h4>
+    <div class="faq-item">
+      <div class="faq-q">A empresa pode obrigar a fazer horas extras?</div>
+      <div class="faq-a">Em situações normais, o empregado pode se recusar (salvo acordo de banco de horas). Em casos de força maior ou serviços inadiáveis, a empresa pode exigir, mas o limite é de 4 horas extras por dia (com prévia comunicação). A recusa injustificada pode ser descontada como falta.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Horas extras habituais viram salário?</div>
+      <div class="faq-a">Sim. Pela <strong>Súmula 291 do TST</strong>, se as horas extras forem prestadas com habitualidade e o empregador as suspender, o trabalhador tem direito à indenização correspondente. Além disso, médias habituais de horas extras integram férias, 13º, FGTS e aviso prévio.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Cargo de confiança é isento de horas extras?</div>
+      <div class="faq-a">Gerentes e diretores com efetiva gestão e salário 40% superior ao dos subordinados são isentos da jornada de 8h (art. 62 da CLT). Mas cargos com o título de "gerente" sem autonomia real ainda têm direito a horas extras — depende da função exercida na prática.</div>
+    </div>
+  </div><!-- /explic -->
+
 </main>
 <footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
   <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>

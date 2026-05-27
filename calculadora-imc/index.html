@@ -183,6 +183,54 @@
     <div class="aviso">⚠️ O IMC é uma referência geral e não considera massa muscular, biotipo ou distribuição de gordura. Consulte um médico ou nutricionista para avaliação individualizada.</div>
     <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button></div>
   </div>
+
+  <!-- EXPLICAÇÃO SEMPRE VISÍVEL -->
+  <div class="explic">
+    <h3>⚖️ O que é o IMC e como interpretar?</h3>
+    <p>O <strong>Índice de Massa Corporal (IMC)</strong> é uma medida internacional usada para estimar se uma pessoa está em peso adequado para sua altura. É calculado dividindo o peso (kg) pela altura ao quadrado (m²). Foi proposto pelo matemático belga Adolphe Quetelet em 1832 e adotado pela OMS como referência global.</p>
+
+    <h4>📊 Tabela de Classificação IMC — OMS 2025</h4>
+    <table>
+      <thead><tr><th>IMC</th><th>Classificação</th><th>Risco de saúde</th></tr></thead>
+      <tbody>
+        <tr><td>Abaixo de 16,0</td><td>Magreza grau III</td><td>Muito elevado</td></tr>
+        <tr><td>16,0 – 16,9</td><td>Magreza grau II</td><td>Elevado</td></tr>
+        <tr><td>17,0 – 18,4</td><td>Magreza grau I</td><td>Moderado</td></tr>
+        <tr><td>18,5 – 24,9</td><td>✅ Peso normal</td><td>Baixo (normal)</td></tr>
+        <tr><td>25,0 – 29,9</td><td>Sobrepeso</td><td>Pouco elevado</td></tr>
+        <tr><td>30,0 – 34,9</td><td>Obesidade grau I</td><td>Moderado</td></tr>
+        <tr><td>35,0 – 39,9</td><td>Obesidade grau II</td><td>Severo</td></tr>
+        <tr><td>Acima de 40,0</td><td>Obesidade grau III (mórbida)</td><td>Muito severo</td></tr>
+      </tbody>
+    </table>
+
+    <h4>🔢 Como calcular o IMC?</h4>
+    <p style="background:#f8f9ff;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:.88rem">
+      IMC = Peso (kg) ÷ Altura² (m)<br>
+      Exemplo: 70 kg ÷ 1,75² = 70 ÷ 3,0625 = <strong>22,9</strong> (Peso normal)
+    </p>
+
+    <h4>⚠️ Limitações do IMC</h4>
+    <p>O IMC é uma ferramenta de triagem útil, mas tem limitações importantes:</p>
+    <ul>
+      <li><strong>Não distingue músculo de gordura:</strong> atletas musculosos podem ter IMC alto mesmo com baixo percentual de gordura</li>
+      <li><strong>Não considera distribuição de gordura:</strong> gordura abdominal (visceral) é mais perigosa que gordura periférica</li>
+      <li><strong>Varia por etnia:</strong> asiáticos têm maior risco cardiovascular com IMC menores — OMS sugere cortes diferentes</li>
+      <li><strong>Limitado em idosos:</strong> a perda muscular natural (sarcopenia) pode mascarar um IMC "normal" com excesso de gordura</li>
+    </ul>
+    <div class="info-box">💡 Para uma avaliação mais completa, combine o IMC com a <strong>circunferência abdominal</strong> (risco elevado: &gt;94cm homens, &gt;80cm mulheres) e o <strong>percentual de gordura corporal</strong>.</div>
+
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">Qual o IMC ideal para crianças?</div>
+      <div class="faq-a">Para crianças e adolescentes (2–19 anos), o IMC ideal não é fixo — usa-se o <strong>IMC por idade</strong>, comparado com curvas de crescimento da OMS. Um IMC de 22 pode ser normal para um adulto, mas alto para uma criança de 8 anos.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Posso emagrecer apenas com dieta sem exercício?</div>
+      <div class="faq-a">Sim, é possível perder peso só com dieta, mas os exercícios são fundamentais para preservar a massa muscular, melhorar a saúde cardiovascular e manter o metabolismo ativo. A combinação de dieta + exercício é sempre mais eficaz e sustentável no longo prazo.</div>
+    </div>
+  </div><!-- /explic -->
+
 </main>
 <footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
   <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>

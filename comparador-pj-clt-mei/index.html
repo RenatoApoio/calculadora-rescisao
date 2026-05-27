@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
@@ -13,7 +13,7 @@ header h1{font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
 header p{font-size:.92rem;opacity:.88;margin-top:6px}
 .nav{background:#fff;padding:10px 16px;border-bottom:1px solid #e0e0e0}
 .nav a{color:#1a73e8;text-decoration:none;font-size:.9rem;font-weight:600}
-main{max-width:740px;margin:0 auto;padding:16px}
+main{max-width:900px;margin:0 auto;padding:16px}
 .card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:22px;margin-bottom:16px}
 .card h2{font-size:1.05rem;color:#1a237e;margin-bottom:14px;font-weight:700}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -125,6 +125,56 @@ footer a{color:#1a73e8;text-decoration:none}
       <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
+
+  <!-- EXPLICAÇÃO SEMPRE VISÍVEL -->
+  <div class="explic">
+    <h3>⚖️ PJ vs CLT vs MEI — Qual é mais vantajoso?</h3>
+    <p>A escolha entre ser <strong>contratado CLT</strong>, abrir uma <strong>empresa PJ (Pessoa Jurídica)</strong> ou atuar como <strong>MEI</strong> é uma das decisões financeiras mais importantes de um profissional. Cada regime tem custos, benefícios e limitações específicos que impactam diretamente no quanto você recebe de fato.</p>
+
+    <h4>📊 Comparativo Rápido: CLT vs PJ vs MEI</h4>
+    <table>
+      <thead><tr><th>Característica</th><th>CLT</th><th>PJ (Simples)</th><th>MEI</th></tr></thead>
+      <tbody>
+        <tr><td>FGTS (8% do salário)</td><td>✅ Tem</td><td>❌ Não tem</td><td>❌ Não tem</td></tr>
+        <tr><td>13º Salário</td><td>✅ Tem</td><td>❌ Não tem</td><td>❌ Não tem</td></tr>
+        <tr><td>Férias remuneradas + 1/3</td><td>✅ Tem</td><td>❌ Não tem</td><td>❌ Não tem</td></tr>
+        <tr><td>Seguro-desemprego</td><td>✅ Tem</td><td>❌ Não tem</td><td>❌ Não tem</td></tr>
+        <tr><td>Carga tributária típica</td><td>~27-33% (INSS+IR)</td><td>~6-15% (Simples)</td><td>Fixo mensal (~R$ 76)</td></tr>
+        <tr><td>Faturamento anual máximo</td><td>Ilimitado</td><td>R$ 4,8 milhões (Simples)</td><td>R$ 81.000</td></tr>
+        <tr><td>Acesso a benefícios INSS</td><td>Automático</td><td>Deve contribuir pró-labore</td><td>Contrib. mínima (50%SM)</td></tr>
+      </tbody>
+    </table>
+
+    <h4>💡 Quando o PJ compensa?</h4>
+    <p>O PJ é vantajoso quando o profissional consegue um <strong>multiplicador salarial de pelo menos 1,35×</strong> (35% a mais) sobre o salário CLT equivalente. Isso porque, além de pagar a carga tributária (Simples, INSS pró-labore), o PJ precisa "bancar" os benefícios que a CLT oferece:</p>
+    <ul>
+      <li>FGTS: 8% do salário CLT equivalente</li>
+      <li>13º: ~8,3% (1/12 por mês)</li>
+      <li>Férias + 1/3: ~11% (30 dias + 1/3)</li>
+      <li>Encargos INSS sobre pró-labore: ~11% mínimo</li>
+    </ul>
+    <div class="info-box">💡 <strong>Regra prática:</strong> Se a oferta PJ for ≥ 35% maior que a CLT equivalente, o PJ tende a ser mais vantajoso para profissionais de tecnologia, consultoria e áreas com demanda alta. Abaixo disso, a CLT com benefícios pode ser melhor.</div>
+
+    <h4>🏪 Quando o MEI é indicado?</h4>
+    <ul>
+      <li>Faturamento baixo (até R$ 81.000/ano)</li>
+      <li>Atividade enquadrada no CNAES do MEI</li>
+      <li>Profissional que quer simplificar impostos sem sócios</li>
+      <li>Prestadores de serviços pontuais ou iniciantes no mercado</li>
+    </ul>
+    <div class="warn-box">⚠️ MEI é limitado a R$ 81.000/ano (R$ 6.750/mês médio). Ultrapassar esse limite exige migração para ME (Microempresa) com enquadramento no Simples Nacional e carga tributária maior.</div>
+
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">PJ pode ter direito ao seguro-desemprego?</div>
+      <div class="faq-a">Não diretamente. O seguro-desemprego é exclusivo de empregados CLT formais. Empresas PJ podem contratar um seguro privado, mas não têm acesso ao benefício do governo.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">A empresa pode exigir que eu vire PJ?</div>
+      <div class="faq-a">Isso é chamado de <strong>pejotização</strong> e pode ser ilegal se houver todos os elementos da relação de emprego (pessoalidade, habitualidade, subordinação, onerosidade). Nesse caso, a relação pode ser reconhecida como CLT pela Justiça do Trabalho, com todos os reflexos trabalhistas.</div>
+    </div>
+  </div><!-- /explic -->
+
 </main>
 <footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
@@ -210,3 +260,4 @@ function novo(){document.getElementById('formulario').style.display='';document.
 </script>
 </body>
 </html>
+
