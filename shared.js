@@ -2,18 +2,53 @@
   // ── Remover ad-slot placeholders (AdSense injeta os reais automaticamente) ──
   document.querySelectorAll('.ad-slot').forEach(function(el){ el.remove(); });
 
+  // ── Paleta de cores FacilCalc — variáveis CSS globais ────────────────
+  if (!document.getElementById('fc-palette-style')) {
+    var _ps = document.createElement('style');
+    _ps.id = 'fc-palette-style';
+    _ps.textContent = [
+      ':root{',
+      '--bk1:#e8edf7;--bk1b:#b8cce8;',  /* azul suave   */
+      '--bk2:#d4f1f4;--bk2b:#9dd8de;',  /* ciano        */
+      '--bk3:#daf5e8;--bk3b:#9dd8b8;',  /* mint         */
+      '--bk4:#e4f7e4;--bk4b:#9dd89d;',  /* verde        */
+      '--bk5:#fdf8e0;--bk5b:#e8d870;',  /* amarelo      */
+      '--bk6:#fde8d4;--bk6b:#e8c09d;',  /* pêssego      */
+      '--bk7:#fde0d8;--bk7b:#e8a898;',  /* salmão       */
+      '--bk8:#fdd4e0;--bk8b:#e898b8;',  /* rosa         */
+      '--bk9:#edd8f8;--bk9b:#c898e8;',  /* lavanda      */
+      '--bk10:#ebebeb;--bk10b:#c8c8c8;', /* cinza       */
+      '}',
+      /* Classes reutilizáveis em qualquer página */
+      '.fc-chip{display:inline-flex;align-items:center;border-radius:20px;padding:4px 13px;font-size:.78rem;font-weight:700;color:#222;border:1.5px solid;text-decoration:none;white-space:nowrap;transition:filter .15s;}',
+      '.fc-chip:hover{filter:brightness(.93);}',
+      '.fc-chip-1{background:var(--bk1);border-color:var(--bk1b);}',
+      '.fc-chip-2{background:var(--bk2);border-color:var(--bk2b);}',
+      '.fc-chip-3{background:var(--bk3);border-color:var(--bk3b);}',
+      '.fc-chip-4{background:var(--bk4);border-color:var(--bk4b);}',
+      '.fc-chip-5{background:var(--bk5);border-color:var(--bk5b);}',
+      '.fc-chip-6{background:var(--bk6);border-color:var(--bk6b);}',
+      '.fc-chip-7{background:var(--bk7);border-color:var(--bk7b);}',
+      '.fc-chip-8{background:var(--bk8);border-color:var(--bk8b);}',
+      '.fc-chip-9{background:var(--bk9);border-color:var(--bk9b);}',
+      '.fc-chip-10{background:var(--bk10);border-color:var(--bk10b);}',
+    ].join('');
+    document.head.appendChild(_ps);
+  }
+
   // ── Trust badges no header de todas as páginas de ferramenta ──────────
   var _hdr = document.querySelector('header');
   if (_hdr && !_hdr.querySelector('.fc-trust') && !_hdr.querySelector('.trust-badges')) {
     var _tb = document.createElement('div');
     _tb.className = 'fc-trust';
     _tb.style.cssText = 'display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.18);';
-    var _bs = 'border-radius:20px;padding:3px 12px;font-size:.73rem;font-weight:700;';
+    // Trust badges: fundo escuro do header → usar rgba semi-transparente com cores da paleta
+    var _bs = 'border-radius:20px;padding:4px 13px;font-size:.73rem;font-weight:700;';
     _tb.innerHTML =
-      '<span style="' + _bs + 'background:rgba(52,168,83,.28);border:1px solid rgba(52,168,83,.5);color:#c8f7d8;">✅ Atualizado 2025</span>' +
-      '<span style="' + _bs + 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:#fff;">🆓 Gratuito</span>' +
-      '<span style="' + _bs + 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:#fff;">🔒 Sem cadastro</span>' +
-      '<span style="' + _bs + 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:#fff;">⚡ Instantâneo</span>';
+      '<span style="' + _bs + 'background:rgba(218,245,232,.25);border:1px solid rgba(157,216,184,.6);color:#c8f7d8;">✅ Atualizado 2025</span>' +
+      '<span style="' + _bs + 'background:rgba(212,241,244,.2);border:1px solid rgba(157,216,222,.5);color:#d4f8fb;">🆓 Gratuito</span>' +
+      '<span style="' + _bs + 'background:rgba(237,216,248,.2);border:1px solid rgba(200,152,232,.5);color:#edd8f8;">🔒 Sem cadastro</span>' +
+      '<span style="' + _bs + 'background:rgba(253,248,224,.2);border:1px solid rgba(232,216,112,.5);color:#fdf8e0;">⚡ Instantâneo</span>';
     _hdr.appendChild(_tb);
   }
 
@@ -225,14 +260,16 @@
     const section = document.createElement('div');
     section.id = 'fc-related';
     section.style.cssText = 'max-width:680px;margin:0 auto 16px;padding:0 16px;';
+    var _palCycles = ['fc-chip-1','fc-chip-2','fc-chip-3','fc-chip-4','fc-chip-5'];
     section.innerHTML =
       '<div style="background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08);padding:18px 22px;">' +
-        '<p style="font-size:.82rem;font-weight:700;color:#1a237e;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Veja também</p>' +
+        '<p style="font-size:.75rem;font-weight:700;color:#888;margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px;">🔗 Veja também</p>' +
         '<div style="display:flex;flex-wrap:wrap;gap:8px;">' +
-          related.map(function(s){
+          related.map(function(s, i){
             var label = TOOL_LABELS[s] || s;
             var href  = origin + '/' + s + '/';
-            return '<a href="' + href + '" style="background:#f0f4ff;color:#1a237e;border:1.5px solid #c5cae9;border-radius:20px;padding:6px 14px;font-size:.8rem;font-weight:600;text-decoration:none;white-space:nowrap;">' + label + '</a>';
+            var cls   = _palCycles[i % _palCycles.length];
+            return '<a href="' + href + '" class="fc-chip ' + cls + '">' + label + '</a>';
           }).join('') +
         '</div>' +
       '</div>';
