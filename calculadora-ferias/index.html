@@ -106,6 +106,54 @@
 
     <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button></div>
   </div>
+
+  <!-- EXPLICAÇÃO SEMPRE VISÍVEL -->
+  <div class="explic">
+    <h3>🏖️ Como funciona o cálculo de férias CLT em 2025?</h3>
+    <p>As <strong>férias anuais remuneradas</strong> são um direito garantido pela Constituição Federal e regulamentadas pela CLT. Todo empregado com carteira assinada tem direito a 30 dias de férias por período aquisitivo completado, com acréscimo de <strong>1/3 do salário</strong> (1/3 constitucional).</p>
+
+    <h4>📅 O que é período aquisitivo?</h4>
+    <p>O <strong>período aquisitivo</strong> é o prazo de 12 meses trabalhados que dá direito a 30 dias de férias. Começa na data de admissão e se renova a cada ano. Ao completar o período aquisitivo, abre-se o <strong>período concessivo</strong>: a empresa tem mais 12 meses para conceder as férias. Férias não gozadas dentro do período concessivo vencem e devem ser pagas em dobro.</p>
+
+    <h4>💰 Composição do pagamento de férias</h4>
+    <table>
+      <thead><tr><th>Componente</th><th>Incide INSS?</th><th>Incide IR?</th><th>Cálculo</th></tr></thead>
+      <tbody>
+        <tr><td>Férias (30 dias)</td><td>✅ Sim</td><td>✅ Sim</td><td>Salário bruto + médias</td></tr>
+        <tr><td>1/3 Constitucional</td><td>❌ Não</td><td>❌ Não (STF RE 895.759)</td><td>Férias ÷ 3</td></tr>
+        <tr><td>Abono Pecuniário (10 dias)</td><td>✅ Sim</td><td>✅ Sim</td><td>10/30 do salário × 4/3</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box">💡 O <strong>1/3 constitucional é isento de IR</strong> por decisão do STF (RE 895.759, tema 417, julgado em 2022). Muitas empresas ainda retêm IR incorretamente — você pode pedir restituição ou compensar na declaração anual.</div>
+
+    <h4>📋 Quando posso tirar férias?</h4>
+    <ul>
+      <li><strong>Época:</strong> A empresa define, mas deve avisar o empregado com pelo menos 30 dias de antecedência.</li>
+      <li><strong>Parcelamento:</strong> As férias podem ser divididas em até 3 períodos, sendo um deles de pelo menos 14 dias corridos.</li>
+      <li><strong>Abono pecuniário:</strong> O empregado pode vender até 10 dias de férias (em dinheiro). Deve solicitar até 15 dias antes do início.</li>
+      <li><strong>Pagamento:</strong> A empresa deve pagar as férias até <strong>2 dias antes</strong> do início do descanso, junto com o 1/3.</li>
+    </ul>
+
+    <h4>🔢 Cálculo das férias proporcionais na rescisão</h4>
+    <p>Quando você é demitido sem completar o período aquisitivo, recebe <strong>férias proporcionais</strong> (com 1/3) calculadas assim:</p>
+    <p style="background:#f8f9ff;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:.85rem">Férias proporcionais = (Salário ÷ 12) × Meses trabalhados × (1 + 1/3)</p>
+    <p>Meses com ≥ 15 dias trabalhados contam como mês inteiro.</p>
+
+    <h4>❓ Perguntas Frequentes</h4>
+    <div class="faq-item">
+      <div class="faq-q">Posso ser demitido durante as férias?</div>
+      <div class="faq-a">Não. A CLT proíbe a demissão durante o período de férias. Se a empresa fizer isso, a demissão é considerada inválida e o empregado deve ser reintegrado ou indenizado.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O que são férias em dobro?</div>
+      <div class="faq-a">Se a empresa não conceder as férias dentro do período concessivo (12 meses após o período aquisitivo), o pagamento é feito em dobro: o trabalhador recebe o dobro do valor das férias + 1/3.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Horas extras entram no cálculo das férias?</div>
+      <div class="faq-a">Sim. A média das horas extras habituais (pagas nos últimos 12 meses) integra a base de cálculo das férias e do 1/3 constitucional.</div>
+    </div>
+  </div><!-- /explic -->
+
 </main>
 <footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
   <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
