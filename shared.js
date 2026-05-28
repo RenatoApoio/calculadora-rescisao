@@ -1,4 +1,17 @@
 (function () {
+  // ── Google Analytics 4 ────────────────────────────────────────────────
+  (function() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5VR7ZSLYHV';
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-5VR7ZSLYHV');
+  })();
+
   // ── Remover ad-slot placeholders (AdSense injeta os reais automaticamente) ──
   document.querySelectorAll('.ad-slot').forEach(function(el){ el.remove(); });
 
