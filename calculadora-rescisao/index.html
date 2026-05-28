@@ -206,6 +206,18 @@
           <span class="hint">Deixe em branco para calcular pela data de demissão</span>
         </div>
 
+        <div class="field">
+          <label>Saldo do Banco de Horas <span class="opt">(opcional)</span></label>
+          <input type="number" id="banco_horas" placeholder="Ex: 40" step="0.5" />
+          <span class="hint">Horas acumuladas a receber (saldo positivo = empresa deve ao funcionário)</span>
+        </div>
+
+        <div class="field">
+          <label>Adicional sobre Horas do Banco <span class="opt">(opcional)</span></label>
+          <input type="number" id="adicional_banco" placeholder="50" min="0" max="200" />
+          <span class="hint">% do adicional (mínimo legal: 50%; domingos/feriados: 100%)</span>
+        </div>
+
       </div>
     </div>
 
@@ -248,7 +260,7 @@
 
     <!-- AVISO LEGAL -->
     <div class="aviso">
-      ⚠️ <strong>Atenção:</strong> Este cálculo é uma estimativa educacional baseada na CLT e pode não refletir valores exatos. Verbas como horas extras, comissões, adicional noturno e outros benefícios não foram considerados. Consulte sempre um advogado trabalhista ou o RH da empresa para os valores oficiais. Itens marcados com <strong>ESTIMADO</strong> são aproximações.
+      ⚠️ <strong>Atenção:</strong> Este cálculo é uma estimativa educacional baseada na CLT e pode não refletir valores exatos. Verbas como comissões, adicional noturno e outros benefícios não foram considerados. O banco de horas com saldo negativo não é automaticamente descontado na rescisão — depende do tipo de dispensa e da convenção coletiva. Consulte sempre um advogado trabalhista ou o RH da empresa para os valores oficiais. Itens marcados com <strong>ESTIMADO</strong> são aproximações.
     </div>
 
     <br/>
@@ -323,6 +335,10 @@
       <div class="faq-q">As verbas rescisórias têm desconto de INSS e IR?</div>
       <div class="faq-a">Sim. O <strong>saldo de salário</strong>, o <strong>aviso prévio</strong> e o <strong>13º proporcional</strong> sofrem desconto de INSS e, se ultrapassarem a faixa de isenção, também de Imposto de Renda. As <strong>férias + 1/3</strong> têm tratamento fiscal diferenciado (INSS, mas IR na alíquota específica de férias).</div>
     </div>
+    <div class="faq-item">
+      <div class="faq-q">O banco de horas é pago na rescisão?</div>
+      <div class="faq-a">Sim. Se o funcionário tiver saldo positivo de banco de horas no momento da rescisão, a empresa deve liquidar esse saldo como hora extra, acrescido do adicional previsto em lei ou em convenção coletiva — mínimo de <strong>50% para dias úteis</strong> e <strong>100% para domingos e feriados</strong> (art. 59 da CLT). O valor é calculado sobre o salário-hora (salário ÷ 220 horas mensais). Saldo negativo do banco, em geral, não pode ser descontado do trabalhador em caso de demissão sem justa causa.</div>
+    </div>
   </div><!-- /explic -->
 
 </main>
@@ -374,6 +390,9 @@
     const ferVenc   = parseInt(document.getElementById('ferias_vencidas').value) || 0;
     const ultFerStr = document.getElementById('ultima_ferias').value;
     const diasMesIn = parseInt(document.getElementById('dias_mes').value) || 0;
+    const bancoHoras      = parseFloat(document.getElementById('banco_horas').value) || 0;
+    const adicionalBancoRaw = document.getElementById('adicional_banco').value;
+    const adicionalBanco  = adicionalBancoRaw !== '' ? (parseFloat(adicionalBancoRaw) || 50) : 50;
 
     if (!salario) { alert('Por favor, informe o Salário Bruto Mensal.'); return; }
 
@@ -498,6 +517,13 @@
     if (feriasVencidasValor > 0)
       push('Férias Vencidas + 1/3', feriasVencidasValor,
         `${ferVenc} dias de férias não tiradas`, false);
+
+    if (bancoHoras > 0) {
+      const valorHora = salario / 220;
+      const valorBancoHoras = valorHora * bancoHoras * (1 + adicionalBanco / 100);
+      push('Banco de Horas — Liquidação do Saldo', valorBancoHoras,
+        `${bancoHoras}h × R$ ${fmtN(valorHora)}/h + ${adicionalBanco}% adicional (art. 59 CLT)`, false);
+    }
 
     if (multaFGTS > 0)
       push(`Multa FGTS ${percMulta}%`, multaFGTS,
