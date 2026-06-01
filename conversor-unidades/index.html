@@ -36,16 +36,16 @@ footer a{color:#1a73e8;text-decoration:none}
 <body>
 <header>
   <h1>🔄 Conversor de Unidades</h1>
-  <p>Peso · Distância · Temperatura · Volume · Área</p>
+  <p>Peso · Distância · Temperatura · Volume · Ãrea</p>
 </header>
 <nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="tabs">
     <button class="tab active" onclick="showTab('peso')">⚖️ Peso</button>
-    <button class="tab" onclick="showTab('dist')">📏 Distância</button>
-    <button class="tab" onclick="showTab('temp')">🌡️ Temperatura</button>
-    <button class="tab" onclick="showTab('vol')">💧 Volume</button>
-    <button class="tab" onclick="showTab('area')">📐 Área</button>
+    <button class="tab" onclick="showTab('dist')">ð Distância</button>
+    <button class="tab" onclick="showTab('temp')">ð¡️ Temperatura</button>
+    <button class="tab" onclick="showTab('vol')">ð§ Volume</button>
+    <button class="tab" onclick="showTab('area')">ð Ãrea</button>
   </div>
 
   <!-- Peso -->
@@ -60,7 +60,7 @@ footer a{color:#1a73e8;text-decoration:none}
 
   <!-- Distância -->
   <div id="panel-dist" class="panel">
-    <h2>📏 Conversor de Distância</h2>
+    <h2>ð Conversor de Distância</h2>
     <div class="conv-row">
       <input type="number" id="dist-km" placeholder="Quilômetros" oninput="convDist('km')" step="any"/>
       <span class="unit">km</span>
@@ -70,7 +70,7 @@ footer a{color:#1a73e8;text-decoration:none}
 
   <!-- Temperatura -->
   <div id="panel-temp" class="panel">
-    <h2>🌡️ Conversor de Temperatura</h2>
+    <h2>ð¡️ Conversor de Temperatura</h2>
     <div class="conv-row">
       <input type="number" id="temp-c" placeholder="Celsius" oninput="convTemp('c')" step="any"/>
       <span class="unit">°C</span>
@@ -80,7 +80,7 @@ footer a{color:#1a73e8;text-decoration:none}
 
   <!-- Volume -->
   <div id="panel-vol" class="panel">
-    <h2>💧 Conversor de Volume</h2>
+    <h2>ð§ Conversor de Volume</h2>
     <div class="conv-row">
       <input type="number" id="vol-l" placeholder="Litros" oninput="convVol('l')" step="any"/>
       <span class="unit">litros</span>
@@ -88,9 +88,9 @@ footer a{color:#1a73e8;text-decoration:none}
     <div class="result-box" id="res-vol"></div>
   </div>
 
-  <!-- Área -->
+  <!-- Ãrea -->
   <div id="panel-area" class="panel">
-    <h2>📐 Conversor de Área</h2>
+    <h2>ð Conversor de Ãrea</h2>
     <div class="conv-row">
       <input type="number" id="area-m2" placeholder="Metros quadrados" oninput="convArea('m2')" step="any"/>
       <span class="unit">m²</span>
@@ -98,45 +98,45 @@ footer a{color:#1a73e8;text-decoration:none}
     <div class="result-box" id="res-area"></div>
   </div>
   <div class="explic">
-    <h3>?? Conversor de Unidades - Peso, Dist�ncia, Temperatura e Volume</h3>
-    <p>Converter entre unidades de medida � essencial no dia a dia - receitas, compras internacionais, constru��o civil, sa�de e viagens. Este conversor cobre as convers�es mais usadas no Brasil e internacionalmente.</p>
-    <h4>?? Convers�es Mais Usadas</h4>
+    <h3>🔄 Conversor de Unidades — Peso, Distância, Temperatura e Volume</h3>
+    <p>Converter entre unidades de medida é essencial no dia a dia — receitas, compras internacionais, construção civil, saúde e viagens. Este conversor cobre as conversões mais usadas no Brasil e internacionalmente.</p>
+    <h4>📋 Conversões Mais Usadas</h4>
     <table>
-      <thead><tr><th>Categoria</th><th>Convers�o</th><th>Fator</th></tr></thead>
+      <thead><tr><th>Categoria</th><th>Conversão</th><th>Fator</th></tr></thead>
       <tbody>
-        <tr><td>Dist�ncia</td><td>km ? milha</td><td>1 km = 0,621 mi / 1 mi = 1,609 km</td></tr>
-        <tr><td>Dist�ncia</td><td>m ? p� (feet)</td><td>1 m = 3,281 ft / 1 ft = 0,305 m</td></tr>
-        <tr><td>Peso</td><td>kg ? libra (lb)</td><td>1 kg = 2,205 lb / 1 lb = 0,454 kg</td></tr>
-        <tr><td>Temperatura</td><td>�C ? �F</td><td>�F = �C � 9/5 + 32</td></tr>
-        <tr><td>Volume</td><td>litro ? gal�o (US)</td><td>1 L = 0,264 gal / 1 gal = 3,785 L</td></tr>
-        <tr><td>�rea</td><td>m� ? ft�</td><td>1 m� = 10,764 ft�</td></tr>
+        <tr><td>Distância</td><td>km ↔ milha</td><td>1 km = 0,621 mi / 1 mi = 1,609 km</td></tr>
+        <tr><td>Distância</td><td>m ↔ pé (feet)</td><td>1 m = 3,281 ft / 1 ft = 0,305 m</td></tr>
+        <tr><td>Peso</td><td>kg ↔ libra (lb)</td><td>1 kg = 2,205 lb / 1 lb = 0,454 kg</td></tr>
+        <tr><td>Temperatura</td><td>°C ↔ °F</td><td>°F = °C × 9/5 + 32</td></tr>
+        <tr><td>Volume</td><td>litro ↔ galão (US)</td><td>1 L = 0,264 gal / 1 gal = 3,785 L</td></tr>
+        <tr><td>Área</td><td>m² ↔ ft²</td><td>1 m² = 10,764 ft²</td></tr>
       </tbody>
     </table>
-    <div class="info-box">?? O Brasil usa o <strong>Sistema Internacional (SI)</strong>. EUA e Reino Unido usam o sistema imperial - polegadas, libras, gal�es, Fahrenheit.</div>
-    <h4>?? Refer�ncias R�pidas</h4>
+    <div class="info-box">ℹ️ O Brasil usa o <strong>Sistema Internacional (SI)</strong>. EUA e Reino Unido usam o sistema imperial — polegadas, libras, galões, Fahrenheit.</div>
+    <h4>💡 Referências Rápidas</h4>
     <ul>
-      <li><strong>Temperatura corporal normal:</strong> 36,5-37�C (97,7-98,6�F)</li>
-      <li><strong>�gua ferve:</strong> 100�C = 212�F</li>
+      <li><strong>Temperatura corporal normal:</strong> 36,5–37°C (97,7–98,6°F)</li>
+      <li><strong>Água ferve:</strong> 100°C = 212°F</li>
       <li><strong>1 polegada (tela, TV):</strong> 2,54 cm</li>
-      <li><strong>1 cup (x�cara americana):</strong> 240 ml</li>
+      <li><strong>1 cup (xícara americana):</strong> 240 ml</li>
     </ul>
-    <h4>? Perguntas Frequentes</h4>
+    <h4>❓ Perguntas Frequentes</h4>
     <div class="faq-item">
       <div class="faq-q">Como converter receitas americanas para medidas brasileiras?</div>
-      <div class="faq-a">1 cup = 240 ml. 1 tablespoon (colher de sopa) = 15 ml. 1 teaspoon (colher de ch�) = 5 ml. 1 oz (fluido) = 29,57 ml. Use essas equival�ncias para adaptar qualquer receita americana.</div>
+      <div class="faq-a">1 cup = 240 ml. 1 tablespoon (colher de sopa) = 15 ml. 1 teaspoon (colher de chá) = 5 ml. 1 oz (fluido) = 29,57 ml. Use essas equivalências para adaptar qualquer receita americana.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Polegada de TV - como calcular o tamanho real?</div>
-      <div class="faq-a">A polegada de tela � medida na diagonal. TV 55" = 55 � 2,54 = 139,7 cm de diagonal. Uma TV 16:9 de 55" tem aproximadamente 121 cm de largura � 68 cm de altura.</div>
+      <div class="faq-q">Polegada de TV — como calcular o tamanho real?</div>
+      <div class="faq-a">A polegada de tela é medida na diagonal. TV 55" = 55 × 2,54 = 139,7 cm de diagonal. Uma TV 16:9 de 55" tem aproximadamente 121 cm de largura × 68 cm de altura.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Por que o Brasil n�o usa milhas e gal�es?</div>
-      <div class="faq-a">O Brasil adotou o Sistema M�trico em 1862 - mais de um s�culo antes da maioria dos pa�ses. O sistema m�trico � mais l�gico (base 10) e usado por mais de 95% dos pa�ses do mundo.</div>
+      <div class="faq-q">Por que o Brasil não usa milhas e galões?</div>
+      <div class="faq-a">O Brasil adotou o Sistema Métrico em 1862 — mais de um século antes da maioria dos países. O sistema métrico é mais lógico (base 10) e usado por mais de 95% dos países do mundo.</div>
     </div>
   </div>
 
 </main>
-<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<footer>Â© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function showTab(id){

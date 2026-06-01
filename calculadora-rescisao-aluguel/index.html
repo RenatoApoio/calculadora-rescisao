@@ -70,7 +70,7 @@
   <div id="formulario">
 
     <div class="card">
-      <h2>👤 Quem está rescindindo?</h2>
+      <h2>ð¤ Quem está rescindindo?</h2>
       <div class="tipo-grid">
         <label class="tipo-card selected" onclick="selecionarTipo(this,'locatario')">
           <input type="radio" name="quem" value="locatario" checked/>
@@ -205,34 +205,34 @@
     </div>
   </div>
   <div class="explic">
-    <h3>?? Como Funciona a Rescis�o de Contrato de Aluguel?</h3>
-    <p>A rescis�o de aluguel � regulamentada pela <strong>Lei do Inquilinato (Lei 8.245/1991)</strong>. As regras de multa e aviso pr�vio variam conforme quem pede a rescis�o e o tipo de im�vel.</p>
-    <h4>?? Situa��es de Rescis�o</h4>
+    <h3>🏠 Como Funciona a Rescisão de Contrato de Aluguel?</h3>
+    <p>A rescisão de aluguel é regulamentada pela <strong>Lei do Inquilinato (Lei 8.245/1991)</strong>. As regras de multa e aviso prévio variam conforme quem pede a rescisão e o tipo de imóvel.</p>
+    <h4>📋 Situações de Rescisão</h4>
     <table>
-      <thead><tr><th>Situa��o</th><th>Multa</th><th>Aviso Pr�vio</th></tr></thead>
+      <thead><tr><th>Situação</th><th>Multa</th><th>Aviso Prévio</th></tr></thead>
       <tbody>
-        <tr><td>Locat�rio antes do prazo</td><td>Proporcional (padr�o 3 meses)</td><td>30 dias</td></tr>
-        <tr><td>Locat�rio ap�s prazo (ind.)</td><td>Sem multa</td><td>30 dias obrigat�rios</td></tr>
-        <tr><td>Transfer�ncia de trabalho (CLT)</td><td>Sem multa</td><td>30 dias + comprova��o</td></tr>
-        <tr><td>Locador - uso pr�prio</td><td>Sem multa</td><td>30 dias m�nimo</td></tr>
+        <tr><td>Locatário antes do prazo</td><td>Proporcional (padrão 3 meses)</td><td>30 dias</td></tr>
+        <tr><td>Locatário após prazo (ind.)</td><td>Sem multa</td><td>30 dias obrigatórios</td></tr>
+        <tr><td>Transferência de trabalho (CLT)</td><td>Sem multa</td><td>30 dias + comprovação</td></tr>
+        <tr><td>Locador — uso próprio</td><td>Sem multa</td><td>30 dias mínimo</td></tr>
       </tbody>
     </table>
-    <div class="info-box">? Se o locat�rio foi <strong>transferido de cidade pelo empregador</strong>, pode rescindir sem multa com aviso de 30 dias (art. 4�, par�grafo �nico, Lei 8.245/91).</div>
-    <h4>?? F�rmula da Multa Proporcional</h4>
-    <p><strong>Multa = (Meses restantes � Total do contrato) � Multa cheia (3 meses de aluguel)</strong></p>
-    <div class="warn-box">?? Multas acima de 3 meses de aluguel em contratos residenciais s�o geralmente consideradas abusivas pelo Judici�rio.</div>
-    <h4>? Perguntas Frequentes</h4>
+    <div class="info-box">✅ Se o locatário foi <strong>transferido de cidade pelo empregador</strong>, pode rescindir sem multa com aviso de 30 dias (art. 4º, parágrafo único, Lei 8.245/91).</div>
+    <h4>💰 Fórmula da Multa Proporcional</h4>
+    <p><strong>Multa = (Meses restantes ÷ Total do contrato) × Multa cheia (3 meses de aluguel)</strong></p>
+    <div class="warn-box">⚠️ Multas acima de 3 meses de aluguel em contratos residenciais são geralmente consideradas abusivas pelo Judiciário.</div>
+    <h4>❓ Perguntas Frequentes</h4>
     <div class="faq-item">
-      <div class="faq-q">O fiador paga a multa rescis�ria?</div>
-      <div class="faq-a">O fiador responde pelas obriga��es do locat�rio, incluindo a multa, caso o locat�rio n�o pague. Deve estar ciente de todas as cl�usulas do contrato.</div>
+      <div class="faq-q">O fiador paga a multa rescisória?</div>
+      <div class="faq-a">O fiador responde pelas obrigações do locatário, incluindo a multa, caso o locatário não pague. Deve estar ciente de todas as cláusulas do contrato.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">O que acontece com a cau��o na rescis�o?</div>
-      <div class="faq-a">A cau��o (at� 3 meses de aluguel) deve ser devolvida em at� 30 dias ap�s a entrega das chaves, descontados eventuais d�bitos.</div>
+      <div class="faq-q">O que acontece com a caução na rescisão?</div>
+      <div class="faq-a">A caução (até 3 meses de aluguel) deve ser devolvida em até 30 dias após a entrega das chaves, descontados eventuais débitos.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Locador pode entrar no im�vel sem aviso?</div>
-      <div class="faq-a">N�o. O acesso deve ser combinado com o locat�rio em hor�rios razo�veis. Acesso arbitr�rio viola o direito de privacidade do inquilino.</div>
+      <div class="faq-q">Locador pode entrar no imóvel sem aviso?</div>
+      <div class="faq-a">Não. O acesso deve ser combinado com o locatário em horários razoáveis. Acesso arbitrário viola o direito de privacidade do inquilino.</div>
     </div>
   </div>
 
@@ -321,11 +321,11 @@
     } else if(totalMeses>0){
       if(quem==='locatario'){
         multa=(multaBase/totalMeses)*mesesRestantes;
-        descMulta=`${fmt(multaBase)} × ${mesesRestantes}/${totalMeses} meses restantes`;
+        descMulta=`${fmt(multaBase)} Ã ${mesesRestantes}/${totalMeses} meses restantes`;
       } else {
         // Locador rescinde: deve pagar indenização equivalente ao locatário pagaria
         multa=(multaBase/totalMeses)*mesesRestantes;
-        descMulta=`Indenização ao inquilino: ${fmt(multaBase)} × ${mesesRestantes}/${totalMeses} meses`;
+        descMulta=`Indenização ao inquilino: ${fmt(multaBase)} Ã ${mesesRestantes}/${totalMeses} meses`;
       }
     }
 
@@ -403,20 +403,20 @@
     if(quem==='locatario'){
       boxRegras.innerHTML=`
         <div style="background:#efebe9;border-radius:8px;padding:14px;font-size:.83rem;color:#3e2723">
-          <strong>Direitos do Inquilino (art. 4º):</strong>
+          <strong>Direitos do Inquilino (art. 4Âº):</strong>
           <ul style="padding-left:16px;margin-top:8px;line-height:1.8">
             <li>Pode rescindir a qualquer momento pagando a <strong>multa proporcional</strong> ao tempo restante</li>
             <li>Deve dar <strong>30 dias de aviso prévio</strong> ao proprietário</li>
             <li>A caução deve ser devolvida <strong>corrigida pelo IPCA</strong>, descontando débitos</li>
             <li>Se o contrato vencer ou for por prazo indeterminado: <strong>sem multa</strong></li>
-            <li>Se transferido de emprego: pode sair sem multa com 30 dias de aviso (art. 4º, § único)</li>
+            <li>Se transferido de emprego: pode sair sem multa com 30 dias de aviso (art. 4Âº, § único)</li>
             <li>Após 30 meses: pode encerrar com 30 dias de aviso, <strong>sem multa</strong></li>
           </ul>
         </div>`;
     } else {
       boxRegras.innerHTML=`
         <div style="background:#efebe9;border-radius:8px;padding:14px;font-size:.83rem;color:#3e2723">
-          <strong>Situações em que o Locador pode pedir o imóvel (art. 9º e 47):</strong>
+          <strong>Situações em que o Locador pode pedir o imóvel (art. 9Âº e 47):</strong>
           <ul style="padding-left:16px;margin-top:8px;line-height:1.8">
             <li>Uso próprio ou de familiar direto (com notificação de 30 dias)</li>
             <li>Demolição ou reforma aprovada pelo poder público</li>

@@ -91,24 +91,24 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="number" id="prazo" placeholder="Ex: 360" min="1" max="600"/>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">⚖️ Comparar SAC × Price</button>
+    <button class="btn-calc" onclick="calcular()">⚖️ Comparar SAC Ã Price</button>
   </div>
 
   <div id="resultado">
     <div class="card">
-      <h2>📊 Comparativo SAC × Price</h2>
+      <h2>📊 Comparativo SAC Ã Price</h2>
       <div class="compare-grid">
         <div class="cmp sac">
           <h3>📉 Tabela SAC</h3>
-          <div class="crow"><span>1ª parcela</span><span id="sac-p1">—</span></div>
-          <div class="crow"><span>Última parcela</span><span id="sac-pn">—</span></div>
+          <div class="crow"><span>1Âª parcela</span><span id="sac-p1">—</span></div>
+          <div class="crow"><span>Ãltima parcela</span><span id="sac-pn">—</span></div>
           <div class="crow"><span>Total pago</span><span id="sac-total">—</span></div>
           <div class="crow"><span>Total de juros</span><span id="sac-juros">—</span></div>
         </div>
         <div class="cmp price">
           <h3>📋 Tabela Price</h3>
-          <div class="crow"><span>1ª parcela</span><span id="price-p1">—</span></div>
-          <div class="crow"><span>Última parcela</span><span id="price-pn">—</span></div>
+          <div class="crow"><span>1Âª parcela</span><span id="price-p1">—</span></div>
+          <div class="crow"><span>Ãltima parcela</span><span id="price-pn">—</span></div>
           <div class="crow"><span>Total pago</span><span id="price-total">—</span></div>
           <div class="crow"><span>Total de juros</span><span id="price-juros">—</span></div>
         </div>
@@ -176,45 +176,45 @@ footer a{color:#1a73e8;text-decoration:none}
     </div>
   </div>
   <div class="explic">
-    <h3>?? SAC vs Tabela Price - Qual Sistema de Amortiza��o Escolher?</h3>
-    <p>O SAC e o Price cobram os mesmos juros sobre o saldo devedor, mas a forma de amortiza��o � diferente - e isso impacta muito o custo total do financiamento.</p>
-    <h4>?? Como Funciona Cada Sistema</h4>
+    <h3>🏦 SAC vs Tabela Price — Qual Sistema de Amortização Escolher?</h3>
+    <p>O SAC e o Price cobram os mesmos juros sobre o saldo devedor, mas a forma de amortização é diferente — e isso impacta muito o custo total do financiamento.</p>
+    <h4>📐 Como Funciona Cada Sistema</h4>
     <table>
       <thead><tr><th>Aspecto</th><th>SAC</th><th>Tabela Price</th></tr></thead>
       <tbody>
-        <tr><td>Amortiza��o mensal</td><td>Constante (igual todo m�s)</td><td>Crescente ao longo do tempo</td></tr>
-        <tr><td>Parcela</td><td>Come�a alta e vai caindo</td><td>Sempre igual (fixa)</td></tr>
+        <tr><td>Amortização mensal</td><td>Constante (igual todo mês)</td><td>Crescente ao longo do tempo</td></tr>
+        <tr><td>Parcela</td><td>Começa alta e vai caindo</td><td>Sempre igual (fixa)</td></tr>
         <tr><td>Custo total</td><td>Menor</td><td>Maior</td></tr>
-        <tr><td>Risco de saldo crescer</td><td>Muito baixo</td><td>Poss�vel nos primeiros anos</td></tr>
+        <tr><td>Risco de saldo crescer</td><td>Muito baixo</td><td>Possível nos primeiros anos</td></tr>
       </tbody>
     </table>
-    <h4>?? Exemplo Pr�tico (R$ 500.000 � 360 meses � 10% a.a.)</h4>
+    <h4>💡 Exemplo Prático (R$ 500.000 · 360 meses · 10% a.a.)</h4>
     <table>
-      <thead><tr><th>Sistema</th><th>1� Parcela</th><th>�ltima Parcela</th><th>Total Pago</th></tr></thead>
+      <thead><tr><th>Sistema</th><th>1ª Parcela</th><th>Última Parcela</th><th>Total Pago</th></tr></thead>
       <tbody>
-        <tr><td>SAC</td><td>? R$ 5.555</td><td>? R$ 1.402</td><td>? R$ 986.000</td></tr>
-        <tr><td>Price</td><td>? R$ 4.388</td><td>? R$ 4.388</td><td>? R$ 1.580.000</td></tr>
+        <tr><td>SAC</td><td>≈ R$ 5.555</td><td>≈ R$ 1.402</td><td>≈ R$ 986.000</td></tr>
+        <tr><td>Price</td><td>≈ R$ 4.388</td><td>≈ R$ 4.388</td><td>≈ R$ 1.580.000</td></tr>
       </tbody>
     </table>
-    <div class="info-box">? No exemplo acima, o SAC economiza cerca de <strong>R$ 594.000</strong> em juros. A diferen�a cresce com prazo maior e taxa mais alta.</div>
-    <div class="warn-box">?? No Price com indexador (IPCA/TR), o saldo devedor pode <strong>crescer em meses de infla��o alta</strong>. No SAC isso raramente ocorre pois a amortiza��o � maior.</div>
-    <h4>? Perguntas Frequentes</h4>
+    <div class="info-box">✅ No exemplo acima, o SAC economiza cerca de <strong>R$ 594.000</strong> em juros. A diferença cresce com prazo maior e taxa mais alta.</div>
+    <div class="warn-box">⚠️ No Price com indexador (IPCA/TR), o saldo devedor pode <strong>crescer em meses de inflação alta</strong>. No SAC isso raramente ocorre pois a amortização é maior.</div>
+    <h4>❓ Perguntas Frequentes</h4>
     <div class="faq-item">
-      <div class="faq-q">Qual sistema � indicado para renda limitada?</div>
-      <div class="faq-a">O Price tem parcela inicial menor, facilitando a aprova��o. Mas a longo prazo o SAC � sempre mais barato. Se poss�vel, escolha SAC e economize nas d�cadas seguintes.</div>
+      <div class="faq-q">Qual sistema é indicado para renda limitada?</div>
+      <div class="faq-a">O Price tem parcela inicial menor, facilitando a aprovação. Mas a longo prazo o SAC é sempre mais barato. Se possível, escolha SAC e economize nas décadas seguintes.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Posso trocar de SAC para Price durante o financiamento?</div>
-      <div class="faq-a">Em geral n�o - o sistema � definido na assinatura do contrato e n�o pode ser alterado.</div>
+      <div class="faq-a">Em geral não — o sistema é definido na assinatura do contrato e não pode ser alterado.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Qual sistema o Minha Casa Minha Vida usa?</div>
-      <div class="faq-a">O MCMV usa o sistema SAC (com poss�vel subs�dio do governo). As parcelas caem ao longo do tempo, tornando o financiamento mais leve nos anos finais.</div>
+      <div class="faq-a">O MCMV usa o sistema SAC (com possível subsídio do governo). As parcelas caem ao longo do tempo, tornando o financiamento mais leve nos anos finais.</div>
     </div>
   </div>
 
 </main>
-<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
+<footer>Â© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){
@@ -285,7 +285,7 @@ function calcular(){
   for(const k of keys){
     if(prev&&k-prev>1) html+=`<tr class="sep"><td colspan="7">· · ·</td></tr>`;
     const s=sac.rows[k-1], p=price.rows[k-1];
-    html+=`<tr><td>${k}º</td><td>${fmtR(s.pmt)}</td><td>${fmtR(s.jur)}</td><td>${fmtR(s.bal)}</td><td>${fmtR(p.pmt)}</td><td>${fmtR(p.jur)}</td><td>${fmtR(p.bal)}</td></tr>`;
+    html+=`<tr><td>${k}Âº</td><td>${fmtR(s.pmt)}</td><td>${fmtR(s.jur)}</td><td>${fmtR(s.bal)}</td><td>${fmtR(p.pmt)}</td><td>${fmtR(p.jur)}</td><td>${fmtR(p.bal)}</td></tr>`;
     prev=k;
   }
   document.getElementById('tbody').innerHTML=html;
