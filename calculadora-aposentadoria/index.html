@@ -99,8 +99,8 @@
 </head>
 <body>
 <header>
-  <h1>🏛️ Calculadora de Aposentadoria</h1>
-  <p>O que falta para se aposentar? Todas as regras 2025 — incluindo pedágio e transição</p>
+  <h1>Calculadora de Aposentadoria INSS 2026</h1>
+  <p>Quanto falta para se aposentar? Simule todas as regras de transição — pontos, pedágio 50% e idade mínima</p>
 </header>
 <div class="nav"><a href="../">← FacilCalc</a> / Calculadora de Aposentadoria</div>
 
@@ -249,11 +249,24 @@
     </div>
 
     <!-- ── Explicação rica ───────────────────────────────────────────── -->
+    <!-- TOC -->
+    <div class="card" style="padding:18px 22px;margin-bottom:16px">
+      <p style="font-size:.75rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">📑 Índice</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px">
+        <li><a href="#regras" style="color:#1a237e;font-size:.85rem;text-decoration:none;background:#e8eaf6;padding:4px 12px;border-radius:20px;display:inline-block">Regras de Transição</a></li>
+        <li><a href="#pontos" style="color:#1a237e;font-size:.85rem;text-decoration:none;background:#e8eaf6;padding:4px 12px;border-radius:20px;display:inline-block">Tabela de Pontos</a></li>
+        <li><a href="#pedagio" style="color:#1a237e;font-size:.85rem;text-decoration:none;background:#e8eaf6;padding:4px 12px;border-radius:20px;display:inline-block">Pedágio 50%</a></li>
+        <li><a href="#idade" style="color:#1a237e;font-size:.85rem;text-decoration:none;background:#e8eaf6;padding:4px 12px;border-radius:20px;display:inline-block">Idade Progressiva</a></li>
+        <li><a href="#faq" style="color:#1a237e;font-size:.85rem;text-decoration:none;background:#e8eaf6;padding:4px 12px;border-radius:20px;display:inline-block">Perguntas Frequentes</a></li>
+        <li><a href="#exemplos" style="color:#1a237e;font-size:.85rem;text-decoration:none;background:#e8eaf6;padding:4px 12px;border-radius:20px;display:inline-block">Exemplos Reais</a></li>
+      </ul>
+    </div>
+
     <div class="explic">
-      <h3>📘 Como funciona a aposentadoria em 2025</h3>
+      <h3 id="regras">📘 Como funciona a aposentadoria em 2026</h3>
       <p>Após a Reforma da Previdência (EC 103, novembro de 2019), existem <strong>quatro caminhos possíveis</strong> para se aposentar pelo INSS — dependendo de quando você começou a contribuir e da sua situação em novembro de 2019. A calculadora simula todos e aponta o mais vantajoso.</p>
 
-      <h3>🔢 Sistema de Pontos — Tabela Progressiva</h3>
+      <h3 id="pontos">🔢 Sistema de Pontos — Tabela Progressiva</h3>
       <p>A soma de <strong>sua idade + anos de contribuição</strong> precisa atingir a meta do ano. Avança +1 ponto por ano até o limite final em 2028.</p>
       <table class="pontos-tbl">
         <thead><tr><th>Ano</th><th>Homem</th><th>Mulher</th><th>Contribuição mínima</th></tr></thead>
@@ -269,7 +282,7 @@
       </table>
       <p>Exemplo: homem com 60 anos de idade e 42 anos de contribuição = 102 pontos ✅ elegível em 2025.</p>
 
-      <h3>⏳ Pedágio 50%</h3>
+      <h3 id="pedagio">⏳ Pedágio 50%</h3>
       <p>Regra exclusiva para quem <strong>faltavam menos de 2 anos</strong> para completar o tempo mínimo em 13/11/2019. Essa pessoa precisa trabalhar 50% a mais do que faltava — um "pedágio" — e não precisa atingir idade mínima.</p>
       <ul>
         <li>Faltavam 18 meses em nov/2019 → pedágio de 9 meses → total: 18 + 9 = 27 meses extras</li>
@@ -277,13 +290,13 @@
         <li>Quem faltava mais de 2 anos <strong>não se enquadra</strong> nessa regra</li>
       </ul>
 
-      <h3>📅 Idade Progressiva</h3>
+      <h3 id="idade">📅 Idade Progressiva</h3>
       <p>A idade mínima aumenta 6 meses por ano a partir de 2019. Em 2025: homens precisam de <strong>64 anos</strong> e mulheres de <strong>59 anos</strong>, mais o tempo mínimo de contribuição (H: 35 / M: 30 anos).</p>
 
       <h3>🏁 Regra Nova — Permanente</h3>
       <p>É a regra final, que vale para quem entrar no mercado agora. Sem transição: <strong>homens 65 anos + 20 anos de contribuição</strong> e <strong>mulheres 62 anos + 15 anos</strong>. O benefício começa em 60% da média, mais 2% por ano extra de contribuição acima do mínimo.</p>
 
-      <h3>❓ FAQ — Perguntas Frequentes</h3>
+      <h3 id="faq">❓ FAQ — Perguntas Frequentes</h3>
       <div class="faq-item">
         <div class="faq-q">Posso me aposentar antes dos 65 anos?</div>
         <div class="faq-a">Sim — pelas regras de transição (pontos, pedágio 50% ou idade progressiva), quem já contribuía antes de novembro de 2019 pode se aposentar antes dessa idade. A calculadora mostra exatamente qual opção é a mais rápida para você.</div>
@@ -309,7 +322,7 @@
         <div class="faq-a">Após a Reforma da Previdência de 2019, a aposentadoria por tempo de contribuição pura foi extinta. Hoje existem regras de transição (pontos, pedágio 50%, idade progressiva) para quem já contribuía antes, e a regra nova permanente (65 anos homem / 62 anos mulher + tempo mínimo) para quem começou depois.</div>
       </div>
 
-      <h3>📝 Exemplos Reais</h3>
+      <h3 id="exemplos">📝 Exemplos Reais</h3>
       <div class="ex-box">
         <strong>Carlos, 58 anos, 34 anos de contribuição (homem, CLT)</strong>
         <p>Regra dos Pontos em 2025: 58 + 34 = 92 pontos — precisa de 102. Faltam 10 pontos. Daqui a 5 anos (63 anos, 39 anos de contrib): 63 + 39 = 102 ✅. Pela Regra Nova, precisaria esperar até 65 anos. A mais vantajosa é a dos Pontos, aos 63 anos.</p>

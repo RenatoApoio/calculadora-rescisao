@@ -88,7 +88,7 @@
     // Trust badges: fundo escuro do header → usar rgba semi-transparente com cores da paleta
     var _bs = 'border-radius:20px;padding:4px 13px;font-size:.73rem;font-weight:700;';
     _tb.innerHTML =
-      '<span style="' + _bs + 'background:rgba(218,245,232,.25);border:1px solid rgba(157,216,184,.6);color:#c8f7d8;">✅ Atualizado 2025</span>' +
+      '<span style="' + _bs + 'background:rgba(218,245,232,.25);border:1px solid rgba(157,216,184,.6);color:#c8f7d8;">✅ Atualizado 2026</span>' +
       '<span style="' + _bs + 'background:rgba(212,241,244,.2);border:1px solid rgba(157,216,222,.5);color:#d4f8fb;">🆓 Gratuito</span>' +
       '<span style="' + _bs + 'background:rgba(237,216,248,.2);border:1px solid rgba(200,152,232,.5);color:#edd8f8;">🔒 Sem cadastro</span>' +
       '<span style="' + _bs + 'background:rgba(253,248,224,.2);border:1px solid rgba(232,216,112,.5);color:#fdf8e0;">⚡ Instantâneo</span>';
@@ -606,7 +606,7 @@
         _pld.chips.map(function(c){ return '<span>' + c + '</span>'; }).join('') +
         '<span>🆓 100% Gratuito</span>' +
       '</div>' +
-      '<div class="revisao-badge">📅 Atualizado para 2025 · Última revisão: Maio/2026</div>';
+      '<div class="revisao-badge">📅 Atualizado em Maio/2026 · Regras vigentes 2026</div>';
     // Insere antes de #formulario, ou como primeiro filho de <main>
     var _fEl = document.getElementById('formulario');
     var _mainEl = document.querySelector('main');
