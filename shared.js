@@ -75,6 +75,10 @@
       '.lead-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}',
       '.lead-chips span{background:#e8eaf6;color:#1a237e;border-radius:20px;padding:4px 13px;font-size:.76rem;font-weight:700}',
       '.revisao-badge{display:inline-flex;align-items:center;gap:5px;background:#fff3cd;color:#856404;border-radius:20px;padding:4px 13px;font-size:.74rem;font-weight:600;border:1px solid #ffd970}',
+      /* E-E-A-T badge global */
+      '.eeat-badge{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#f0f4ff;border:1px solid #c5cae9;border-radius:8px;font-size:.78rem;color:#3949ab;margin-bottom:14px}',
+      /* CLS: reserva espaço mínimo no header antes dos trust badges carregarem */
+      'header{min-height:110px;}',
     ].join('');
     document.head.appendChild(_ps);
   }
@@ -241,6 +245,234 @@
     var ld = document.createElement('script');
     ld.type = 'application/ld+json';
     ld.textContent = JSON.stringify(faqSchema);
+    document.head.appendChild(ld);
+  })();
+
+  // ── Article Schema — E-E-A-T author + dateModified ────────────────────
+  (function injectArticleSchema() {
+    if (isHome) return;
+    var _has = false;
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(function(el) {
+      try {
+        var p = JSON.parse(el.textContent);
+        if (p['@type'] === 'Article') _has = true;
+        if (p['@graph'] && p['@graph'].some(function(x){ return x['@type']==='Article'; })) _has = true;
+      } catch(e) {}
+    });
+    if (_has) return;
+    var ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({
+      '@context':'https://schema.org', '@type':'Article',
+      'headline': pgTitle.split('|')[0].split('—')[0].trim(),
+      'description': pgDesc,
+      'author': {'@type':'Person','name':'Equipe Editorial FacilCalc'},
+      'publisher': {'@type':'Organization','name':'FacilCalc','url':window.location.origin+'/'},
+      'datePublished':'2024-01-15', 'dateModified':'2026-05-01',
+      'inLanguage':'pt-BR', 'isAccessibleForFree':true
+    });
+    document.head.appendChild(ld);
+  })();
+
+  // ── HowTo Schema — passo a passo por calculadora ──────────────────────
+  (function injectHowToSchema() {
+    if (isHome) return;
+    var _has = false;
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(function(el) {
+      try { if (JSON.parse(el.textContent)['@type'] === 'HowTo') _has = true; } catch(e) {}
+    });
+    if (_has) return;
+    var _s = function(n,t){ return {name:n, text:t}; };
+    var HOWTO = {
+      'calculadora-rescisao': { name:'Como calcular as verbas rescisórias', steps:[
+        _s('Selecione o tipo de rescisão','Escolha entre demissão sem justa causa, pedido de demissão, acordo mútuo ou justa causa.'),
+        _s('Informe o salário bruto e datas','O salário define as verbas; as datas calculam o tempo de serviço e o aviso prévio proporcional.'),
+        _s('Preencha os campos opcionais','FGTS, férias vencidas e banco de horas melhoram a precisão. Deixe em branco para estimativa automática.'),
+        _s('Clique em Calcular Rescisão','Veja detalhamento completo, elegibilidade ao seguro-desemprego e total bruto a receber.')]},
+      'calculadora-fgts': { name:'Como calcular saldo e multa do FGTS', steps:[
+        _s('Informe salário e tempo de serviço','FGTS = 8% do salário bruto por mês trabalhado. Quanto mais tempo, maior o saldo.'),
+        _s('Informe o saldo atual (opcional)','Consulte pelo app FGTS. Se não souber, estimamos automaticamente pelo salário e tempo.'),
+        _s('Selecione o tipo de demissão','Multa de 40% (sem justa causa), 20% (acordo mútuo) ou zero (pedido de demissão).'),
+        _s('Veja o resultado','Saldo estimado, multa devida e valor disponível para saque conforme o tipo de rescisão.')]},
+      'calculadora-ferias': { name:'Como calcular férias CLT', steps:[
+        _s('Informe o salário bruto','O valor das férias é calculado sobre o salário base mensal.'),
+        _s('Informe o período aquisitivo','Data de admissão ou último gozo de férias para calcular os meses proporcionais.'),
+        _s('Escolha o tipo de férias','Completas (30 dias), proporcionais ou com abono pecuniário (venda de até 10 dias).'),
+        _s('Clique em Calcular','Veja valor bruto, adicional de 1/3 constitucional e descontos de INSS.')]},
+      'calculadora-horas-extras': { name:'Como calcular horas extras', steps:[
+        _s('Informe salário e jornada contratual','Define o valor da hora normal, base para os adicionais.'),
+        _s('Informe as horas extras por tipo','Dias úteis (50% de adicional) e domingos/feriados (100%).'),
+        _s('Informe se há adicional noturno','Trabalho das 22h às 5h tem adicional de 20% sobre a hora normal (CLT art. 73).'),
+        _s('Clique em Calcular','Valor de cada tipo de hora extra e total bruto a receber.')]},
+      'simulador-salario': { name:'Como simular o salário líquido', steps:[
+        _s('Informe o salário bruto','Remuneração mensal antes de qualquer desconto.'),
+        _s('Informe dependentes e deduções','Cada dependente reduz a base de IR. Informe pensão alimentícia se houver.'),
+        _s('Clique em Calcular','Veja desconto exato de INSS (tabela progressiva), IR com alíquota efetiva e salário líquido final.')]},
+      'calculadora-inss': { name:'Como calcular contribuição ao INSS', steps:[
+        _s('Informe salário ou renda bruta','Valor mensal de salário CLT, pró-labore ou renda como autônomo.'),
+        _s('Selecione a categoria','CLT, autônomo, MEI ou contribuinte facultativo — cada um tem alíquotas diferentes.'),
+        _s('Clique em Calcular','Tabela progressiva do INSS 2026: desconto por faixa e total a recolher.')]},
+      'calculadora-13-salario': { name:'Como calcular o 13º salário', steps:[
+        _s('Informe o salário bruto e meses trabalhados','Meses com 15 dias ou mais contam como mês inteiro para o proporcional.'),
+        _s('Selecione 1ª ou 2ª parcela','1ª parcela (até novembro) sem IR; 2ª parcela (dezembro) com INSS e IR descontados.'),
+        _s('Clique em Calcular','Valor bruto, descontos e 13º líquido para cada parcela.')]},
+      'calculadora-ir': { name:'Como calcular o Imposto de Renda mensal', steps:[
+        _s('Informe salário bruto e INSS','O INSS já descontado reduz a base de cálculo do IR.'),
+        _s('Informe dependentes e outras deduções','Cada dependente abate da base de IR mensal conforme tabela 2026.'),
+        _s('Clique em Calcular','Tabela progressiva IRPF 2026: alíquota efetiva, desconto e salário líquido.')]},
+      'calculadora-emprestimo': { name:'Como simular um empréstimo', steps:[
+        _s('Informe valor, taxa e prazo','Valor total do empréstimo, taxa de juros mensal e número de parcelas.'),
+        _s('Escolha o sistema de amortização','Price (parcelas fixas) ou SAC (parcelas decrescentes).'),
+        _s('Clique em Calcular','Parcela mensal, total pago com juros, CET e tabela completa de amortização.')]},
+      'simulador-financiamento': { name:'Como simular financiamento imobiliário ou veicular', steps:[
+        _s('Selecione o tipo de financiamento','Imóvel, veículo ou crédito pessoal — cada um tem taxas e regras diferentes.'),
+        _s('Informe valor, entrada, taxa e prazo','O financiamento incide sobre o valor após a entrada. Compare diferentes prazos.'),
+        _s('Escolha SAC ou Price','SAC tem parcelas decrescentes; Price tem parcelas fixas. A calculadora simula os dois.'),
+        _s('Clique em Simular','Parcela inicial, total de juros, CET e tabela de amortização mês a mês.')]},
+      'calculadora-juros-compostos': { name:'Como calcular juros compostos', steps:[
+        _s('Informe capital inicial e aportes mensais','Capital de partida e valor que adiciona todo mês ao investimento.'),
+        _s('Informe taxa e período','Taxa ao mês ou ao ano e prazo total. Experimente diferentes cenários.'),
+        _s('Clique em Calcular','Montante final, total investido e quanto veio só de juros — o poder dos juros compostos no tempo.')]},
+      'calculadora-sac-price': { name:'Como comparar sistemas SAC e Price', steps:[
+        _s('Informe valor financiado, taxa e prazo','Dados do financiamento que deseja comparar nos dois sistemas.'),
+        _s('Clique em Comparar','Veja parcelas mês a mês, total de juros no SAC vs Price e qual sistema convém para o seu caso.')]},
+      'calculadora-rescisao-aluguel': { name:'Como calcular multa de rescisão de aluguel', steps:[
+        _s('Informe o valor do aluguel e datas do contrato','Aluguel mensal, início, prazo total e data de encerramento desejada.'),
+        _s('Informe a multa contratual','Geralmente 3 meses de aluguel — verifique o contrato assinado.'),
+        _s('Clique em Calcular','Multa proporcional ao tempo restante conforme Lei do Inquilinato (Lei 8.245/91).')]},
+      'banco-de-horas': { name:'Como calcular banco de horas', steps:[
+        _s('Informe salário e jornada diária','Determina o valor monetário de cada hora no banco.'),
+        _s('Informe o saldo de horas','Positivo = horas a receber; negativo = horas a compensar.'),
+        _s('Clique em Calcular','Saldo em reais, horas a compensar ou a receber e prazo máximo conforme CLT.')]},
+      'calculadora-insalubridade': { name:'Como calcular adicional de insalubridade ou periculosidade', steps:[
+        _s('Selecione o tipo de adicional','Insalubridade grau mínimo (10%), médio (20%) ou máximo (40%), ou periculosidade (30%).'),
+        _s('Selecione a base de cálculo','Salário mínimo nacional, salário base ou piso da categoria conforme convenção coletiva.'),
+        _s('Clique em Calcular','Valor do adicional mensal e salário total com o adicional incluído.')]},
+      'calculadora-plr': { name:'Como calcular IR sobre PLR', steps:[
+        _s('Informe o valor bruto da PLR','Participação nos Lucros e Resultados conforme comunicado da empresa.'),
+        _s('Informe o salário mensal','Usado para verificar a faixa de isenção — PLR tem tabela de IR exclusiva.'),
+        _s('Clique em Calcular','Tabela exclusiva de IR para PLR (diferente da mensal) e valor líquido a receber.')]},
+      'comparador-pj-clt-mei': { name:'Como comparar PJ, CLT e MEI', steps:[
+        _s('Informe a remuneração bruta em cada regime','Valor do contrato PJ, salário CLT equivalente e faturamento como MEI.'),
+        _s('Informe benefícios e custos adicionais','Vale-refeição, plano de saúde, transporte e custos operacionais como PJ.'),
+        _s('Clique em Comparar','Rendimento líquido real em cada regime com todos os impostos, encargos e benefícios calculados.')]},
+      'calculadora-cdb-lci-lca': { name:'Como comparar CDB, LCI e LCA', steps:[
+        _s('Informe o valor a investir e o prazo','O IR do CDB é regressivo — quanto mais longo, menor a alíquota. LCI/LCA são isentos.'),
+        _s('Informe as taxas oferecidas pelos bancos','Percentual do CDI de cada produto para comparação direta.'),
+        _s('Clique em Calcular','Rendimento bruto, IR descontado e líquido de cada opção para ver qual vale mais.')]},
+      'simulador-tesouro-direto': { name:'Como simular Tesouro Direto', steps:[
+        _s('Selecione o título','Selic (liquidez diária), IPCA+ (proteção contra inflação) ou Prefixado (taxa garantida).'),
+        _s('Informe valor, prazo e taxa atual','Consulte as taxas em tesouro.gov.br para simular com valores reais.'),
+        _s('Clique em Simular','Montante bruto, IR regressivo, valor líquido e comparativo com poupança e CDI.')]},
+      'calculadora-fire': { name:'Como calcular independência financeira (FIRE)', steps:[
+        _s('Informe gastos mensais e patrimônio atual','Gastos = sua meta de renda passiva. Patrimônio = o que você já acumulou.'),
+        _s('Informe aporte mensal e rentabilidade esperada','Quanto poupa por mês e retorno real anual acima da inflação (geralmente 4%–6%).'),
+        _s('Clique em Calcular','Meta FIRE, anos para atingi-la, quanto pode sacar mensalmente com segurança pela regra dos 4%.')]},
+      'calculadora-pgbl-vgbl': { name:'Como comparar PGBL e VGBL', steps:[
+        _s('Informe renda anual e regime de IR','PGBL convém para declaração completa; VGBL para simplificada ou isentos de IR.'),
+        _s('Informe aporte mensal e prazo','O prazo impacta muito na tributação do resgate — tabela progressiva ou regressiva.'),
+        _s('Clique em Comparar','Diferença líquida no resgate entre PGBL e VGBL conforme seu perfil tributário.')]},
+      'alugar-ou-comprar': { name:'Como decidir entre alugar ou comprar imóvel', steps:[
+        _s('Informe valor do imóvel e aluguel equivalente','Preço de compra e aluguel mensal que pagaria pelo mesmo imóvel.'),
+        _s('Informe condições de financiamento','Taxa de juros, prazo e entrada disponível — custos reais da compra incluindo ITBI.'),
+        _s('Informe valorização e rentabilidade esperadas','Valorização anual do imóvel e retorno alternativo do capital (CDI ou Selic).'),
+        _s('Clique em Analisar','Comparativo financeiro em 10 anos mostrando qual opção gera mais patrimônio.')]},
+      'calculadora-itbi': { name:'Como calcular o ITBI', steps:[
+        _s('Informe o valor do imóvel','Valor declarado na escritura ou valor venal — o ITBI incide sobre o maior.'),
+        _s('Selecione o município','A alíquota do ITBI varia por cidade: de 2% a 3% na maioria dos municípios.'),
+        _s('Clique em Calcular','ITBI, custos de cartório, registro e total de despesas na compra do imóvel.')]},
+      'calculadora-yield-imovel': { name:'Como calcular yield (rentabilidade) do imóvel', steps:[
+        _s('Informe valor do imóvel e aluguel mensal','Valor de mercado atual e aluguel bruto recebido.'),
+        _s('Informe custos e vacância','IPTU, condomínio, manutenção e meses sem inquilino por ano.'),
+        _s('Clique em Calcular','Yield bruto, yield líquido e comparativo com CDI, Selic e FIIs.')]},
+      'calculadora-reforma': { name:'Como estimar custo de reforma', steps:[
+        _s('Selecione os ambientes e metragens','Banheiro, cozinha, sala — área em m² de cada cômodo a reformar.'),
+        _s('Selecione o padrão','Simples, médio ou alto padrão — os preços de materiais e mão de obra variam bastante.'),
+        _s('Clique em Calcular','Estimativa de custo por cômodo e total geral da reforma.')]},
+      'calculadora-combustivel': { name:'Como calcular qual combustível compensa', steps:[
+        _s('Informe preços de gasolina e etanol','Preço atual no posto da sua cidade para cada combustível.'),
+        _s('Informe consumo do veículo e km mensais','Km/litro com cada combustível e distância percorrida por mês.'),
+        _s('Clique em Calcular','Custo por km, custo mensal e qual combustível é mais econômico para o seu carro.')]},
+      'custo-do-carro': { name:'Como calcular o custo real do carro', steps:[
+        _s('Informe valor e financiamento','Preço do carro, entrada e parcela mensal se financiado.'),
+        _s('Informe custos fixos e variáveis','IPVA, seguro, manutenção, combustível, pedágios e estacionamento mensais.'),
+        _s('Informe a depreciação esperada','Carros perdem 10–20% do valor por ano — custo real frequentemente ignorado.'),
+        _s('Clique em Calcular','Custo total mensal, custo por km e o verdadeiro preço de ter o carro.')]},
+      'calculadora-das-mei': { name:'Como calcular o DAS do MEI', steps:[
+        _s('Selecione a atividade do MEI','Comércio/indústria (ICMS), serviços (ISS) ou ambas — cada tipo tem valor de DAS diferente.'),
+        _s('Clique em Calcular','Detalhamento do DAS 2026: INSS, ISS e/ou ICMS e total mensal a pagar.')]},
+      'calculadora-icms-iss': { name:'Como calcular ICMS e ISS', steps:[
+        _s('Selecione o imposto e informe o valor da operação','ICMS para comércio/indústria; ISS para serviços.'),
+        _s('Informe a alíquota aplicável','ICMS varia por estado (4%–25%); ISS por município e serviço (2%–5%).'),
+        _s('Clique em Calcular','Imposto por dentro e por fora, base de cálculo e valor líquido da operação.')]},
+      'calculadora-hora-trabalho': { name:'Como calcular o valor real da hora de trabalho', steps:[
+        _s('Informe salário, impostos e descontos','INSS, IR, custos como PJ ou MEI — tudo que você paga para poder trabalhar.'),
+        _s('Informe horas reais trabalhadas','Inclua deslocamento, reuniões e trabalho fora do horário contratado.'),
+        _s('Clique em Calcular','Valor real por hora descontando tudo que gasta para trabalhar — essencial para autônomos e freelancers.')]},
+      'divisor-de-conta': { name:'Como dividir conta entre pessoas', steps:[
+        _s('Informe valor total e número de pessoas','Total da conta e quantos vão dividir.'),
+        _s('Adicione gorjeta (opcional)','Percentual de gorjeta se quiser incluir na divisão.'),
+        _s('Clique em Dividir','Quanto cada pessoa paga, com ou sem gorjeta.')]},
+      'conversor-unidades': { name:'Como converter unidades de medida', steps:[
+        _s('Selecione a categoria e as unidades','Comprimento, peso, temperatura, área, volume — origem e destino da conversão.'),
+        _s('Digite o valor e veja o resultado','Conversão instantânea com a fórmula explicada.')]},
+      'calculadora-gravidez': { name:'Como calcular data provável do parto', steps:[
+        _s('Informe a data da última menstruação (DUM)','Ponto de partida mais usado pelos obstetras para calcular a gestação.'),
+        _s('Clique em Calcular','Data provável do parto (DPP), semanas de gestação, trimestre atual e calendário de pré-natal.')]},
+      'calculadora-imc': { name:'Como calcular o IMC', steps:[
+        _s('Informe peso e altura','Seu peso em kg e altura em cm.'),
+        _s('Clique em Calcular','IMC, classificação OMS (abaixo do peso, normal, sobrepeso, obesidade) e faixa de peso ideal.')]},
+      'calculadora-calorias': { name:'Como calcular necessidade calórica diária', steps:[
+        _s('Informe dados pessoais','Peso, altura, idade e sexo — equação de Harris-Benedict.'),
+        _s('Selecione nível de atividade e objetivo','Sedentário a muito ativo. Objetivo: perder peso, manter ou ganhar massa.'),
+        _s('Clique em Calcular','Taxa metabólica basal (TMB), gasto total diário e meta calórica para o objetivo.')]},
+      'calculadora-media-escolar': { name:'Como calcular média escolar', steps:[
+        _s('Informe notas e pesos de cada avaliação','Bimestres, trimestres ou provas com seus respectivos pesos.'),
+        _s('Informe a média mínima para aprovação','Geralmente 5,0 ou 6,0 conforme a escola.'),
+        _s('Clique em Calcular','Média ponderada, situação (aprovado/recuperação) e nota necessária na próxima prova.')]},
+      'consulta-cnpj': { name:'Como consultar CNPJ', steps:[
+        _s('Digite o CNPJ','Com ou sem formatação — pontos, traço e barra são opcionais.'),
+        _s('Clique em Consultar','Dados em tempo real da Receita Federal: razão social, situação cadastral, endereço, CNAE e sócios.')]},
+      'feriados': { name:'Como consultar feriados nacionais', steps:[
+        _s('Selecione o ano (2025 ou 2026)','Calendário completo de feriados nacionais do Brasil.'),
+        _s('Veja o próximo feriado e a lista completa','Contagem regressiva, data, dia da semana e tipo de cada feriado.')]},
+      'calculadora-contagem-datas': { name:'Como calcular dias entre datas', steps:[
+        _s('Informe a data inicial e final','Datas de início e fim do período que deseja calcular.'),
+        _s('Selecione se desconta fins de semana e feriados','Para calcular prazo em dias úteis, ative as opções.'),
+        _s('Clique em Calcular','Diferença em dias corridos, dias úteis, semanas e meses entre as duas datas.')]},
+      'taxas-do-dia': { name:'Como consultar taxas de juros do dia', steps:[
+        _s('Acesse a página','As taxas são carregadas automaticamente via BrasilAPI com dados do Banco Central.'),
+        _s('Veja Selic, CDI e outras taxas','Taxas oficiais do dia: Selic, CDI diário e anual, TJLP, TR — atualizadas em tempo real.')]},
+      'cotacao-moedas': { name:'Como consultar cotação de moedas', steps:[
+        _s('Acesse a página','Cotações carregadas em tempo real via API de câmbio.'),
+        _s('Informe o valor e selecione a moeda','Digite o valor e escolha a moeda de destino para conversão instantânea.'),
+        _s('Veja dólar, euro e outras moedas','Taxa de compra, venda e variação do dia para as principais moedas.')]},
+      'gerador-qr-code': { name:'Como gerar um QR Code', steps:[
+        _s('Selecione o tipo de conteúdo','Link, mensagem WhatsApp, chave PIX ou texto livre.'),
+        _s('Informe o conteúdo','URL, número de telefone, chave PIX ou o texto que o QR Code deve conter.'),
+        _s('Clique em Gerar e baixe o QR Code','QR Code gerado instantaneamente em alta resolução para download em PNG.')]},
+      'calculadora': { name:'Como usar a calculadora científica', steps:[
+        _s('Digite a expressão matemática','Suporta operações básicas, trigonometria, logaritmos, potências e raízes.'),
+        _s('Pressione Enter ou clique em Calcular','Resultado instantâneo com histórico das últimas operações.')]},
+      'encurtador-url': { name:'Como encurtar um link', steps:[
+        _s('Cole a URL que deseja encurtar','Qualquer link válido com http:// ou https://.'),
+        _s('Clique em Encurtar','Link curto gerado instantaneamente, pronto para compartilhar.')]},
+      'consulta-cep': { name:'Como consultar endereço pelo CEP', steps:[
+        _s('Digite o CEP','Com ou sem traço — 8 dígitos do CEP brasileiro.'),
+        _s('Clique em Consultar','Endereço completo via ViaCEP: logradouro, bairro, cidade, estado e link para Google Maps.')]},
+      'verificar-dominio': { name:'Como verificar disponibilidade de domínio', steps:[
+        _s('Digite o nome do domínio desejado','Sem o ponto ou extensão — a calculadora verifica .com, .com.br, .net e .org.'),
+        _s('Clique em Verificar','Disponibilidade em tempo real e dados WHOIS se o domínio estiver registrado.')]}
+    };
+    var data = HOWTO[currentSlug];
+    if (!data) return;
+    var ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({
+      '@context':'https://schema.org', '@type':'HowTo',
+      'name': data.name, 'description': pgDesc, 'totalTime':'PT2M',
+      'step': data.steps.map(function(s,i){ return {'@type':'HowToStep','position':i+1,'name':s.name,'text':s.text}; })
+    });
     document.head.appendChild(ld);
   })();
 
@@ -615,7 +847,7 @@
         _pld.chips.map(function(c){ return '<span>' + c + '</span>'; }).join('') +
         '<span>🆓 100% Gratuito</span>' +
       '</div>' +
-      '<div class="revisao-badge">📅 Atualizado em Maio/2026 · Regras vigentes 2026</div>';
+      '<div class="revisao-badge">📅 Atualizado em <time datetime="2026-05-01">01/05/2026</time> · Regras vigentes 2026</div>';
     // Insere antes de #formulario, ou como primeiro filho de <main>
     var _fEl = document.getElementById('formulario');
     var _mainEl = document.querySelector('main');
@@ -625,6 +857,32 @@
       _mainEl.insertBefore(_plDiv, _mainEl.firstChild);
     }
   }
+
+  // ── E-E-A-T badge — após page-lead em todas as páginas ────────────────
+  (function injectEEAT() {
+    if (isHome) return;
+    if (document.querySelector('.eeat-badge')) return;
+    var badge = document.createElement('div');
+    badge.className = 'eeat-badge';
+    badge.innerHTML = '📋 <span>Conteúdo elaborado pela equipe <strong>FacilCalc</strong> &nbsp;·&nbsp; Atualizado em <strong><time datetime="2026-05-01">01/05/2026</time></strong> &nbsp;·&nbsp; Estimativa educacional — não substitui orientação profissional</span>';
+    var lead = document.querySelector('.page-lead');
+    var mainEl = document.querySelector('main');
+    if (lead && lead.parentNode) {
+      lead.parentNode.insertBefore(badge, lead.nextSibling);
+    } else if (mainEl) {
+      mainEl.insertBefore(badge, mainEl.firstChild);
+    }
+  })();
+
+  // ── rel=nofollow noopener em todos os links externos ──────────────────
+  document.querySelectorAll('a[href^="http"]').forEach(function(a) {
+    var h = a.getAttribute('href') || '';
+    if (h.includes('facilcalc.com.br') || h.startsWith(window.location.origin)) return;
+    var rel = (a.getAttribute('rel') || '').trim();
+    if (!rel.includes('nofollow')) {
+      a.setAttribute('rel', (rel ? rel + ' ' : '') + 'nofollow noopener');
+    }
+  });
 
   // ── Acessibilidade ─────────────────────────────────────────────────────
   const focusStyle = document.createElement('style');
