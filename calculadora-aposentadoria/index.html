@@ -398,9 +398,9 @@
 
     function getPontosDoAno(ano){
       const row=pontosTabela.find(r=>r.ano===ano);
-      if(row)return sexo==='M'?row.M:row.H;
-      if(ano>=2028)return sexo==='M'?pontosFinais.M:pontosFinais.H;
-      return sexo==='M'?86:96;
+      if(row)return sexo==='M'?row.H:row.M;           // H=Homem, M=Mulher
+      if(ano>=2028)return sexo==='M'?pontosFinais.H:pontosFinais.M;
+      return sexo==='M'?96:86;
     }
 
     // Calcula quando vai aposentar pela regra dos pontos
