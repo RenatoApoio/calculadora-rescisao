@@ -605,9 +605,9 @@
   // ── Page-lead: cabeçalho profissional antes do formulário ─────────────
   const PAGE_LEAD = {
     'calculadora-rescisao': {
-      title: '📋 Calculadora de Rescisão Trabalhista 2025',
+      title: '📋 Calculadora de Rescisão Trabalhista 2026 Online Grátis',
       desc: 'Calcule todos os valores da rescisão: saldo de salário, aviso prévio, 13º proporcional, férias + 1/3 e multa do FGTS. Funciona para demissão sem justa causa, pedido de demissão e acordo mútuo — com estimativas automáticas mesmo sem todas as informações.',
-      chips: ['✅ CLT Atualizada 2025', '✅ 3 tipos de rescisão', '✅ Estimativas automáticas']
+      chips: ['✅ CLT Atualizada 2026', '✅ 3 tipos de rescisão', '✅ Estimativas automáticas']
     },
     'calculadora-fgts': {
       title: '🏦 Calculadora de FGTS 2025 — Saldo, Multa e Saque-Aniversário',
