@@ -160,7 +160,16 @@
     'gerador-qr-code':'UtilitiesApplication',
   };
 
-  if (!isHome && !document.querySelector('script[type="application/ld+json"]')) {
+  // Verifica especificamente se já existe WebApplication (não bloqueia HowTo/Article/FAQ externos)
+  var _hasWebApp = false;
+  document.querySelectorAll('script[type="application/ld+json"]').forEach(function(el) {
+    try {
+      var _p = JSON.parse(el.textContent);
+      if (_p['@type'] === 'WebApplication') { _hasWebApp = true; return; }
+      if (_p['@graph'] && _p['@graph'].some(function(x){ return x['@type'] === 'WebApplication'; })) _hasWebApp = true;
+    } catch(e) {}
+  });
+  if (!isHome && !_hasWebApp) {
     const appCat = SLUG_APPCAT[currentSlug] || 'UtilitiesApplication';
     const origin = window.location.origin;
     const shortName = pgTitle.split('|')[0].split('—')[0].trim();

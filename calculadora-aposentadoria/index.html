@@ -104,7 +104,7 @@
 {"@context":"https://schema.org","@type":"HowTo","name":"Como calcular quanto falta para se aposentar pelo INSS","description":"Simule todas as regras de transição da Reforma da Previdência (EC 103/2019) e descubra a data de aposentadoria mais vantajosa para o seu perfil.","totalTime":"PT2M","step":[{"@type":"HowToStep","position":1,"name":"Selecione sexo e data de nascimento","text":"Escolha Masculino ou Feminino e informe sua data de nascimento completa. A calculadora usa a data exata para calcular sua idade em meses."},{"@type":"HowToStep","position":2,"name":"Informe o tempo de contribuição","text":"Consulte seu extrato no Meu INSS (meu.inss.gov.br) e informe os anos e meses de contribuição acumulados ao INSS."},{"@type":"HowToStep","position":3,"name":"Indique se era contribuinte em novembro de 2019","text":"Esta informação define quais regras de transição da Reforma da Previdência se aplicam: pontos progressivos, pedágio de 50% ou idade progressiva."},{"@type":"HowToStep","position":4,"name":"Informe o salário médio (opcional)","text":"Para estimar o valor mensal do benefício de aposentadoria, informe sua renda ou salário médio de contribuição."},{"@type":"HowToStep","position":5,"name":"Clique em Calcular e veja o resultado","text":"A calculadora simula todas as 4 regras aplicáveis — pontos, pedágio 50%, idade progressiva e regra nova — e indica qual é a mais vantajosa para você, com a data estimada de aposentadoria."}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Calculadora de Aposentadoria INSS 2026: Quanto Falta para se Aposentar","description":"Simule todas as regras de transição da Reforma da Previdência (EC 103/2019) e descubra a data de aposentadoria mais próxima para o seu perfil.","author":{"@type":"Organization","name":"FacilCalc","url":"https://facilcalc.com.br"},"publisher":{"@type":"Organization","name":"FacilCalc","url":"https://facilcalc.com.br"},"datePublished":"2024-01-15","dateModified":"2026-05-01","inLanguage":"pt-BR","isAccessibleForFree":true}
+{"@context":"https://schema.org","@type":"Article","headline":"Calculadora de Aposentadoria INSS 2026: Quanto Falta para se Aposentar","description":"Simule todas as regras de transição da Reforma da Previdência (EC 103/2019) e descubra a data de aposentadoria mais próxima para o seu perfil.","author":{"@type":"Person","name":"Equipe Editorial FacilCalc"},"publisher":{"@type":"Organization","name":"FacilCalc","url":"https://facilcalc.com.br"},"datePublished":"2024-01-15","dateModified":"2026-05-01","inLanguage":"pt-BR","isAccessibleForFree":true}
 </script>
 </head>
 <body>
@@ -125,13 +125,13 @@
       <span>✅ Regras EC 103/2019</span>
       <span>✅ Resultado instantâneo</span>
     </div>
-    <div class="revisao-badge">📅 Atualizado em Maio/2026 · Regras vigentes 2026</div>
+    <div class="revisao-badge">📅 Atualizado em <time datetime="2026-05-01">01/05/2026</time> · Regras vigentes 2026</div>
   </div>
 
   <!-- E-E-A-T badge -->
   <div class="eeat-badge">
     <span>📋</span>
-    <span>Conteúdo elaborado pela equipe <strong>FacilCalc</strong> com base na <strong>EC 103/2019</strong> e legislação previdenciária vigente · Atualizado em <strong>Maio/2026</strong> · Simulação educacional — não substitui consulta previdenciária</span>
+    <span>Conteúdo elaborado pela equipe <strong>FacilCalc</strong> com base na <strong>EC 103/2019</strong> e legislação previdenciária vigente · Atualizado em <strong><time datetime="2026-05-01">01/05/2026</time></strong> · Simulação educacional — não substitui consulta previdenciária</span>
   </div>
 
   <!-- Featured snippet — respostas diretas para Google -->
@@ -267,7 +267,7 @@
       </div>
     </div>
 
-    <div class="aviso">⚠️ Este cálculo é uma estimativa. O INSS considera carências, afastamentos e regras específicas. Consulte o <a href="https://meu.inss.gov.br" target="_blank" rel="noopener" style="color:#7a4f00">Meu INSS (meu.inss.gov.br)</a> ou um despachante previdenciário para análise exata.</div>
+    <div class="aviso">⚠️ Este cálculo é uma estimativa. O INSS considera carências, afastamentos e regras específicas. Consulte o <a href="https://meu.inss.gov.br" target="_blank" rel="nofollow noopener" style="color:#7a4f00">Meu INSS (meu.inss.gov.br)</a> ou um despachante previdenciário para análise exata.</div>
     <div style="text-align:center;margin-top:14px">
       <button class="btn-novo" onclick="novoCalculo()">🔄 Novo Cálculo</button>
     </div>
@@ -332,7 +332,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Onde consulto meu tempo de contribuição?</div>
-      <div class="faq-a">No <a href="https://meu.inss.gov.br" target="_blank" rel="noopener">Meu INSS (meu.inss.gov.br)</a> ou no aplicativo "Meu INSS" no celular. Basta fazer login com a conta Gov.br e acessar "Extrato de Contribuição".</div>
+      <div class="faq-a">No <a href="https://meu.inss.gov.br" target="_blank" rel="nofollow noopener">Meu INSS (meu.inss.gov.br)</a> ou no aplicativo "Meu INSS" no celular. Basta fazer login com a conta Gov.br e acessar "Extrato de Contribuição".</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Tempo como autônomo e MEI conta para aposentadoria?</div>
@@ -381,7 +381,7 @@
   //     Verificar valor vigente em: https://www.inss.gov.br/beneficios/salario-de-beneficio/
   //     Valor 2025: R$ 8.157,41
   //     Valor 2026: ________ (atualizar abaixo)
-  const TETO_INSS = 8157.41;
+  const TETO_INSS = 8475.55; // teto INSS 2026 (reajustado jan/2026)
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   function maskMoeda(el){
