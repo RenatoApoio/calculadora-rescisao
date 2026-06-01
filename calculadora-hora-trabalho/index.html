@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Quanto Custa Sua Hora de Trabalho? 2025 | FacilCalc</title>
-<meta name="description" content="Descubra quanto sua hora de trabalho realmente vale. Calcule o custo real da hora considerando salÃ¡rio lÃ­quido, horas trabalhadas e deslocamento."/>
+<meta name="description" content="Descubra quanto sua hora de trabalho realmente vale. Calcule o custo real da hora considerando salário líquido, horas trabalhadas e deslocamento."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -42,16 +42,16 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>â° Quanto Custa Sua Hora?</h1>
+  <h1>⏰ Quanto Custa Sua Hora?</h1>
   <p>Descubra o valor real da sua hora de trabalho</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ð¼ Seus Dados de Trabalho</h2>
+    <h2>💼 Seus Dados de Trabalho</h2>
     <div class="grid">
       <div class="field">
-        <label>SalÃ¡rio LÃ­quido Mensal (R$)</label>
+        <label>Salário Líquido Mensal (R$)</label>
         <input type="text" id="salario" placeholder="Ex: 3.500,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
@@ -67,64 +67,64 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="number" id="desloc" placeholder="Ex: 60" value="0" min="0"/>
       </div>
       <div class="field full">
-        <label>Gastos mensais por causa do trabalho (R$) <span style="font-weight:400;color:#999">â transporte, alimentaÃ§Ã£o fora, roupas</span></label>
+        <label>Gastos mensais por causa do trabalho (R$) <span style="font-weight:400;color:#999">— transporte, alimentação fora, roupas</span></label>
         <input type="text" id="gastos-trab" placeholder="Ex: 400,00" oninput="maskMoeda(this)"/>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">â±ï¸ Calcular Valor da Hora</button>
+    <button class="btn-calc" onclick="calcular()">⏱️ Calcular Valor da Hora</button>
   </div>
 
   <div id="resultado">
     <div class="hero">
       <label>Sua hora de trabalho vale</label>
-      <div class="big" id="r-hora">â</div>
-      <div class="sub" id="r-sub">â</div>
+      <div class="big" id="r-hora">—</div>
+      <div class="sub" id="r-sub">—</div>
     </div>
     <div class="res-grid">
-      <div class="r-box"><label>Horas/mÃªs (contratadas)</label><div class="val" id="r-h-contrat">â</div></div>
-      <div class="r-box"><label>Horas reais/mÃªs</label><div class="val" id="r-h-reais">â</div></div>
-      <div class="r-box"><label>SalÃ¡rio real (apÃ³s gastos)</label><div class="val" id="r-sal-real">â</div></div>
-      <div class="r-box"><label>Hora pelo contrato</label><div class="val" id="r-hora-contrat">â</div></div>
-      <div class="r-box"><label>Hora real (com deslocamento)</label><div class="val" id="r-hora-real">â</div></div>
-      <div class="r-box"><label>Horas de vida no trabalho/ano</label><div class="val" id="r-h-ano">â</div></div>
+      <div class="r-box"><label>Horas/mês (contratadas)</label><div class="val" id="r-h-contrat">—</div></div>
+      <div class="r-box"><label>Horas reais/mês</label><div class="val" id="r-h-reais">—</div></div>
+      <div class="r-box"><label>Salário real (após gastos)</label><div class="val" id="r-sal-real">—</div></div>
+      <div class="r-box"><label>Hora pelo contrato</label><div class="val" id="r-hora-contrat">—</div></div>
+      <div class="r-box"><label>Hora real (com deslocamento)</label><div class="val" id="r-hora-real">—</div></div>
+      <div class="r-box"><label>Horas de vida no trabalho/ano</label><div class="val" id="r-h-ano">—</div></div>
     </div>
     <div class="compras" id="compras-box"></div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
   <div class="explic">
-    <h3>⏰ Quanto Vale Sua Hora de Trabalho?</h3>
-    <p>Saber o valor real da sua hora de trabalho é fundamental para freelancers, autônomos, profissionais liberais e qualquer pessoa que queira avaliar se um emprego ou projeto vale o tempo investido.</p>
-    <h4>💰 Como Calcular o Valor da Hora</h4>
+    <h3>? Quanto Vale Sua Hora de Trabalho?</h3>
+    <p>Saber o valor real da sua hora de trabalho � fundamental para freelancers, aut�nomos, profissionais liberais e qualquer pessoa que queira avaliar se um emprego ou projeto vale o tempo investido.</p>
+    <h4>?? Como Calcular o Valor da Hora</h4>
     <table>
-      <thead><tr><th>Perfil</th><th>Fórmula</th><th>Exemplo</th></tr></thead>
+      <thead><tr><th>Perfil</th><th>F�rmula</th><th>Exemplo</th></tr></thead>
       <tbody>
-        <tr><td>CLT (salário fixo)</td><td>Salário líquido ÷ horas mensais efetivas</td><td>R$ 4.000 ÷ 176h = R$ 22,73/h</td></tr>
-        <tr><td>PJ / Autônomo</td><td>(Faturamento − impostos − custos) ÷ horas faturáveis</td><td>(R$ 8.000 − 30%) ÷ 120h = R$ 46,67/h</td></tr>
-        <tr><td>Freelancer</td><td>(Despesas mensais + lucro desejado) ÷ horas disponíveis</td><td>Variável</td></tr>
+        <tr><td>CLT (sal�rio fixo)</td><td>Sal�rio l�quido � horas mensais efetivas</td><td>R$ 4.000 � 176h = R$ 22,73/h</td></tr>
+        <tr><td>PJ / Aut�nomo</td><td>(Faturamento ? impostos ? custos) � horas fatur�veis</td><td>(R$ 8.000 ? 30%) � 120h = R$ 46,67/h</td></tr>
+        <tr><td>Freelancer</td><td>(Despesas mensais + lucro desejado) � horas dispon�veis</td><td>Vari�vel</td></tr>
       </tbody>
     </table>
-    <div class="info-box">✅ Para <strong>PJ e autônomos</strong>, inclua no custo: impostos, previdência, plano de saúde, férias e 13º autoprovisionados, equipamentos. O custo real é sempre maior que o aparente.</div>
-    <h4>💡 Hora de Lazer vs Hora de Trabalho</h4>
-    <p>Conhecer o valor da sua hora ajuda a tomar decisões: contratar um serviço ou fazer você mesmo? Uma limpeza que custa R$ 150 pode valer mais a pena do que 3h do seu tempo que valem R$ 200.</p>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="info-box">? Para <strong>PJ e aut�nomos</strong>, inclua no custo: impostos, previd�ncia, plano de sa�de, f�rias e 13� autoprovisionados, equipamentos. O custo real � sempre maior que o aparente.</div>
+    <h4>?? Hora de Lazer vs Hora de Trabalho</h4>
+    <p>Conhecer o valor da sua hora ajuda a tomar decis�es: contratar um servi�o ou fazer voc� mesmo? Uma limpeza que custa R$ 150 pode valer mais a pena do que 3h do seu tempo que valem R$ 200.</p>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
-      <div class="faq-q">Como definir o preço do meu serviço como freelancer?</div>
-      <div class="faq-a">Calcule: despesas fixas + quanto quer ganhar líquido + impostos = faturamento necessário. Divida pelas horas faturáveis (em geral 60–70% das horas disponíveis). O resultado é seu valor mínimo de hora.</div>
+      <div class="faq-q">Como definir o pre�o do meu servi�o como freelancer?</div>
+      <div class="faq-a">Calcule: despesas fixas + quanto quer ganhar l�quido + impostos = faturamento necess�rio. Divida pelas horas fatur�veis (em geral 60-70% das horas dispon�veis). O resultado � seu valor m�nimo de hora.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Vale a pena ganhar mais em uma vaga que exige mais horas?</div>
-      <div class="faq-a">Calcule o valor por hora, não apenas o salário total. R$ 8.000 em 44h/semana = R$ 45,45/h. R$ 7.000 em 30h/semana = R$ 58,33/h — pode ser mais vantajosa considerando qualidade de vida.</div>
+      <div class="faq-a">Calcule o valor por hora, n�o apenas o sal�rio total. R$ 8.000 em 44h/semana = R$ 45,45/h. R$ 7.000 em 30h/semana = R$ 58,33/h - pode ser mais vantajosa considerando qualidade de vida.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Como o deslocamento afeta o valor da hora?</div>
-      <div class="faq-a">Adicione o tempo de deslocamento às horas trabalhadas. Se você trabalha 8h e gasta 2h no transporte, efetivamente "trabalha" 10h pelo mesmo salário — reduzindo o valor real da sua hora em 20%.</div>
+      <div class="faq-a">Adicione o tempo de deslocamento �s horas trabalhadas. Se voc� trabalha 8h e gasta 2h no transporte, efetivamente "trabalha" 10h pelo mesmo sal�rio - reduzindo o valor real da sua hora em 20%.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -138,7 +138,7 @@ function calcular(){
   const dSem=parseFloat(document.getElementById('dias-sem').value)||5;
   const desloc=parseFloat(document.getElementById('desloc').value)||0;
   const gastos=parseMoeda(document.getElementById('gastos-trab').value);
-  if(!sal){alert('Informe o salÃ¡rio lÃ­quido.');return;}
+  if(!sal){alert('Informe o salário líquido.');return;}
 
   const semanasM=52/12;
   const hMes=hDia*dSem*semanasM;
@@ -150,7 +150,7 @@ function calcular(){
   const hAno=hReaisMes*12;
 
   document.getElementById('r-hora').textContent=fmtR(horaReal);
-  document.getElementById('r-sub').textContent='Pelo contrato: '+fmtR(horaContrat)+'/h â com deslocamento e gastos: '+fmtR(horaReal)+'/h';
+  document.getElementById('r-sub').textContent='Pelo contrato: '+fmtR(horaContrat)+'/h — com deslocamento e gastos: '+fmtR(horaReal)+'/h';
   document.getElementById('r-h-contrat').textContent=fmtN(hMes)+'h';
   document.getElementById('r-h-reais').textContent=fmtN(hReaisMes)+'h';
   document.getElementById('r-sal-real').textContent=fmtR(salReal);
@@ -159,8 +159,8 @@ function calcular(){
   document.getElementById('r-h-ano').textContent=fmtN(hAno,0)+'h';
 
   // Tabela de quanto custam coisas em "horas de vida"
-  const itens=[['â CafÃ© com bolo (R$ 20)',20],['ð AlmoÃ§o (R$ 45)',45],['ð± Netflix mensal (R$ 55,90)',55.90],['ð TÃªnis (R$ 300)',300],['ðº TV 55" (R$ 2.500)',2500],['âï¸ Passagem nacional (R$ 800)',800]];
-  document.getElementById('compras-box').innerHTML='<strong>ð¡ Quanto vocÃª trabalha para pagar:</strong><br>'+
+  const itens=[['☕ Café com bolo (R$ 20)',20],['🍔 Almoço (R$ 45)',45],['📱 Netflix mensal (R$ 55,90)',55.90],['👟 Tênis (R$ 300)',300],['📺 TV 55" (R$ 2.500)',2500],['✈️ Passagem nacional (R$ 800)',800]];
+  document.getElementById('compras-box').innerHTML='<strong>💡 Quanto você trabalha para pagar:</strong><br>'+
     itens.map(([nome,preco])=>{const h=preco/horaReal;return `${nome}: <strong>${fmtN(h)}h</strong> (${fmtN(h*60,0)} min)`}).join('<br>');
 
   document.getElementById('resultado').style.display='block';

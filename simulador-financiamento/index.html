@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
@@ -67,30 +67,30 @@
 </head>
 <body>
 <header>
-  <h1>ð  Simulador de Financiamento</h1>
-  <p>Imovel, veiculo ou emprestimo â Tabela Price e SAC</p>
+  <h1>🏠 Simulador de Financiamento</h1>
+  <p>Imovel, veiculo ou emprestimo — Tabela Price e SAC</p>
 </header>
-<div class="nav"><a href="../">â FacilCalc</a> / Simulador de Financiamento</div>
+<div class="nav"><a href="../">← FacilCalc</a> / Simulador de Financiamento</div>
 <main>
   <div id="formulario">
     <div class="card">
-      <h2>ð  Tipo de Financiamento</h2>
+      <h2>🏠 Tipo de Financiamento</h2>
       <div class="tipo-grid">
         <label class="tipo-card selected" onclick="selTipo(this)">
           <input type="radio" name="tipo" value="imovel" checked/>
-          <div class="icon">ð </div>
+          <div class="icon">🏠</div>
           <div class="titulo">Imovel</div>
           <div class="desc">Casa, apartamento, terreno</div>
         </label>
         <label class="tipo-card" onclick="selTipo(this)">
           <input type="radio" name="tipo" value="veiculo"/>
-          <div class="icon">ð</div>
+          <div class="icon">🚗</div>
           <div class="titulo">Veiculo</div>
           <div class="desc">Carro, moto, caminhao</div>
         </label>
         <label class="tipo-card" onclick="selTipo(this)">
           <input type="radio" name="tipo" value="outro"/>
-          <div class="icon">ð³</div>
+          <div class="icon">💳</div>
           <div class="titulo">Outro</div>
           <div class="desc">Emprestimo, reforma...</div>
         </label>
@@ -98,7 +98,7 @@
     </div>
 
     <div class="card">
-      <h2>ð° Dados do Financiamento</h2>
+      <h2>💰 Dados do Financiamento</h2>
       <div class="form-grid">
         <div class="field">
           <label>Valor do bem / emprestimo</label>
@@ -112,7 +112,7 @@
         <div class="field">
           <label>Taxa de juros anual (%)</label>
           <input type="number" id="taxa_anual" placeholder="Ex: 10.5" min="0" step="0.01"/>
-          <span class="hint">Taxa anual â convertemos para mensal automaticamente</span>
+          <span class="hint">Taxa anual — convertemos para mensal automaticamente</span>
         </div>
         <div class="field">
           <label>Prazo</label>
@@ -140,7 +140,7 @@
       </div>
     </div>
     <div class="card" style="padding:14px">
-      <button class="btn-calc" onclick="calcular()">â¡ Simular Financiamento</button>
+      <button class="btn-calc" onclick="calcular()">⚡ Simular Financiamento</button>
     </div>
   </div>
 
@@ -148,59 +148,59 @@
     <div class="resumo-grid" id="resumo_cards"></div>
 <div id="compare_section"></div>
     <div class="card">
-      <h2>ð Distribuicao do Valor Total</h2>
+      <h2>📊 Distribuicao do Valor Total</h2>
       <div style="display:flex;gap:8px;font-size:.8rem;margin-bottom:6px">
-        <span>ðµ Principal</span><span>ð´ Juros</span>
+        <span>🔵 Principal</span><span>🔴 Juros</span>
       </div>
       <div class="barra-juros" id="barra_dist"></div>
     </div>
     <div class="card" id="card_tabela">
-      <h2>ð Primeiras e Ultimas Parcelas</h2>
+      <h2>📋 Primeiras e Ultimas Parcelas</h2>
       <div class="tabela-wrap" id="tabela_wrap"></div>
     </div>
     <div class="aviso" id="aviso_renda" style="display:none"></div>
-    <div class="aviso">â ï¸ Simulacao baseada apenas em juros e amortizacao. Nao inclui seguros, tarifas, IOF ou outros encargos cobrados pelos bancos. Consulte a instituicao financeira para proposta oficial.</div>
-    <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">ð Nova Simulacao</button></div>
+    <div class="aviso">⚠️ Simulacao baseada apenas em juros e amortizacao. Nao inclui seguros, tarifas, IOF ou outros encargos cobrados pelos bancos. Consulte a instituicao financeira para proposta oficial.</div>
+    <br/><div style="text-align:center"><button class="btn-novo" onclick="novoCalculo()">🔄 Nova Simulacao</button></div>
   </div>
   <div class="explic">
-    <h3>🏠 Como Funciona o Financiamento Imobiliário no Brasil?</h3>
-    <p>O financiamento permite a compra parcelada de imóveis em longo prazo. Os principais sistemas são o <strong>SAC</strong> (amortização constante, parcelas decrescentes) e o <strong>Price</strong> (parcelas fixas), com impactos muito diferentes no custo total.</p>
-    <h4>⚖️ SAC vs Price — Diferenças</h4>
+    <h3>?? Como Funciona o Financiamento Imobili�rio no Brasil?</h3>
+    <p>O financiamento permite a compra parcelada de im�veis em longo prazo. Os principais sistemas s�o o <strong>SAC</strong> (amortiza��o constante, parcelas decrescentes) e o <strong>Price</strong> (parcelas fixas), com impactos muito diferentes no custo total.</p>
+    <h4>?? SAC vs Price - Diferen�as</h4>
     <table>
-      <thead><tr><th>Característica</th><th>SAC</th><th>Price</th></tr></thead>
+      <thead><tr><th>Caracter�stica</th><th>SAC</th><th>Price</th></tr></thead>
       <tbody>
         <tr><td>Parcelas</td><td>Decrescentes</td><td>Constantes (fixas)</td></tr>
-        <tr><td>Amortização</td><td>Constante</td><td>Crescente ao longo do tempo</td></tr>
+        <tr><td>Amortiza��o</td><td>Constante</td><td>Crescente ao longo do tempo</td></tr>
         <tr><td>Custo total</td><td>Menor</td><td>Maior</td></tr>
-        <tr><td>1ª parcela</td><td>Mais alta</td><td>Mais baixa</td></tr>
+        <tr><td>1� parcela</td><td>Mais alta</td><td>Mais baixa</td></tr>
       </tbody>
     </table>
-    <div class="info-box">✅ A longo prazo, o <strong>SAC é mais vantajoso em custo total</strong>. O Price facilita a aprovação com parcelas iniciais menores.</div>
-    <h4>💡 Taxas Médias 2025</h4>
+    <div class="info-box">? A longo prazo, o <strong>SAC � mais vantajoso em custo total</strong>. O Price facilita a aprova��o com parcelas iniciais menores.</div>
+    <h4>?? Taxas M�dias 2025</h4>
     <ul>
-      <li><strong>SBPE/FGTS (Caixa):</strong> 10,5–12% a.a. para imóveis residenciais</li>
-      <li><strong>IPCA+:</strong> Risco de inflação — parcela sobe junto com o IPCA</li>
-      <li><strong>CET:</strong> Inclui juros + seguros + IOF + tarifas — sempre compare</li>
+      <li><strong>SBPE/FGTS (Caixa):</strong> 10,5-12% a.a. para im�veis residenciais</li>
+      <li><strong>IPCA+:</strong> Risco de infla��o - parcela sobe junto com o IPCA</li>
+      <li><strong>CET:</strong> Inclui juros + seguros + IOF + tarifas - sempre compare</li>
     </ul>
-    <div class="warn-box">⚠️ O <strong>CET (Custo Efetivo Total)</strong> é o custo real. Sempre compare o CET — não apenas a taxa nominal — ao escolher entre bancos.</div>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="warn-box">?? O <strong>CET (Custo Efetivo Total)</strong> � o custo real. Sempre compare o CET - n�o apenas a taxa nominal - ao escolher entre bancos.</div>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
       <div class="faq-q">Posso usar o FGTS para financiamento?</div>
-      <div class="faq-a">Sim. O FGTS pode ser usado como entrada, pagamento de parcelas ou amortização do saldo devedor em financiamentos pelo SFH, para imóvel residencial e primeira compra (limite R$ 1,5 milhão em 2025).</div>
+      <div class="faq-a">Sim. O FGTS pode ser usado como entrada, pagamento de parcelas ou amortiza��o do saldo devedor em financiamentos pelo SFH, para im�vel residencial e primeira compra (limite R$ 1,5 milh�o em 2025).</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Qual percentual da renda posso comprometer?</div>
-      <div class="faq-a">Os bancos aprovam com parcela de até 30% da renda bruta. O ideal é limitar habitação a 25–30% da renda líquida para equilíbrio orçamentário.</div>
+      <div class="faq-a">Os bancos aprovam com parcela de at� 30% da renda bruta. O ideal � limitar habita��o a 25-30% da renda l�quida para equil�brio or�ament�rio.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Vale a pena amortizar antecipadamente?</div>
-      <div class="faq-a">Em geral sim, se os juros do financiamento superam o rendimento de investimentos seguros. Prefira reduzir o prazo — economiza mais juros que reduzir a parcela.</div>
+      <div class="faq-a">Em geral sim, se os juros do financiamento superam o rendimento de investimentos seguros. Prefira reduzir o prazo - economiza mais juros que reduzir a parcela.</div>
     </div>
   </div>
 
 </main>
 <footer style="text-align:center;padding:24px 16px;color:#5f6368;font-size:.8rem;border-top:1px solid #dadce0;margin-top:24px;">
-  <a href="../" style="color:#1a73e8;text-decoration:none">â Voltar para FacilCalc</a>
+  <a href="../" style="color:#1a73e8;text-decoration:none">← Voltar para FacilCalc</a>
 </footer>
 <script>
   const fmt = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
@@ -292,13 +292,13 @@
       compare.innerHTML = `
         <div class="compare-grid">
           <div class="compare-card">
-            <h3>ð Tabela Price</h3>
+            <h3>📊 Tabela Price</h3>
             <div class="item"><span>Parcela fixa</span><span>${fmt(price.parcela)}</span></div>
             <div class="item"><span>Total de juros</span><span>${fmt(price.totalJuros)}</span></div>
             <div class="item"><span>Total pago</span><span>${fmt(price.total)}</span></div>
           </div>
           <div class="compare-card destaque">
-            <h3>ð SAC (mais barato)</h3>
+            <h3>📉 SAC (mais barato)</h3>
             <div class="item"><span>1a parcela</span><span>${fmt(sac.parcelaInicial)}</span></div>
             <div class="item"><span>Ultima parcela</span><span>${fmt(sac.parcelaFinal)}</span></div>
             <div class="item"><span>Total de juros</span><span style="color:#137333">${fmt(sac.totalJuros)}</span></div>
@@ -306,7 +306,7 @@
           </div>
         </div>
         <div class="card" style="background:#e8f5e9;border-color:#4caf50">
-          <p style="font-size:.85rem;color:#1b5e20">ð¡ <strong>SAC e ${fmt(price.totalJuros - sac.totalJuros)} mais barato</strong> que a Tabela Price no total de juros. A parcela inicial e maior mas cai todo mes.</p>
+          <p style="font-size:.85rem;color:#1b5e20">💡 <strong>SAC e ${fmt(price.totalJuros - sac.totalJuros)} mais barato</strong> que a Tabela Price no total de juros. A parcela inicial e maior mas cai todo mes.</p>
         </div>`;
     } else { compare.innerHTML = ''; }
 
@@ -337,7 +337,7 @@
       const comprometido = parcelaExibida / renda * 100;
       const aviso = document.getElementById('aviso_renda');
       aviso.style.display = 'block';
-      aviso.innerHTML = `ð° <strong>Comprometimento de renda:</strong> ${fmtN(comprometido)}% (${fmt(parcelaExibida)} de ${fmt(renda)}). ${comprometido>30?'â ï¸ Acima de 30% â bancos geralmente limitam a 30% da renda.':'â Dentro do limite recomendado (30%).'}`;
+      aviso.innerHTML = `💰 <strong>Comprometimento de renda:</strong> ${fmtN(comprometido)}% (${fmt(parcelaExibida)} de ${fmt(renda)}). ${comprometido>30?'⚠️ Acima de 30% — bancos geralmente limitam a 30% da renda.':'✅ Dentro do limite recomendado (30%).'}`;
     }
 
     document.getElementById('formulario').style.display='none';

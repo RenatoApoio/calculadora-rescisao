@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Divisor de Conta â Restaurante com Gorjeta | FacilCalc</title>
-<meta name="description" content="Divida a conta do restaurante entre amigos. Calcule gorjeta, valor por pessoa e quanto cada um deve. Simples e rÃ¡pido."/>
+<title>Divisor de Conta — Restaurante com Gorjeta | FacilCalc</title>
+<meta name="description" content="Divida a conta do restaurante entre amigos. Calcule gorjeta, valor por pessoa e quanto cada um deve. Simples e rápido."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -42,20 +42,20 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð½ï¸ Divisor de Conta</h1>
-  <p>Divida a conta do restaurante com gorjeta â rÃ¡pido e sem confusÃ£o</p>
+  <h1>🍽️ Divisor de Conta</h1>
+  <p>Divida a conta do restaurante com gorjeta — rápido e sem confusão</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card">
-    <h2>ð§¾ Dados da Conta</h2>
+    <h2>🧾 Dados da Conta</h2>
     <div class="grid">
       <div class="field">
         <label>Valor Total da Conta (R$)</label>
         <input type="text" id="total" placeholder="Ex: 180,00" oninput="maskMoeda(this);calc()"/>
       </div>
       <div class="field">
-        <label>NÃºmero de Pessoas</label>
+        <label>Número de Pessoas</label>
         <input type="number" id="pessoas" placeholder="Ex: 4" value="4" min="1" max="50" oninput="calc()"/>
       </div>
       <div class="field full">
@@ -72,46 +72,46 @@ footer a{color:#1a73e8;text-decoration:none}
 
   <div class="hero" id="resultado">
     <label>Cada pessoa paga</label>
-    <div class="big" id="r-pessoa">â</div>
-    <div class="sub" id="r-sub">â</div>
+    <div class="big" id="r-pessoa">—</div>
+    <div class="sub" id="r-sub">—</div>
   </div>
   <div class="summary-grid">
-    <div class="s-box"><label>Conta original</label><div class="val" id="r-conta">â</div></div>
-    <div class="s-box"><label>Gorjeta total</label><div class="val" id="r-gorjeta">â</div></div>
-    <div class="s-box"><label>Total com gorjeta</label><div class="val" id="r-total-gorj">â</div></div>
+    <div class="s-box"><label>Conta original</label><div class="val" id="r-conta">—</div></div>
+    <div class="s-box"><label>Gorjeta total</label><div class="val" id="r-gorjeta">—</div></div>
+    <div class="s-box"><label>Total com gorjeta</label><div class="val" id="r-total-gorj">—</div></div>
   </div>
   <div class="explic">
-    <h3>🍽️ Como Dividir Conta de Restaurante — Com e Sem Gorjeta</h3>
-    <p>Dividir a conta em restaurantes parece simples, mas gorjeta, produtos individuais e divisões desiguais podem complicar. Esta calculadora facilita a divisão justa entre qualquer número de pessoas.</p>
-    <h4>💡 Gorjeta — O que é Obrigatório?</h4>
-    <p>No Brasil, a <strong>gorjeta de 10%</strong> é uma <strong>sugestão</strong>, não obrigatória por lei. Você pode recusar sem problema.</p>
+    <h3>??? Como Dividir Conta de Restaurante - Com e Sem Gorjeta</h3>
+    <p>Dividir a conta em restaurantes parece simples, mas gorjeta, produtos individuais e divis�es desiguais podem complicar. Esta calculadora facilita a divis�o justa entre qualquer n�mero de pessoas.</p>
+    <h4>?? Gorjeta - O que � Obrigat�rio?</h4>
+    <p>No Brasil, a <strong>gorjeta de 10%</strong> � uma <strong>sugest�o</strong>, n�o obrigat�ria por lei. Voc� pode recusar sem problema.</p>
     <table>
-      <thead><tr><th>Qualidade do Serviço</th><th>Gorjeta sugerida</th></tr></thead>
+      <thead><tr><th>Qualidade do Servi�o</th><th>Gorjeta sugerida</th></tr></thead>
       <tbody>
-        <tr><td>Serviço excelente</td><td>15–20%</td></tr>
-        <tr><td>Serviço bom (padrão)</td><td>10%</td></tr>
-        <tr><td>Serviço regular</td><td>5% ou sem gorjeta</td></tr>
-        <tr><td>Serviço ruim</td><td>Sem gorjeta</td></tr>
+        <tr><td>Servi�o excelente</td><td>15-20%</td></tr>
+        <tr><td>Servi�o bom (padr�o)</td><td>10%</td></tr>
+        <tr><td>Servi�o regular</td><td>5% ou sem gorjeta</td></tr>
+        <tr><td>Servi�o ruim</td><td>Sem gorjeta</td></tr>
       </tbody>
     </table>
-    <div class="info-box">ℹ️ Em São Paulo e outras cidades, a gorjeta cobrada pelos estabelecimentos é isenta de ICMS e ISS e vai integralmente para os funcionários.</div>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="info-box">?? Em S�o Paulo e outras cidades, a gorjeta cobrada pelos estabelecimentos � isenta de ICMS e ISS e vai integralmente para os funcion�rios.</div>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
       <div class="faq-q">Posso me recusar a pagar a gorjeta na nota?</div>
-      <div class="faq-a">Sim. A gorjeta de 10% não é obrigatória por lei, mesmo quando impressa na nota fiscal. Você pode solicitar a retirada ao garçom ou ao caixa sem qualquer penalidade.</div>
+      <div class="faq-a">Sim. A gorjeta de 10% n�o � obrigat�ria por lei, mesmo quando impressa na nota fiscal. Voc� pode solicitar a retirada ao gar�om ou ao caixa sem qualquer penalidade.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Como dividir quando alguém bebeu e outro não?</div>
-      <div class="faq-a">A divisão por consumo individual é a mais justa. Separe os itens compartilhados (entrada, sobremesa) e divida igualmente, somando os itens individuais para cada pessoa.</div>
+      <div class="faq-q">Como dividir quando algu�m bebeu e outro n�o?</div>
+      <div class="faq-a">A divis�o por consumo individual � a mais justa. Separe os itens compartilhados (entrada, sobremesa) e divida igualmente, somando os itens individuais para cada pessoa.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Como dividir sem dinheiro exato?</div>
-      <div class="faq-a">Use Pix — é instantâneo e gratuito. Cada pessoa transfere sua parte para quem paga a conta. Evite deixar contas pendentes para outro dia.</div>
+      <div class="faq-a">Use Pix - � instant�neo e gratuito. Cada pessoa transfere sua parte para quem paga a conta. Evite deixar contas pendentes para outro dia.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 let gorjPct=10;
@@ -129,12 +129,12 @@ function setGorj(pct){
 function calc(){
   const total=parseMoeda(document.getElementById('total').value);
   const pessoas=parseInt(document.getElementById('pessoas').value)||1;
-  if(!total){document.getElementById('r-pessoa').textContent='â';return;}
+  if(!total){document.getElementById('r-pessoa').textContent='—';return;}
   const gorjeta=total*(gorjPct/100);
   const totalG=total+gorjeta;
   const porPessoa=totalG/pessoas;
   document.getElementById('r-pessoa').textContent=fmtR(porPessoa);
-  document.getElementById('r-sub').textContent=pessoas+' pessoas Â· gorjeta '+gorjPct+'%';
+  document.getElementById('r-sub').textContent=pessoas+' pessoas · gorjeta '+gorjPct+'%';
   document.getElementById('r-conta').textContent=fmtR(total);
   document.getElementById('r-gorjeta').textContent=fmtR(gorjeta);
   document.getElementById('r-total-gorj').textContent=fmtR(totalG);

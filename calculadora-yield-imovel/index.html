@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora Yield de ImÃ³vel â Rentabilidade do Aluguel 2025 | FacilCalc</title>
-<meta name="description" content="Calcule o yield bruto e lÃ­quido do aluguel do seu imÃ³vel. Compare com CDI e poupanÃ§a e descubra se vale a pena alugar ou vender."/>
+<title>Calculadora Yield de Imóvel — Rentabilidade do Aluguel 2025 | FacilCalc</title>
+<meta name="description" content="Calcule o yield bruto e líquido do aluguel do seu imóvel. Compare com CDI e poupança e descubra se vale a pena alugar ou vender."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -48,16 +48,16 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð  Yield do ImÃ³vel</h1>
+  <h1>🏠 Yield do Imóvel</h1>
   <p>Calcule a rentabilidade real do aluguel e compare com investimentos</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ðï¸ Dados do ImÃ³vel</h2>
+    <h2>🏘️ Dados do Imóvel</h2>
     <div class="grid">
       <div class="field">
-        <label>Valor do ImÃ³vel (R$)</label>
+        <label>Valor do Imóvel (R$)</label>
         <input type="text" id="valor" placeholder="Ex: 400.000,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
@@ -65,7 +65,7 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="text" id="aluguel" placeholder="Ex: 2.000,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
-        <label>Taxa de VacÃ¢ncia (% do ano)</label>
+        <label>Taxa de Vacância (% do ano)</label>
         <input type="number" id="vacancia" placeholder="Ex: 8" value="8" min="0" max="100"/>
       </div>
       <div class="field">
@@ -73,82 +73,82 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="text" id="iptu" placeholder="Ex: 200,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
-        <label>CondomÃ­nio mensal (R$)</label>
-        <input type="text" id="condominio" placeholder="Ex: 0 (se pago pelo locatÃ¡rio)" oninput="maskMoeda(this)"/>
+        <label>Condomínio mensal (R$)</label>
+        <input type="text" id="condominio" placeholder="Ex: 0 (se pago pelo locatário)" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
         <label>CDI atual (% a.a.)</label>
         <input type="text" id="cdi" placeholder="Ex: 14,75" value="14,75"/>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">ð Calcular Yield</button>
+    <button class="btn-calc" onclick="calcular()">📊 Calcular Yield</button>
   </div>
 
   <div id="resultado">
     <div class="hero">
-      <label>Yield LÃ­quido Anual</label>
-      <div class="big" id="r-yield">â</div>
-      <div class="sub" id="r-sub">â</div>
+      <label>Yield Líquido Anual</label>
+      <div class="big" id="r-yield">—</div>
+      <div class="sub" id="r-sub">—</div>
     </div>
     <div class="res-grid">
-      <div class="r-box"><label>Yield Bruto</label><div class="val" id="r-bruto">â</div></div>
-      <div class="r-box"><label>Aluguel Efetivo/mÃªs</label><div class="val" id="r-ef">â</div></div>
-      <div class="r-box"><label>Custo mensal</label><div class="val" id="r-custo">â</div></div>
-      <div class="r-box"><label>Lucro lÃ­quido/mÃªs</label><div class="val" id="r-lucro">â</div></div>
-      <div class="r-box"><label>Payback</label><div class="val" id="r-payback">â</div></div>
-      <div class="r-box"><label>vs CDI</label><div class="val" id="r-vs-cdi">â</div></div>
+      <div class="r-box"><label>Yield Bruto</label><div class="val" id="r-bruto">—</div></div>
+      <div class="r-box"><label>Aluguel Efetivo/mês</label><div class="val" id="r-ef">—</div></div>
+      <div class="r-box"><label>Custo mensal</label><div class="val" id="r-custo">—</div></div>
+      <div class="r-box"><label>Lucro líquido/mês</label><div class="val" id="r-lucro">—</div></div>
+      <div class="r-box"><label>Payback</label><div class="val" id="r-payback">—</div></div>
+      <div class="r-box"><label>vs CDI</label><div class="val" id="r-vs-cdi">—</div></div>
     </div>
     <div class="comp-bar">
-      <h3 style="font-size:.85rem;font-weight:700;color:#1a237e;margin-bottom:8px">ð Comparativo de Rentabilidade</h3>
-      <div class="comp-row"><span class="nome">ð  ImÃ³vel (yield lÃ­quido)</span><span class="pct" id="cp-imovel">â</span></div>
-      <div class="comp-row"><span class="nome">ð° CDI lÃ­quido (15% IR)</span><span class="pct" id="cp-cdi">â</span></div>
-      <div class="comp-row"><span class="nome">ð· PoupanÃ§a</span><span class="pct" id="cp-poupa">â</span></div>
+      <h3 style="font-size:.85rem;font-weight:700;color:#1a237e;margin-bottom:8px">📊 Comparativo de Rentabilidade</h3>
+      <div class="comp-row"><span class="nome">🏠 Imóvel (yield líquido)</span><span class="pct" id="cp-imovel">—</span></div>
+      <div class="comp-row"><span class="nome">💰 CDI líquido (15% IR)</span><span class="pct" id="cp-cdi">—</span></div>
+      <div class="comp-row"><span class="nome">🐷 Poupança</span><span class="pct" id="cp-poupa">—</span></div>
     </div>
     <div class="obs">
-      â ï¸ O yield do imÃ³vel nÃ£o inclui potencial de valorizaÃ§Ã£o, que pode ser significativo em regiÃµes em crescimento.<br>
-      ð¡ Yield ideal: acima de 0,5% ao mÃªs (6% a.a.). Abaixo disso, investir o capital pode ser mais vantajoso.
+      ⚠️ O yield do imóvel não inclui potencial de valorização, que pode ser significativo em regiões em crescimento.<br>
+      💡 Yield ideal: acima de 0,5% ao mês (6% a.a.). Abaixo disso, investir o capital pode ser mais vantajoso.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
   <div class="explic">
-    <h3>🏠 Yield de Imóvel — Como Avaliar a Rentabilidade do Aluguel</h3>
-    <p>O <strong>yield</strong> é a relação entre o aluguel anual e o valor do imóvel. É a métrica básica para decidir se vale alugar o imóvel ou investir em renda fixa.</p>
-    <h4>📐 Yield Bruto vs Yield Líquido</h4>
+    <h3>?? Yield de Im�vel - Como Avaliar a Rentabilidade do Aluguel</h3>
+    <p>O <strong>yield</strong> � a rela��o entre o aluguel anual e o valor do im�vel. � a m�trica b�sica para decidir se vale alugar o im�vel ou investir em renda fixa.</p>
+    <h4>?? Yield Bruto vs Yield L�quido</h4>
     <table>
-      <thead><tr><th>Tipo</th><th>Fórmula</th><th>O que inclui</th></tr></thead>
+      <thead><tr><th>Tipo</th><th>F�rmula</th><th>O que inclui</th></tr></thead>
       <tbody>
-        <tr><td>Yield Bruto</td><td>(Aluguel anual ÷ Valor do imóvel) × 100</td><td>Apenas aluguel/preço</td></tr>
-        <tr><td>Yield Líquido</td><td>(Aluguel − custos) ÷ Valor gasto</td><td>Desconta IPTU, vacância, manutenção, IR</td></tr>
+        <tr><td>Yield Bruto</td><td>(Aluguel anual � Valor do im�vel) � 100</td><td>Apenas aluguel/pre�o</td></tr>
+        <tr><td>Yield L�quido</td><td>(Aluguel ? custos) � Valor gasto</td><td>Desconta IPTU, vac�ncia, manuten��o, IR</td></tr>
       </tbody>
     </table>
-    <div class="info-box">✅ Yield bruto médio residencial no Brasil: <strong>4–6% a.a.</strong> O yield líquido fica entre 2,5–4,5% — bem abaixo do Tesouro Selic (~14,75% em 2025). Analise sempre o yield líquido.</div>
-    <h4>💸 Custos Que Corroem o Yield</h4>
+    <div class="info-box">? Yield bruto m�dio residencial no Brasil: <strong>4-6% a.a.</strong> O yield l�quido fica entre 2,5-4,5% - bem abaixo do Tesouro Selic (~14,75% em 2025). Analise sempre o yield l�quido.</div>
+    <h4>?? Custos Que Corroem o Yield</h4>
     <ul>
-      <li><strong>IPTU:</strong> 0,5–1,5% do valor venal por ano</li>
-      <li><strong>Vacância:</strong> 1–2 meses/ano = 8–17% da renda anual</li>
-      <li><strong>Manutenção:</strong> 0,5–1% do valor do imóvel por ano</li>
-      <li><strong>Administração imobiliária:</strong> 8–12% do aluguel</li>
-      <li><strong>IR sobre aluguel:</strong> 7,5–27,5% conforme faixa de rendimento</li>
+      <li><strong>IPTU:</strong> 0,5-1,5% do valor venal por ano</li>
+      <li><strong>Vac�ncia:</strong> 1-2 meses/ano = 8-17% da renda anual</li>
+      <li><strong>Manuten��o:</strong> 0,5-1% do valor do im�vel por ano</li>
+      <li><strong>Administra��o imobili�ria:</strong> 8-12% do aluguel</li>
+      <li><strong>IR sobre aluguel:</strong> 7,5-27,5% conforme faixa de rendimento</li>
     </ul>
-    <h4>❓ Perguntas Frequentes</h4>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
-      <div class="faq-q">FII é melhor que imóvel físico?</div>
-      <div class="faq-a">Para a maioria dos investidores PF, FIIs têm vantagens: liquidez diária, diversificação, dividendos isentos de IR e gestão profissional. Yield médio de FIIs de tijolo: 7–10% a.a.</div>
+      <div class="faq-q">FII � melhor que im�vel f�sico?</div>
+      <div class="faq-a">Para a maioria dos investidores PF, FIIs t�m vantagens: liquidez di�ria, diversifica��o, dividendos isentos de IR e gest�o profissional. Yield m�dio de FIIs de tijolo: 7-10% a.a.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Qual yield mínimo aceitar em um imóvel?</div>
-      <div class="faq-a">Regra prática: yield líquido deve superar IPCA + 2–3% de prêmio pela iliquidez. Com IPCA de 5%, o mínimo seria 8% a.a. líquido — difícil de alcançar em residenciais.</div>
+      <div class="faq-q">Qual yield m�nimo aceitar em um im�vel?</div>
+      <div class="faq-a">Regra pr�tica: yield l�quido deve superar IPCA + 2-3% de pr�mio pela iliquidez. Com IPCA de 5%, o m�nimo seria 8% a.a. l�quido - dif�cil de alcan�ar em residenciais.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Devo incluir a valorização no yield?</div>
-      <div class="faq-a">A valorização faz parte do retorno total. Some aluguel líquido + valorização anual e compare com CDI + valorização de outros ativos no mesmo período.</div>
+      <div class="faq-q">Devo incluir a valoriza��o no yield?</div>
+      <div class="faq-a">A valoriza��o faz parte do retorno total. Some aluguel l�quido + valoriza��o anual e compare com CDI + valoriza��o de outros ativos no mesmo per�odo.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -164,7 +164,7 @@ function calcular(){
   const iptu=parseMoeda(document.getElementById('iptu').value);
   const cond=parseMoeda(document.getElementById('condominio').value);
   const cdi=parsePct(document.getElementById('cdi').value);
-  if(!v||!alug){alert('Informe o valor do imÃ³vel e o aluguel.');return;}
+  if(!v||!alug){alert('Informe o valor do imóvel e o aluguel.');return;}
 
   const alugEfetivo=alug*(1-vac/100);
   const custoMensal=iptu+cond;
@@ -175,14 +175,14 @@ function calcular(){
   const cdiLiq=cdi*0.85;
 
   document.getElementById('r-yield').textContent=fmtN(yieldLiqA)+'% a.a.';
-  document.getElementById('r-sub').textContent=fmtR(lucroLiq)+'/mÃªs lÃ­quido Â· Bruto: '+fmtN(yieldBrutoA)+'% a.a.';
+  document.getElementById('r-sub').textContent=fmtR(lucroLiq)+'/mês líquido · Bruto: '+fmtN(yieldBrutoA)+'% a.a.';
   document.getElementById('r-bruto').textContent=fmtN(yieldBrutoA)+'% a.a.';
   document.getElementById('r-ef').textContent=fmtR(alugEfetivo);
   document.getElementById('r-custo').textContent=fmtR(custoMensal);
   document.getElementById('r-lucro').textContent=fmtR(lucroLiq);
-  document.getElementById('r-payback').textContent=payback<Infinity?fmtN(payback,1)+' anos':'â';
+  document.getElementById('r-payback').textContent=payback<Infinity?fmtN(payback,1)+' anos':'—';
   const melhor=yieldLiqA>cdiLiq;
-  document.getElementById('r-vs-cdi').innerHTML=`<span style="color:${melhor?'#2e7d32':'#c62828'}">${melhor?'â Acima':'â ï¸ Abaixo'} CDI</span>`;
+  document.getElementById('r-vs-cdi').innerHTML=`<span style="color:${melhor?'#2e7d32':'#c62828'}">${melhor?'✅ Acima':'⚠️ Abaixo'} CDI</span>`;
 
   document.getElementById('cp-imovel').textContent=fmtN(yieldLiqA)+'% a.a.';
   document.getElementById('cp-cdi').textContent=fmtN(cdiLiq)+'% a.a.';

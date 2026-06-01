@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Simulador Tesouro Direto 2025 â Selic, IPCA+ e Prefixado | FacilCalc</title>
-<meta name="description" content="Simule o rendimento do Tesouro Direto: Tesouro Selic, IPCA+ e Prefixado. Veja rendimento bruto, IR regressivo e valor lÃ­quido final."/>
+<title>Simulador Tesouro Direto 2025 — Selic, IPCA+ e Prefixado | FacilCalc</title>
+<meta name="description" content="Simule o rendimento do Tesouro Direto: Tesouro Selic, IPCA+ e Prefixado. Veja rendimento bruto, IR regressivo e valor líquido final."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -43,13 +43,13 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ðï¸ Simulador Tesouro Direto</h1>
-  <p>Selic Â· IPCA+ Â· Prefixado â rendimento com IR regressivo</p>
+  <h1>🏛️ Simulador Tesouro Direto</h1>
+  <p>Selic · IPCA+ · Prefixado — rendimento com IR regressivo</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ð Dados do Investimento</h2>
+    <h2>📊 Dados do Investimento</h2>
     <div class="grid">
       <div class="field">
         <label>Valor Inicial (R$)</label>
@@ -60,9 +60,9 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="number" id="prazo" placeholder="Ex: 2" min="0.1" step="0.5"/>
       </div>
       <div class="field full">
-        <label>Tipo de TÃ­tulo</label>
+        <label>Tipo de Título</label>
         <select id="tipo" onchange="onTipo()">
-          <option value="selic">Tesouro Selic (pÃ³s-fixado)</option>
+          <option value="selic">Tesouro Selic (pós-fixado)</option>
           <option value="prefixado">Tesouro Prefixado</option>
           <option value="ipca">Tesouro IPCA+</option>
         </select>
@@ -84,71 +84,71 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="text" id="taxa-ipca-inf" placeholder="Ex: 5,50"/>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">ð Simular Rendimento</button>
+    <button class="btn-calc" onclick="calcular()">📈 Simular Rendimento</button>
   </div>
 
   <div id="resultado">
     <div class="res-hero">
-      <div class="tipo" id="r-tipo">â</div>
-      <div class="liq" id="r-liq">â</div>
-      <div class="sub" id="r-sub">â</div>
+      <div class="tipo" id="r-tipo">—</div>
+      <div class="liq" id="r-liq">—</div>
+      <div class="sub" id="r-sub">—</div>
     </div>
     <div class="res-grid">
-      <div class="r-box"><label>Valor Inicial</label><div class="val" id="r-inicial">â</div></div>
-      <div class="r-box"><label>Rendimento Bruto</label><div class="val" id="r-bruto">â</div></div>
-      <div class="r-box"><label>IR Retido</label><div class="val" id="r-ir">â</div></div>
-      <div class="r-box"><label>AlÃ­quota IR</label><div class="val" id="r-aliq">â</div></div>
-      <div class="r-box"><label>Rentabilidade LÃ­quida</label><div class="val" id="r-rent">â</div></div>
-      <div class="r-box"><label>CDI Equivalente</label><div class="val" id="r-cdi">â</div></div>
+      <div class="r-box"><label>Valor Inicial</label><div class="val" id="r-inicial">—</div></div>
+      <div class="r-box"><label>Rendimento Bruto</label><div class="val" id="r-bruto">—</div></div>
+      <div class="r-box"><label>IR Retido</label><div class="val" id="r-ir">—</div></div>
+      <div class="r-box"><label>Alíquota IR</label><div class="val" id="r-aliq">—</div></div>
+      <div class="r-box"><label>Rentabilidade Líquida</label><div class="val" id="r-rent">—</div></div>
+      <div class="r-box"><label>CDI Equivalente</label><div class="val" id="r-cdi">—</div></div>
     </div>
     <div class="info-bar" id="r-info"></div>
     <div class="obs">
-      â ï¸ Taxa de custÃ³dia B3: 0,20% a.a. sobre posiÃ§Ãµes acima de R$ 10.000 (isenta atÃ© essa faixa).<br>
-      IR: 22,5% (atÃ© 180 dias) Â· 20% (181â360 dias) Â· 17,5% (361â720 dias) Â· 15% (acima de 720 dias).<br>
-      SimulaÃ§Ã£o nÃ£o desconta taxa de custÃ³dia. Consulte o site do Tesouro Direto para valores atualizados.
+      ⚠️ Taxa de custódia B3: 0,20% a.a. sobre posições acima de R$ 10.000 (isenta até essa faixa).<br>
+      IR: 22,5% (até 180 dias) · 20% (181–360 dias) · 17,5% (361–720 dias) · 15% (acima de 720 dias).<br>
+      Simulação não desconta taxa de custódia. Consulte o site do Tesouro Direto para valores atualizados.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
   <div class="explic">
-    <h3>🏛️ Tesouro Direto — O Investimento Mais Seguro do Brasil</h3>
-    <p>O <strong>Tesouro Direto</strong> permite comprar títulos públicos federais a partir de R$ 30. É o investimento de mais baixo risco no Brasil — garantido pelo governo federal.</p>
-    <h4>📋 Tipos de Títulos (2025)</h4>
+    <h3>??? Tesouro Direto - O Investimento Mais Seguro do Brasil</h3>
+    <p>O <strong>Tesouro Direto</strong> permite comprar t�tulos p�blicos federais a partir de R$ 30. � o investimento de mais baixo risco no Brasil - garantido pelo governo federal.</p>
+    <h4>?? Tipos de T�tulos (2025)</h4>
     <table>
-      <thead><tr><th>Título</th><th>Rendimento</th><th>Para quem</th></tr></thead>
+      <thead><tr><th>T�tulo</th><th>Rendimento</th><th>Para quem</th></tr></thead>
       <tbody>
-        <tr><td>Tesouro Selic</td><td>Taxa Selic (pós-fixado)</td><td>Reserva de emergência, curto prazo</td></tr>
-        <tr><td>Tesouro IPCA+</td><td>IPCA + taxa fixa</td><td>Proteção da inflação, longo prazo</td></tr>
-        <tr><td>Tesouro IPCA+ c/ Juros Sem.</td><td>IPCA + taxa fixa (cupons)</td><td>Renda periódica, aposentadoria</td></tr>
+        <tr><td>Tesouro Selic</td><td>Taxa Selic (p�s-fixado)</td><td>Reserva de emerg�ncia, curto prazo</td></tr>
+        <tr><td>Tesouro IPCA+</td><td>IPCA + taxa fixa</td><td>Prote��o da infla��o, longo prazo</td></tr>
+        <tr><td>Tesouro IPCA+ c/ Juros Sem.</td><td>IPCA + taxa fixa (cupons)</td><td>Renda peri�dica, aposentadoria</td></tr>
         <tr><td>Tesouro Prefixado</td><td>Taxa fixa</td><td>Quando Selic tende a cair</td></tr>
       </tbody>
     </table>
-    <h4>💰 Custos</h4>
+    <h4>?? Custos</h4>
     <ul>
       <li><strong>Taxa da B3:</strong> 0,20% a.a. sobre o valor investido</li>
       <li><strong>Corretora:</strong> A maioria cobra 0% hoje</li>
-      <li><strong>IR:</strong> 22,5% (até 180 dias) a 15% (acima de 720 dias)</li>
+      <li><strong>IR:</strong> 22,5% (at� 180 dias) a 15% (acima de 720 dias)</li>
     </ul>
-    <div class="info-box">✅ O <strong>Tesouro Selic</strong> é a melhor opção para reserva de emergência — rende diariamente, liquidez D+1 e praticamente sem risco de perda.</div>
-    <div class="warn-box">⚠️ O <strong>Tesouro IPCA+ e Prefixado</strong> podem ter rentabilidade negativa se vendidos antes do vencimento (marcação a mercado). Só invista com dinheiro que não vai precisar antes do vencimento.</div>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="info-box">? O <strong>Tesouro Selic</strong> � a melhor op��o para reserva de emerg�ncia - rende diariamente, liquidez D+1 e praticamente sem risco de perda.</div>
+    <div class="warn-box">?? O <strong>Tesouro IPCA+ e Prefixado</strong> podem ter rentabilidade negativa se vendidos antes do vencimento (marca��o a mercado). S� invista com dinheiro que n�o vai precisar antes do vencimento.</div>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
       <div class="faq-q">Posso perder dinheiro no Tesouro Direto?</div>
-      <div class="faq-a">No Tesouro Selic, praticamente não. Nos prefixados e IPCA+, se vender antes do vencimento e as taxas subiram, pode receber menos. Se mantiver até o vencimento, recebe exatamente o combinado.</div>
+      <div class="faq-a">No Tesouro Selic, praticamente n�o. Nos prefixados e IPCA+, se vender antes do vencimento e as taxas subiram, pode receber menos. Se mantiver at� o vencimento, recebe exatamente o combinado.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Tesouro Direto ou CDB — qual é melhor?</div>
-      <div class="faq-a">Depende da taxa e prazo. CDBs de bancos pequenos podem oferecer taxas superiores, com cobertura do FGC. O Tesouro tem segurança máxima e liquidez diária no Selic.</div>
+      <div class="faq-q">Tesouro Direto ou CDB - qual � melhor?</div>
+      <div class="faq-a">Depende da taxa e prazo. CDBs de bancos pequenos podem oferecer taxas superiores, com cobertura do FGC. O Tesouro tem seguran�a m�xima e liquidez di�ria no Selic.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Qual o valor mínimo para investir?</div>
-      <div class="faq-a">R$ 30,00 ou 1% do valor do título. Na prática, você consegue começar com menos de R$ 100 na maioria dos títulos — o investimento mais acessível do Brasil.</div>
+      <div class="faq-q">Qual o valor m�nimo para investir?</div>
+      <div class="faq-a">R$ 30,00 ou 1% do valor do t�tulo. Na pr�tica, voc� consegue come�ar com menos de R$ 100 na maioria dos t�tulos - o investimento mais acess�vel do Brasil.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -181,17 +181,17 @@ function calcular(){
   if(tipo==='selic'){
     taxaAn=parsePct(document.getElementById('taxa-selic').value);
     nomeT='Tesouro Selic '+fmtN(taxaAn)+'% a.a.';
-    infoExtra='Tesouro Selic acompanha a taxa Selic. Liquidez diÃ¡ria â ideal para reserva de emergÃªncia.';
+    infoExtra='Tesouro Selic acompanha a taxa Selic. Liquidez diária — ideal para reserva de emergência.';
   } else if(tipo==='prefixado'){
     taxaAn=parsePct(document.getElementById('taxa-pre').value);
     nomeT='Tesouro Prefixado '+fmtN(taxaAn)+'% a.a.';
-    infoExtra='Taxa fixa â se a Selic cair, vocÃª ganha mais; se subir, pode perder na marcaÃ§Ã£o a mercado antes do vencimento.';
+    infoExtra='Taxa fixa — se a Selic cair, você ganha mais; se subir, pode perder na marcação a mercado antes do vencimento.';
   } else {
     const real=parsePct(document.getElementById('taxa-ipca-real').value);
     const inf=parsePct(document.getElementById('taxa-ipca-inf').value);
     taxaAn=((1+real/100)*(1+inf/100)-1)*100;
     nomeT=`Tesouro IPCA+ ${fmtN(real)}% + IPCA (projetado ${fmtN(inf)}% a.a.) = ${fmtN(taxaAn)}% a.a.`;
-    infoExtra=`Protege da inflaÃ§Ã£o + ganho real de ${fmtN(real)}% a.a. Ideal para aposentadoria ou longo prazo.`;
+    infoExtra=`Protege da inflação + ganho real de ${fmtN(real)}% a.a. Ideal para aposentadoria ou longo prazo.`;
   }
 
   const rdDia=Math.pow(1+taxaAn/100,1/252)-1;
@@ -205,14 +205,14 @@ function calcular(){
 
   document.getElementById('r-tipo').textContent=nomeT;
   document.getElementById('r-liq').textContent=fmtR(liq);
-  document.getElementById('r-sub').textContent='Lucro lÃ­quido: '+fmtR(liq-pv);
+  document.getElementById('r-sub').textContent='Lucro líquido: '+fmtR(liq-pv);
   document.getElementById('r-inicial').textContent=fmtR(pv);
   document.getElementById('r-bruto').textContent=fmtR(rendBruto);
   document.getElementById('r-ir').textContent=fmtR(irValor);
   document.getElementById('r-aliq').textContent=fmtN(ir*100)+'%';
   document.getElementById('r-rent').textContent=fmtN(rentLiq)+'%';
   document.getElementById('r-cdi').textContent=fmtN(cdiEquiv)+'% a.a.';
-  document.getElementById('r-info').innerHTML='â¹ï¸ '+infoExtra;
+  document.getElementById('r-info').innerHTML='ℹ️ '+infoExtra;
   document.getElementById('resultado').style.display='block';
   document.getElementById('formulario').style.display='none';
 }

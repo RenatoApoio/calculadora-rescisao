@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora de Reforma â Estimativa de Custo por mÂ² 2025 | FacilCalc</title>
-<meta name="description" content="Estime o custo da sua reforma por metro quadrado. Calcula reforma simples, mÃ©dia e completa para apartamentos e casas. Baseado em preÃ§os 2025."/>
+<title>Calculadora de Reforma — Estimativa de Custo por m² 2025 | FacilCalc</title>
+<meta name="description" content="Estime o custo da sua reforma por metro quadrado. Calcula reforma simples, média e completa para apartamentos e casas. Baseado em preços 2025."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -55,20 +55,20 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ðï¸ Calculadora de Reforma</h1>
-  <p>Estime o custo da sua reforma por mÂ² â baseado em preÃ§os 2025</p>
+  <h1>🏗️ Calculadora de Reforma</h1>
+  <p>Estime o custo da sua reforma por m² — baseado em preços 2025</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ð  Dados da Reforma</h2>
+    <h2>🏠 Dados da Reforma</h2>
     <div class="grid">
       <div class="field">
-        <label>Ãrea Total (mÂ²)</label>
+        <label>Área Total (m²)</label>
         <input type="number" id="area" placeholder="Ex: 80" min="1" step="1"/>
       </div>
       <div class="field">
-        <label>Tipo de ImÃ³vel</label>
+        <label>Tipo de Imóvel</label>
         <select id="tipo">
           <option value="apartamento">Apartamento</option>
           <option value="casa">Casa</option>
@@ -76,117 +76,117 @@ footer a{color:#1a73e8;text-decoration:none}
         </select>
       </div>
       <div class="field full">
-        <label>O que serÃ¡ reformado?</label>
+        <label>O que será reformado?</label>
         <select id="escopo" multiple size="5" style="height:auto">
-          <option value="pintura" selected>ðï¸ Pintura</option>
-          <option value="piso" selected>ðªµ Piso</option>
-          <option value="banheiro" selected>ð¿ Banheiro</option>
-          <option value="cozinha">ð³ Cozinha</option>
-          <option value="eletrica">â¡ ElÃ©trica</option>
-          <option value="hidraulica">ð° HidrÃ¡ulica</option>
-          <option value="gesso">ðï¸ Gesso/Forro</option>
-          <option value="fachada">ð  Fachada</option>
+          <option value="pintura" selected>🖌️ Pintura</option>
+          <option value="piso" selected>🪵 Piso</option>
+          <option value="banheiro" selected>🚿 Banheiro</option>
+          <option value="cozinha">🍳 Cozinha</option>
+          <option value="eletrica">⚡ Elétrica</option>
+          <option value="hidraulica">🚰 Hidráulica</option>
+          <option value="gesso">🏛️ Gesso/Forro</option>
+          <option value="fachada">🏠 Fachada</option>
         </select>
-        <span style="font-size:.74rem;color:#999;margin-top:4px">Segure Ctrl para selecionar vÃ¡rios</span>
+        <span style="font-size:.74rem;color:#999;margin-top:4px">Segure Ctrl para selecionar vários</span>
       </div>
       <div class="field">
-        <label>PadrÃ£o do Material</label>
+        <label>Padrão do Material</label>
         <select id="padrao">
-          <option value="popular">Popular (bÃ¡sico)</option>
-          <option value="medio" selected>MÃ©dio (bom custo-benefÃ­cio)</option>
+          <option value="popular">Popular (básico)</option>
+          <option value="medio" selected>Médio (bom custo-benefício)</option>
           <option value="alto">Alto (premium)</option>
         </select>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">ð§® Estimar Custo</button>
+    <button class="btn-calc" onclick="calcular()">🧮 Estimar Custo</button>
   </div>
 
   <div id="resultado">
     <div class="range-box">
       <label>Estimativa de Custo Total</label>
-      <div class="range" id="r-range">â</div>
-      <div class="sub" id="r-sub">â</div>
+      <div class="range" id="r-range">—</div>
+      <div class="sub" id="r-sub">—</div>
     </div>
     <div class="niveis">
-      <div class="nivel simples"><h3>ð¢ Estimativa MÃ­n.</h3><div class="nval" id="n-min">â</div><div class="ndesc">Materiais bÃ¡sicos, mÃ£o de obra simples</div></div>
-      <div class="nivel media"><h3>ð¡ Estimativa MÃ©dia</h3><div class="nval" id="n-med">â</div><div class="ndesc">Materiais mÃ©dios, acabamento adequado</div></div>
-      <div class="nivel completa"><h3>ð  Estimativa MÃ¡x.</h3><div class="nval" id="n-max">â</div><div class="ndesc">Materiais premium, alto padrÃ£o</div></div>
+      <div class="nivel simples"><h3>🟢 Estimativa Mín.</h3><div class="nval" id="n-min">—</div><div class="ndesc">Materiais básicos, mão de obra simples</div></div>
+      <div class="nivel media"><h3>🟡 Estimativa Média</h3><div class="nval" id="n-med">—</div><div class="ndesc">Materiais médios, acabamento adequado</div></div>
+      <div class="nivel completa"><h3>🟠 Estimativa Máx.</h3><div class="nval" id="n-max">—</div><div class="ndesc">Materiais premium, alto padrão</div></div>
     </div>
     <div class="card">
-      <h2>ð Detalhamento por Item</h2>
-      <table class="itens-table"><thead><tr><th>Item</th><th>Ãrea/Un.</th><th>Custo estimado</th></tr></thead>
+      <h2>📋 Detalhamento por Item</h2>
+      <table class="itens-table"><thead><tr><th>Item</th><th>Área/Un.</th><th>Custo estimado</th></tr></thead>
       <tbody id="itens-body"></tbody></table>
     </div>
     <div class="obs">
-      â ï¸ Valores baseados em mÃ©dias nacionais 2025. Podem variar conforme cidade, fornecedor e mÃ£o de obra local.<br>
-      ð¡ Sempre peÃ§a ao menos 3 orÃ§amentos. Reserve 15-20% extra para imprevistos.<br>
-      NÃ£o inclui mobiliÃ¡rio, eletrodomÃ©sticos ou decoraÃ§Ã£o.
+      ⚠️ Valores baseados em médias nacionais 2025. Podem variar conforme cidade, fornecedor e mão de obra local.<br>
+      💡 Sempre peça ao menos 3 orçamentos. Reserve 15-20% extra para imprevistos.<br>
+      Não inclui mobiliário, eletrodomésticos ou decoração.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
   <div class="explic">
-    <h3>🏗️ Como Estimar o Custo de uma Reforma?</h3>
-    <p>Planejar o orçamento antes de iniciar é fundamental para evitar surpresas. Os custos variam muito por região, materiais escolhidos e complexidade da obra.</p>
-    <h4>💰 Custo Médio por m² (2025)</h4>
+    <h3>??? Como Estimar o Custo de uma Reforma?</h3>
+    <p>Planejar o or�amento antes de iniciar � fundamental para evitar surpresas. Os custos variam muito por regi�o, materiais escolhidos e complexidade da obra.</p>
+    <h4>?? Custo M�dio por m� (2025)</h4>
     <table>
-      <thead><tr><th>Tipo de Reforma</th><th>Custo estimado (R$/m²)</th></tr></thead>
+      <thead><tr><th>Tipo de Reforma</th><th>Custo estimado (R$/m�)</th></tr></thead>
       <tbody>
-        <tr><td>Pintura simples</td><td>R$ 15–35/m²</td></tr>
-        <tr><td>Piso (revestimento)</td><td>R$ 80–200/m²</td></tr>
-        <tr><td>Banheiro completo</td><td>R$ 800–2.500/m²</td></tr>
-        <tr><td>Cozinha (revestimento)</td><td>R$ 500–1.500/m²</td></tr>
-        <tr><td>Elétrica (refazer)</td><td>R$ 100–250/m²</td></tr>
-        <tr><td>Reforma completa</td><td>R$ 1.200–3.500/m²</td></tr>
+        <tr><td>Pintura simples</td><td>R$ 15-35/m�</td></tr>
+        <tr><td>Piso (revestimento)</td><td>R$ 80-200/m�</td></tr>
+        <tr><td>Banheiro completo</td><td>R$ 800-2.500/m�</td></tr>
+        <tr><td>Cozinha (revestimento)</td><td>R$ 500-1.500/m�</td></tr>
+        <tr><td>El�trica (refazer)</td><td>R$ 100-250/m�</td></tr>
+        <tr><td>Reforma completa</td><td>R$ 1.200-3.500/m�</td></tr>
       </tbody>
     </table>
-    <div class="warn-box">⚠️ Adicione <strong>20–30% de reserva</strong> ao orçamento para imprevistos — problemas de estrutura, infiltrações e variação de preços de materiais são comuns.</div>
-    <h4>📋 Dicas para Não Estourar o Orçamento</h4>
+    <div class="warn-box">?? Adicione <strong>20-30% de reserva</strong> ao or�amento para imprevistos - problemas de estrutura, infiltra��es e varia��o de pre�os de materiais s�o comuns.</div>
+    <h4>?? Dicas para N�o Estourar o Or�amento</h4>
     <ul>
-      <li>Faça o projeto antes de começar — mudanças na obra são sempre mais caras</li>
-      <li>Obtenha pelo menos 3 orçamentos de fornecedores diferentes</li>
-      <li>Especifique tudo no contrato — metragem, material, prazo, garantia</li>
-      <li>Nunca pague tudo adiantado — pagamentos por etapas concluídas</li>
+      <li>Fa�a o projeto antes de come�ar - mudan�as na obra s�o sempre mais caras</li>
+      <li>Obtenha pelo menos 3 or�amentos de fornecedores diferentes</li>
+      <li>Especifique tudo no contrato - metragem, material, prazo, garantia</li>
+      <li>Nunca pague tudo adiantado - pagamentos por etapas conclu�das</li>
     </ul>
-    <h4>❓ Perguntas Frequentes</h4>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
-      <div class="faq-q">Reforma aumenta o valor do imóvel?</div>
-      <div class="faq-a">Depende do tipo e localização. Cozinha e banheiro reformados têm melhor retorno (60–80% do custo em valorização). Reformas muito específicas raramente se pagam na revenda.</div>
+      <div class="faq-q">Reforma aumenta o valor do im�vel?</div>
+      <div class="faq-a">Depende do tipo e localiza��o. Cozinha e banheiro reformados t�m melhor retorno (60-80% do custo em valoriza��o). Reformas muito espec�ficas raramente se pagam na revenda.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Preciso de alvará para reformar?</div>
-      <div class="faq-a">Reformas que não alteram estrutura nem área geralmente dispensam alvará. Obras que alteram fachada ou estrutura podem exigir aprovação na prefeitura.</div>
+      <div class="faq-q">Preciso de alvar� para reformar?</div>
+      <div class="faq-a">Reformas que n�o alteram estrutura nem �rea geralmente dispensam alvar�. Obras que alteram fachada ou estrutura podem exigir aprova��o na prefeitura.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Devo reformar antes de vender ou vender como está?</div>
-      <div class="faq-a">Pequenas melhorias cosméticas (pintura, limpeza) geralmente se pagam. Reformas completas raramente se pagam — o comprador quer desconto para reformar do seu jeito.</div>
+      <div class="faq-q">Devo reformar antes de vender ou vender como est�?</div>
+      <div class="faq-a">Pequenas melhorias cosm�ticas (pintura, limpeza) geralmente se pagam. Reformas completas raramente se pagam - o comprador quer desconto para reformar do seu jeito.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function fmtR(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
 
-// R$/mÂ² por item e padrÃ£o [min,med,max]
+// R$/m² por item e padrão [min,med,max]
 const ITENS={
-  pintura:{nome:'ðï¸ Pintura',unit:'mÂ²',custo:{popular:[25,35,45],medio:[40,55,70],alto:[70,100,140]}},
-  piso:{nome:'ðªµ Piso (material+assentamento)',unit:'mÂ²',custo:{popular:[80,120,160],medio:[150,220,300],alto:[300,500,800]}},
-  banheiro:{nome:'ð¿ Banheiro (completo)',unit:'un',area:1,custoUn:{popular:[3000,5000,8000],medio:[8000,15000,25000],alto:[20000,40000,80000]}},
-  cozinha:{nome:'ð³ Cozinha (azulejo+piso)',unit:'mÂ²',custo:{popular:[120,180,250],medio:[250,400,600],alto:[600,1000,2000]}},
-  eletrica:{nome:'â¡ ElÃ©trica (revisÃ£o)',unit:'mÂ²',custo:{popular:[40,60,80],medio:[70,100,140],alto:[130,200,300]}},
-  hidraulica:{nome:'ð° HidrÃ¡ulica (revisÃ£o)',unit:'mÂ²',custo:{popular:[30,50,70],medio:[60,90,130],alto:[120,180,280]}},
-  gesso:{nome:'ðï¸ Gesso/Forro',unit:'mÂ²',custo:{popular:[50,80,110],medio:[90,130,180],alto:[150,250,400]}},
-  fachada:{nome:'ð  Fachada (pintura ext.)',unit:'mÂ²',custo:{popular:[30,50,70],medio:[60,90,130],alto:[120,200,300]}}
+  pintura:{nome:'🖌️ Pintura',unit:'m²',custo:{popular:[25,35,45],medio:[40,55,70],alto:[70,100,140]}},
+  piso:{nome:'🪵 Piso (material+assentamento)',unit:'m²',custo:{popular:[80,120,160],medio:[150,220,300],alto:[300,500,800]}},
+  banheiro:{nome:'🚿 Banheiro (completo)',unit:'un',area:1,custoUn:{popular:[3000,5000,8000],medio:[8000,15000,25000],alto:[20000,40000,80000]}},
+  cozinha:{nome:'🍳 Cozinha (azulejo+piso)',unit:'m²',custo:{popular:[120,180,250],medio:[250,400,600],alto:[600,1000,2000]}},
+  eletrica:{nome:'⚡ Elétrica (revisão)',unit:'m²',custo:{popular:[40,60,80],medio:[70,100,140],alto:[130,200,300]}},
+  hidraulica:{nome:'🚰 Hidráulica (revisão)',unit:'m²',custo:{popular:[30,50,70],medio:[60,90,130],alto:[120,180,280]}},
+  gesso:{nome:'🏛️ Gesso/Forro',unit:'m²',custo:{popular:[50,80,110],medio:[90,130,180],alto:[150,250,400]}},
+  fachada:{nome:'🏠 Fachada (pintura ext.)',unit:'m²',custo:{popular:[30,50,70],medio:[60,90,130],alto:[120,200,300]}}
 };
 
 function calcular(){
   const area=parseFloat(document.getElementById('area').value)||0;
   const padrao=document.getElementById('padrao').value;
   const sel=Array.from(document.getElementById('escopo').selectedOptions).map(o=>o.value);
-  if(!area||!sel.length){alert('Informe a Ã¡rea e selecione ao menos um item.');return;}
+  if(!area||!sel.length){alert('Informe a área e selecione ao menos um item.');return;}
 
   let totalMin=0,totalMed=0,totalMax=0;
   let rows='';
@@ -196,12 +196,12 @@ function calcular(){
     if(it.custoUn){[min,med,max]=it.custoUn[padrao];}
     else{const c=it.custo[padrao];[min,med,max]=[c[0]*area,c[1]*area,c[2]*area];}
     totalMin+=min;totalMed+=med;totalMax+=max;
-    rows+=`<tr><td>${it.nome}</td><td>${it.custoUn?'1 un.':area+' mÂ²'}</td><td>${fmtR(min)} â ${fmtR(max)}</td></tr>`;
+    rows+=`<tr><td>${it.nome}</td><td>${it.custoUn?'1 un.':area+' m²'}</td><td>${fmtR(min)} – ${fmtR(max)}</td></tr>`;
   }
-  rows+=`<tr><td>TOTAL</td><td>â</td><td>${fmtR(totalMin)} â ${fmtR(totalMax)}</td></tr>`;
+  rows+=`<tr><td>TOTAL</td><td>—</td><td>${fmtR(totalMin)} – ${fmtR(totalMax)}</td></tr>`;
 
-  document.getElementById('r-range').textContent=fmtR(totalMin)+' â '+fmtR(totalMax);
-  document.getElementById('r-sub').textContent='Para '+area+' mÂ² Â· PadrÃ£o '+(padrao==='popular'?'popular':padrao==='medio'?'mÃ©dio':'alto');
+  document.getElementById('r-range').textContent=fmtR(totalMin)+' – '+fmtR(totalMax);
+  document.getElementById('r-sub').textContent='Para '+area+' m² · Padrão '+(padrao==='popular'?'popular':padrao==='medio'?'médio':'alto');
   document.getElementById('n-min').textContent=fmtR(totalMin);
   document.getElementById('n-med').textContent=fmtR(totalMed);
   document.getElementById('n-max').textContent=fmtR(totalMax);

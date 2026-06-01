@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Consulta CNPJ GrÃ¡tis â Dados da Empresa em Tempo Real 2025 | FacilCalc</title>
-<meta name="description" content="Consulte qualquer CNPJ gratuitamente: razÃ£o social, situaÃ§Ã£o cadastral, endereÃ§o, CNAE, sÃ³cios e data de abertura. Dados da Receita Federal em tempo real."/>
+<title>Consulta CNPJ Grátis — Dados da Empresa em Tempo Real 2025 | FacilCalc</title>
+<meta name="description" content="Consulte qualquer CNPJ gratuitamente: razão social, situação cadastral, endereço, CNAE, sócios e data de abertura. Dados da Receita Federal em tempo real."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -52,18 +52,18 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð Consulta CNPJ</h1>
-  <p>Dados completos da empresa direto da Receita Federal â em segundos</p>
+  <h1>🔍 Consulta CNPJ</h1>
+  <p>Dados completos da empresa direto da Receita Federal — em segundos</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ð¢ Informe o CNPJ</h2>
+    <h2>🏢 Informe o CNPJ</h2>
     <div class="field">
       <label>CNPJ da Empresa</label>
       <div class="input-row">
         <input type="text" id="cnpj-input" placeholder="00.000.000/0000-00" oninput="maskCNPJ(this)" maxlength="18" inputmode="numeric"/>
-        <button class="btn-calc" onclick="consultar()">ð Consultar</button>
+        <button class="btn-calc" onclick="consultar()">🔍 Consultar</button>
       </div>
     </div>
     <div id="loading"><div class="spinner"></div> &nbsp; Consultando Receita Federal...</div>
@@ -72,79 +72,79 @@ footer a{color:#1a73e8;text-decoration:none}
 
   <div id="resultado">
     <div class="hero" id="hero-box">
-      <div class="raz-soc" id="r-razao">â</div>
+      <div class="raz-soc" id="r-razao">—</div>
       <div class="fantasia" id="r-fantasia"></div>
-      <div><span class="situacao" id="r-situacao">â</span></div>
+      <div><span class="situacao" id="r-situacao">—</span></div>
     </div>
 
     <div class="card">
-      <h2>ð Dados Cadastrais</h2>
+      <h2>📋 Dados Cadastrais</h2>
       <div class="dados-grid">
-        <div class="dado"><label>CNPJ</label><span id="r-cnpj">â</span></div>
-        <div class="dado"><label>Data de Abertura</label><span id="r-abertura">â</span></div>
-        <div class="dado"><label>Natureza JurÃ­dica</label><span id="r-natureza">â</span></div>
-        <div class="dado"><label>Porte</label><span id="r-porte">â</span></div>
-        <div class="dado full"><label>EndereÃ§o</label><span id="r-endereco">â</span></div>
-        <div class="dado"><label>MunicÃ­pio / UF</label><span id="r-municipio">â</span></div>
-        <div class="dado"><label>CEP</label><span id="r-cep">â</span></div>
-        <div class="dado"><label>Telefone</label><span id="r-telefone">â</span></div>
-        <div class="dado full"><label>E-mail</label><span id="r-email">â</span></div>
-        <div class="dado"><label>Capital Social</label><span id="r-capital">â</span></div>
-        <div class="dado"><label>OpÃ§Ã£o MEI</label><span id="r-mei">â</span></div>
-        <div class="dado"><label>OpÃ§Ã£o Simples</label><span id="r-simples">â</span></div>
+        <div class="dado"><label>CNPJ</label><span id="r-cnpj">—</span></div>
+        <div class="dado"><label>Data de Abertura</label><span id="r-abertura">—</span></div>
+        <div class="dado"><label>Natureza Jurídica</label><span id="r-natureza">—</span></div>
+        <div class="dado"><label>Porte</label><span id="r-porte">—</span></div>
+        <div class="dado full"><label>Endereço</label><span id="r-endereco">—</span></div>
+        <div class="dado"><label>Município / UF</label><span id="r-municipio">—</span></div>
+        <div class="dado"><label>CEP</label><span id="r-cep">—</span></div>
+        <div class="dado"><label>Telefone</label><span id="r-telefone">—</span></div>
+        <div class="dado full"><label>E-mail</label><span id="r-email">—</span></div>
+        <div class="dado"><label>Capital Social</label><span id="r-capital">—</span></div>
+        <div class="dado"><label>Opção MEI</label><span id="r-mei">—</span></div>
+        <div class="dado"><label>Opção Simples</label><span id="r-simples">—</span></div>
       </div>
     </div>
 
     <div class="card" id="card-cnae">
-      <h2>ð­ CNAE Principal</h2>
+      <h2>🏭 CNAE Principal</h2>
       <div id="r-cnae"></div>
     </div>
 
     <div class="card" id="card-socios">
-      <h2>ð¥ Quadro de SÃ³cios</h2>
+      <h2>👥 Quadro de Sócios</h2>
       <ul class="socios-lista" id="r-socios"></ul>
     </div>
 
-    <button class="btn-novo" onclick="novo()">ð Nova Consulta</button>
+    <button class="btn-novo" onclick="novo()">🔄 Nova Consulta</button>
   </div>
   <div class="explic">
-    <h3>🔍 O que é o CNPJ e Para que Serve a Consulta?</h3>
-    <p>O <strong>CNPJ</strong> (Cadastro Nacional de Pessoas Jurídicas) é o número de registro de empresas junto à <strong>Receita Federal do Brasil</strong> — o equivalente empresarial do CPF das pessoas físicas.</p>
-    <h4>📋 O que a Consulta CNPJ Revela?</h4>
+    <h3>?? O que � o CNPJ e Para que Serve a Consulta?</h3>
+    <p>O <strong>CNPJ</strong> (Cadastro Nacional de Pessoas Jur�dicas) � o n�mero de registro de empresas junto � <strong>Receita Federal do Brasil</strong> - o equivalente empresarial do CPF das pessoas f�sicas.</p>
+    <h4>?? O que a Consulta CNPJ Revela?</h4>
     <ul>
-      <li><strong>Razão Social e Nome Fantasia:</strong> Nome oficial e nome comercial da empresa</li>
-      <li><strong>Situação Cadastral:</strong> Ativa, Inapta, Suspensa, Baixada ou Nula</li>
-      <li><strong>Data de Abertura:</strong> Quando a empresa foi constituída</li>
+      <li><strong>Raz�o Social e Nome Fantasia:</strong> Nome oficial e nome comercial da empresa</li>
+      <li><strong>Situa��o Cadastral:</strong> Ativa, Inapta, Suspensa, Baixada ou Nula</li>
+      <li><strong>Data de Abertura:</strong> Quando a empresa foi constitu�da</li>
       <li><strong>Atividade Principal (CNAE):</strong> Ramo de atividade principal</li>
-      <li><strong>Endereço:</strong> Localização registrada na Receita Federal</li>
+      <li><strong>Endere�o:</strong> Localiza��o registrada na Receita Federal</li>
       <li><strong>Porte:</strong> MEI, ME, EPP, Empresa de Grande Porte</li>
-      <li><strong>Natureza Jurídica:</strong> Ltda, SA, MEI, Cooperativa, Associação etc.</li>
+      <li><strong>Natureza Jur�dica:</strong> Ltda, SA, MEI, Cooperativa, Associa��o etc.</li>
     </ul>
-    <div class="info-box">✅ Antes de fechar qualquer negócio, consulte o CNPJ do fornecedor. Uma empresa com situação "Inapta" ou "Baixada" pode ter problemas fiscais ou incapacidade de emitir nota fiscal.</div>
-    <h4>🔢 Como Ler o CNPJ (XX.XXX.XXX/XXXX-DD)</h4>
+    <div class="info-box">? Antes de fechar qualquer neg�cio, consulte o CNPJ do fornecedor. Uma empresa com situa��o "Inapta" ou "Baixada" pode ter problemas fiscais ou incapacidade de emitir nota fiscal.</div>
+    <h4>?? Como Ler o CNPJ (XX.XXX.XXX/XXXX-DD)</h4>
     <ul>
-      <li>Primeiros 8 dígitos: número base da empresa</li>
-      <li>4 dígitos após "/": número do estabelecimento (0001 = matriz)</li>
-      <li>2 últimos dígitos: dígitos verificadores</li>
+      <li>Primeiros 8 d�gitos: n�mero base da empresa</li>
+      <li>4 d�gitos ap�s "/": n�mero do estabelecimento (0001 = matriz)</li>
+      <li>2 �ltimos d�gitos: d�gitos verificadores</li>
     </ul>
-    <div class="warn-box">⚠️ CNPJ com final diferente de /0001 é uma <strong>filial</strong>. A situação de cada estabelecimento pode ser diferente da matriz — verifique sempre o CNPJ específico com que vai negociar.</div>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="warn-box">?? CNPJ com final diferente de /0001 � uma <strong>filial</strong>. A situa��o de cada estabelecimento pode ser diferente da matriz - verifique sempre o CNPJ espec�fico com que vai negociar.</div>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
-      <div class="faq-q">Empresa ativa pode ter restrições mesmo assim?</div>
-      <div class="faq-a">Sim. "Ativa" na Receita não significa que está em dia com todos os tributos. Consulte também o CADIN, Sintegra e certidões negativas para uma análise mais completa.</div>
+      <div class="faq-q">Empresa ativa pode ter restri��es mesmo assim?</div>
+      <div class="faq-a">Sim. "Ativa" na Receita n�o significa que est� em dia com todos os tributos. Consulte tamb�m o CADIN, Sintegra e certid�es negativas para uma an�lise mais completa.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Como saber se um CNPJ é MEI?</div>
-      <div class="faq-a">Na consulta, o campo "Porte" mostrará "MICRO EMPREENDEDOR INDIVIDUAL" e a Natureza Jurídica será "213-5 - Empresário (Individual)".</div>
+      <div class="faq-q">Como saber se um CNPJ � MEI?</div>
+      <div class="faq-a">Na consulta, o campo "Porte" mostrar� "MICRO EMPREENDEDOR INDIVIDUAL" e a Natureza Jur�dica ser� "213-5 - Empres�rio (Individual)".</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Empresa recém aberta já aparece na consulta?</div>
-      <div class="faq-a">Sim, geralmente em até 48h após o registro na Receita Federal. MEI pode ser aberto e aparecer no mesmo dia em muitos casos.</div>
+      <div class="faq-q">Empresa rec�m aberta j� aparece na consulta?</div>
+      <div class="faq-a">Sim, geralmente em at� 48h ap�s o registro na Receita Federal. MEI pode ser aberto e aparecer no mesmo dia em muitos casos.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Dados: BrasilAPI / Receita Federal do Brasil</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Dados: BrasilAPI / Receita Federal do Brasil</footer>
 <script src="../shared.js"></script>
 <script>
 function maskCNPJ(el){
@@ -156,20 +156,20 @@ function maskCNPJ(el){
   el.value=v;
 }
 function cleanCNPJ(s){return (s||'').replace(/\D/g,'');}
-function fmtData(s){if(!s)return'â';return s.slice(0,10).split('-').reverse().join('/');}
-function fmtCNPJ(s){if(!s||s.length<14)return s||'â';return s.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5');}
-function fmtCapital(v){if(!v)return'â';return parseFloat(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function fmtData(s){if(!s)return'—';return s.slice(0,10).split('-').reverse().join('/');}
+function fmtCNPJ(s){if(!s||s.length<14)return s||'—';return s.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5');}
+function fmtCapital(v){if(!v)return'—';return parseFloat(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
 
 async function consultar(){
   const raw=cleanCNPJ(document.getElementById('cnpj-input').value);
-  if(raw.length!==14){alert('CNPJ invÃ¡lido. Informe os 14 dÃ­gitos.');return;}
+  if(raw.length!==14){alert('CNPJ inválido. Informe os 14 dígitos.');return;}
   document.getElementById('loading').style.display='block';
   document.getElementById('erro').style.display='none';
   document.getElementById('resultado').style.display='none';
   try{
     const r=await fetch('https://brasilapi.com.br/api/cnpj/v1/'+raw);
     if(!r.ok){
-      const msg=r.status===404?'CNPJ nÃ£o encontrado na base da Receita Federal.':'Erro ao consultar. Tente novamente em instantes.';
+      const msg=r.status===404?'CNPJ não encontrado na base da Receita Federal.':'Erro ao consultar. Tente novamente em instantes.';
       throw new Error(msg);
     }
     const d=await r.json();
@@ -177,56 +177,56 @@ async function consultar(){
   }catch(e){
     document.getElementById('loading').style.display='none';
     var er=document.getElementById('erro');
-    er.textContent='â ï¸ '+(e.message||'Erro ao consultar CNPJ.');
+    er.textContent='⚠️ '+(e.message||'Erro ao consultar CNPJ.');
     er.style.display='block';
   }
 }
 
 function renderCNPJ(d){
-  document.getElementById('r-razao').textContent=d.razao_social||'â';
+  document.getElementById('r-razao').textContent=d.razao_social||'—';
   const fantasia=d.nome_fantasia;
-  document.getElementById('r-fantasia').textContent=fantasia&&fantasia!==d.razao_social?'ð '+fantasia:'';
+  document.getElementById('r-fantasia').textContent=fantasia&&fantasia!==d.razao_social?'📛 '+fantasia:'';
 
   const sit=d.descricao_situacao_cadastral||d.situacao_cadastral||'';
   const sitEl=document.getElementById('r-situacao');
   sitEl.textContent=sit;
   sitEl.className='situacao '+( sit.toLowerCase().includes('ativa')?'ativa': sit.toLowerCase().includes('inapta')||sit.toLowerCase().includes('baixada')?'inativa':'outra');
 
-  document.getElementById('r-cnpj').textContent=fmtCNPJ(d.cnpj)||'â';
+  document.getElementById('r-cnpj').textContent=fmtCNPJ(d.cnpj)||'—';
   document.getElementById('r-abertura').textContent=fmtData(d.data_inicio_atividade);
-  document.getElementById('r-natureza').textContent=(d.descricao_natureza_juridica||d.natureza_juridica)||'â';
+  document.getElementById('r-natureza').textContent=(d.descricao_natureza_juridica||d.natureza_juridica)||'—';
   const portes={'01':'Micro Empresa','03':'Empresa de Pequeno Porte','05':'Demais'};
-  document.getElementById('r-porte').textContent=d.descricao_porte||portes[d.porte]||d.porte||'â';
+  document.getElementById('r-porte').textContent=d.descricao_porte||portes[d.porte]||d.porte||'—';
   var end=[d.tipo_logradouro,d.logradouro,d.numero].filter(Boolean).join(' ');
-  if(d.complemento)end+=' â '+d.complemento;
+  if(d.complemento)end+=' – '+d.complemento;
   if(d.bairro)end+=', '+d.bairro;
-  document.getElementById('r-endereco').textContent=end||'â';
-  document.getElementById('r-municipio').textContent=(d.municipio&&d.uf)?(d.municipio+' / '+d.uf):d.municipio||d.uf||'â';
-  document.getElementById('r-cep').textContent=d.cep?d.cep.replace(/(\d{5})(\d{3})/,'$1-$2'):'â';
-  var tel=[d.ddd_telefone_1,d.ddd_telefone_2].filter(Boolean).join(' / ')||'â';
+  document.getElementById('r-endereco').textContent=end||'—';
+  document.getElementById('r-municipio').textContent=(d.municipio&&d.uf)?(d.municipio+' / '+d.uf):d.municipio||d.uf||'—';
+  document.getElementById('r-cep').textContent=d.cep?d.cep.replace(/(\d{5})(\d{3})/,'$1-$2'):'—';
+  var tel=[d.ddd_telefone_1,d.ddd_telefone_2].filter(Boolean).join(' / ')||'—';
   document.getElementById('r-telefone').textContent=tel;
-  document.getElementById('r-email').textContent=d.email||'â';
+  document.getElementById('r-email').textContent=d.email||'—';
   document.getElementById('r-capital').textContent=fmtCapital(d.capital_social);
-  document.getElementById('r-mei').textContent=d.opcao_pelo_mei?'â Sim':'â NÃ£o';
-  document.getElementById('r-simples').textContent=d.opcao_pelo_simples?'â Sim':'â NÃ£o';
+  document.getElementById('r-mei').textContent=d.opcao_pelo_mei?'✅ Sim':'❌ Não';
+  document.getElementById('r-simples').textContent=d.opcao_pelo_simples?'✅ Sim':'❌ Não';
 
   // CNAE
   var atv=d.cnae_fiscal_descricao||d.atividade_principal;
   if(atv&&typeof atv==='object'&&atv.length){
     document.getElementById('r-cnae').innerHTML=atv.slice(0,3).map(function(a){
-      return '<div class="cnae-item">'+a.code+' â '+a.text+'</div>';
+      return '<div class="cnae-item">'+a.code+' — '+a.text+'</div>';
     }).join('');
   }else if(typeof atv==='string'){
-    document.getElementById('r-cnae').innerHTML='<div class="cnae-item">'+(d.cnae_fiscal||'')+(atv?' â '+atv:'')+'</div>';
+    document.getElementById('r-cnae').innerHTML='<div class="cnae-item">'+(d.cnae_fiscal||'')+(atv?' — '+atv:'')+'</div>';
   }else{
     document.getElementById('card-cnae').style.display='none';
   }
 
-  // SÃ³cios
+  // Sócios
   var qsa=d.qsa||[];
   if(qsa.length){
     document.getElementById('r-socios').innerHTML=qsa.map(function(s){
-      return '<li>ð¤ <strong>'+s.nome_socio+'</strong>'+(s.qualificacao_socio?' â '+s.qualificacao_socio:'')+'</li>';
+      return '<li>👤 <strong>'+s.nome_socio+'</strong>'+(s.qualificacao_socio?' — '+s.qualificacao_socio:'')+'</li>';
     }).join('');
   }else{
     document.getElementById('card-socios').style.display='none';

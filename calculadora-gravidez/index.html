@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora de Gravidez â Data do Parto e Semanas Gestacionais | FacilCalc</title>
-<meta name="description" content="Calcule a data provÃ¡vel do parto, semanas de gestaÃ§Ã£o, trimestre atual e marcos importantes da gravidez a partir da data da Ãºltima menstruaÃ§Ã£o."/>
+<title>Calculadora de Gravidez — Data do Parto e Semanas Gestacionais | FacilCalc</title>
+<meta name="description" content="Calcule a data provável do parto, semanas de gestação, trimestre atual e marcos importantes da gravidez a partir da data da última menstruação."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -49,99 +49,99 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð¤° Calculadora de Gravidez</h1>
+  <h1>🤰 Calculadora de Gravidez</h1>
   <p>Data do parto, semanas gestacionais e marcos da gravidez</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ð Dados da GestaÃ§Ã£o</h2>
+    <h2>📅 Dados da Gestação</h2>
     <div class="field">
-      <label>MÃ©todo de cÃ¡lculo</label>
+      <label>Método de cálculo</label>
       <select id="metodo" onchange="onMetodo()">
-        <option value="dum">Data da Ãltima MenstruaÃ§Ã£o (DUM) â mais comum</option>
-        <option value="concepcao">Data provÃ¡vel de concepÃ§Ã£o</option>
-        <option value="semanas">JÃ¡ sei quantas semanas tenho</option>
+        <option value="dum">Data da Última Menstruação (DUM) — mais comum</option>
+        <option value="concepcao">Data provável de concepção</option>
+        <option value="semanas">Já sei quantas semanas tenho</option>
       </select>
     </div>
     <div class="field" id="campo-dum">
-      <label>Data da Ãltima MenstruaÃ§Ã£o</label>
+      <label>Data da Última Menstruação</label>
       <input type="date" id="dum"/>
     </div>
     <div class="field" id="campo-conc" style="display:none">
-      <label>Data provÃ¡vel de concepÃ§Ã£o</label>
+      <label>Data provável de concepção</label>
       <input type="date" id="concepcao"/>
     </div>
     <div class="field" id="campo-sem" style="display:none">
       <label>Semanas gestacionais completas</label>
       <input type="number" id="semanas-atual" placeholder="Ex: 12" min="1" max="42"/>
     </div>
-    <button class="btn-calc" onclick="calcular()">ð¼ Calcular Data do Parto</button>
+    <button class="btn-calc" onclick="calcular()">🍼 Calcular Data do Parto</button>
   </div>
 
   <div id="resultado">
     <div class="hero">
-      <span class="baby">ð¶</span>
-      <div class="data-parto" id="r-data-parto">â</div>
-      <div class="semanas" id="r-semanas">â</div>
+      <span class="baby">👶</span>
+      <div class="data-parto" id="r-data-parto">—</div>
+      <div class="semanas" id="r-semanas">—</div>
     </div>
     <div class="res-grid">
-      <div class="r-box"><label>Semanas Gestacionais</label><div class="val" id="r-sem">â</div></div>
-      <div class="r-box"><label>Trimestre</label><div class="val" id="r-trim">â</div></div>
-      <div class="r-box"><label>Dias Restantes</label><div class="val" id="r-dias">â</div></div>
-      <div class="r-box"><label>Progresso</label><div class="val" id="r-pct">â</div></div>
+      <div class="r-box"><label>Semanas Gestacionais</label><div class="val" id="r-sem">—</div></div>
+      <div class="r-box"><label>Trimestre</label><div class="val" id="r-trim">—</div></div>
+      <div class="r-box"><label>Dias Restantes</label><div class="val" id="r-dias">—</div></div>
+      <div class="r-box"><label>Progresso</label><div class="val" id="r-pct">—</div></div>
     </div>
     <div class="trim-bar">
-      <h3>Progresso da GestaÃ§Ã£o (40 semanas)</h3>
+      <h3>Progresso da Gestação (40 semanas)</h3>
       <div class="barra-wrap"><div class="barra-fill" id="barra" style="width:0%"></div></div>
     </div>
     <div class="card">
-      <h2>ð Marcos Importantes</h2>
+      <h2>📋 Marcos Importantes</h2>
       <ul class="marcos" id="marcos-list"></ul>
     </div>
     <div class="obs">
-      â ï¸ Esta calculadora Ã© apenas orientativa. A data exata do parto Ã© determinada pelo obstetra com base em ultrassonografias. GestaÃ§Ãµes normais duram entre 37 e 42 semanas.
+      ⚠️ Esta calculadora é apenas orientativa. A data exata do parto é determinada pelo obstetra com base em ultrassonografias. Gestações normais duram entre 37 e 42 semanas.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
   <div class="explic">
-    <h3>🤰 Como Funciona o Cálculo de Gravidez — DPP e Semanas Gestacionais</h3>
-    <p>A calculadora de gravidez estima a <strong>data provável do parto (DPP)</strong> e as semanas gestacionais com base na data da última menstruação (DUM). A gravidez humana dura em média <strong>40 semanas</strong> (280 dias) contadas a partir da DUM.</p>
-    <h4>📋 Os Três Trimestres</h4>
+    <h3>?? Como Funciona o C�lculo de Gravidez - DPP e Semanas Gestacionais</h3>
+    <p>A calculadora de gravidez estima a <strong>data prov�vel do parto (DPP)</strong> e as semanas gestacionais com base na data da �ltima menstrua��o (DUM). A gravidez humana dura em m�dia <strong>40 semanas</strong> (280 dias) contadas a partir da DUM.</p>
+    <h4>?? Os Tr�s Trimestres</h4>
     <table>
       <thead><tr><th>Trimestre</th><th>Semanas</th><th>Desenvolvimento</th></tr></thead>
       <tbody>
-        <tr><td>1º Trimestre</td><td>1–13 semanas</td><td>Formação dos órgãos principais, maior risco de aborto</td></tr>
-        <tr><td>2º Trimestre</td><td>14–27 semanas</td><td>Crescimento rápido, movimentos fetais, ultrassom morfológico</td></tr>
-        <tr><td>3º Trimestre</td><td>28–40 semanas</td><td>Amadurecimento pulmonar, posicionamento para o parto</td></tr>
+        <tr><td>1� Trimestre</td><td>1-13 semanas</td><td>Forma��o dos �rg�os principais, maior risco de aborto</td></tr>
+        <tr><td>2� Trimestre</td><td>14-27 semanas</td><td>Crescimento r�pido, movimentos fetais, ultrassom morfol�gico</td></tr>
+        <tr><td>3� Trimestre</td><td>28-40 semanas</td><td>Amadurecimento pulmonar, posicionamento para o parto</td></tr>
       </tbody>
     </table>
-    <div class="info-box">ℹ️ A DPP é uma <strong>estimativa</strong>. Apenas 5% dos bebês nascem exatamente na data calculada. Partos entre a 37ª e 42ª semana são considerados a termo (normais).</div>
-    <h4>💉 Exames por Trimestre</h4>
+    <div class="info-box">?? A DPP � uma <strong>estimativa</strong>. Apenas 5% dos beb�s nascem exatamente na data calculada. Partos entre a 37� e 42� semana s�o considerados a termo (normais).</div>
+    <h4>?? Exames por Trimestre</h4>
     <ul>
-      <li><strong>1º Trimestre:</strong> Beta-HCG, translucência nucal (10–14 sem.), hemograma, tipagem sanguínea</li>
-      <li><strong>2º Trimestre:</strong> Ultrassom morfológico (20–24 sem.), teste de tolerância a glicose</li>
-      <li><strong>3º Trimestre:</strong> Ultrassom de crescimento, cardiotocografia, consultas quinzenais/semanais</li>
+      <li><strong>1� Trimestre:</strong> Beta-HCG, transluc�ncia nucal (10-14 sem.), hemograma, tipagem sangu�nea</li>
+      <li><strong>2� Trimestre:</strong> Ultrassom morfol�gico (20-24 sem.), teste de toler�ncia a glicose</li>
+      <li><strong>3� Trimestre:</strong> Ultrassom de crescimento, cardiotocografia, consultas quinzenais/semanais</li>
     </ul>
-    <h4>❓ Perguntas Frequentes</h4>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
-      <div class="faq-q">A calculadora é tão precisa quanto o médico?</div>
-      <div class="faq-a">Usa a mesma fórmula (Regra de Naegele) que os obstetras. Porém, o ultrassom do primeiro trimestre é mais preciso para datar a gestação, especialmente para ciclos irregulares. Sempre confirme com seu médico.</div>
+      <div class="faq-q">A calculadora � t�o precisa quanto o m�dico?</div>
+      <div class="faq-a">Usa a mesma f�rmula (Regra de Naegele) que os obstetras. Por�m, o ultrassom do primeiro trimestre � mais preciso para datar a gesta��o, especialmente para ciclos irregulares. Sempre confirme com seu m�dico.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">E se meu ciclo não for de 28 dias?</div>
-      <div class="faq-a">A Regra de Naegele assume ciclo de 28 dias. Ciclos mais longos significam ovulação mais tardia — a DPP pode ser alguns dias depois. O ultrassom do 1º trimestre ajusta a data com base no tamanho do embrião.</div>
+      <div class="faq-q">E se meu ciclo n�o for de 28 dias?</div>
+      <div class="faq-a">A Regra de Naegele assume ciclo de 28 dias. Ciclos mais longos significam ovula��o mais tardia - a DPP pode ser alguns dias depois. O ultrassom do 1� trimestre ajusta a data com base no tamanho do embri�o.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Quando devo ir à primeira consulta de pré-natal?</div>
-      <div class="faq-a">O ideal é na 8ª semana ou logo após a confirmação da gravidez. O pré-natal precoce é fundamental — e a suplementação de ácido fólico (iniciada antes da gravidez) reduz risco de malformações do tubo neural.</div>
+      <div class="faq-q">Quando devo ir � primeira consulta de pr�-natal?</div>
+      <div class="faq-a">O ideal � na 8� semana ou logo ap�s a confirma��o da gravidez. O pr�-natal precoce � fundamental - e a suplementa��o de �cido f�lico (iniciada antes da gravidez) reduz risco de malforma��es do tubo neural.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function onMetodo(){
@@ -162,11 +162,11 @@ function calcular(){
 
   if(metodo==='dum'){
     const v=document.getElementById('dum').value;
-    if(!v){alert('Informe a data da Ãºltima menstruaÃ§Ã£o.');return;}
+    if(!v){alert('Informe a data da última menstruação.');return;}
     dumData=new Date(v+'T12:00:00');
   } else if(metodo==='concepcao'){
     const v=document.getElementById('concepcao').value;
-    if(!v){alert('Informe a data de concepÃ§Ã£o.');return;}
+    if(!v){alert('Informe a data de concepção.');return;}
     dumData=new Date(v+'T12:00:00');
     dumData.setDate(dumData.getDate()-14);
   } else {
@@ -182,10 +182,10 @@ function calcular(){
   const dias=diasGestad%7;
   const diasRestantes=Math.max(0,280-diasGestad);
   const pct=Math.min(100,Math.round(diasGestad/280*100));
-  const trim=semanas<14?'1Âº Trimestre':semanas<28?'2Âº Trimestre':'3Âº Trimestre';
+  const trim=semanas<14?'1º Trimestre':semanas<28?'2º Trimestre':'3º Trimestre';
 
   document.getElementById('r-data-parto').textContent=fmtD(dpp);
-  document.getElementById('r-semanas').textContent=semanas+'Âª semana + '+dias+' dias Â· '+diasRestantes+' dias restantes';
+  document.getElementById('r-semanas').textContent=semanas+'ª semana + '+dias+' dias · '+diasRestantes+' dias restantes';
   document.getElementById('r-sem').textContent=semanas+'s '+dias+'d';
   document.getElementById('r-trim').textContent=trim;
   document.getElementById('r-dias').textContent=diasRestantes+'d';
@@ -193,19 +193,19 @@ function calcular(){
   document.getElementById('barra').style.width=pct+'%';
 
   const marcos=[
-    {sem:4,nome:'â ImplantaÃ§Ã£o concluÃ­da'},
-    {sem:6,nome:'â¤ï¸ Batimentos cardÃ­acos detectÃ¡veis'},
-    {sem:8,nome:'ð§  InÃ­cio do desenvolvimento cerebral'},
-    {sem:12,nome:'ð 1Âº Ultrassom morfolÃ³gico'},
-    {sem:14,nome:'ð InÃ­cio do 2Âº trimestre'},
-    {sem:20,nome:'ð£ MorfolÃ³gico do 2Âº tri (anomalias)'},
-    {sem:22,nome:'ðµ BebÃª ouve sons externos'},
-    {sem:24,nome:'ðï¸ Olhos formados, reage Ã  luz'},
-    {sem:28,nome:'ð InÃ­cio do 3Âº trimestre'},
-    {sem:32,nome:'ð§¸ PulmÃµes quase maduros'},
-    {sem:36,nome:'âï¸ Evite viagens longas de aviÃ£o'},
-    {sem:37,nome:'â GestaÃ§Ã£o a termo (pronto para nascer)'},
-    {sem:40,nome:'ð Data provÃ¡vel do parto'},
+    {sem:4,nome:'✅ Implantação concluída'},
+    {sem:6,nome:'❤️ Batimentos cardíacos detectáveis'},
+    {sem:8,nome:'🧠 Início do desenvolvimento cerebral'},
+    {sem:12,nome:'🔍 1º Ultrassom morfológico'},
+    {sem:14,nome:'🎉 Início do 2º trimestre'},
+    {sem:20,nome:'👣 Morfológico do 2º tri (anomalias)'},
+    {sem:22,nome:'🎵 Bebê ouve sons externos'},
+    {sem:24,nome:'👁️ Olhos formados, reage à luz'},
+    {sem:28,nome:'🎉 Início do 3º trimestre'},
+    {sem:32,nome:'🧸 Pulmões quase maduros'},
+    {sem:36,nome:'✈️ Evite viagens longas de avião'},
+    {sem:37,nome:'✅ Gestação a termo (pronto para nascer)'},
+    {sem:40,nome:'🎉 Data provável do parto'},
   ];
 
   const li=marcos.map(m=>{
@@ -213,7 +213,7 @@ function calcular(){
     const passado=hoje>datM, atual=Math.abs(semanas-m.sem)<=1;
     return`<li class="${passado?'passado':''}${atual?' atual':''}">
       <span>${m.nome}</span>
-      <span class="data">${fmtDS(datM)} (${m.sem}Âª sem.)</span>
+      <span class="data">${fmtDS(datM)} (${m.sem}ª sem.)</span>
     </li>`;
   }).join('');
   document.getElementById('marcos-list').innerHTML=li;

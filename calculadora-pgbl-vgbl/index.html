@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>PGBL vs VGBL â Qual PrevidÃªncia Privada Vale Mais? 2025 | FacilCalc</title>
-<meta name="description" content="Compare PGBL e VGBL: veja qual previdÃªncia privada Ã© mais vantajosa para seu perfil de IR. Calcule a economia fiscal do PGBL e o retorno real."/>
+<title>PGBL vs VGBL — Qual Previdência Privada Vale Mais? 2025 | FacilCalc</title>
+<meta name="description" content="Compare PGBL e VGBL: veja qual previdência privada é mais vantajosa para seu perfil de IR. Calcule a economia fiscal do PGBL e o retorno real."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -46,27 +46,27 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð PGBL vs VGBL</h1>
-  <p>PrevidÃªncia privada â qual vale mais para vocÃª?</p>
+  <h1>💜 PGBL vs VGBL</h1>
+  <p>Previdência privada — qual vale mais para você?</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ð Seus Dados</h2>
+    <h2>📊 Seus Dados</h2>
     <div class="grid">
       <div class="field">
         <label>Renda Bruta Anual (R$)</label>
         <input type="text" id="renda" placeholder="Ex: 84.000,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
-        <label>Aporte Mensal na PrevidÃªncia (R$)</label>
+        <label>Aporte Mensal na Previdência (R$)</label>
         <input type="text" id="aporte" placeholder="Ex: 500,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
-        <label>Regime de tributaÃ§Ã£o IR</label>
+        <label>Regime de tributação IR</label>
         <select id="regime-ir">
-          <option value="completo">DeclaraÃ§Ã£o Completa (pode deduzir)</option>
-          <option value="simplificado">DeclaraÃ§Ã£o Simplificada (desconto 20%)</option>
+          <option value="completo">Declaração Completa (pode deduzir)</option>
+          <option value="simplificado">Declaração Simplificada (desconto 20%)</option>
         </select>
       </div>
       <div class="field">
@@ -78,33 +78,33 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="text" id="rentab" placeholder="Ex: 10,0" value="10,0"/>
       </div>
       <div class="field">
-        <label>Regime de saÃ­da (tributaÃ§Ã£o no resgate)</label>
+        <label>Regime de saída (tributação no resgate)</label>
         <select id="regime-saida">
           <option value="regressivo">Tabela Regressiva (15% acima de 10 anos)</option>
           <option value="progressivo">Tabela Progressiva (IR normal)</option>
         </select>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">ð¡ Comparar PGBL vs VGBL</button>
+    <button class="btn-calc" onclick="calcular()">💡 Comparar PGBL vs VGBL</button>
   </div>
 
   <div id="resultado">
     <div class="comp-grid">
       <div class="cmp pgbl">
-        <h3>ðµ PGBL</h3>
-        <div class="val-big" id="pgbl-liq">â</div>
-        <div class="row"><span>PatrimÃ´nio bruto</span><span id="pgbl-pat">â</span></div>
-        <div class="row"><span>Economia IR (entrada)</span><span id="pgbl-eco">â</span></div>
-        <div class="row"><span>IR no resgate</span><span id="pgbl-ir-res">â</span></div>
-        <div class="row"><span>LÃ­quido final</span><span id="pgbl-liq2">â</span></div>
+        <h3>🔵 PGBL</h3>
+        <div class="val-big" id="pgbl-liq">—</div>
+        <div class="row"><span>Patrimônio bruto</span><span id="pgbl-pat">—</span></div>
+        <div class="row"><span>Economia IR (entrada)</span><span id="pgbl-eco">—</span></div>
+        <div class="row"><span>IR no resgate</span><span id="pgbl-ir-res">—</span></div>
+        <div class="row"><span>Líquido final</span><span id="pgbl-liq2">—</span></div>
       </div>
       <div class="cmp vgbl">
-        <h3>ð£ VGBL</h3>
-        <div class="val-big" id="vgbl-liq">â</div>
-        <div class="row"><span>PatrimÃ´nio bruto</span><span id="vgbl-pat">â</span></div>
-        <div class="row"><span>Economia IR (entrada)</span><span id="vgbl-eco">â</span></div>
-        <div class="row"><span>IR no resgate</span><span id="vgbl-ir-res">â</span></div>
-        <div class="row"><span>LÃ­quido final</span><span id="vgbl-liq2">â</span></div>
+        <h3>🟣 VGBL</h3>
+        <div class="val-big" id="vgbl-liq">—</div>
+        <div class="row"><span>Patrimônio bruto</span><span id="vgbl-pat">—</span></div>
+        <div class="row"><span>Economia IR (entrada)</span><span id="vgbl-eco">—</span></div>
+        <div class="row"><span>IR no resgate</span><span id="vgbl-ir-res">—</span></div>
+        <div class="row"><span>Líquido final</span><span id="vgbl-liq2">—</span></div>
       </div>
     </div>
     <div class="winner">
@@ -112,53 +112,53 @@ footer a{color:#1a73e8;text-decoration:none}
       <p id="winner-sub" style="font-size:.85rem;color:#555;margin-top:4px"></p>
     </div>
     <div class="obs">
-      <strong>PGBL:</strong> deduz atÃ© 12% da renda bruta do IR na declaraÃ§Ã£o completa. No resgate, IR incide sobre TUDO (principal + rendimentos).<br>
-      <strong>VGBL:</strong> sem deduÃ§Ã£o fiscal na entrada. No resgate, IR incide apenas sobre os rendimentos.<br>
+      <strong>PGBL:</strong> deduz até 12% da renda bruta do IR na declaração completa. No resgate, IR incide sobre TUDO (principal + rendimentos).<br>
+      <strong>VGBL:</strong> sem dedução fiscal na entrada. No resgate, IR incide apenas sobre os rendimentos.<br>
       <strong>Regra geral:</strong> PGBL para quem declara completo e paga IR alto. VGBL para os demais.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
   <div class="explic">
-    <h3>💜 PGBL vs VGBL — Qual Previdência Privada é Melhor para Você?</h3>
-    <p>PGBL e VGBL são os dois tipos de planos de <strong>previdência privada</strong> no Brasil. A escolha certa depende principalmente do seu perfil com o Imposto de Renda.</p>
-    <h4>📋 Diferenças Fundamentais</h4>
+    <h3>?? PGBL vs VGBL - Qual Previd�ncia Privada � Melhor para Voc�?</h3>
+    <p>PGBL e VGBL s�o os dois tipos de planos de <strong>previd�ncia privada</strong> no Brasil. A escolha certa depende principalmente do seu perfil com o Imposto de Renda.</p>
+    <h4>?? Diferen�as Fundamentais</h4>
     <table>
-      <thead><tr><th>Característica</th><th>PGBL</th><th>VGBL</th></tr></thead>
+      <thead><tr><th>Caracter�stica</th><th>PGBL</th><th>VGBL</th></tr></thead>
       <tbody>
-        <tr><td>Dedução IR na entrada</td><td>Até 12% da renda tributável</td><td>Sem dedução</td></tr>
+        <tr><td>Dedu��o IR na entrada</td><td>At� 12% da renda tribut�vel</td><td>Sem dedu��o</td></tr>
         <tr><td>IR no resgate</td><td>Sobre valor total (capital + rendimentos)</td><td>Apenas sobre os rendimentos</td></tr>
-        <tr><td>Indicado para</td><td>Quem declara IR modelo completo</td><td>Quem declara simplificado ou é isento</td></tr>
+        <tr><td>Indicado para</td><td>Quem declara IR modelo completo</td><td>Quem declara simplificado ou � isento</td></tr>
       </tbody>
     </table>
-    <div class="info-box">✅ <strong>Regra prática:</strong> Declara IR completo e tem IR a pagar? Use PGBL. Declara simplificado ou é isento? Use VGBL.</div>
-    <h4>💰 Regimes de Tributação</h4>
+    <div class="info-box">? <strong>Regra pr�tica:</strong> Declara IR completo e tem IR a pagar? Use PGBL. Declara simplificado ou � isento? Use VGBL.</div>
+    <h4>?? Regimes de Tributa��o</h4>
     <table>
-      <thead><tr><th>Regime</th><th>Alíquota no resgate</th><th>Melhor para</th></tr></thead>
+      <thead><tr><th>Regime</th><th>Al�quota no resgate</th><th>Melhor para</th></tr></thead>
       <tbody>
-        <tr><td>Progressivo (tabela IRPF)</td><td>Varia conforme renda total</td><td>Quem terá renda baixa na aposentadoria</td></tr>
-        <tr><td>Regressivo (exclusivo)</td><td>35% (2 anos) → 10% (10+ anos)</td><td>Quem mantém por mais de 10 anos</td></tr>
+        <tr><td>Progressivo (tabela IRPF)</td><td>Varia conforme renda total</td><td>Quem ter� renda baixa na aposentadoria</td></tr>
+        <tr><td>Regressivo (exclusivo)</td><td>35% (2 anos) ? 10% (10+ anos)</td><td>Quem mant�m por mais de 10 anos</td></tr>
       </tbody>
     </table>
-    <div class="warn-box">⚠️ Fique atento às <strong>taxas de administração</strong>. Uma taxa de 2% a.a. pode corroer até 40% do patrimônio em 30 anos. Prefira planos com taxa inferior a 1% a.a.</div>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="warn-box">?? Fique atento �s <strong>taxas de administra��o</strong>. Uma taxa de 2% a.a. pode corroer at� 40% do patrim�nio em 30 anos. Prefira planos com taxa inferior a 1% a.a.</div>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
       <div class="faq-q">Posso mudar de PGBL para VGBL?</div>
-      <div class="faq-a">Sim, via portabilidade sem pagar IR. O prazo de carência e o regime de tributação são mantidos do plano original.</div>
+      <div class="faq-a">Sim, via portabilidade sem pagar IR. O prazo de car�ncia e o regime de tributa��o s�o mantidos do plano original.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Previdência privada é melhor que o Tesouro IPCA+?</div>
-      <div class="faq-a">Com taxas baixas (abaixo de 0,7% a.a.) e aproveitando a dedução do PGBL, pode ser vantajosa. Com taxas altas, o Tesouro Direto tende a superar.</div>
+      <div class="faq-q">Previd�ncia privada � melhor que o Tesouro IPCA+?</div>
+      <div class="faq-a">Com taxas baixas (abaixo de 0,7% a.a.) e aproveitando a dedu��o do PGBL, pode ser vantajosa. Com taxas altas, o Tesouro Direto tende a superar.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">O que acontece com a previdência em caso de morte?</div>
-      <div class="faq-a">O saldo vai diretamente para os beneficiários indicados no plano, sem passar por inventário — grande vantagem em relação a outros investimentos. Atualize sempre os beneficiários.</div>
+      <div class="faq-q">O que acontece com a previd�ncia em caso de morte?</div>
+      <div class="faq-a">O saldo vai diretamente para os benefici�rios indicados no plano, sem passar por invent�rio - grande vantagem em rela��o a outros investimentos. Atualize sempre os benefici�rios.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -186,7 +186,7 @@ function calcular(){
   const rm=Math.pow(1+rentab,1/12)-1;
   const meses=anos*12;
 
-  // PatrimÃ´nio acumulado
+  // Patrimônio acumulado
   const pat=aporteMes*(Math.pow(1+rm,meses)-1)/rm;
   const totalAport=aporteMes*meses;
   const rendimentos=pat-totalAport;
@@ -202,7 +202,7 @@ function calcular(){
   // IR no resgate
   const aliqSaida=regimeSaida==='regressivo'?0.15:0.275;
   const irPGBL=pat*aliqSaida; // incide sobre tudo
-  const irVGBL=rendimentos*aliqSaida; // sÃ³ sobre rendimentos
+  const irVGBL=rendimentos*aliqSaida; // só sobre rendimentos
 
   const liqPGBL=pat-irPGBL+ecoIR;
   const liqVGBL=pat-irVGBL;
@@ -216,8 +216,8 @@ function calcular(){
   fill('vgbl-liq2',fmtR(liqVGBL));
 
   const melhorPGBL=liqPGBL>liqVGBL;
-  document.getElementById('winner-txt').textContent=(melhorPGBL?'ðµ PGBL':'ð£ VGBL')+' Ã© mais vantajoso: '+fmtR(melhorPGBL?liqPGBL:liqVGBL);
-  document.getElementById('winner-sub').textContent='DiferenÃ§a: '+fmtR(Math.abs(liqPGBL-liqVGBL))+' em '+anos+' anos'+(regime==='simplificado'&&melhorPGBL?' â mas vocÃª declarou simplificado, entÃ£o o PGBL pode nÃ£o compensar':'');
+  document.getElementById('winner-txt').textContent=(melhorPGBL?'🔵 PGBL':'🟣 VGBL')+' é mais vantajoso: '+fmtR(melhorPGBL?liqPGBL:liqVGBL);
+  document.getElementById('winner-sub').textContent='Diferença: '+fmtR(Math.abs(liqPGBL-liqVGBL))+' em '+anos+' anos'+(regime==='simplificado'&&melhorPGBL?' — mas você declarou simplificado, então o PGBL pode não compensar':'');
 
   document.getElementById('resultado').style.display='block';
   document.getElementById('formulario').style.display='none';

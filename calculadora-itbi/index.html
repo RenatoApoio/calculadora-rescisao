@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora de ITBI 2025 â Imposto na Compra do ImÃ³vel | FacilCalc</title>
-<meta name="description" content="Calcule o ITBI (Imposto de TransmissÃ£o de Bens ImÃ³veis) na compra do seu imÃ³vel. AlÃ­quotas por cidade e valor total dos custos cartoriais."/>
+<title>Calculadora de ITBI 2025 — Imposto na Compra do Imóvel | FacilCalc</title>
+<meta name="description" content="Calcule o ITBI (Imposto de Transmissão de Bens Imóveis) na compra do seu imóvel. Alíquotas por cidade e valor total dos custos cartoriais."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -41,84 +41,84 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð  Calculadora de ITBI</h1>
-  <p>Imposto na compra do imÃ³vel + custos cartoriais</p>
+  <h1>🏠 Calculadora de ITBI</h1>
+  <p>Imposto na compra do imóvel + custos cartoriais</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ðï¸ Dados da Compra</h2>
+    <h2>🏘️ Dados da Compra</h2>
     <div class="grid">
       <div class="field full">
-        <label>Valor do ImÃ³vel (R$)</label>
+        <label>Valor do Imóvel (R$)</label>
         <input type="text" id="valor" placeholder="Ex: 400.000,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field full">
         <label>Cidade</label>
         <select id="cidade">
-          <option value="2.0">SÃ£o Paulo â SP (2,0%)</option>
-          <option value="3.0">Rio de Janeiro â RJ (3,0%)</option>
-          <option value="2.0">BrasÃ­lia â DF (2,0%)</option>
-          <option value="2.0">Belo Horizonte â MG (2,0%)</option>
-          <option value="2.0">Curitiba â PR (2,0%)</option>
-          <option value="2.0">Porto Alegre â RS (2,0%)</option>
-          <option value="2.0">Fortaleza â CE (2,0%)</option>
-          <option value="2.0">Recife â PE (2,0%)</option>
-          <option value="2.0">Salvador â BA (2,0%)</option>
-          <option value="2.0">Manaus â AM (2,0%)</option>
-          <option value="2.0">BelÃ©m â PA (2,0%)</option>
-          <option value="2.0">GoiÃ¢nia â GO (2,0%)</option>
+          <option value="2.0">São Paulo — SP (2,0%)</option>
+          <option value="3.0">Rio de Janeiro — RJ (3,0%)</option>
+          <option value="2.0">Brasília — DF (2,0%)</option>
+          <option value="2.0">Belo Horizonte — MG (2,0%)</option>
+          <option value="2.0">Curitiba — PR (2,0%)</option>
+          <option value="2.0">Porto Alegre — RS (2,0%)</option>
+          <option value="2.0">Fortaleza — CE (2,0%)</option>
+          <option value="2.0">Recife — PE (2,0%)</option>
+          <option value="2.0">Salvador — BA (2,0%)</option>
+          <option value="2.0">Manaus — AM (2,0%)</option>
+          <option value="2.0">Belém — PA (2,0%)</option>
+          <option value="2.0">Goiânia — GO (2,0%)</option>
           <option value="custom">Outra cidade (informar %)</option>
         </select>
       </div>
       <div class="field full" id="campo-custom" style="display:none">
-        <label>AlÃ­quota ITBI da sua cidade (%)</label>
+        <label>Alíquota ITBI da sua cidade (%)</label>
         <input type="text" id="aliq-custom" placeholder="Ex: 2,5"/>
       </div>
       <div class="field">
         <label>Incluir escritura e registro?</label>
         <select id="cartorio">
-          <option value="sim">Sim â estimar custos</option>
-          <option value="nao">NÃ£o</option>
+          <option value="sim">Sim — estimar custos</option>
+          <option value="nao">Não</option>
         </select>
       </div>
       <div class="field">
         <label>Tipo de financiamento</label>
         <select id="financiamento">
-          <option value="nao">Compra Ã  vista</option>
-          <option value="sim">Financiamento bancÃ¡rio</option>
+          <option value="nao">Compra à vista</option>
+          <option value="sim">Financiamento bancário</option>
         </select>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">ð§® Calcular ITBI e Custos</button>
+    <button class="btn-calc" onclick="calcular()">🧮 Calcular ITBI e Custos</button>
   </div>
   <div id="resultado">
     <div class="res-hero">
       <label>Total de Custos na Compra</label>
-      <div class="big" id="r-total">â</div>
-      <div class="sub" id="r-sub">â</div>
+      <div class="big" id="r-total">—</div>
+      <div class="sub" id="r-sub">—</div>
     </div>
     <table class="custos-table">
-      <thead><tr><th>Item</th><th>Valor</th><th>% do ImÃ³vel</th></tr></thead>
+      <thead><tr><th>Item</th><th>Valor</th><th>% do Imóvel</th></tr></thead>
       <tbody id="tbody"></tbody>
     </table>
     <div class="obs">
-      â ï¸ ITBI incide sobre o maior valor entre o de venda e o venal (avaliaÃ§Ã£o municipal).<br>
-      Escritura e registro sÃ£o obrigatÃ³rios para financiamento. Valores cartoriais sÃ£o estimativas â variam por estado.<br>
-      ImÃ³veis pelo SFH (atÃ© R$ 1,5M) podem ter ITBI reduzido ou isento em alguns municÃ­pios para primeira compra.
+      ⚠️ ITBI incide sobre o maior valor entre o de venda e o venal (avaliação municipal).<br>
+      Escritura e registro são obrigatórios para financiamento. Valores cartoriais são estimativas — variam por estado.<br>
+      Imóveis pelo SFH (até R$ 1,5M) podem ter ITBI reduzido ou isento em alguns municípios para primeira compra.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
   <div class="explic">
-    <h3>🏠 O que é o ITBI e Como é Calculado?</h3>
-    <p>O <strong>ITBI</strong> é um imposto municipal cobrado na compra e venda de imóveis. Deve ser pago pelo <strong>comprador</strong> antes do registro no cartório.</p>
-    <h4>💰 ITBI nas Principais Cidades (2025)</h4>
+    <h3>?? O que � o ITBI e Como � Calculado?</h3>
+    <p>O <strong>ITBI</strong> � um imposto municipal cobrado na compra e venda de im�veis. Deve ser pago pelo <strong>comprador</strong> antes do registro no cart�rio.</p>
+    <h4>?? ITBI nas Principais Cidades (2025)</h4>
     <table>
-      <thead><tr><th>Município</th><th>Alíquota ITBI</th></tr></thead>
+      <thead><tr><th>Munic�pio</th><th>Al�quota ITBI</th></tr></thead>
       <tbody>
-        <tr><td>São Paulo (SP)</td><td>3%</td></tr>
+        <tr><td>S�o Paulo (SP)</td><td>3%</td></tr>
         <tr><td>Rio de Janeiro (RJ)</td><td>3%</td></tr>
         <tr><td>Belo Horizonte (MG)</td><td>3%</td></tr>
         <tr><td>Curitiba (PR)</td><td>2,7%</td></tr>
@@ -127,25 +127,25 @@ footer a{color:#1a73e8;text-decoration:none}
         <tr><td>Salvador (BA)</td><td>2%</td></tr>
       </tbody>
     </table>
-    <div class="info-box">ℹ️ Alíquota varia entre 2% e 4% por município. Consulte sempre a prefeitura local para a alíquota exata e possíveis isenções para primeiro imóvel.</div>
-    <div class="warn-box">⚠️ Não confunda ITBI com ITCMD! O ITBI é cobrado em transações onerosas (compra/venda). O ITCMD (estadual) incide sobre doações e heranças — alíquotas e bases diferentes.</div>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="info-box">?? Al�quota varia entre 2% e 4% por munic�pio. Consulte sempre a prefeitura local para a al�quota exata e poss�veis isen��es para primeiro im�vel.</div>
+    <div class="warn-box">?? N�o confunda ITBI com ITCMD! O ITBI � cobrado em transa��es onerosas (compra/venda). O ITCMD (estadual) incide sobre doa��es e heran�as - al�quotas e bases diferentes.</div>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
       <div class="faq-q">ITBI incide sobre o valor do contrato ou valor venal?</div>
-      <div class="faq-a">Pela lei, incide sobre o valor de mercado. O STF firmou que o município não pode cobrar sobre valor superior ao da transação. Mas a prática de cada prefeitura pode variar.</div>
+      <div class="faq-a">Pela lei, incide sobre o valor de mercado. O STF firmou que o munic�pio n�o pode cobrar sobre valor superior ao da transa��o. Mas a pr�tica de cada prefeitura pode variar.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Posso parcelar o ITBI?</div>
-      <div class="faq-a">Depende do município. Alguns permitem parcelamento em até 12 vezes. Em muitas cidades deve ser pago integralmente antes do registro no cartório.</div>
+      <div class="faq-a">Depende do munic�pio. Alguns permitem parcelamento em at� 12 vezes. Em muitas cidades deve ser pago integralmente antes do registro no cart�rio.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Primeiro imóvel tem desconto no ITBI?</div>
-      <div class="faq-a">Alguns municípios oferecem isenção ou alíquota reduzida para aquisição do primeiro imóvel residencial abaixo de certo valor. Consulte a legislação da sua cidade.</div>
+      <div class="faq-q">Primeiro im�vel tem desconto no ITBI?</div>
+      <div class="faq-a">Alguns munic�pios oferecem isen��o ou al�quota reduzida para aquisi��o do primeiro im�vel residencial abaixo de certo valor. Consulte a legisla��o da sua cidade.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -160,7 +160,7 @@ document.getElementById('cidade').addEventListener('change',function(){
 
 function calcular(){
   const v=parseMoeda(document.getElementById('valor').value);
-  if(!v){alert('Informe o valor do imÃ³vel.');return;}
+  if(!v){alert('Informe o valor do imóvel.');return;}
   const cidSel=document.getElementById('cidade').value;
   const aliq=cidSel==='custom'?parsePct(document.getElementById('aliq-custom').value):parseFloat(cidSel);
   const comCartorio=document.getElementById('cartorio').value==='sim';
@@ -174,13 +174,13 @@ function calcular(){
   const total=itbi+escritura+registro+avaliacao;
   const itens=[
     {nome:'ITBI ('+fmtN(aliq)+'%)',val:itbi},
-    ...(comCartorio?[{nome:'Escritura pÃºblica (~1,5%)',val:escritura},{nome:'Registro de imÃ³vel (~0,8%)',val:registro}]:[]),
-    ...(financiado?[{nome:'AvaliaÃ§Ã£o bancÃ¡ria (~0,5%)',val:avaliacao}]:[]),
+    ...(comCartorio?[{nome:'Escritura pública (~1,5%)',val:escritura},{nome:'Registro de imóvel (~0,8%)',val:registro}]:[]),
+    ...(financiado?[{nome:'Avaliação bancária (~0,5%)',val:avaliacao}]:[]),
     {nome:'TOTAL',val:total}
   ];
 
   document.getElementById('r-total').textContent=fmtR(total);
-  document.getElementById('r-sub').textContent='AlÃ©m do valor do imÃ³vel de '+fmtR(v)+', vocÃª pagarÃ¡ +'+fmtN(total/v*100)+'%';
+  document.getElementById('r-sub').textContent='Além do valor do imóvel de '+fmtR(v)+', você pagará +'+fmtN(total/v*100)+'%';
   document.getElementById('tbody').innerHTML=itens.map(i=>`<tr><td>${i.nome}</td><td>${fmtR(i.val)}</td><td>${fmtN(i.val/v*100)}%</td></tr>`).join('');
   document.getElementById('resultado').style.display='block';
   document.getElementById('formulario').style.display='none';

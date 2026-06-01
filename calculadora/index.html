@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora Online â Simples e CientÃ­fica | FacilCalc</title>
-<meta name="description" content="Calculadora online gratuita com modo simples e cientÃ­fico. Suporta seno, cosseno, raiz quadrada, logaritmo, potÃªncia e muito mais. Funciona no celular."/>
+<title>Calculadora Online — Simples e Científica | FacilCalc</title>
+<meta name="description" content="Calculadora online gratuita com modo simples e científico. Suporta seno, cosseno, raiz quadrada, logaritmo, potência e muito mais. Funciona no celular."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -68,14 +68,14 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð§® Calculadora</h1>
-  <p>Modo simples e cientÃ­fica â use o teclado ou clique</p>
+  <h1>🧮 Calculadora</h1>
+  <p>Modo simples e científica — use o teclado ou clique</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="toggle-row">
-    <button class="tog-btn active" id="btn-simples" onclick="setMode('simples')">ð Simples</button>
-    <button class="tog-btn" id="btn-cient" onclick="setMode('cientifica')">ð¬ CientÃ­fica</button>
+    <button class="tog-btn active" id="btn-simples" onclick="setMode('simples')">📟 Simples</button>
+    <button class="tog-btn" id="btn-cient" onclick="setMode('cientifica')">🔬 Científica</button>
   </div>
 
   <div class="calc">
@@ -94,14 +94,14 @@ footer a{color:#1a73e8;text-decoration:none}
         <button class="b fn" onclick="fn('ln')">ln</button>
       </div>
       <div class="btn-row cols-5">
-        <button class="b sci-op" onclick="fn('sqrt')">âx</button>
-        <button class="b sci-op" onclick="fn('sq')">xÂ²</button>
-        <button class="b sci-op" onclick="fn('pow')">xÊ¸</button>
+        <button class="b sci-op" onclick="fn('sqrt')">√x</button>
+        <button class="b sci-op" onclick="fn('sq')">x²</button>
+        <button class="b sci-op" onclick="fn('pow')">xʸ</button>
         <button class="b sci-op" onclick="fn('inv')">1/x</button>
         <button class="b sci-op" onclick="fn('fact')">n!</button>
       </div>
       <div class="btn-row cols-5">
-        <button class="b sci-op" onclick="fn('pi')">Ï</button>
+        <button class="b sci-op" onclick="fn('pi')">π</button>
         <button class="b sci-op" onclick="fn('e')">e</button>
         <button class="b sci-op" onclick="fn('abs')">|x|</button>
         <button class="b sci-op" onclick="fn('deg')">DEG</button>
@@ -113,21 +113,21 @@ footer a{color:#1a73e8;text-decoration:none}
     <div class="btns" id="main-btns">
       <div class="btn-row cols-4">
         <button class="b clr" onclick="ac()">AC</button>
-        <button class="b clr2" onclick="del()">â«</button>
+        <button class="b clr2" onclick="del()">⌫</button>
         <button class="b op" onclick="inputOp('%')">%</button>
-        <button class="b op" onclick="inputOp('/')">Ã·</button>
+        <button class="b op" onclick="inputOp('/')">÷</button>
       </div>
       <div class="btn-row cols-4">
         <button class="b num" onclick="inp('7')">7</button>
         <button class="b num" onclick="inp('8')">8</button>
         <button class="b num" onclick="inp('9')">9</button>
-        <button class="b op" onclick="inputOp('*')">Ã</button>
+        <button class="b op" onclick="inputOp('*')">×</button>
       </div>
       <div class="btn-row cols-4">
         <button class="b num" onclick="inp('4')">4</button>
         <button class="b num" onclick="inp('5')">5</button>
         <button class="b num" onclick="inp('6')">6</button>
-        <button class="b op" onclick="inputOp('-')">â</button>
+        <button class="b op" onclick="inputOp('-')">−</button>
       </div>
       <div class="btn-row cols-4">
         <button class="b num" onclick="inp('1')">1</button>
@@ -143,42 +143,42 @@ footer a{color:#1a73e8;text-decoration:none}
     </div>
 
     <div class="hist-panel">
-      <h4>HistÃ³rico</h4>
-      <div id="hist-list"><div class="no-hist">Nenhum cÃ¡lculo ainda</div></div>
+      <h4>Histórico</h4>
+      <div id="hist-list"><div class="no-hist">Nenhum cálculo ainda</div></div>
     </div>
   </div>
   <div class="explic">
-    <h3>🧮 Como Usar a Calculadora Online — Funções e Dicas</h3>
-    <p>Nossa <strong>calculadora online</strong> funciona como uma calculadora científica completa, disponível em qualquer dispositivo sem instalação.</p>
-    <h4>📋 Funções Disponíveis</h4>
+    <h3>?? Como Usar a Calculadora Online - Fun��es e Dicas</h3>
+    <p>Nossa <strong>calculadora online</strong> funciona como uma calculadora cient�fica completa, dispon�vel em qualquer dispositivo sem instala��o.</p>
+    <h4>?? Fun��es Dispon�veis</h4>
     <table>
-      <thead><tr><th>Função</th><th>Como usar</th><th>Exemplo</th></tr></thead>
+      <thead><tr><th>Fun��o</th><th>Como usar</th><th>Exemplo</th></tr></thead>
       <tbody>
-        <tr><td>Potenciação</td><td>x^y ou x**y</td><td>2^10 = 1024</td></tr>
-        <tr><td>Raiz quadrada</td><td>√ ou sqrt()</td><td>√144 = 12</td></tr>
-        <tr><td>Porcentagem</td><td>número %</td><td>500 × 15% = 75</td></tr>
-        <tr><td>Seno/Cosseno/Tangente</td><td>sin(), cos(), tan()</td><td>sin(90°) = 1</td></tr>
+        <tr><td>Potencia��o</td><td>x^y ou x**y</td><td>2^10 = 1024</td></tr>
+        <tr><td>Raiz quadrada</td><td>? ou sqrt()</td><td>?144 = 12</td></tr>
+        <tr><td>Porcentagem</td><td>n�mero %</td><td>500 � 15% = 75</td></tr>
+        <tr><td>Seno/Cosseno/Tangente</td><td>sin(), cos(), tan()</td><td>sin(90�) = 1</td></tr>
         <tr><td>Logaritmo</td><td>log(), ln()</td><td>log(100) = 2</td></tr>
         <tr><td>Fatorial</td><td>n!</td><td>5! = 120</td></tr>
       </tbody>
     </table>
-    <h4>❓ Perguntas Frequentes</h4>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
       <div class="faq-q">Como calcular porcentagem de aumento ou desconto?</div>
-      <div class="faq-a">Para aumento: valor × (1 + percentual/100). Exemplo: R$ 500 com 15% de aumento = 500 × 1,15 = R$ 575. Para desconto: valor × (1 - percentual/100). Exemplo: R$ 500 com 20% de desconto = 500 × 0,80 = R$ 400.</div>
+      <div class="faq-a">Para aumento: valor � (1 + percentual/100). Exemplo: R$ 500 com 15% de aumento = 500 � 1,15 = R$ 575. Para desconto: valor � (1 - percentual/100). Exemplo: R$ 500 com 20% de desconto = 500 � 0,80 = R$ 400.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Como calcular quantos % um número é de outro?</div>
-      <div class="faq-a">Divida o valor pelo total e multiplique por 100. Exemplo: 75 é quantos % de 300? → (75 ÷ 300) × 100 = 25%.</div>
+      <div class="faq-q">Como calcular quantos % um n�mero � de outro?</div>
+      <div class="faq-a">Divida o valor pelo total e multiplique por 100. Exemplo: 75 � quantos % de 300? ? (75 � 300) � 100 = 25%.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Os cálculos ficam salvos?</div>
-      <div class="faq-a">A calculadora mantém o histórico durante a sessão. Para guardar resultados importantes, copie manualmente antes de sair da página.</div>
+      <div class="faq-q">Os c�lculos ficam salvos?</div>
+      <div class="faq-a">A calculadora mant�m o hist�rico durante a sess�o. Para guardar resultados importantes, copie manualmente antes de sair da p�gina.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 let expr='', lastResult=null, history=[], angleMode='DEG', waitingForOp=false, lastWasEq=false;
@@ -207,13 +207,13 @@ function inputOp(op){
 }
 
 function fmtExpr(e){
-  return e.replace(/\*/g,'Ã').replace(/\//g,'Ã·');
+  return e.replace(/\*/g,'×').replace(/\//g,'÷');
 }
 
 function calcular(){
   if(!expr) return;
   try{
-    let safe=expr.replace(/Ã·/g,'/').replace(/Ã/g,'*');
+    let safe=expr.replace(/÷/g,'/').replace(/×/g,'*');
     // handle % as /100 for last operand
     safe=safe.replace(/(\d+\.?\d*)%/g,'($1/100)');
     const result=Function('"use strict";return('+safe+')')();
@@ -231,7 +231,7 @@ function calcular(){
 
 function fn(f){
   let v=lastResult;
-  if(expr){try{v=Function('"use strict";return('+expr.replace(/Ã·/g,'/').replace(/Ã/g,'*')+')')();}catch(e){}}
+  if(expr){try{v=Function('"use strict";return('+expr.replace(/÷/g,'/').replace(/×/g,'*')+')')();}catch(e){}}
   if(v===null||isNaN(v)){updateDisplay('Erro','');return;}
   const toRad=angleMode==='DEG'?Math.PI/180:1;
   const fromRad=angleMode==='DEG'?180/Math.PI:1;
@@ -242,8 +242,8 @@ function fn(f){
     case'tan': res=Math.tan(v*toRad);label=`tan(${v})`; break;
     case'log': if(v<=0){updateDisplay('Erro','');return;} res=Math.log10(v);label=`log(${v})`; break;
     case'ln':  if(v<=0){updateDisplay('Erro','');return;} res=Math.log(v);label=`ln(${v})`; break;
-    case'sqrt':if(v<0){updateDisplay('Erro','');return;} res=Math.sqrt(v);label=`â(${v})`; break;
-    case'sq':  res=v*v;label=`(${v})Â²`; break;
+    case'sqrt':if(v<0){updateDisplay('Erro','');return;} res=Math.sqrt(v);label=`√(${v})`; break;
+    case'sq':  res=v*v;label=`(${v})²`; break;
     case'pow': expr=String(v)+'**';updateDisplay(fmtExpr(String(v))+'^','');return;
     case'inv': if(v===0){updateDisplay('Erro','');return;} res=1/v;label=`1/(${v})`; break;
     case'fact':if(v<0||v>170||!Number.isInteger(v)){updateDisplay('Erro','');return;} res=factorial(v);label=`${v}!`; break;
@@ -281,7 +281,7 @@ function del(){
 
 function renderHist(){
   const el=document.getElementById('hist-list');
-  if(!history.length){el.innerHTML='<div class="no-hist">Nenhum cÃ¡lculo ainda</div>';return;}
+  if(!history.length){el.innerHTML='<div class="no-hist">Nenhum cálculo ainda</div>';return;}
   el.innerHTML=history.map((h,i)=>
     `<div class="hist-item"><span class="expr">${h.expr}</span><span class="res" onclick="useHist(${i})" title="Usar este valor">${h.res}</span></div>`
   ).join('');

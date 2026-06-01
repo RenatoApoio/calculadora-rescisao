@@ -1,9 +1,9 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora DAS MEI 2025 â Boleto Mensal do Microempreendedor | FacilCalc</title>
+<title>Calculadora DAS MEI 2025 — Boleto Mensal do Microempreendedor | FacilCalc</title>
 <meta name="description" content="Calcule o DAS do MEI 2025: valor do boleto mensal, INSS, ICMS e ISS. Verifique o limite de faturamento e simule o Simples Nacional para ME."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -48,25 +48,25 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ðªª Calculadora DAS MEI</h1>
+  <h1>🪪 Calculadora DAS MEI</h1>
   <p>Valor do boleto mensal do Microempreendedor Individual 2025</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ðª Dados do MEI</h2>
+    <h2>🏪 Dados do MEI</h2>
     <div class="grid">
       <div class="field full">
         <label>Tipo de Atividade</label>
         <select id="atividade">
-          <option value="comercio">ComÃ©rcio / IndÃºstria (ICMS)</option>
-          <option value="servico">ServiÃ§os (ISS)</option>
-          <option value="ambos">ComÃ©rcio + ServiÃ§os (ICMS + ISS)</option>
+          <option value="comercio">Comércio / Indústria (ICMS)</option>
+          <option value="servico">Serviços (ISS)</option>
+          <option value="ambos">Comércio + Serviços (ICMS + ISS)</option>
           <option value="caminhoneiro">MEI Caminhoneiro</option>
         </select>
       </div>
       <div class="field">
-        <label>Faturamento Mensal MÃ©dio (R$)</label>
+        <label>Faturamento Mensal Médio (R$)</label>
         <input type="text" id="faturamento" placeholder="Ex: 4.000,00" oninput="maskMoeda(this)"/>
       </div>
       <div class="field">
@@ -74,14 +74,14 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="number" id="meses" placeholder="Ex: 12" value="12" min="1" max="12"/>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">ð§® Calcular DAS</button>
+    <button class="btn-calc" onclick="calcular()">🧮 Calcular DAS</button>
   </div>
 
   <div id="resultado">
     <div class="hero">
       <label>DAS Mensal</label>
-      <div class="das" id="r-das">â</div>
-      <div class="sub" id="r-sub">â</div>
+      <div class="das" id="r-das">—</div>
+      <div class="sub" id="r-sub">—</div>
     </div>
     <table class="det-table">
       <thead><tr><th>Componente</th><th>Valor</th></tr></thead>
@@ -90,56 +90,56 @@ footer a{color:#1a73e8;text-decoration:none}
     <div class="limite-bar">
       <h3>Limite de Faturamento Anual (R$ 81.000,00)</h3>
       <div class="barra-wrap"><div class="barra-fill" id="barra" style="width:0%"></div></div>
-      <div style="font-size:.82rem;color:#555" id="r-limite-txt">â</div>
+      <div style="font-size:.82rem;color:#555" id="r-limite-txt">—</div>
     </div>
     <div class="alerta" id="alerta-box" style="display:none"></div>
     <div class="obs">
-      ð O DAS vence todo dia 20 do mÃªs seguinte. Atraso gera multa de 0,33%/dia (mÃ¡x 20%) + juros Selic.<br>
-      ð MEI pode ter um Ãºnico empregado â salÃ¡rio mÃ­nimo ou piso da categoria.<br>
-      ð Limite MEI 2025: R$ 81.000/ano (R$ 6.750/mÃªs). MEI Caminhoneiro: R$ 251.600/ano.
+      📌 O DAS vence todo dia 20 do mês seguinte. Atraso gera multa de 0,33%/dia (máx 20%) + juros Selic.<br>
+      📌 MEI pode ter um único empregado — salário mínimo ou piso da categoria.<br>
+      📌 Limite MEI 2025: R$ 81.000/ano (R$ 6.750/mês). MEI Caminhoneiro: R$ 251.600/ano.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
   <div class="explic">
-    <h3>🪪 DAS MEI — Como Funciona o Boleto Mensal do Microempreendedor?</h3>
-    <p>O <strong>DAS MEI</strong> é o documento mensal que o MEI deve pagar para manter contribuições em dia. Inclui INSS + ICMS e/ou ISS conforme a atividade. Os valores são <strong>fixos</strong> — não variam com o faturamento.</p>
-    <h4>💰 Valores DAS MEI 2025</h4>
+    <h3>?? DAS MEI - Como Funciona o Boleto Mensal do Microempreendedor?</h3>
+    <p>O <strong>DAS MEI</strong> � o documento mensal que o MEI deve pagar para manter contribui��es em dia. Inclui INSS + ICMS e/ou ISS conforme a atividade. Os valores s�o <strong>fixos</strong> - n�o variam com o faturamento.</p>
+    <h4>?? Valores DAS MEI 2025</h4>
     <table>
       <thead><tr><th>Atividade</th><th>INSS</th><th>ICMS</th><th>ISS</th><th>Total</th></tr></thead>
       <tbody>
-        <tr><td>Comércio / Indústria</td><td>R$ 75,90</td><td>R$ 1,00</td><td>—</td><td><strong>R$ 76,90</strong></td></tr>
-        <tr><td>Serviços</td><td>R$ 75,90</td><td>—</td><td>R$ 5,00</td><td><strong>R$ 80,90</strong></td></tr>
-        <tr><td>Comércio + Serviços</td><td>R$ 75,90</td><td>R$ 1,00</td><td>R$ 5,00</td><td><strong>R$ 81,90</strong></td></tr>
+        <tr><td>Com�rcio / Ind�stria</td><td>R$ 75,90</td><td>R$ 1,00</td><td>-</td><td><strong>R$ 76,90</strong></td></tr>
+        <tr><td>Servi�os</td><td>R$ 75,90</td><td>-</td><td>R$ 5,00</td><td><strong>R$ 80,90</strong></td></tr>
+        <tr><td>Com�rcio + Servi�os</td><td>R$ 75,90</td><td>R$ 1,00</td><td>R$ 5,00</td><td><strong>R$ 81,90</strong></td></tr>
       </tbody>
     </table>
-    <div class="info-box">ℹ️ O INSS do MEI é 5% do salário mínimo (R$ 1.518,00 em 2025 = R$ 75,90). Quando o salário mínimo é reajustado, o DAS aumenta proporcionalmente.</div>
-    <h4>📋 Regras MEI 2025</h4>
+    <div class="info-box">?? O INSS do MEI � 5% do sal�rio m�nimo (R$ 1.518,00 em 2025 = R$ 75,90). Quando o sal�rio m�nimo � reajustado, o DAS aumenta proporcionalmente.</div>
+    <h4>?? Regras MEI 2025</h4>
     <ul>
       <li><strong>Limite anual:</strong> R$ 81.000,00</li>
       <li><strong>MEI Caminhoneiro:</strong> Limite especial de R$ 251.600,00/ano</li>
-      <li><strong>Pode contratar:</strong> 1 funcionário com salário mínimo ou piso da categoria</li>
-      <li><strong>Proibido:</strong> Profissões regulamentadas (médico, advogado, engenheiro etc.)</li>
+      <li><strong>Pode contratar:</strong> 1 funcion�rio com sal�rio m�nimo ou piso da categoria</li>
+      <li><strong>Proibido:</strong> Profiss�es regulamentadas (m�dico, advogado, engenheiro etc.)</li>
     </ul>
-    <div class="warn-box">⚠️ Faturar entre R$ 81.000 e R$ 97.200 em 2025 → enquadrado como ME no ano seguinte. Acima de R$ 97.200 no mesmo ano → desenquadrado imediatamente.</div>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="warn-box">?? Faturar entre R$ 81.000 e R$ 97.200 em 2025 ? enquadrado como ME no ano seguinte. Acima de R$ 97.200 no mesmo ano ? desenquadrado imediatamente.</div>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
-      <div class="faq-q">MEI tem direito a benefícios do INSS?</div>
-      <div class="faq-a">Sim: aposentadoria por idade, auxílio-doença (após 12 meses), salário-maternidade, pensão por morte. A contribuição de 5% não garante aposentadoria por tempo de contribuição.</div>
+      <div class="faq-q">MEI tem direito a benef�cios do INSS?</div>
+      <div class="faq-a">Sim: aposentadoria por idade, aux�lio-doen�a (ap�s 12 meses), sal�rio-maternidade, pens�o por morte. A contribui��o de 5% n�o garante aposentadoria por tempo de contribui��o.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Posso complementar a contribuição INSS do MEI?</div>
-      <div class="faq-a">Sim. Pagando mais 15% (total 20% sobre o salário mínimo), o MEI garante aposentadoria por tempo de contribuição e benefício maior no futuro.</div>
+      <div class="faq-q">Posso complementar a contribui��o INSS do MEI?</div>
+      <div class="faq-a">Sim. Pagando mais 15% (total 20% sobre o sal�rio m�nimo), o MEI garante aposentadoria por tempo de contribui��o e benef�cio maior no futuro.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">O que acontece se não pagar o DAS?</div>
-      <div class="faq-a">Multa de 0,33% ao dia (limitada a 20%) + juros Selic. Meses sem pagamento não contam como período de contribuição para benefícios do INSS.</div>
+      <div class="faq-q">O que acontece se n�o pagar o DAS?</div>
+      <div class="faq-a">Multa de 0,33% ao dia (limitada a 20%) + juros Selic. Meses sem pagamento n�o contam como per�odo de contribui��o para benef�cios do INSS.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 const SAL_MIN=1518.00;
@@ -153,25 +153,25 @@ function calcular(){
   const fat=parseMoeda(document.getElementById('faturamento').value)||0;
   const meses=parseInt(document.getElementById('meses').value)||12;
 
-  const inss=SAL_MIN*0.05; // 5% salÃ¡rio mÃ­nimo
+  const inss=SAL_MIN*0.05; // 5% salário mínimo
   let icms=0,iss=0,nome='';
-  if(ativ==='comercio'){icms=1.00;nome='ComÃ©rcio/IndÃºstria';}
-  else if(ativ==='servico'){iss=5.00;nome='ServiÃ§os';}
-  else if(ativ==='ambos'){icms=1.00;iss=5.00;nome='ComÃ©rcio + ServiÃ§os';}
+  if(ativ==='comercio'){icms=1.00;nome='Comércio/Indústria';}
+  else if(ativ==='servico'){iss=5.00;nome='Serviços';}
+  else if(ativ==='ambos'){icms=1.00;iss=5.00;nome='Comércio + Serviços';}
   else{
-    // Caminhoneiro: INSS 12% do salÃ¡rio mÃ­nimo
+    // Caminhoneiro: INSS 12% do salário mínimo
     const inssC=SAL_MIN*0.12;
     const dasC=inssC;
     const fatAnual=fat*meses, limite=251600;
     const pct=Math.min(100,fatAnual/limite*100);
     document.getElementById('r-das').textContent=fmtR(dasC);
-    document.getElementById('r-sub').textContent='INSS 12% sobre sal. mÃ­nimo Â· '+fmtR(fat)+'/mÃªs faturado';
-    document.getElementById('tbody').innerHTML=`<tr><td>INSS (12% Ã R$ 1.518,00)</td><td>${fmtR(inssC)}</td></tr><tr><td>ICMS/ISS</td><td>R$ 0,00</td></tr><tr><td>TOTAL DAS</td><td>${fmtR(dasC)}</td></tr>`;
+    document.getElementById('r-sub').textContent='INSS 12% sobre sal. mínimo · '+fmtR(fat)+'/mês faturado';
+    document.getElementById('tbody').innerHTML=`<tr><td>INSS (12% × R$ 1.518,00)</td><td>${fmtR(inssC)}</td></tr><tr><td>ICMS/ISS</td><td>R$ 0,00</td></tr><tr><td>TOTAL DAS</td><td>${fmtR(dasC)}</td></tr>`;
     document.getElementById('barra').className='barra-fill'+(pct>90?' danger':'');
     document.getElementById('barra').style.width=pct+'%';
     document.getElementById('r-limite-txt').textContent=fmtR(fatAnual)+' / R$ 251.600,00 ('+fmtN(pct)+'%)';
     document.getElementById('alerta-box').style.display=pct>80?'block':'none';
-    if(pct>80) document.getElementById('alerta-box').innerHTML=`<strong>â ï¸ AtenÃ§Ã£o:</strong> VocÃª jÃ¡ utilizou ${fmtN(pct)}% do limite anual do MEI Caminhoneiro. Se ultrapassar R$ 251.600,00, precisarÃ¡ migrar para ME.`;
+    if(pct>80) document.getElementById('alerta-box').innerHTML=`<strong>⚠️ Atenção:</strong> Você já utilizou ${fmtN(pct)}% do limite anual do MEI Caminhoneiro. Se ultrapassar R$ 251.600,00, precisará migrar para ME.`;
     document.getElementById('resultado').style.display='block';
     document.getElementById('formulario').style.display='none';
     return;
@@ -182,10 +182,10 @@ function calcular(){
   const pct=Math.min(100,fatAnual/limite*100);
 
   document.getElementById('r-das').textContent=fmtR(das);
-  document.getElementById('r-sub').textContent=nome+' Â· Faturamento: '+fmtR(fat)+'/mÃªs';
-  let rows=`<tr><td>INSS (5% Ã R$ ${fmtN(SAL_MIN)} â sal. mÃ­nimo)</td><td>${fmtR(inss)}</td></tr>`;
-  if(icms) rows+=`<tr><td>ICMS (ComÃ©rcio/IndÃºstria)</td><td>${fmtR(icms)}</td></tr>`;
-  if(iss) rows+=`<tr><td>ISS (ServiÃ§os)</td><td>${fmtR(iss)}</td></tr>`;
+  document.getElementById('r-sub').textContent=nome+' · Faturamento: '+fmtR(fat)+'/mês';
+  let rows=`<tr><td>INSS (5% × R$ ${fmtN(SAL_MIN)} — sal. mínimo)</td><td>${fmtR(inss)}</td></tr>`;
+  if(icms) rows+=`<tr><td>ICMS (Comércio/Indústria)</td><td>${fmtR(icms)}</td></tr>`;
+  if(iss) rows+=`<tr><td>ISS (Serviços)</td><td>${fmtR(iss)}</td></tr>`;
   rows+=`<tr><td>TOTAL DAS Mensal</td><td>${fmtR(das)}</td></tr>`;
   rows+=`<tr><td>Total Anual (${meses} meses)</td><td>${fmtR(das*meses)}</td></tr>`;
   document.getElementById('tbody').innerHTML=rows;
@@ -195,8 +195,8 @@ function calcular(){
   document.getElementById('r-limite-txt').textContent=fmtR(fatAnual)+' / R$ 81.000,00 ('+fmtN(pct)+'% do limite)';
 
   const alertEl=document.getElementById('alerta-box');
-  if(pct>100){alertEl.style.display='block';alertEl.innerHTML=`<strong>ð¨ Limite excedido!</strong> Faturamento anual projetado de ${fmtR(fatAnual)} ultrapassa o limite MEI de R$ 81.000. VocÃª deve migrar para ME (Microempresa) no Simples Nacional.`;}
-  else if(pct>80){alertEl.style.display='block';alertEl.innerHTML=`<strong>â ï¸ AtenÃ§Ã£o:</strong> VocÃª jÃ¡ utilizou ${fmtN(pct)}% do limite anual. Fique atento para nÃ£o ultrapassar R$ 81.000,00.`;}
+  if(pct>100){alertEl.style.display='block';alertEl.innerHTML=`<strong>🚨 Limite excedido!</strong> Faturamento anual projetado de ${fmtR(fatAnual)} ultrapassa o limite MEI de R$ 81.000. Você deve migrar para ME (Microempresa) no Simples Nacional.`;}
+  else if(pct>80){alertEl.style.display='block';alertEl.innerHTML=`<strong>⚠️ Atenção:</strong> Você já utilizou ${fmtN(pct)}% do limite anual. Fique atento para não ultrapassar R$ 81.000,00.`;}
   else{alertEl.style.display='none';}
 
   document.getElementById('resultado').style.display='block';

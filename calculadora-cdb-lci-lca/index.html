@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora CDB LCI LCA 2025 â Rendimento LÃ­quido e ComparaÃ§Ã£o | FacilCalc</title>
-<meta name="description" content="Simule o rendimento lÃ­quido de CDB, LCI e LCA. Compare com poupanÃ§a e CDI. Calcule IR regressivo e veja qual investimento rende mais."/>
+<title>Calculadora CDB LCI LCA 2025 — Rendimento Líquido e Comparação | FacilCalc</title>
+<meta name="description" content="Simule o rendimento líquido de CDB, LCI e LCA. Compare com poupança e CDI. Calcule IR regressivo e veja qual investimento rende mais."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -49,13 +49,13 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð¹ CDB Â· LCI Â· LCA</h1>
-  <p>Compare rendimentos lÃ­quidos e descubra o melhor investimento</p>
+  <h1>💹 CDB · LCI · LCA</h1>
+  <p>Compare rendimentos líquidos e descubra o melhor investimento</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="card" id="formulario">
-    <h2>ð° Dados do Investimento</h2>
+    <h2>💰 Dados do Investimento</h2>
     <div class="grid">
       <div class="field">
         <label>Valor Inicial (R$)</label>
@@ -78,31 +78,31 @@ footer a{color:#1a73e8;text-decoration:none}
         <input type="text" id="cdi" placeholder="Ex: 14,75" value="14,75"/>
       </div>
     </div>
-    <button class="btn-calc" onclick="calcular()">ð Comparar Investimentos</button>
+    <button class="btn-calc" onclick="calcular()">📊 Comparar Investimentos</button>
   </div>
 
   <div id="resultado">
     <div class="inv-cards">
       <div class="inv-card cdb" id="card-cdb">
-        <h3>ð¦ CDB</h3>
-        <div class="liq" id="cdb-liq">â</div>
-        <div class="row"><span>Rendimento bruto</span><span id="cdb-bruto">â</span></div>
-        <div class="row"><span>IR retido</span><span id="cdb-ir">â</span></div>
-        <div class="row"><span>Rent. lÃ­quida</span><span id="cdb-rent">â</span></div>
+        <h3>🏦 CDB</h3>
+        <div class="liq" id="cdb-liq">—</div>
+        <div class="row"><span>Rendimento bruto</span><span id="cdb-bruto">—</span></div>
+        <div class="row"><span>IR retido</span><span id="cdb-ir">—</span></div>
+        <div class="row"><span>Rent. líquida</span><span id="cdb-rent">—</span></div>
       </div>
       <div class="inv-card lcilca" id="card-lci">
-        <h3>ð± LCI/LCA</h3>
-        <div class="liq" id="lci-liq">â</div>
-        <div class="row"><span>Rendimento bruto</span><span id="lci-bruto">â</span></div>
-        <div class="row"><span>IR retido</span><span id="lci-ir">â</span></div>
-        <div class="row"><span>Rent. lÃ­quida</span><span id="lci-rent">â</span></div>
+        <h3>🌱 LCI/LCA</h3>
+        <div class="liq" id="lci-liq">—</div>
+        <div class="row"><span>Rendimento bruto</span><span id="lci-bruto">—</span></div>
+        <div class="row"><span>IR retido</span><span id="lci-ir">—</span></div>
+        <div class="row"><span>Rent. líquida</span><span id="lci-rent">—</span></div>
       </div>
       <div class="inv-card poupanca" id="card-poup">
-        <h3>ð· PoupanÃ§a</h3>
-        <div class="liq" id="poup-liq">â</div>
-        <div class="row"><span>Rendimento</span><span id="poup-bruto">â</span></div>
-        <div class="row"><span>IR retido</span><span id="poup-ir">â</span></div>
-        <div class="row"><span>Rent. lÃ­quida</span><span id="poup-rent">â</span></div>
+        <h3>🐷 Poupança</h3>
+        <div class="liq" id="poup-liq">—</div>
+        <div class="row"><span>Rendimento</span><span id="poup-bruto">—</span></div>
+        <div class="row"><span>IR retido</span><span id="poup-ir">—</span></div>
+        <div class="row"><span>Rent. líquida</span><span id="poup-rent">—</span></div>
       </div>
     </div>
     <div class="winner-banner">
@@ -110,54 +110,54 @@ footer a{color:#1a73e8;text-decoration:none}
       <span id="winner-sub" style="font-size:.85rem;color:#555"></span>
     </div>
     <div class="obs">
-      ð <strong>IR CDB:</strong> 22,5% (atÃ© 180 dias) Â· 20% (181-360 dias) Â· 17,5% (361-720 dias) Â· 15% (acima de 720 dias)<br>
-      ð <strong>LCI/LCA:</strong> isento de IR para pessoa fÃ­sica (mÃ­n. 90 dias LCI Â· 90 dias LCA apÃ³s 2024)<br>
-      ð <strong>PoupanÃ§a:</strong> 0,5%/mÃªs + TR quando Selic > 8,5% a.a.
+      📌 <strong>IR CDB:</strong> 22,5% (até 180 dias) · 20% (181-360 dias) · 17,5% (361-720 dias) · 15% (acima de 720 dias)<br>
+      📌 <strong>LCI/LCA:</strong> isento de IR para pessoa física (mín. 90 dias LCI · 90 dias LCA após 2024)<br>
+      📌 <strong>Poupança:</strong> 0,5%/mês + TR quando Selic > 8,5% a.a.
     </div>
     <div style="text-align:center;margin-top:14px">
-      <button class="btn-novo" onclick="novo()">ð Novo CÃ¡lculo</button>
+      <button class="btn-novo" onclick="novo()">🔄 Novo Cálculo</button>
     </div>
   </div>
   <div class="explic">
-    <h3>💹 CDB, LCI e LCA — Entenda as Diferenças e Renda Mais</h3>
-    <p>CDB, LCI e LCA são os investimentos de <strong>renda fixa privada</strong> mais populares. Todos têm cobertura do <strong>FGC</strong> até R$ 250.000 por CPF por instituição.</p>
-    <h4>📋 Comparativo Rápido</h4>
+    <h3>?? CDB, LCI e LCA - Entenda as Diferen�as e Renda Mais</h3>
+    <p>CDB, LCI e LCA s�o os investimentos de <strong>renda fixa privada</strong> mais populares. Todos t�m cobertura do <strong>FGC</strong> at� R$ 250.000 por CPF por institui��o.</p>
+    <h4>?? Comparativo R�pido</h4>
     <table>
-      <thead><tr><th>Característica</th><th>CDB</th><th>LCI</th><th>LCA</th></tr></thead>
+      <thead><tr><th>Caracter�stica</th><th>CDB</th><th>LCI</th><th>LCA</th></tr></thead>
       <tbody>
-        <tr><td>IR sobre rendimentos</td><td>Tabela regressiva (15–22,5%)</td><td>Isento (PF)</td><td>Isento (PF)</td></tr>
-        <tr><td>Prazo mínimo</td><td>Sem mínimo</td><td>9 meses</td><td>9 meses</td></tr>
-        <tr><td>Liquidez</td><td>Pode ter diária</td><td>Geralmente no vencimento</td><td>Geralmente no vencimento</td></tr>
+        <tr><td>IR sobre rendimentos</td><td>Tabela regressiva (15-22,5%)</td><td>Isento (PF)</td><td>Isento (PF)</td></tr>
+        <tr><td>Prazo m�nimo</td><td>Sem m�nimo</td><td>9 meses</td><td>9 meses</td></tr>
+        <tr><td>Liquidez</td><td>Pode ter di�ria</td><td>Geralmente no vencimento</td><td>Geralmente no vencimento</td></tr>
       </tbody>
     </table>
-    <h4>💰 IR Regressivo do CDB</h4>
+    <h4>?? IR Regressivo do CDB</h4>
     <table>
-      <thead><tr><th>Prazo</th><th>Alíquota IR</th></tr></thead>
+      <thead><tr><th>Prazo</th><th>Al�quota IR</th></tr></thead>
       <tbody>
-        <tr><td>Até 180 dias</td><td>22,5%</td></tr>
+        <tr><td>At� 180 dias</td><td>22,5%</td></tr>
         <tr><td>181 a 360 dias</td><td>20%</td></tr>
         <tr><td>361 a 720 dias</td><td>17,5%</td></tr>
         <tr><td>Acima de 720 dias</td><td>15%</td></tr>
       </tbody>
     </table>
-    <div class="info-box">✅ Para comparar LCI/LCA (isento) com CDB: <strong>Taxa equivalente CDB = Taxa LCI ÷ (1 - alíquota IR)</strong>. Exemplo: LCI 10% por 2 anos equivale a CDB 11,76% (÷ 0,85).</div>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="info-box">? Para comparar LCI/LCA (isento) com CDB: <strong>Taxa equivalente CDB = Taxa LCI � (1 - al�quota IR)</strong>. Exemplo: LCI 10% por 2 anos equivale a CDB 11,76% (� 0,85).</div>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
       <div class="faq-q">O FGC cobre 100% do meu dinheiro?</div>
-      <div class="faq-a">Sim, até R$ 250.000 por CPF por instituição. Diversifique entre instituições para proteção total se tiver valores maiores.</div>
+      <div class="faq-a">Sim, at� R$ 250.000 por CPF por institui��o. Diversifique entre institui��es para prote��o total se tiver valores maiores.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Vale a pena CDB de banco pequeno com taxa maior?</div>
-      <div class="faq-a">Bancos menores oferecem 120–150% do CDI. Com a cobertura do FGC, até R$ 250.000 o risco adicional é baixo — mas avalie a saúde financeira da instituição.</div>
+      <div class="faq-a">Bancos menores oferecem 120-150% do CDI. Com a cobertura do FGC, at� R$ 250.000 o risco adicional � baixo - mas avalie a sa�de financeira da institui��o.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">LCI e LCA são sempre melhores que CDB?</div>
-      <div class="faq-a">Não. Depende da taxa. Um CDB a 120% do CDI pode superar uma LCI a 90% mesmo com IR. Use a fórmula de equivalência e compare pelo retorno líquido.</div>
+      <div class="faq-q">LCI e LCA s�o sempre melhores que CDB?</div>
+      <div class="faq-a">N�o. Depende da taxa. Um CDB a 120% do CDI pode superar uma LCI a 90% mesmo com IR. Use a f�rmula de equival�ncia e compare pelo retorno l�quido.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function maskMoeda(el){const d=el.value.replace(/\D/g,'');if(!d){el.value='';return;}el.value=(parseInt(d,10)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
@@ -201,7 +201,7 @@ function calcular(){
   const liqLCI=pv+rendBrutoLCI;
   const rentLCI=((liqLCI/pv)-1)*100;
 
-  // PoupanÃ§a (0.5%/mÃªs + TR estimada em 0.1%/mÃªs)
+  // Poupança (0.5%/mês + TR estimada em 0.1%/mês)
   const meses=dias/30;
   const rdPoup=Math.pow(1+0.006,meses)-1;
   const rendBrutoPoup=pv*rdPoup;
@@ -217,14 +217,14 @@ function calcular(){
   fill('poup-liq',fmtR(liqPoup)); fill('poup-bruto','+'+fmtR(rendBrutoPoup));
   fill('poup-ir','Isento'); fill('poup-rent',fmtN(rentPoup)+'%');
 
-  const opts=[{n:'CDB',v:liqCDB,id:'card-cdb'},{n:'LCI/LCA',v:liqLCI,id:'card-lci'},{n:'PoupanÃ§a',v:liqPoup,id:'card-poup'}];
+  const opts=[{n:'CDB',v:liqCDB,id:'card-cdb'},{n:'LCI/LCA',v:liqLCI,id:'card-lci'},{n:'Poupança',v:liqPoup,id:'card-poup'}];
   opts.sort((a,b)=>b.v-a.v);
   opts.forEach((o,i)=>{
     const el=document.getElementById(o.id);
     el.classList.toggle('winner',i===0);
   });
-  document.getElementById('winner-txt').textContent='ð Melhor opÃ§Ã£o: '+opts[0].n+' â '+fmtR(opts[0].v);
-  document.getElementById('winner-sub').textContent='DiferenÃ§a CDB vs LCI/LCA: '+fmtR(Math.abs(liqCDB-liqLCI))+' Â· DiferenÃ§a vs PoupanÃ§a: '+fmtR(Math.abs(opts[0].v-liqPoup));
+  document.getElementById('winner-txt').textContent='🏆 Melhor opção: '+opts[0].n+' — '+fmtR(opts[0].v);
+  document.getElementById('winner-sub').textContent='Diferença CDB vs LCI/LCA: '+fmtR(Math.abs(liqCDB-liqLCI))+' · Diferença vs Poupança: '+fmtR(Math.abs(opts[0].v-liqPoup));
 
   document.getElementById('resultado').style.display='block';
   document.getElementById('formulario').style.display='none';

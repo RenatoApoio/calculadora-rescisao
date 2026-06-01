@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Calculadora ICMS e ISS 2025 â Impostos sobre Produto e ServiÃ§o | FacilCalc</title>
-<meta name="description" content="Calcule o ICMS por estado e o ISS por municÃ­pio. Veja o imposto embutido no preÃ§o ou adicione ao preÃ§o final. Para MEI, ME e empresas."/>
+<title>Calculadora ICMS e ISS 2025 — Impostos sobre Produto e Serviço | FacilCalc</title>
+<meta name="description" content="Calcule o ICMS por estado e o ISS por município. Veja o imposto embutido no preço ou adicione ao preço final. Para MEI, ME e empresas."/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;min-height:100vh}
@@ -45,146 +45,146 @@ footer a{color:#1a73e8;text-decoration:none}
 </head>
 <body>
 <header>
-  <h1>ð§¾ ICMS e ISS</h1>
-  <p>Calcule impostos sobre produtos e serviÃ§os por estado e municÃ­pio</p>
+  <h1>🧾 ICMS e ISS</h1>
+  <p>Calcule impostos sobre produtos e serviços por estado e município</p>
 </header>
-<nav class="nav"><a href="../">â FacilCalc</a></nav>
+<nav class="nav"><a href="../">← FacilCalc</a></nav>
 <main>
   <div class="tabs">
-    <button class="tab active" onclick="showTab('icms')">ð¦ ICMS (Produto)</button>
-    <button class="tab" onclick="showTab('iss')">ð§ ISS (ServiÃ§o)</button>
+    <button class="tab active" onclick="showTab('icms')">📦 ICMS (Produto)</button>
+    <button class="tab" onclick="showTab('iss')">🔧 ISS (Serviço)</button>
   </div>
 
   <!-- ICMS -->
   <div id="panel-icms" class="panel active">
     <div class="card">
-      <h2>ð¦ CÃ¡lculo de ICMS</h2>
+      <h2>📦 Cálculo de ICMS</h2>
       <div class="grid">
         <div class="field">
           <label>Valor do Produto/NF (R$)</label>
           <input type="text" id="icms-valor" placeholder="Ex: 1.000,00" oninput="maskMoeda(this)"/>
         </div>
         <div class="field">
-          <label>Estado (alÃ­quota)</label>
+          <label>Estado (alíquota)</label>
           <select id="icms-estado">
-            <option value="12">SP, MG, RS, PR, SC â 12%</option>
-            <option value="17">RJ, DF â 20% (produtos especÃ­ficos)</option>
-            <option value="17">GO, BA, CE, PE, ES â 17%</option>
-            <option value="18">MT, MS, MA, RN â 18%</option>
-            <option value="19">PA, AM, AC, RR, AP, TO, PI, AL, SE, PB, RO â 19%</option>
-            <option value="custom">Outra alÃ­quota</option>
+            <option value="12">SP, MG, RS, PR, SC — 12%</option>
+            <option value="17">RJ, DF — 20% (produtos específicos)</option>
+            <option value="17">GO, BA, CE, PE, ES — 17%</option>
+            <option value="18">MT, MS, MA, RN — 18%</option>
+            <option value="19">PA, AM, AC, RR, AP, TO, PI, AL, SE, PB, RO — 19%</option>
+            <option value="custom">Outra alíquota</option>
           </select>
         </div>
         <div class="field" id="icms-custom-field" style="display:none">
-          <label>AlÃ­quota ICMS (%)</label>
+          <label>Alíquota ICMS (%)</label>
           <input type="text" id="icms-aliq-custom" placeholder="Ex: 17"/>
         </div>
         <div class="field">
-          <label>O imposto estÃ¡ embutido?</label>
+          <label>O imposto está embutido?</label>
           <select id="icms-embutido">
-            <option value="sim">Sim â calcular imposto por dentro</option>
-            <option value="nao">NÃ£o â adicionar ao valor</option>
+            <option value="sim">Sim — calcular imposto por dentro</option>
+            <option value="nao">Não — adicionar ao valor</option>
           </select>
         </div>
       </div>
-      <button class="btn-calc" onclick="calcICMS()">ð§® Calcular ICMS</button>
+      <button class="btn-calc" onclick="calcICMS()">🧮 Calcular ICMS</button>
     </div>
     <div class="res" id="res-icms">
-      <div class="res-hero"><label>ICMS</label><div class="big" id="icms-val">â</div></div>
+      <div class="res-hero"><label>ICMS</label><div class="big" id="icms-val">—</div></div>
       <div class="res-grid">
-        <div class="r-box"><label>Base de CÃ¡lculo</label><div class="val" id="icms-base">â</div></div>
-        <div class="r-box"><label>ICMS</label><div class="val" id="icms-imp">â</div></div>
-        <div class="r-box"><label>Valor sem ICMS</label><div class="val" id="icms-sem">â</div></div>
+        <div class="r-box"><label>Base de Cálculo</label><div class="val" id="icms-base">—</div></div>
+        <div class="r-box"><label>ICMS</label><div class="val" id="icms-imp">—</div></div>
+        <div class="r-box"><label>Valor sem ICMS</label><div class="val" id="icms-sem">—</div></div>
       </div>
-      <div style="text-align:center;margin-top:8px"><button class="btn-novo" onclick="document.getElementById('res-icms').style.display='none'">ð Novo</button></div>
+      <div style="text-align:center;margin-top:8px"><button class="btn-novo" onclick="document.getElementById('res-icms').style.display='none'">🔄 Novo</button></div>
     </div>
   </div>
 
   <!-- ISS -->
   <div id="panel-iss" class="panel">
     <div class="card">
-      <h2>ð§ CÃ¡lculo de ISS</h2>
+      <h2>🔧 Cálculo de ISS</h2>
       <div class="grid">
         <div class="field">
-          <label>Valor do ServiÃ§o (R$)</label>
+          <label>Valor do Serviço (R$)</label>
           <input type="text" id="iss-valor" placeholder="Ex: 2.000,00" oninput="maskMoeda(this)"/>
         </div>
         <div class="field">
-          <label>AlÃ­quota ISS do MunicÃ­pio</label>
+          <label>Alíquota ISS do Município</label>
           <select id="iss-aliq">
-            <option value="2">2% â mÃ­nimo legal (LC 116/03)</option>
+            <option value="2">2% — mínimo legal (LC 116/03)</option>
             <option value="3">3%</option>
             <option value="4">4%</option>
-            <option value="5">5% â mÃ¡ximo legal</option>
-            <option value="custom">Outra alÃ­quota</option>
+            <option value="5">5% — máximo legal</option>
+            <option value="custom">Outra alíquota</option>
           </select>
         </div>
         <div class="field" id="iss-custom-field" style="display:none">
-          <label>AlÃ­quota ISS (%)</label>
+          <label>Alíquota ISS (%)</label>
           <input type="text" id="iss-aliq-custom" placeholder="Ex: 3,5"/>
         </div>
         <div class="field">
-          <label>O imposto estÃ¡ embutido?</label>
+          <label>O imposto está embutido?</label>
           <select id="iss-embutido">
-            <option value="sim">Sim â por dentro</option>
-            <option value="nao">NÃ£o â adicionar</option>
+            <option value="sim">Sim — por dentro</option>
+            <option value="nao">Não — adicionar</option>
           </select>
         </div>
       </div>
-      <button class="btn-calc" onclick="calcISS()">ð§® Calcular ISS</button>
+      <button class="btn-calc" onclick="calcISS()">🧮 Calcular ISS</button>
     </div>
     <div class="res" id="res-iss">
-      <div class="res-hero"><label>ISS</label><div class="big" id="iss-val">â</div></div>
+      <div class="res-hero"><label>ISS</label><div class="big" id="iss-val">—</div></div>
       <div class="res-grid">
-        <div class="r-box"><label>Base de CÃ¡lculo</label><div class="val" id="iss-base">â</div></div>
-        <div class="r-box"><label>ISS</label><div class="val" id="iss-imp">â</div></div>
-        <div class="r-box"><label>Valor sem ISS</label><div class="val" id="iss-sem">â</div></div>
+        <div class="r-box"><label>Base de Cálculo</label><div class="val" id="iss-base">—</div></div>
+        <div class="r-box"><label>ISS</label><div class="val" id="iss-imp">—</div></div>
+        <div class="r-box"><label>Valor sem ISS</label><div class="val" id="iss-sem">—</div></div>
       </div>
-      <div style="text-align:center;margin-top:8px"><button class="btn-novo" onclick="document.getElementById('res-iss').style.display='none'">ð Novo</button></div>
+      <div style="text-align:center;margin-top:8px"><button class="btn-novo" onclick="document.getElementById('res-iss').style.display='none'">🔄 Novo</button></div>
     </div>
   </div>
   <div class="explic">
-    <h3>🧾 ICMS e ISS — Impostos sobre Mercadorias e Serviços</h3>
-    <p>O <strong>ICMS</strong> (estadual) e o <strong>ISS</strong> (municipal) são tributos que incidem sobre quase toda atividade econômica no Brasil.</p>
-    <h4>📋 Diferenças Fundamentais</h4>
+    <h3>?? ICMS e ISS - Impostos sobre Mercadorias e Servi�os</h3>
+    <p>O <strong>ICMS</strong> (estadual) e o <strong>ISS</strong> (municipal) s�o tributos que incidem sobre quase toda atividade econ�mica no Brasil.</p>
+    <h4>?? Diferen�as Fundamentais</h4>
     <table>
-      <thead><tr><th>Característica</th><th>ICMS</th><th>ISS</th></tr></thead>
+      <thead><tr><th>Caracter�stica</th><th>ICMS</th><th>ISS</th></tr></thead>
       <tbody>
-        <tr><td>Competência</td><td>Estados e DF</td><td>Municípios</td></tr>
-        <tr><td>O que tributa</td><td>Mercadorias, comunicação, transporte interestadual</td><td>Prestação de serviços (LC 116/2003)</td></tr>
-        <tr><td>Alíquota típica</td><td>12–25% (varia por estado/produto)</td><td>2–5% (varia por município)</td></tr>
-        <tr><td>Compensação</td><td>Não cumulativo (créditos)</td><td>Cumulativo (sem crédito)</td></tr>
+        <tr><td>Compet�ncia</td><td>Estados e DF</td><td>Munic�pios</td></tr>
+        <tr><td>O que tributa</td><td>Mercadorias, comunica��o, transporte interestadual</td><td>Presta��o de servi�os (LC 116/2003)</td></tr>
+        <tr><td>Al�quota t�pica</td><td>12-25% (varia por estado/produto)</td><td>2-5% (varia por munic�pio)</td></tr>
+        <tr><td>Compensa��o</td><td>N�o cumulativo (cr�ditos)</td><td>Cumulativo (sem cr�dito)</td></tr>
       </tbody>
     </table>
-    <h4>💰 ICMS por Estado (Alíquotas Gerais 2025)</h4>
+    <h4>?? ICMS por Estado (Al�quotas Gerais 2025)</h4>
     <table>
-      <thead><tr><th>Estado</th><th>Alíquota geral</th></tr></thead>
+      <thead><tr><th>Estado</th><th>Al�quota geral</th></tr></thead>
       <tbody>
-        <tr><td>São Paulo (SP)</td><td>18%</td></tr>
+        <tr><td>S�o Paulo (SP)</td><td>18%</td></tr>
         <tr><td>Rio de Janeiro (RJ)</td><td>20%</td></tr>
         <tr><td>Minas Gerais (MG)</td><td>18%</td></tr>
-        <tr><td>Paraná (PR)</td><td>19,5%</td></tr>
+        <tr><td>Paran� (PR)</td><td>19,5%</td></tr>
         <tr><td>Rio Grande do Sul (RS)</td><td>17%</td></tr>
       </tbody>
     </table>
-    <div class="warn-box">⚠️ O ICMS é calculado "por dentro" — integra a própria base de cálculo. Com 18% de alíquota, o ICMS representa 21,95% sobre o preço líquido (sem imposto).</div>
-    <h4>❓ Perguntas Frequentes</h4>
+    <div class="warn-box">?? O ICMS � calculado "por dentro" - integra a pr�pria base de c�lculo. Com 18% de al�quota, o ICMS representa 21,95% sobre o pre�o l�quido (sem imposto).</div>
+    <h4>? Perguntas Frequentes</h4>
     <div class="faq-item">
       <div class="faq-q">MEI e Simples Nacional pagam ICMS/ISS?</div>
-      <div class="faq-a">Para MEI: ICMS R$ 1,00 e ISS R$ 5,00/mês (fixos). Para Simples Nacional: recolhidos junto com outros impostos em uma única guia DAS com alíquotas progressivas.</div>
+      <div class="faq-a">Para MEI: ICMS R$ 1,00 e ISS R$ 5,00/m�s (fixos). Para Simples Nacional: recolhidos junto com outros impostos em uma �nica guia DAS com al�quotas progressivas.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Serviço pode ser tributado por ICMS e ISS ao mesmo tempo?</div>
-      <div class="faq-a">Em alguns casos sim — serviços de instalação com fornecimento de materiais podem ter parte pelo ISS (serviço) e parte pelo ICMS (mercadorias). A LC 116/2003 define as regras de cada atividade.</div>
+      <div class="faq-q">Servi�o pode ser tributado por ICMS e ISS ao mesmo tempo?</div>
+      <div class="faq-a">Em alguns casos sim - servi�os de instala��o com fornecimento de materiais podem ter parte pelo ISS (servi�o) e parte pelo ICMS (mercadorias). A LC 116/2003 define as regras de cada atividade.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">O que é a guerra fiscal do ICMS?</div>
-      <div class="faq-a">Estados competem oferecendo alíquotas menores para atrair empresas. Isso cria distorções — empresas do mesmo setor pagam imposto diferente dependendo do estado de registro.</div>
+      <div class="faq-q">O que � a guerra fiscal do ICMS?</div>
+      <div class="faq-a">Estados competem oferecendo al�quotas menores para atrair empresas. Isso cria distor��es - empresas do mesmo setor pagam imposto diferente dependendo do estado de registro.</div>
     </div>
   </div>
 
 </main>
-<footer>Â© 2025 <a href="../">FacilCalc</a> Â· Calculadoras gratuitas para brasileiros</footer>
+<footer>© 2025 <a href="../">FacilCalc</a> · Calculadoras gratuitas para brasileiros</footer>
 <script src="../shared.js"></script>
 <script>
 function showTab(id){
