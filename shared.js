@@ -12,6 +12,16 @@
     gtag('config', 'G-5VR7ZSLYHV');
   })();
 
+  // ── Google AdSense ────────────────────────────────────────────────────────
+  (function() {
+    if (document.querySelector('script[src*="adsbygoogle"]')) return;
+    var _as = document.createElement('script');
+    _as.async = true;
+    _as.crossOrigin = 'anonymous';
+    _as.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2354455470381202';
+    document.head.appendChild(_as);
+  })();
+
   // ── Remover ad-slot placeholders (AdSense injeta os reais automaticamente) ──
   document.querySelectorAll('.ad-slot').forEach(function(el){ el.remove(); });
 
