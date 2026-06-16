@@ -49,5 +49,6 @@
   <url><loc>https://facilcalc.com.br/feriados/</loc><changefreq>yearly</changefreq><priority>0.9</priority></url>
   <url><loc>https://facilcalc.com.br/gerador-qr-code/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://facilcalc.com.br/sobre/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://facilcalc.com.br/contato/</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://facilcalc.com.br/politica-privacidade/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

@@ -939,6 +939,8 @@
       inst.innerHTML =
         '<a href="' + _origin + '/sobre/" style="color:inherit;opacity:.7;margin:0 8px;text-decoration:none;">Sobre</a>' +
         '·' +
+        '<a href="' + _origin + '/contato/" style="color:inherit;opacity:.7;margin:0 8px;text-decoration:none;">Contato</a>' +
+        '·' +
         '<a href="' + _origin + '/politica-privacidade/" style="color:inherit;opacity:.7;margin:0 8px;text-decoration:none;">Política de Privacidade</a>';
       f.appendChild(inst);
     }
